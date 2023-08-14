@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.sist.vo.CrowdStoreVO" alias="CrowdStoreVO"/>
+		<typeAlias type="com.sist.vo.CrowdFundVO" alias="CrowdFundVO"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/sist/mapper/main-mapper.xml"/>
+	</mappers>
+</configuration>

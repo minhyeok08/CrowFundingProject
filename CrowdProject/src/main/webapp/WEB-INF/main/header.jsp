@@ -44,7 +44,7 @@
   border-radius: 5px; /* 테두리의 둥글기를 조정합니다. */
   outline: none;
   color:#a0a0a0;
-  width: 500px;
+  width: 350px;
 }
 .btn-login {
 	border:2px solid #a6d8ce;

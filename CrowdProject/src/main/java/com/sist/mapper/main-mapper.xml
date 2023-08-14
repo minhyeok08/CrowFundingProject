@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.MainMapper">
+	<select id="crowdStoreListData" resultType="CrowdStoreVO">
+		SELECT wsno, main_poster, goods_title, score, maker_name, price, num
+		FROM (SELECT wsno, main_poster, goods_title, score, maker_name, price, rownum as num
+		FROM (SELECT wsno, main_poster, goods_title, score, maker_name, price
+		FROM wadiz_store_detail ORDER BY wsno ASC))
+		WHERE num BETWEEN 1 AND 6
+	</select>
+	<select id="crowdFundListData" resultType="CrowdFundVO">
+		SELECT wfno, mainimg, fcname, fcno, tag, ftitle, achieve_rate, num
+		FROM (SELECT wfno, mainimg, fcname, fcno, tag, ftitle, achieve_rate, rownum AS num
+		FROM (SELECT wfno, mainimg, fcname, fcno, tag, ftitle, achieve_rate
+		FROM WADIZ_FUND_DETAIL ORDER BY wfno ASC))
+		WHERE num BETWEEN 1 AND 5
+	</select>
+	<!-- <select id="foodCategoryInfoData" resultType="CategoryVO" parameterType="int">
+		SELECT title, subject
+		FROM food_category
+		WHERE cno = #{cno}
+	</select>
+	<select id="foodListData" resultType="FoodVO" parameterType="int">
+		SELECT fno, name, type, address, phone, poster, score
+		FROM food_house
+		WHERE cno = #{cno}
+	</select>
+	<select id="foodDetailData" resultType="FoodVO" parameterType="int">
+		SELECT fno, name, address, phone, poster, type, time, parking, price, score, menu
+		FROM food_house
+		WHERE fno = #{fno}
+	</select> -->
+</mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <style type="text/css">
 .row {
 	margin: 0px auto;
-	width: 960px;
+	width: 100%;
 }
 .pagetop {
   /* display: none; */
@@ -28,16 +29,23 @@
   background-color: #ddd;
   cursor: pointer;
 }
+.store_poster {
+	border-radius: 3px;
+}
+a:link { color: black; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
+a:hover { color: black; text-decoration: none;}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://kit.fontawesome.com/f89f2c9cd8.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 </head>
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+	<tiles:insertAttribute name="header"/>
 	<div style="height: 60px"></div>
-	<div>
-		<jsp:include page="${ main_jsp }"></jsp:include>
-	</div>
+	<tiles:insertAttribute name="home"/>
+	<tiles:insertAttribute name="footer"/>
 	<a href="#" class="pagetop" id="top"><i class="fa-solid fa-chevron-up fa-2xl" style="color: #a6d8ce;"></i></a>
 </body>
 </html>

@@ -31,10 +31,18 @@
 			p:maxWait="10000"
 	 -->
 	<!-- Transection 등록 -->
+	<!-- 트랜잭션 선언 -->
+    <tx:annotation-driven/>
+    <bean id="transactionManager"
+       class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+       p:dataSource-ref="ds"
+    />
 	<!-- SqlSessionFactory 생성 : getConnection, disConnection, selectList... -->
 	<bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="ds"
+		p:configLocation="/WEB-INF/config/Config.xml"
 	/>
 	<!-- Mapper구현 -->
-	<mybatis-spring:scan base-package="com.sist.mapper" factory-ref="ssf"/>
+	<mybatis-spring:scan base-package="com.sist.mapper"/>
+	
 </beans>
