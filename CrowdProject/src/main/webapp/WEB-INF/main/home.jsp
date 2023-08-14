@@ -65,7 +65,7 @@ td {
 		<div class="row" style="padding:40px 80px 40px 80px">
 			<div class="col-lg-8">
 				<div class="row" style="padding-left:">
-				<h2>취향 맞춤 프로젝트(가제)</h2>
+				<h2>취향 맞춤 프로젝트</h2>
 				<div class="col-md-4" v-for="svo in store_list">
 					<div class="thumbnail" style="width: 260px;">
 						<a href="#">
@@ -85,7 +85,7 @@ td {
 			</div>
 			<div class="col-lg-4">
 				<div class="row">
-					<h2>실시간 랭킹(가제)</h2>
+					<h2>실시간 랭킹</h2>
 					<table class="table">
 						<tr><td>
 							<table class="table"  v-for="(fvo, index) in fund_list" :key="index">
