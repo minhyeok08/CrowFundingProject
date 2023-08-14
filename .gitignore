@@ -1,6 +1,5 @@
 */.git/*
 */target/*
 .deployables
-.settings
 .git
 pom.properties
