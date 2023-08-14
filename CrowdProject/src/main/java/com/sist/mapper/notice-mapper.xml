@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.NoticeMapper">
+	<select id="noticeListData" resultType="NoticeVO" parameterType="hashmap">
+		SELECT wnno, subject, content, category, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, writer, state, num 
+		FROM (SELECT wnno, subject, content, category, regdate, hit, writer, state, rownum as num
+		FROM (SELECT wnno, subject, content, category, regdate, hit, writer, state
+		FROM wadiz_notice WHERE category=#{category}))
+		WHERE num BETWEEN #{start} AND #{end}  
+	</select>
+</mapper>

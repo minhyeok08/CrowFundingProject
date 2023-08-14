@@ -6,8 +6,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias type="com.sist.vo.CrowdStoreVO" alias="CrowdStoreVO"/>
 		<typeAlias type="com.sist.vo.CrowdFundVO" alias="CrowdFundVO"/>
+		<typeAlias type="com.sist.vo.ProfileVO" alias="ProfileVO"/>
+		<typeAlias type="com.sist.vo.NoticeVO" alias="NoticeVO"/>
+		<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/sist/mapper/main-mapper.xml"/>
+		<mapper resource="com/sist/mapper/notice-mapper.xml"/>
 	</mappers>
 </configuration>

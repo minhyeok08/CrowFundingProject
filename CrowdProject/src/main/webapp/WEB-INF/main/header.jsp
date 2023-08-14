@@ -71,7 +71,7 @@
 <body>
 	<nav class="navbar navbar-expand-sm bg-white fixed-top">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="javascript:void(0)"><img src="../images/crowd-logo.png" style="width:100px; height:auto;"></a>
+			<a class="navbar-brand" href="../main/main.do"><img src="../images/crowd-logo.png" style="width:100px; height:auto;"></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#mynavbar">
 				<span class="navbar-toggler-icon"></span>
@@ -85,9 +85,9 @@
 					<li class="nav-item"><a class="nav-link"
 						href="javascript:void(0)">스토어</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="javascript:void(0)">공지사항</a></li>
+						href="../notice/notice.do">공지사항</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="javascript:void(0)"><i class="fa-brands fa-instagram fa-xl"></i></a></li>
+						href="../wasta/list.do"><i class="fa-brands fa-instagram fa-xl"></i></a></li>
 				</ul>
 				<form method="post" action="#">
 					<div class="search">
