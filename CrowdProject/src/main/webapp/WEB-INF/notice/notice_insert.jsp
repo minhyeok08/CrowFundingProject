@@ -5,8 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link type="text/css" rel="stylesheet"
-	href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 <style type="text/css">
 .container {
 	margin-top: 50px;
