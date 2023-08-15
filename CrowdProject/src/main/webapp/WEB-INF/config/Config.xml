@@ -13,5 +13,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="com/sist/mapper/main-mapper.xml"/>
 		<mapper resource="com/sist/mapper/notice-mapper.xml"/>
+		<mapper resource="com/sist/mapper/member-mapper.xml"/>
 	</mappers>
 </configuration>

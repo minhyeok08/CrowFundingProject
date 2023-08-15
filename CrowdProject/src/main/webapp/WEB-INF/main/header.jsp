@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,12 +47,12 @@
   color:#a0a0a0;
   width: 350px;
 }
-.btn-login {
+.btn-login, .btn-logout {
 	border:2px solid #a6d8ce;
 	color:#a6d8ce;
 	margin: 0px 15px 0px 15px;
 }
-.btn-login:hover {
+.btn-login:hover, .btn-logout:hover {
 	background-color: #a6d8ce;
 	border-color: #a6d8ce;
 	color: #fff;
@@ -96,8 +97,13 @@
 							class="fa-solid fa-search"></i>
 					</div>
 				</form>
-				<a href="#" class="btn btn-outline-info btn-login">로그인</a>
-				<a href="#" class="btn btn-project">프로젝트 만들기</a>
+				<c:if test="${sessionScope.id==null }">
+					<a href="../member/member_login.do" class="btn btn-outline-info btn-login">로그인</a>
+				</c:if>
+				<c:if test="${sessionScope.id!=null }">
+					<a href="../member/member_logout.do" class="btn btn-outline-info btn-login">로그아웃</a>
+				</c:if>
+				<a href="" class="btn btn-project">프로젝트 만들기</a>
 			</div>
 		</div>
 	</nav>
