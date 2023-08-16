@@ -80,11 +80,11 @@
 			<div class="collapse navbar-collapse" id="mynavbar">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item"><a class="nav-link"
-						href="javascript:void(0)">오픈예정</a></li>
+						href="../open/open.do">오픈예정</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="javascript:void(0)">펀딩</a></li>
+						href="../fund/fund_list.do">펀딩</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="javascript:void(0)">스토어</a></li>
+						href="../store/storeList.do">스토어</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="../notice/notice.do">공지사항</a></li>
 					<li class="nav-item"><a class="nav-link"
