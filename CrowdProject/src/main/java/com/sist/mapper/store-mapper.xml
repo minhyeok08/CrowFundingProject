@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.sist.mapper.StoreMapper">
+ 	<select id="storeListData" resultType="StoreVO" parameterType="hashmap">
+ 		SELECT wsno,main_poster,goods_title,score,maker_name,price,parti_count,delivery,scno
+ 		FROM wadiz_store_detail
+ 		<if test="scno==0">
+ 		ORDER BY parti_count desc
+ 		</if>
+ 		<if test="scno==1">
+ 		WHERE scno=1
+ 		</if>
+ 		<if test="scno==2">
+ 		WHERE scno=2
+ 		</if>
+ 		<if test="scno==3">
+ 		WHERE scno=3
+ 		</if>		
+ 		<if test="scno==4">
+ 		WHERE scno=4
+ 		</if> 		
+ 		<if test="scno==5">
+ 		WHERE scno=5
+ 		</if> 		
+ 		<if test="scno==6">
+ 		WHERE scno=6
+ 		</if> 		
+ 		<if test="scno==7">
+ 		WHERE scno=7
+ 		</if>	
+ 	</select>
+ </mapper>

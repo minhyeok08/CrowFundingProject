@@ -6,9 +6,9 @@ import java.util.*;
 import com.sist.dao.*;
 import com.sist.vo.*;
 @Service
-public class FundListServiceImpl implements FundListService {
+public class FundServiceImpl implements FundService {
 	@Autowired
-	private FundListDAO dao;
+	private FundDAO dao;
 
 	@Override
 	public List<FundVO> fundListData(Map map) {

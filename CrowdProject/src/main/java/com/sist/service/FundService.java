@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.sist.vo.FundVO;
 @Service
-public interface FundListService {
+public interface FundService {
 	public List<FundVO> fundListData(Map map);
 }

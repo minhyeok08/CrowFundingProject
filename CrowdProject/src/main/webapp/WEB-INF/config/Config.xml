@@ -10,11 +10,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.sist.vo.NoticeVO" alias="NoticeVO"/>
 		<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.sist.vo.FundVO" alias="FundVO"/>
+		<typeAlias type="com.sist.vo.StoreVO" alias="StoreVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/sist/mapper/main-mapper.xml"/>
 		<mapper resource="com/sist/mapper/notice-mapper.xml"/>
 		<mapper resource="com/sist/mapper/member-mapper.xml"/>
-		<mapper resource="com/sist/mapper/fundlist-mapper.xml"/>
+		<mapper resource="com/sist/mapper/fund-mapper.xml"/>
+		<mapper resource="com/sist/mapper/store-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -10,11 +10,11 @@ import com.sist.dao.*;
 import com.sist.service.*;
 import com.sist.vo.*;
 @RestController
-public class FundListRestController {
+public class FundRestController {
 	@Autowired
-	private FundListService service;
+	private FundService service;
 	@Autowired
-	private FundListDAO dao;
+	private FundDAO dao;
 	
 	@GetMapping(value="fund/fund_list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String fundListData(int fcno) throws Exception

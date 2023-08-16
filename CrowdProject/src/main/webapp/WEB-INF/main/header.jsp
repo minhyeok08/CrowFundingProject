@@ -84,7 +84,7 @@
 					<li class="nav-item"><a class="nav-link"
 						href="../fund/fund_list.do">펀딩</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="../store/storeList.do">스토어</a></li>
+						href="../store/store_list.do">스토어</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="../notice/notice.do">공지사항</a></li>
 					<li class="nav-item"><a class="nav-link"

@@ -11,9 +11,20 @@
 		<div class="row" style="padding:40px 80px 40px 80px">
 		    <div class="row">
 		      <div class="text-center">
-		        <button @click="categoryGetData(20)">전체</button>
-		        <button @click="categoryGetData(0)">기부</button>
-		        <button @click="categoryGetData(1)">패션 잡화</button>
+		        <button @click="categoryGetData(0)">전체</button>
+		        <button @click="categoryGetData(1)">테크·가전</button>
+		        <button @click="categoryGetData(2)">패션·잡화</button>
+		        <button @click="categoryGetData(3)">홈·리빙</button>
+		        <button @click="categoryGetData(4)">뷰티</button>
+		        <button @click="categoryGetData(5)">푸드</button>
+		        <button @click="categoryGetData(6)">출판</button>
+		        <button @click="categoryGetData(7)">클래스·컨설팅</button>
+		        <button @click="categoryGetData(8)">레저·아웃도어</button>
+		        <button @click="categoryGetData(9)">스포츠·모빌리티</button>
+		        <button @click="categoryGetData(10)">컬쳐·아티스트</button>
+		        <button @click="categoryGetData(11)">캐릭터·굿즈</button>
+		        <button @click="categoryGetData(12)">반려동물</button>
+		        <button @click="categoryGetData(13)">베이비·키즈</button>
 		      </div>
 		    </div>
 			<div class="col-lg-12">
@@ -46,7 +57,7 @@
 				fund_list:[]
 			},
 			mounted:function(){
-				this.categoryGetData(20);
+				this.categoryGetData(0);
 			},
 			methods:{
 				categoryGetData:function(fcno){
