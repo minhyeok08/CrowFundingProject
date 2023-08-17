@@ -186,7 +186,7 @@ document.addEventListener("click", function(event) {
 				</c:if>
 				<c:if test="${sessionScope.id!=null }">
 					<a href="../member/member_logout.do" class="btn btn-outline-info btn-login">로그아웃</a>
-					<a href="../maker/maker_main.do" class="btn btn-project">프로젝트 만들기</a>
+					<a href="../makerpage/makerpage_main.do" class="btn btn-project">프로젝트 만들기</a>
 				</c:if>
 			</div>
 		</div>
