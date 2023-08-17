@@ -47,6 +47,39 @@
   color:#a0a0a0;
   width: 350px;
 }
+.search-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 53%;
+    width: 450px;
+    height: 650px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 100;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(10,22,70,.06),0 16px 16px -1px rgba(10,22,70,.1); /* 그림자 효과 적용 */
+   	padding: 20px;
+}
+
+.search-options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-options ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 13px;
+    border:none;
+}
+
+.search-options ul li:last-child {
+    border-bottom: none;
+}
 .btn-login, .btn-logout {
 	border:2px solid #a6d8ce;
 	color:#a6d8ce;
@@ -92,12 +125,45 @@
 					<li class="nav-item"><a class="nav-link"
 						href="../admin/main.do">adminTest</a></li>	
 				</ul>
-				<form method="post" action="#">
+				<form method="get" action="../search/search.do">
 					<div class="search">
-						<input id="searchInput" type="text" class=""
-							placeholder="새로운 일상이 필요하신가요?"> <i id="searchIcon"
-							class="fa-solid fa-search"></i>
-					</div>
+			            <input id="searchInput" type="text" class=""
+			                placeholder="새로운 일상이 필요하신가요?"
+			                onclick="showSearchOptions()"
+			                name="keyword">
+			            <i id="searchIcon" class="fa-solid fa-search"></i>
+			        </div>
+			        <div id="searchOptions" class="search-options">
+			        	<div class="row">
+				            <div class="col-md-6">
+				            	<h4 style="color:gray">최근 검색어</h4>
+					            <ul>
+					                <li>최근 검색어 1</li>
+					                <li>최근 검색어 2</li>
+					                <li>최근 검색어 3</li>
+					            </ul>
+				            </div>
+				            <div class="col-md-6">
+				            	<h4 style="color:gray">카테고리</h4>
+					            <ul>
+					                <li>캐릭터·굿즈</li>
+					                <li>홈·리빙</li>
+					                <li>여행·숙박</li>
+					                <li>푸드</li>
+					                <li>뷰티</li>
+					                <li>레저·아웃도어</li>
+					                <li>반려동물</li>
+					                <li>패션·잡화</li>
+					                <li>테크·가전</li>
+					                <li>출판</li>
+					                <li>게임·취미</li>
+					                <li>스포츠·모빌리티</li>
+					                <li>베이비·키즈</li>
+					                <li>컬쳐·아티스트</li>
+					            </ul>
+				            </div>
+			            </div>
+			        </div>
 				</form>
 				<c:if test="${sessionScope.id==null }">
 					<a href="../member/member_login.do" class="btn btn-outline-info btn-login">로그인</a>
