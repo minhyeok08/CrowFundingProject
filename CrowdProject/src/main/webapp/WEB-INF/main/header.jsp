@@ -101,6 +101,22 @@
 	border: 2px solid #a6d8ce;
 }
 </style>
+<script type="text/javascript">
+function showSearchOptions() {
+    var searchOptions = document.getElementById("searchOptions");
+    searchOptions.style.display = "block";
+}
+
+// 클릭 이외의 영역을 클릭하면 검색 옵션을 숨깁니다.
+document.addEventListener("click", function(event) {
+    var searchOptions = document.getElementById("searchOptions");
+    var searchInput = document.getElementById("searchInput");
+
+    if (event.target !== searchInput && event.target !== searchOptions) {
+        searchOptions.style.display = "none";
+    }
+});
+</script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm bg-white fixed-top">
