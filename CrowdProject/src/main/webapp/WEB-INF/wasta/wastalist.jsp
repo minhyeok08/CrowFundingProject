@@ -13,6 +13,7 @@
 </head>
 <body>
 	<div class="container container1">
+		<div class="row">
 		<div class="col-sm-8">
 			<hr>
 			<div class="text-center">친구 목록 가로 출력(이미지 포함)</div>
@@ -31,9 +32,10 @@
 				</div>
 			</div>
 		</div>
+		<div style="height: 30px;"></div>
 		<div class="col-sm-4">
-			<a href="../wasta/insert.do">프로필 입력</a> <a
-				href="../wasta/test.do?id=hong">test</a>
+			<a href="../wasta/insert.do">프로필 입력</a> 
+		</div>
 		</div>
 	</div>
 

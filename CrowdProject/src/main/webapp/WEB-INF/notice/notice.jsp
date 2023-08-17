@@ -73,19 +73,9 @@ input[type="text"] {
 					id="keyword" v-on:keyup="selectMusic()">
 			</div>
 			<table class="table" id="user-table">
-				<thead>
-					<tr class="danger">
-						<th width="10%" class="text-center">번호</th>
-						<th width="45%" class="text-center">제목</th>
-						<th width="15%" class="text-center">이름</th>
-						<th width="20%" class="text-center">작성일</th>
-						<th width="10%" class="text-center">조회수</th>
-					</tr>
-				</thead>
 				<tbody>
 					<tr v-for="vo in notice_list">
-						<td width="10%" class="text-center">{{vo.wnno }}</td>
-						<td width="45%" class="text-center">{{vo.subject }}</td>
+						<td width="55%" class="text-center">{{vo.subject }}</td>
 						<td width="15%" class="text-center">{{vo.writer }}</td>
 						<td width="20%" class="text-center">{{vo.dbday }}</td>
 						<td width="10%" class="text-center">{{vo.hit }}</td>

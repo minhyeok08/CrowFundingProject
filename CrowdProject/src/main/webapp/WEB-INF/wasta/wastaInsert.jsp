@@ -12,15 +12,6 @@
 </style>
 </head>
 <body>
-<div class="page-heading">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8">
-					<div class="top-text header-text"></div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="container container1">
 		<div class="row">
 			<h2>회원 등록</h2>
