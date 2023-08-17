@@ -5,13 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <style type="text/css">
 .row1 {
 	margin: 0px auto;
@@ -41,16 +34,22 @@
 input[type="text"] {
 	width: 200px;
 }
+.highlighted {
+    color: #ffffff;
+    background-color: green; /* 원하는 배경색 */
+}
 </style>
 </head>
 <body>
+<div style="height: 50px"></div>
 	<div class="container">
 		<div class="row1">
 			<h1 class="text-center">공지사항</h1>
+			<div style="height: 20px"></div>
 			<div style="text-align: center;">
 				<ul style="list-style: none; display: inline-block; padding: 0;">
 					<li :class="{ noticeli: true, selected: category === 'all' }"
-						@click="selectCategory('전체')" @mouseover="hoverEffect"
+						@click="selectCategory('all')" @mouseover="hoverEffect"
 						@mouseout="unhoverEffect">전체</li>
 					<li :class="{ noticeli: true, selected: category === 'event' }"
 						@click="selectCategory('event')" @mouseover="hoverEffect"
@@ -68,6 +67,7 @@ input[type="text"] {
 				<input type="text" ref="fd" class="input-sm" placeholder="검색어 입력"
 					id="keyword" v-on:keyup="selectMusic()">
 			</div>
+			<div style="height: 30px"></div>
 			<notice v-bind:detaildata="notice_list"></notice>
 			<b-modal ref="my-modal" hide-footer hide-header v-if="isShow" id="modal-lg"
 				size="lg">
@@ -104,26 +104,12 @@ input[type="text"] {
 	Vue.component('notice',{
 		props:['detaildata'],	// <notice>의 속성값을 detaildata로 받는다는 의미
 		template:'<table class="table" id="user-table">'
-					+'<thead>'
-					+'<tr class="danger">'
-					+'<th width="10%" class="text-center">번호</th>'
-					+'<th width="45%" class="text-center">제목</th>'
-					+'<th width="15%" class="text-center">이름</th>'
-					+'<th width="10%" class="text-center">작성일</th>'
-					+'<th width="10%" class="text-center">조회수</th>'
-					+'<th width="10%" class="text-center"></th>'
-					+'</tr>'
-					+'</thead>'
 					+'<tbody>'
-					+'<tr v-for="vo in detaildata">'
-					+'<td width="10%" class="text-center">{{vo.wnno }}</td>'
-					+'<td width="45%" class="text-center">{{vo.subject }}</td>'
+					+'<tr v-for="vo in detaildata" @click="noticeDetail(vo.wnno,true)">'
+					+'<td width="65%" class="text-center" @mouseover="hoverEffectComponent($event)" @mouseout="unhoverEffectComponent($event)">{{vo.subject }}</td>'
 					+'<td width="15%" class="text-center">{{vo.writer }}</td>'
 					+'<td width="10%" class="text-center">{{vo.dbday }}</td>'
 					+'<td width="10%" class="text-center">{{vo.hit }}</td>'
-					+'<td width="10%" class="text-center">'
-					+'<b-button id="show-btn" variant="outline-success" @click="noticeDetail(vo.wnno,true)">Detail</b-button>'
-					+'</td>'
 					+'</tr>'
 					+'</tbody>'
 					+'</table>'
@@ -131,7 +117,13 @@ input[type="text"] {
 			methods:{
 				noticeDetail:function(value,bool){
 					eventBus.$emit('noticeDetailEvent',value,bool)
-				}
+				},
+				hoverEffectComponent: function(event) {
+					 event.target.style.backgroundColor = '#f0f0f0';
+		        },
+		        unhoverEffectComponent: function(event) {
+		        	 event.target.style.backgroundColor = '';
+		        }
 			}
 	})
 	
@@ -155,7 +147,7 @@ new Vue({
 	},
 	updated:function(){
 		let _this=this
-		// 컴포넌트에서 지정한 event.$emit()을 받는 함수 eventBus.$on
+		// 컴포넌트에서 지정한 event.$emit()을 받는 함수 eventBus.$on (게시물번호, true)
 		eventBus.$on('noticeDetailEvent',function(value,bool){
 			_this.isShow=true;
 			axios.get('http://localhost/web/notice/detail_vue.do',{
@@ -185,7 +177,7 @@ new Vue({
         },
         selectCategory: function (selectedCategory) {
             this.category = selectedCategory;
-            this.noticeListData(selectedCategory, '1');
+            this.noticeListData(selectedCategory, '1');	// 카테고리 이름 , 페이지
         },
         hoverEffect: function (event) {
             event.target.style.backgroundColor = '#f0f0f0'; // 마우스 오버 효과
@@ -194,7 +186,7 @@ new Vue({
             event.target.style.backgroundColor = ''; // 원래 상태로 복원
         },
         detailShow:function(){
-        	this.$refs['my-modal'].show();
+        	this.$refs['my-modal'].show();			// 모달효과 
         }
     }
 })
