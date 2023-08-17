@@ -22,7 +22,7 @@
 		<div style="height: 50px;"></div>
 		<div class="wastamain">
 			<div class="follower">
-				<img src="../WEB-INF/wasta/img/activity_logo.png" class="followerImg">
+				<img src="../img/activity_logo.png" class="followerImg">
 			</div>
 		</div>
 	</div>

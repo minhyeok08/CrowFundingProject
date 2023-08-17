@@ -8,13 +8,12 @@
 <style type="text/css">
 .test11{
 	background-color: green;
-	width: 30%;
 	height: 600px;
 }
 </style>
 </head>
 <body>
-	<div class="test11">
+	<div class="test11 col-sm-2">
 		sidebar
 	</div>
 </body>

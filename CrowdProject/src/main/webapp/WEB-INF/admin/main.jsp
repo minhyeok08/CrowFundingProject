@@ -8,16 +8,13 @@
 <style type="text/css">
 .test22 {
 	background-color: red;
-	width: 70%;
 	height: 700px;
 }
 </style>
 </head>
 <body>
-	<div class="col-sm-8">
-		<div class="test22">
+	<div class="col-sm-10 test22">
 			admin Main
-		</div>
 	</div>
 </body>
 </html>
