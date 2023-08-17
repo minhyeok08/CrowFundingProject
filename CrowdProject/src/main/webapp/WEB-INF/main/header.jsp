@@ -137,7 +137,7 @@ document.addEventListener("click", function(event) {
 					<li class="nav-item"><a class="nav-link"
 						href="../notice/notice.do">공지사항</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="../wasta/list.do"><i class="fa-brands fa-instagram fa-xl"></i></a></li>
+						href="../wasta/main.do"><i class="fa-brands fa-instagram fa-xl"></i></a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="../admin/main.do">adminTest</a></li>	
 				</ul>
