@@ -13,7 +13,10 @@
 		<put-attribute name="sidebar" value="/WEB-INF/admin/sidebar.jsp"/>
 		<put-attribute name="home" value="/WEB-INF/admin/{1}.jsp"></put-attribute>
 	</definition>
-	
+	<definition name="makerpage/*" extends="main2">
+        <put-attribute name="sidebar" value="/WEB-INF/makerpage/maker_nav.jsp"/>
+        <put-attribute name="home" value="/WEB-INF/makerpage/{1}.jsp"/>
+    </definition>
 	<definition name="main" template="/WEB-INF/main/main.jsp">
 		<put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
 		<put-attribute name="home" value="/WEB-INF/main/home.jsp"/>

@@ -48,8 +48,12 @@ a:hover { color: black; text-decoration: none;}
 	<tiles:insertAttribute name="header"/>
 	<div style="height: 60px"></div>
 	<div class="row">
-	<tiles:insertAttribute name="sidebar"/>
-	<tiles:insertAttribute name="home"/>
+		<div class="col-sm-3">
+			<tiles:insertAttribute name="sidebar"/>
+		</div>
+		<div class="col-sm-9">
+			<tiles:insertAttribute name="home"/>
+		</div>
 	</div>
 	<tiles:insertAttribute name="footer"/>
 	<a href="#" class="pagetop" id="top"><i class="fa-solid fa-chevron-up fa-2xl" style="color: #a6d8ce;"></i></a>
