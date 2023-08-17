@@ -5,14 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style type="text/css">
 .row{
@@ -47,17 +39,19 @@
 .info_birth select:first-child {
   margin-left : 0px;
 }
+.parentContainer {
+    display: flex;
+    justify-content: center;
+}
 .joinBtn {
 	border:2px solid #a6d8ce;
 	color:#a6d8ce;
-	margin-top: 10px;
 	width: 300px;
 }
 .joinBtn:hover {
 	background-color: #a6d8ce;
 	border-color: #a6d8ce;
 	color: #fff;
-	margin-bottom: 20px;
 }
 input::placeholder{
 	color: #e5e5e5;
@@ -164,10 +158,11 @@ input::placeholder{
 			  <label for="content" class="form-label">소개</label>
 			  <input type="text" class="form-control" id="content" style="width: 400px;height: 150px;" v-model="content" required>
 			</div>
-		  <button class="btn btn-outline joinBtn" @click="memberJoin">회원가입</button>
-		  <!-- <button @click="memberJoin" class="btn btn-primary joinBtn">회원가입</button> -->
+			<div class="parentContainer mt-3 mb-4">
+			  <button class="btn btn-outline joinBtn" @click="memberJoin">회원가입</button>
+			</div>
 	</div>
-	</div>
+</div>
 <script>
 new Vue({
     el: ".container",
@@ -458,7 +453,7 @@ new Vue({
 	    			 console.log(response)
 	    			 let res=response.data;
 	    			 if(res==='no'){
-	    				 alert("회원가입 싪패");
+	    				 alert("회원가입 실패");
 	    			 } else {
 	    				 location.href="../member/join_temp.do";
 	    			 }

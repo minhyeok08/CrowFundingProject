@@ -4,6 +4,8 @@ import com.sist.vo.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,12 @@ public class MemberController {
 	@GetMapping("/member/join_temp.do")
 	public String member_join_temp() {
 		return "member/join_temp";
+	}
+	
+	@GetMapping("member/member_logout.do")
+	public String member_logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:../main/main.do";
 	}
 	
 	// 인증메일에서 회원가입 하기 클릭 하면 -> 로그인 페이지로 이동

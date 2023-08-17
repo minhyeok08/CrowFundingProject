@@ -5,10 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style type="text/css">
+.row{
+	margin-top: 50px;
+}
+</style>
 </head>
 <body>
-<div class="container mt-5">
+<div class="container">
 		<div class="row">
 		  <h2 class="text-center">가입한 이메일에서 인증 필요</h2>
 		</div>
