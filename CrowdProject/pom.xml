@@ -426,10 +426,10 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.15</version>
 			<exclusions>
-				<exclusion>
+<!-- 				<exclusion>
 					<groupId>javax.mail</groupId>
 					<artifactId>mail</artifactId>
-				</exclusion>
+				</exclusion> -->
 				<exclusion>
 					<groupId>javax.jms</groupId>
 					<artifactId>jms</artifactId>
@@ -516,6 +516,14 @@
 		    <artifactId>jackson-core</artifactId>
 		    <version>2.9.10</version>
 		</dependency>
+		
+		<!-- javamail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		
 	</dependencies>
 
     <build>

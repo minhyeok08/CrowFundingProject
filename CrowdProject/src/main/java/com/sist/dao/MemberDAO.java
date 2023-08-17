@@ -31,4 +31,12 @@ public class MemberDAO {
 	public MemberVO memberLogin(String id) {
 		return mapper.memberLogin(id);
 	}
+	
+	public void authKeyUpdate(Map map) {
+		mapper.authKeyUpdate(map);
+	}
+	
+	public void AuthStatusUpdate(Map map) {
+		mapper.AuthStatusUpdate(map);
+	}
 }

@@ -13,10 +13,17 @@
 	select count(*) from wadiz_member where phone=#{phone}
 	</select>
 	<insert id="memberJoin" parameterType="memberVO">
-	INSERT INTO wadiz_member VALUES(
-	wm_no_seq.nextval,#{id},#{pwd},#{name},#{nickname},#{sex},#{birthday},#{email},#{post},#{addr1},#{addr2},#{phone},#{content},'n',SYSDATE,3000)
+	INSERT INTO wadiz_member(no,id,pwd,name,sex,birthday,email,post,addr1,addr2,phone,content,admin,regdate,point) 
+	VALUES(wm_no_seq.nextval,#{id},#{pwd},#{name},#{sex},#{birthday},#{email},#{post},#{addr1},#{addr2},#{phone},#{content},'n',SYSDATE,3000)
 	</insert>
 	<select id="memberLogin" resultType="memberVO" parameterType="String">
-	select pwd,name,sex,admin from wadiz_member where id=#{id}
+	select pwd,name,sex,authStatus from wadiz_member where id=#{id}
 	</select>
+	<update id="authKeyUpdate" parameterType="hashmap">
+	update wadiz_member set authkey=#{authkey} WHERE email=#{email}
+	</update>
+	<update id="AuthStatusUpdate" parameterType="hashmap">
+	update wadiz_member set authstatus=1
+	WHERE email=#{email} AND authkey=#{authkey}
+	</update>
 </mapper>

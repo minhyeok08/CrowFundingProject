@@ -42,13 +42,13 @@
 			<h2>일반 로그인</h2>
 		  <div style="margin-bottom: 30px;"></div>
 	  	<div class="mb-3">
-	  		<input type="text" class="form-control" id="id" :ref="id" v-model="id" @input="validateId" style="width: 300px;" placeholder="아이디 입력" required>
+	  		<input type="text" class="form-control" id="id" ref="id" v-model="id" @input="validateId" style="width: 300px;" placeholder="아이디 입력" required>
 	  		<small id="idCheckMessage" :class="idHelpClass" class="form-text">
 	  			{{idCheckMessage}}
 	  		</small>
 	  	</div>
 	  	<div class="mb-3">
-	  		<input type="password" class="form-control" id="pwd" :ref="pwd" v-model="pwd" @input="validatePwd" style="width: 300px;" placeholder="비밀번호 입력" required>
+	  		<input type="password" class="form-control" id="pwd" ref="pwd" v-model="pwd" @input="validatePwd" style="width: 300px;" placeholder="비밀번호 입력" required>
 	  		<small id="pwdCheckMessage" :class="pwdHelpClass" class="form-text">
 	  			{{pwdCheckMessage}}
 	  		</small>
@@ -77,40 +77,58 @@ new Vue({
 	},
 	methods:{
 		validateId(){
-			if (this.id.trim() === '') {
-	        this.idCheckMessage = '아이디 입력이 필요합니다.';
-	        this.idHelpClass = 'form-text text-danger';
+			if (this.id.trim()==='') {
+	        this.idCheckMessage='아이디 입력이 필요합니다.';
+	        this.idHelpClass='form-text text-danger';
+	    } else {
+	    	this.idCheckMessage = '';
+	    	this.idHelpClass="form-text text-muted"
 	    }
 		},
 		validatePwd(){
-	    if (this.pwd.trim() === '') {
-	        this.pwdCheckMessage = '비밀번호 입력이 필요합니다.';
-	        this.pwdHelpClass = 'form-text text-danger';
+	    if (this.pwd.trim()==='') {
+	        this.pwdCheckMessage='비밀번호 입력이 필요합니다.';
+	        this.pwdHelpClass='form-text text-danger';
+	    } else {
+	    	this.pwdCheckMessage="";
+	    	this.pwdHelpClass="form-text text-muted"
 	    }
 		},
 		memberLogin:function(){
-				axios.post('../member/login_ok.do',null,{
-					params:{
-						id:this.id,
-						pwd:this.pwd
-					}
-				}).then((response)=>{
-					console.log(response.data)
-					let res=response.data
-					if(res==='noid'){
-						this.idCheckMessage="아이디가 존재하지 않습니다."
-						this.idHelpClass="form-text text-danger"
-						this.$refs.id.focus()
-					} else if(res==='nopwd'){
-						this.pwdCheckMessage="비밀번호가 틀립니다."
-						this.pwdHelpClass="form-text text-danger"
-						this.$refs.pwd.focus()
-					} else {
-						location.href="../main/main.do";
-					}
-				}).catch((error)=>{
-					console.log(error.response)
-				})
+			if(this.id.trim()===''){
+				this.validateId();
+			}
+			if(this.pwd.trim()===''){
+				this.validatePwd();
+			} else {
+					axios.post('../member/login_ok.do',null,{
+						params:{
+							id:this.id,
+							pwd:this.pwd
+						}
+					}).then((response)=>{
+						console.log(response.data)
+						let res=response.data
+						if(res.msg==='noid'){
+							this.idCheckMessage="아이디가 존재하지 않습니다."
+							this.idHelpClass="form-text text-danger"
+							this.$refs.id.focus()
+						} else if(res.msg==='nopwd'){
+							this.pwdCheckMessage="비밀번호가 틀립니다."
+							this.pwdHelpClass="form-text text-danger"
+							this.$refs.pwd.focus()
+						} else if(res.msg==='emailNotVerified'){
+							this.pwdCheckMessage="이메일 인증이 필요합니다."
+							this.pwdHelpClass="form-text text-danger"
+							this.$refs.pwd.focus()
+						} 
+						else {
+							location.href="../main/main.do";
+						}
+					}).catch((error)=>{
+						console.log(error.response)
+					})
+				}
 			}
 		}
 	})

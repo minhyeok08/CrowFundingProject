@@ -59,6 +59,11 @@
 	color: #fff;
 	margin-bottom: 20px;
 }
+input::placeholder{
+	color: #e5e5e5;
+	font-size: 10pt;
+	font-style: italic;
+}
 </style>
 </head>
 <body>
@@ -124,7 +129,7 @@
 			  <label for="email" class="form-label">이메일</label>
 			  <div class="d-flex align-items-center">
 			   <input type="email" class="form-control" id="email" v-model="email" style="width: 250px;" placeholder="email@gmail.com" :readonly="emailReadOnly" required>
-			   <button class="btn btn-outline emailCheck" @click="emailCheck">이메일 중복 체크</button>
+				 <button class="btn btn-outline emailCheck" @click="sendEmail">메일 중복 체크</button>
 			  </div>
 				<small id="emailHelpClass" class="form-text" :class="emailHelpClass">
 					{{emailCheckMessage}}
@@ -148,7 +153,7 @@
 			<div class="mb-3">
 			  <label for="phone" class="form-label">연락처</label>
 			  <div class="d-flex align-items-center">
-				  <input type="text" class="form-control" id="phone" v-model="phone" style="width: 250px;" placeholder="- 제외 후 입력" :readonly="phoneReadOnly" required>
+				  <input type="text" class="form-control" id="phone" v-model="phone" style="width: 250px;" placeholder="010-1111-1111" :readonly="phoneReadOnly" required>
 				  <button class="btn btn-outline phoneCheck" @click="phoneCheck">연락처 중복 체크</button>
 				</div>
 				<small id="phoneHelpClass" class="form-text" :class="phoneHelpClass">
@@ -275,6 +280,9 @@ new Vue({
                 this.passwordMessage = "비밀번호가 유효합니다.";
                 this.passwordHelpClass = "form-text text-success";
                 
+            } else if(password.trim()===""){
+            		 this.passwordMessage = "";
+                 this.passwordHelpClass = "form-text text-muted";
             } else {
                 this.passwordMessage = "최소 8자 이상, 영문, 숫자, 특수문자를 모두 포함해야 합니다.";
                 this.passwordHelpClass = "form-text text-muted";
@@ -282,162 +290,181 @@ new Vue({
         },
         // 비밀번호 일치 여부 (유효성검사)
         validateConfirmPassword:function(confirmPassword) {
-            if (confirmPassword === this.password) {
-                this.confirmPasswordMessage = "비밀번호가 일치합니다.";
-                this.confirmPasswordHelpClass = "form-text text-success";
+            if (confirmPassword.trim() === this.password.trim()) {
+            	if (this.password.trim() === '') {
+           	      this.confirmPasswordMessage = "비밀번호를 입력해주세요.";
+           	      this.confirmPasswordHelpClass = "form-text text-danger";
+           	    } else {
+           	      this.confirmPasswordMessage = "비밀번호가 일치합니다.";
+           	      this.confirmPasswordHelpClass = "form-text text-success";
+           	    }
+            } else if(confirmPassword === ""){
+                this.confirmPasswordMessage = "";
+                this.confirmPasswordHelpClass = "form-text text-muted";
             } else {
                 this.confirmPasswordMessage = "비밀번호가 일치하지 않습니다.";
                 this.confirmPasswordHelpClass = "form-text text-danger";
             }
         },
         // 우편번호 찾기
-       postSearch:function(){
-         new daum.Postcode({
-  	       oncomplete: function (data) {
-  	         this.post = data.zonecode;
-  	         this.addr1 = data.address;
-  	       }.bind(this)
-         }).open();
-       },
-       // id 중복여부 체크
-       idCheck:function(){
-    	   if(this.id.trim()===''){
-    		   this.idCheckMessage="아이디를 입력해주세요."
-					 this.idHelpClass="form-text text-danger"
-    	   } else{
-    		   axios.get('../member/idCheck.do',{
-       		   params:{
-       			   id:this.id
-       		   }
-       	   }).then(response=>{
-       		   console.log(response.data)
-       		   if(response.data==="no"){
-       			   	this.idCheckMessage="사용 불가능한 아이디 입니다."
-       			   	this.idHelpClass="form-text text-danger"
-       			   	this.idReadOnly=false
-       			   	this.idChecked=false
-       		   } else if(response.data==="yes"){
-       			    this.idCheckMessage="사용 가능한 아이디 입니다."
-       				 	this.idHelpClass="form-text text-success"
-       				 	this.idReadOnly=true
-       				 	this.idChecked=true
-       		   }
-       	   }).catch((error)=>{
-   							console.error(error.response);
-   							this.idCheckMessage="아이디 검사 중 오류가 발생했습니다."
-   							this.idHelpClass="form-text text-danger"
-       	   }) 
-    	   }
-       },
-       // email 중복 여부 체크
-       emailCheck:function(){
-    	   if(this.email.trim()===''){
-    		   	this.emailCheckMessage="이메일을 입력해주세요."
-    			  this.emailHelpClass="form-text text-danger"
-    	   } else {
-    		   axios.get('../member/emailCheck.do',{
-       		   params:{
-       			   email:this.email
-       		   }
-       	   }).then(response=>{
-       		   console.log(response.data)
-       		   if(response.data==='no'){
-       			   this.emailCheckMessage="중복된 이메일 입니다."
-       			   this.emailHelpClass="form-text text-danger"
-       			   this.emailReadOnly=false
-       			   this.emaailChecked=false
-       		   } else if(response.data==='yes'){
-       			   this.emailCheckMessage="사용 가능한 이메일 입니다."
-       			   this.emailHelpClass="form-text text-success"
-       			   this.emailReadOnly=true
-       			   this.emailChecked=true
-       		   } 
-       	   }).catch((error)=>{
-       		   console.error(error.response);
-       		   	this.idCheckMessage="이메일 검사 중 오류가 발생했습니다."
-         			this.idHelpClass="form-text text-danger"
-       	   })
-    	   }
-       },
-       // phone 중복 여부 체크
-       phoneCheck:function(){
-    	   if(this.phone.trim()===''){
-    		   	this.phoneCheckMessage="연락처를 입력해 주세요."
-	     			this.phoneHelpClass="form-text text-danger"
-    	 		} else {
-   	     	   axios.get('../member/phoneCheck.do',{
-   	    		   params:{
-   	    			   phone:this.phone
-   	    		   }
-   	    	   }).then(response=>{
-   	    		   console.log(response.data)
-   		    		   if(response.data==='no'){
-   		    			   this.phoneCheckMessage="중복된 연락처 입니다."
-   		     			   this.phoneHelpClass="form-text text-danger"
-   		     			   this.phoneReadOnly=false
-   		     			   this.phoneChecked=false
-   		     		   } else if(response.data==='yes'){
-   		     			   this.phoneCheckMessage="사용 가능한 연락처 입니다."
-   		     			   this.phoneHelpClass="form-text text-success"
-   		     			   this.phoneReadOnly=true
-   		     			   this.phoneChecked=true
-   		     		   }
-   	    	   }).catch((error)=>{
-   		    		  console.error(error.response);
-   		   		   	this.phoneCheckMessage="연락처 검사 중 오류가 발생했습니다."
-   		     			this.phoneHelpClass="form-text text-danger"
-   		   	   })
-    			}
-    	 },
-    	 // 회원가입
-    	 memberJoin:function(){
-    		 if(!this.idChecked){
-    			 alert("아이디 중복검사를 진행해주세요.")
-    			 this.id='';
-    			 return;
-    		 } if (!this.emailChecked){
-    			 alert("이메일 중복검사를 진행해주세요.")
-    			 this.email='';
-    			 return;
-    		 } if (!this.phoneChecked){
-    			 alert("연락처 중복검사를 진행해주세요.")
-    			 this.phone='';
-    			 return;
-    		 } if(this.nickname===""){
-    			 alert("닉네임을 입력해주세요.")
-    			 this.$refs.nickname.focus()
-    			 return
-    		 } if(this.name===""){
-    			 alert("이름을 입력해주세요.")
-    			 this.$refs.name.focus()
-    			 return
-    		 }
-    		 axios.post('../member/join_ok.do',null,{
-    			 params:{
-    				 id: this.id,
-    				 pwd: this.password,
-    				 name: this.name,
-    				 nickname: this.nickname,
-    				 sex: this.sex,
-    				 birthday: this.birthYear + "-" + this.birthMonth + "-" + this.birthDay,
-    				 email: this.email,
-    				 post: this.post,
-    				 addr1: this.addr1,
-    				 addr2: this.addr2,
-    				 phone: this.phone,
-    				 content: this.content
-    			 }
-    		 }).then((response)=>{
-    			 console.log(response)
-    			 let res=response.data;
-    			 if(res==='no'){
-    				 alert("회원가입 싪패");
-    			 } else {
-    				 location.href="../member/member_login.do";
-    			 }
-    		 }).catch((error)=>{
-    			 console.log(error)
-    		 })
+	       postSearch:function(){
+	         new daum.Postcode({
+	  	       oncomplete: function (data) {
+	  	         this.post = data.zonecode;
+	  	         this.addr1 = data.address;
+	  	       }.bind(this)
+	         }).open();
+	       },
+	       // id 중복여부 체크
+	       idCheck:function(){
+	    	   // 아이디 정규 표현식
+	    	   const validIdPattern =/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$/;
+	    	   if(this.id.trim()===''){
+	    		   this.idCheckMessage="아이디를 입력해주세요."
+						 this.idHelpClass="form-text text-danger"
+	    	   } else if(!validIdPattern.test(this.id)){
+	    		   this.idCheckMessage="영문, 숫자 포함해서 입력해주세요."
+						 this.idHelpClass="form-text text-info"
+	    	   } else {
+	    		   axios.get('../member/idCheck.do',{
+	       		   params:{
+	       			   id:this.id
+	       		   }
+	       	   }).then(response=>{
+	       		   console.log(response.data)
+	       		   if(response.data==="no"){
+	       			   	this.idCheckMessage="사용 불가능한 아이디 입니다."
+	       			   	this.idHelpClass="form-text text-danger"
+	       			   	this.idReadOnly=false
+	       			   	this.idChecked=false
+	       		   } else if(response.data==="yes"){
+	       			    this.idCheckMessage="사용 가능한 아이디 입니다."
+	       				 	this.idHelpClass="form-text text-success"
+	       				 	this.idReadOnly=true
+	       				 	this.idChecked=true
+	       		   }
+	       	   }).catch((error)=>{
+	   							console.error(error.response);
+	   							this.idCheckMessage="아이디 검사 중 오류가 발생했습니다."
+	   							this.idHelpClass="form-text text-danger"
+	       	   }) 
+	    	   }
+	       },
+	       // email 중복여부체크
+	       sendEmail:function(){
+	    	   // 이메일 정규 표현식
+	    	   const validEmailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	    	   if(this.email.trim()===''){
+	    		   	this.emailCheckMessage="이메일을 입력해주세요."
+	    			  this.emailHelpClass="form-text text-danger"
+	    	   } else if(!validEmailPattern.test(this.email)){
+	    		 	   this.emailCheckMessage="올바른 이메일 형식이 아닙니다."
+	       			 this.emailHelpClass="form-text text-info"
+	    	   } else {
+	    		   axios.get('../member/emailCheck.do',{
+								 params:{
+	       			   email:this.email
+	       		   } 
+	       	   }).then(response=>{
+	       		   console.log(response.data)
+	       		   if(response.data==='no'){
+	       			   this.emailCheckMessage="중복된 이메일 입니다."
+	       			   this.emailHelpClass="form-text text-danger"
+	       			   this.emailReadOnly=false
+	       			   this.emaailChecked=false
+	       		   } else if(response.data==='yes'){
+	       			   this.emailCheckMessage="사용 가능한 이메일 입니다."
+	       			   this.emailHelpClass="form-text text-success"
+	       			   this.emailReadOnly=true
+	       			   this.emailChecked=true
+	       		   } 
+	       	   }).catch((error)=>{
+	       		   console.error(error.response);
+	       		   	this.emailCheckMessage="이메일 검사 중 오류가 발생했습니다."
+	         			this.emailHelpClass="form-text text-danger"
+	       	   })
+	    	   }
+	       },
+	       // phone 중복 여부 체크
+	       phoneCheck:function(){
+	    	   // 연락처 정규 표현식
+	    	   const validPhonePattern = /^\d{3}-\d{3,4}-\d{4}$/;
+	    	   if(this.phone.trim()===''){
+	    		   	this.phoneCheckMessage="연락처를 입력해 주세요."
+		     			this.phoneHelpClass="form-text text-danger"
+	    	 		} else if(!validPhonePattern.test(this.phone)){
+	    	 			this.phoneCheckMessage="올바른 연락처 형식이 아닙니다."
+	    	     	this.phoneHelpClass="form-text text-info"
+	    	 		} else {
+	   	     	   axios.get('../member/phoneCheck.do',{
+	   	    		   params:{
+	   	    			   phone:this.phone
+	   	    		   }
+	   	    	   }).then(response=>{
+	   	    		   console.log(response.data)
+	   		    		   if(response.data==='no'){
+	   		    			   this.phoneCheckMessage="중복된 연락처 입니다."
+	   		     			   this.phoneHelpClass="form-text text-danger"
+	   		     			   this.phoneReadOnly=false
+	   		     			   this.phoneChecked=false
+	   		     		   } else if(response.data==='yes'){
+	   		     			   this.phoneCheckMessage="사용 가능한 연락처 입니다."
+	   		     			   this.phoneHelpClass="form-text text-success"
+	   		     			   this.phoneReadOnly=true
+	   		     			   this.phoneChecked=true
+	   		     		   }
+	   	    	   }).catch((error)=>{
+	   		    		  console.error(error.response);
+	   		   		   	this.phoneCheckMessage="연락처 검사 중 오류가 발생했습니다."
+	   		     			this.phoneHelpClass="form-text text-danger"
+	   		   	   })
+	    			}
+	    	 },
+	    	 // 회원가입
+	    	 memberJoin:function(){
+	    		 if(!this.idChecked){
+	    			 alert("아이디 중복검사를 진행해주세요.")
+	    			 this.id='';
+	    			 return;
+	    		 } if(this.name===""){
+	    			 alert("이름을 입력해주세요.")
+	    			 this.$refs.name.focus()
+	    			 return;
+	    		 } if(this.nickname===""){
+	    			 alert("닉네임을 입력해주세요.")
+	    			 this.$refs.nickname.focus()
+	    			 return;
+	    		 } if (!this.emailChecked){
+	    			 alert("이메일 중복검사를 진행해주세요.")
+	    		 } if (!this.phoneChecked){
+	    			 alert("연락처 중복검사를 진행해주세요.")
+	    		 } 
+	    		 axios.post('../member/join.do',null,{
+	    			 params:{
+	    				 id: this.id,
+	    				 pwd: this.password,
+	    				 name: this.name,
+	    				 nickname: this.nickname,
+	    				 sex: this.sex,
+	    				 birthday: this.birthYear + "-" + this.birthMonth + "-" + this.birthDay,
+	    				 email: this.email,
+	    				 post: this.post,
+	    				 addr1: this.addr1,
+	    				 addr2: this.addr2,
+	    				 phone: this.phone,
+	    				 content: this.content
+	    			 }
+	    		 }).then((response)=>{
+	    			 console.log(response)
+	    			 let res=response.data;
+	    			 if(res==='no'){
+	    				 alert("회원가입 싪패");
+	    			 } else {
+	    				 location.href="../member/join_temp.do";
+	    			 }
+	    		 }).catch((error)=>{
+	    			 console.log(error)
+	    		 })
     	 }
     }
 });

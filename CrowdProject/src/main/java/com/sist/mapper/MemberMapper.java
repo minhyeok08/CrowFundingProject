@@ -1,5 +1,7 @@
 package com.sist.mapper;
 
+import java.util.Map;
+
 import com.sist.vo.MemberVO;
 
 public interface MemberMapper {
@@ -17,4 +19,10 @@ public interface MemberMapper {
 	
 	//<select id="memberLogin" resultType="memberVO" parameterType="String">
 	public MemberVO memberLogin(String id);
+	
+	//<update id="authKeyUpdate" parameterType="hashMap">
+	public void authKeyUpdate(Map map);
+	
+	//<update id="AuthStatusUpdate" parameterType="hashMap">
+	public void AuthStatusUpdate(Map map);
 }

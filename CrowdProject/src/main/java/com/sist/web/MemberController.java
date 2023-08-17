@@ -1,7 +1,8 @@
 package com.sist.web;
 import com.sist.vo.*;
 
-import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +24,21 @@ public class MemberController {
 		return "member/member_login";
 	}
 	
-	@GetMapping("member/member_logout.do")
-	public String member_logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:../main/main.do";
+	@GetMapping("/member/join_temp.do")
+	public String member_join_temp() {
+		return "member/join_temp";
+	}
+	
+	// 인증메일에서 회원가입 하기 클릭 하면 -> 로그인 페이지로 이동
+	@GetMapping("member/join_confirm.do")
+	public String member_join_confirm(String email,String authKey) {
+		// email과 authKey가 일치 할 경우 update
+		Map map=new HashMap();
+		map.put("authkey", authKey);
+		map.put("email", email);
+		
+		dao.AuthStatusUpdate(map);
+		
+		return "redirect:../member/member_login.do";
 	}
 }
