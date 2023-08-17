@@ -46,12 +46,12 @@ a:hover { color: black; text-decoration: none;}
 </head>
 <body>
 	<tiles:insertAttribute name="header"/>
-	<div style="height: 60px"></div>
+	<div style="height: 80px"></div>
 	<div class="row">
-		<div class="col-sm-3">
+		<div class="col-2">
 			<tiles:insertAttribute name="sidebar"/>
 		</div>
-		<div class="col-sm-9">
+		<div class="col-10">
 			<tiles:insertAttribute name="home"/>
 		</div>
 	</div>
