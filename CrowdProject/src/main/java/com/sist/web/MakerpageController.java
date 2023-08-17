@@ -10,4 +10,9 @@ public class MakerpageController {
 	{
 		return "makerpage/makerpage_home";
 	}
+	@GetMapping("makerpage/makerpage_news.do")
+	public String maker_news()
+	{
+		return "makerpage/makerpage_news";
+	}
 }
