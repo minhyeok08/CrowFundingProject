@@ -44,15 +44,9 @@ $(function(){
 		  <li class="nav-item">
 		    <a class="nav-link" href="../makerpage/makerpage_home.do">메이커 홈</a>
 		  </li>
-		  <li class="nav-item" id="projectNav">
-		  	&nbsp;&nbsp;&nbsp;프로젝트 등록▼
+		  <li class="nav-item">
+		    <a class="nav-link" href="../makerpage/project_list.do">프로젝트 만들기</a>
 		  </li>
-    	  <li class="nav-item projectMn" >
-    	    <a class="nav-link" href="#">펀딩 등록</a>
-    	  </li>
-    	  <li class="nav-item projectMn" >
-    	    <a class="nav-link" href="#">스토어 등록</a>
-    	  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" href="#">프로젝트 관리</a>
 		  </li>

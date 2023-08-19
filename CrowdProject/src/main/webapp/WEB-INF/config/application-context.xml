@@ -23,4 +23,6 @@
 		p:suffix=".jsp"
 		p:order="1"
 	/>
+	<bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans>
