@@ -48,7 +48,7 @@ $(function(){
 		    <a class="nav-link" href="../makerpage/project_list_for_reward.do">프로젝트 만들기</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#">프로젝트 관리</a>
+		    <a class="nav-link" href="../makerpage/project_list.do">프로젝트 관리</a>
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link" href="../makerpage/makerpage_news.do">새소식</a>

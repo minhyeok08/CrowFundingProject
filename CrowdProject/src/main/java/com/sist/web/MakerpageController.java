@@ -29,11 +29,17 @@ public class MakerpageController {
 	{
 		return "makerpage/makerpage_home";
 	}
-	// 프로젝트 리스트 이동
+	// 프로젝트만들기 리스트 이동
 	@GetMapping("makerpage/project_list_for_reward.do")
-	public String project_list()
+	public String project_list_for_reward()
 	{
 		return "makerpage/project_list_for_reward";
+	}
+	// 프로젝트 리스트 이동
+	@GetMapping("makerpage/project_list.do")
+	public String project_list()
+	{
+		return "makerpage/project_list";
 	}
 	// 프로젝트 등록
 	@GetMapping("makerpage/fund_insert.do")
