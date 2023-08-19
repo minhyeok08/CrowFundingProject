@@ -19,7 +19,7 @@ import java.util.*;
 public class MakerpageRestController {
 	@Autowired
 	private FundDAO dao;
-	@GetMapping(value = "makerpage/project_list_vue.do",produces = "text/plain;charset=UTF-8")
+	@GetMapping(value = "makerpage/project_list_for_reward_vue.do",produces = "text/plain;charset=UTF-8")
 	public String project_list(int page,String id) throws Exception
 	{
 		Map map = new HashMap();
@@ -53,17 +53,7 @@ public class MakerpageRestController {
 		String json=mapper.writeValueAsString(vo);
 		return json;
 	}
-	@GetMapping(value = "makerpage/page_list_vue2.do",produces = "text/plain;charset=UTF-8")
-	public String page_list2(int page,String id) throws Exception
-	{
-		int totalpage=dao.projectrewardokTotalpage(id);
-		PageVO vo = new PageVO();
-		vo.setTotalpage(totalpage);
-		vo.setCurpage(page);
-		ObjectMapper mapper = new ObjectMapper();
-		String json=mapper.writeValueAsString(vo);
-		return json;
-	}
+	
 	@GetMapping(value = "makerpage/project_detail_for_reward_vue.do",produces = "text/plain;charset=UTF-8")
 	public String project_detail_for_reward(int wfno) throws Exception
 	{

@@ -30,10 +30,10 @@ public class MakerpageController {
 		return "makerpage/makerpage_home";
 	}
 	// 프로젝트 리스트 이동
-	@GetMapping("makerpage/project_list.do")
+	@GetMapping("makerpage/project_list_for_reward.do")
 	public String project_list()
 	{
-		return "makerpage/project_list";
+		return "makerpage/project_list_for_reward";
 	}
 	// 프로젝트 등록
 	@GetMapping("makerpage/fund_insert.do")

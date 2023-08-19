@@ -44,15 +44,15 @@ public class FundDAO {
 		return mapper.projectListData(map);
 	}
 	// 리워드 등록 안된거
-	//@Select("SELECT CEIL(COUNT(*)/3.0) FROM fundmaking WHERE id=#{id} AND rewardok=0")
+	//@Select("SELECT CEIL(COUNT(*)/6.0) FROM fundmaking WHERE id=#{id} AND rewardok=0")
 	public int projectrewardnoTotalpage(String id)
 	{
 		return mapper.projectrewardnoTotalpage(id);
 	}
 	// 리워드 등록 된거
-	public int projectrewardokTotalpage(String id)
+	public int projectrewardOkTotalpage(String id)
 	{
-		return mapper.projectrewardokTotalpage(id);
+		return mapper.projectrewardOkTotalpage(id);
 	}
 	
 	//리워드 등록 안된거

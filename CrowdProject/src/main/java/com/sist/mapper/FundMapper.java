@@ -25,10 +25,10 @@ public interface FundMapper {
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundVO> projectListData(Map map);
 	// 프로젝트 리스트 총 페이지 수(3개씩 출력)
-	@Select("SELECT CEIL(COUNT(*)/3.0) FROM fundmaking WHERE id=#{id} AND rewardok=0")
+	@Select("SELECT CEIL(COUNT(*)/6.0) FROM fundmaking WHERE id=#{id} AND rewardok=0")
 	public int projectrewardnoTotalpage(String id);
-	@Select("SELECT CEIL(COUNT(*)/3.0) FROM fundmaking WHERE id=#{id} AND rewardok=1")
-	public int projectrewardokTotalpage(String id);
+	@Select("SELECT CEIL(COUNT(*)/6.0) FROM fundmaking WHERE id=#{id} AND rewardok=1")
+	public int projectrewardOkTotalpage(String id);
 	// 프로젝트 상세=> 리워드 등록 안된 거 => 리워드 등록이 필요함 
 	@Select("SELECT wfno,mainimg,detailimg,detailcont,fcname,tag,ftitle,fsubtitle,aim_amount FROM fundmaking WHERE wfno=#{wfno}")
 	public FundVO projectDetailDataForReward(int wfno);

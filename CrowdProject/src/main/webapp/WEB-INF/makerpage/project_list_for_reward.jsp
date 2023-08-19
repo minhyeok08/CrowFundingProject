@@ -76,7 +76,7 @@
 		},
 		methods:{
 			dataRecv:function(){
-				axios.get("http://localhost/web/makerpage/project_list_vue.do",{
+				axios.get("http://localhost/web/makerpage/project_list_for_reward_vue.do",{
 					params:{
 						page:this.curpage,
 						id:this.id

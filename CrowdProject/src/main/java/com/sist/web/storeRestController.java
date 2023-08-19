@@ -15,11 +15,9 @@ import com.sist.vo.*;
 
 
 @RestController
-public class StoreRestController {
+public class storeRestController {
 	@Autowired
 	private StoreService service;
-	@Autowired
-	private StoreDAO dao;
 	
 	@GetMapping(value="store/store_list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String storeListData(int scno) throws Exception
