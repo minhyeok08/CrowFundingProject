@@ -49,4 +49,15 @@
  		WHERE fcno=13
  		</if>
  	</select>
+ 	 	<select id="fundDetailData" resultType="FundVO" parameterType="int">
+	    SELECT wfno,acno,mainimg,detailimg,tag,ftitle,fsubtitle,achieve_rate,cum_amount,parti_count,jjim,support,
+	    makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter
+	    FROM wadiz_fund_detail
+	    WHERE wfno=#{wfno} 
+  	</select>
+  	<select id="fundRewardList" resultType="FundRewardVO" parameterType="int">
+	  	SELECT d.wfno as wfno,d.acno as acno,r.rno as rno,r.rprice as rprice,r.rname as rname,r.rcont as rcont,r.delfee as delfee,r.delstart as delstart,r.limitq as limitq,r.curq as curq
+	  	FROM wadiz_funding_reward r,wadiz_fund_detail d
+	  	WHERE d.wfno=#{wfno} and r.wfno=d.wfno
+  	</select>
  </mapper>

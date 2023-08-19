@@ -25,6 +25,17 @@
 	<definition name="*/*" extends="main">
 		<put-attribute name="home" value="/WEB-INF/{1}/{2}.jsp"></put-attribute>
 	</definition>
+	<!-- <definition name="main3" template="/WEB-INF/main/main3.jsp">
+		<put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
+		<put-attribute name="subheader" value="/WEB-INF/main/subheader.jsp"/>
+		<put-attribute name="fund_sidebar" value=""/>
+		<put-attribute name="home" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
+	</definition>
+	<definition name="fund/fund" extends="main3">
+		<put-attribute name="fund_sidebar" value="/WEB-INF/fund/fund_sidebar.jsp"></put-attribute>
+		<put-attribute name="home" value="/WEB-INF/fund/{1}.jsp"></put-attribute>		
+	</definition> -->
 	<!-- adminpage sidebar용 -->
 	
 </tiles-definitions>

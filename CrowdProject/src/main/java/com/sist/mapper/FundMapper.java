@@ -10,6 +10,10 @@ import com.sist.vo.*;
 public interface FundMapper {
 	public List<FundVO> fundListData(Map map);
 	
+	public FundVO fundDetailData(int wfno);
+	
+	public List<FundRewardVO> fundRewardList(int wfno);
+	
 	@Insert("INSERT INTO fundmaking(wfno,makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter,fcno,fcname,ftitle,fsubtitle,aim_amount,mainimg,openday,endday,tag,detailimg,detailcont,id) "
 			+ "VALUES(fm_wfno_seq.nextval,#{makername},#{makerphoto},#{makeremail},#{makertel},#{makerhomepage},#{makerinsta},#{makerfacebook},#{makertwitter},#{fcno},#{fcname},#{ftitle},#{fsubtitle},#{aim_amount},#{mainimg},#{openday},#{endday},#{tag},#{detailimg},#{detailcont},#{id})")
 	public void fundInsertData(FundVO vo);

@@ -18,6 +18,16 @@ public class FundDAO {
 	{
 		return mapper.fundListData(map);
 	}
+	
+	public FundVO fundDetailData(int wfno)
+	{
+		return mapper.fundDetailData(wfno);
+	}
+	
+	public List<FundRewardVO> fundRewardList(int wfno)
+	{
+		return mapper.fundRewardList(wfno);
+	}
 	//@Insert("INSERT INTO fundmaking(wfno,makername,makerphoto,makeremail,makertel,makerhompage,makerinsta,makerfacebook,makertwitter,fcno,fcname,ftitle,aim_amount,mainimg,openday,endday,tag,detailimg,detailcont) "
 	//		+ "VALUSE(fm_wfno_seq.nextval,#{makername},#{makerphoto},#{makeremail},#{makertel},#{makerhompage},#{makerinsta},#{makerfacebook},#{makertwitter},#{fcno},#{fcname},#{ftitle},#{aim_amount},#{mainimg},#{openday},#{endday},#{tag},#{detailimg},#{detailcont})")
 	public void fundInsertData(FundVO vo)

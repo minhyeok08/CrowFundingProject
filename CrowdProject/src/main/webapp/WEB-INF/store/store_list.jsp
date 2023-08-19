@@ -50,10 +50,11 @@
 		new Vue({
 			el:'.container',
 			data:{
+				scno:1,
 				store_list:[]
 			},
 			mounted:function(){
-				this.categoryGetData(0);
+				this.categoryGetData(this.scno);
 			},
 			methods:{
 				categoryGetData:function(scno){

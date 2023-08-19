@@ -10,7 +10,7 @@ import com.sist.dao.StoreDAO;
 import com.sist.vo.StoreVO;
 
 @Service
-public class storeServiceImpl implements StoreService{
+public class StoreServiceImpl implements StoreService{
 	@Autowired
 	private StoreDAO dao;
 

@@ -32,7 +32,7 @@
 				<h2>펀딩 + 리스트</h2>
 				<div class="col-md-4" v-for="vo in fund_list">
 					<div class="thumbnail" style="width: 260px;">
-						<a href="#">
+						<a :href="'../fund/fund_detail.do?wfno='+vo.wfno">
 							<img :src="vo.mainimg" class="main_img" style="width:260px; height:180px">
 							<div class="caption">
 								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{vo.ftitle}}</p>
@@ -54,10 +54,11 @@
 		new Vue({
 			el:'.container',
 			data:{
+				fcno:1,
 				fund_list:[]
 			},
 			mounted:function(){
-				this.categoryGetData(0);
+				this.categoryGetData(this.fcno);
 			},
 			methods:{
 				categoryGetData:function(fcno){

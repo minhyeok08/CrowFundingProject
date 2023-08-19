@@ -41,7 +41,13 @@ public class FundVO {
 	private int wfno,fcno,parti_count,cum_amount,aim_amount,achieve_rate,jjim,support,acno;
 	private String makertwitter,makerfacebook,makerinsta,makerhomepage,makertel,
 	makeremail,makerphoto,makername,detailimg,fsubtitle,ftitle,tag,fcname,mainimg,link;
+	
 	private Date openday, endday;
+	
+	private List<String> detailimgList;
+	//private int rno,rprice,delfee,limitq,curq;
+	//private String rname,rcont,delstart;
+	
 	
 	// 태준 추가 내용
 	private String stropenday,strendday,detailcont;
