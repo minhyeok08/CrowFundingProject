@@ -18,7 +18,7 @@ public class NoticeController {
 	@RequestMapping("notice/notice.do")
 	public String main_page(Model model) {
 		
-		return "notice/notice2";
+		return "notice/notice3";
 	}
 	
 	@RequestMapping("notice/insert_ok.do")

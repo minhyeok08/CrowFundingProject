@@ -13,7 +13,7 @@
 </style>
 </head>
 <body>
-	<div class="col-sm-10 test22">
+	<div class="test22">
 			admin Main
 	</div>
 </body>

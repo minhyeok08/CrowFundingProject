@@ -13,7 +13,7 @@
 </style>
 </head>
 <body>
-	<div class="test11 col-sm-2">
+	<div class="test11">
 		sidebar
 	</div>
 </body>

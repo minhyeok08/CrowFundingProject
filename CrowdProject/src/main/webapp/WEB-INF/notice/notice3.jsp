@@ -99,27 +99,11 @@ input[type="text"] {
 			<div style="height: 30px"></div>
 			
 			<div class="row">
-				<ul class="boardul">
-					<li>
-						<span style="color: #00b2b2; font-size: 12px;">이벤트&nbsp;</span>·<span style="color: blue; font-size: 12px;">&nbsp;중요</span>
-						<div class="boardTitle">게시판 글의 제목이 들어가는 자리</div>
-						<div class="boardWriter">
-							<span class="boardWriterSpan">Wadiz</span><span>2023.08.01</span>
-						</div>
-						<hr>
-					</li>
-					<li>
-						<span style="color: #00b2b2; font-size: 12px;">이벤트&nbsp;</span>·<span style="color: blue; font-size: 12px;">&nbsp;중요</span>
-						<div class="boardTitle">게시판 글의 제목이 들어가는 자리</div>
-						<div class="boardWriter">
-							<span class="boardWriterSpan">Wadiz</span><span>2023.08.01</span>
-						</div>
-						<hr>
-					</li>
+				
+					<notice v-bind:detaildata="notice_list"></notice>
 				</ul>
 			</div>
 			
-			<notice v-bind:detaildata="notice_list"></notice>
 			<b-modal ref="my-modal" hide-footer hide-header v-if="isShow" id="modal-lg"
 				size="lg">
 			<div class="text-center">
@@ -154,16 +138,16 @@ input[type="text"] {
 	let eventBus=new Vue();
 	Vue.component('notice',{
 		props:['detaildata'],	// <notice>의 속성값을 detaildata로 받는다는 의미
-		template:'<table class="table" id="user-table">'
-					+'<tbody>'
-					+'<tr v-for="vo in detaildata" @click="noticeDetail(vo.wnno,true)">'
-					+'<td width="65%" class="text-center" @mouseover="hoverEffectComponent($event)" @mouseout="unhoverEffectComponent($event)">{{vo.subject }}</td>'
-					+'<td width="15%" class="text-center">{{vo.writer }}</td>'
-					+'<td width="10%" class="text-center">{{vo.dbday }}</td>'
-					+'<td width="10%" class="text-center">{{vo.hit }}</td>'
-					+'</tr>'
-					+'</tbody>'
-					+'</table>'
+		template:'<ul class="boardul" id="searchUl">'
+				+'<li v-for="vo in detaildata" @click="noticeDetail(vo.wnno,true)">'
+				+'<span style="color: #00b2b2; font-size: 12px;">이벤트&nbsp;</span>·<span style="color: blue; font-size: 12px;">&nbsp;중요</span>'
+				+'<div class="boardTitle" @mouseover="hoverEffectComponent($event)" @mouseout="unhoverEffectComponent($event)">{{vo.subject}}</div>'
+				+'<div class="boardWriter">'
+				+'<span class="boardWriterSpan">{{vo.writer}}</span><span>{{vo.dbday}}</span>'
+				+'</div>'
+				+'<hr>'
+				+'</li>'
+				+'</ul>'
 			,
 			methods:{
 				noticeDetail:function(value,bool){
@@ -191,8 +175,8 @@ new Vue({
 		this.noticeListData('event','1');
 		$('#keyword').keyup(function(){
 			let k=$(this).val();
-			$('#user-table > tbody > tr').hide();
-			let temp=$('#user-table > tbody > tr > td:nth-child(4n+2):contains("'+k+'")')
+			$('#searchUl > li').hide();
+			let temp=$('#searchUl > li > .boardTitle:contains("'+k+'")')
 			$(temp).parent().show();
 		})
 	},
