@@ -57,9 +57,9 @@ public class FundDAO {
 	
 	//리워드 등록 안된거
 	//@Select("SELECT wfno,mainimg,detailimg,detailcont,fcname,tag,ftitle,fsubtitle,aim_amount FROM fundmaking WHERE wfno=#{wfno}")
-	public FundVO projectDetailDataForReward(int wfno)
+	public FundVO projectDetailData(int wfno)
 	{
-		return mapper.projectDetailDataForReward(wfno);
+		return mapper.projectDetailData(wfno);
 	}
 	
 	// 리워드 등록
@@ -74,5 +74,11 @@ public class FundDAO {
 	public void rewardInsertData(RewardVO vo)
 	{
 		mapper.rewardInsertData(vo);
+	}
+	// 리워드 출력
+//	@Select("SELECT rno,rprice,rcont,delfee,delstart,limitq FROM rewardmaking WHERE wfno=#{wfno}")
+	public List<RewardVO> rewardListData(int wfno)
+	{
+		return mapper.rewardListData(wfno);
 	}
 }

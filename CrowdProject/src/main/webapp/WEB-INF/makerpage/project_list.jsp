@@ -26,7 +26,7 @@
 	<div class="row projectrow">
 		<div class="col-md-4" v-for="vo in project_list" v-if="vo.rewardok==1">
 		    <div class="img-thumbnail">
-		      <a href="#">
+		      <a :href="'../makerpage/project_detail.do?wfno='+vo.wfno">
 		        <img :src="'../Fundimages/'+vo.mainimg" style="width:400px;height: 200px;">
 		        <div class="caption">
 		          <p>{{vo.fcname}}</p>

@@ -31,7 +31,7 @@ public interface FundMapper {
 	public int projectrewardOkTotalpage(String id);
 	// 프로젝트 상세=> 리워드 등록 안된 거 => 리워드 등록이 필요함 
 	@Select("SELECT wfno,mainimg,detailimg,detailcont,fcname,tag,ftitle,fsubtitle,aim_amount FROM fundmaking WHERE wfno=#{wfno}")
-	public FundVO projectDetailDataForReward(int wfno);
+	public FundVO projectDetailData(int wfno);
 	
 	/*
 	    RNO      NOT NULL NUMBER         
@@ -51,4 +51,6 @@ public interface FundMapper {
 	@Insert("INSERT INTO rewardmaking (rno,rname,rprice,rcont,delfee,delstart,limitq,wfno) "
 			+ "VALUES(rem_rno_seq.nextval,#{rname},#{rprice},#{rcont},#{delfee},#{delstart},#{limitq},#{wfno})")
 	public void rewardInsertData(RewardVO vo);
+	@Select("SELECT rno,rname,rprice,rcont,delfee,delstart,limitq FROM rewardmaking WHERE wfno=#{wfno}")
+	public List<RewardVO> rewardListData(int wfno);
 }

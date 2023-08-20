@@ -57,7 +57,15 @@ public class MakerpageRestController {
 	@GetMapping(value = "makerpage/project_detail_for_reward_vue.do",produces = "text/plain;charset=UTF-8")
 	public String project_detail_for_reward(int wfno) throws Exception
 	{
-		FundVO vo = dao.projectDetailDataForReward(wfno);
+		FundVO vo = dao.projectDetailData(wfno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "makerpage/project_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String project_detail_reward(int wfno) throws Exception
+	{
+		FundVO vo = dao.projectDetailData(wfno);
 		ObjectMapper mapper = new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
@@ -94,6 +102,14 @@ public class MakerpageRestController {
 		vo.setCurpage(page);
 		ObjectMapper mapper = new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "makerpage/reward_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String reward_list(int wfno) throws Exception
+	{
+		List<RewardVO> list = dao.rewardListData(wfno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
 		return json;
 	}
 }	

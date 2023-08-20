@@ -58,12 +58,12 @@ $(function(){
 				</td> 
 			</tr>
 			<tr>
-				<th width="30%" class="text-end">가격</th>
-				<td width="70%"><input type=text name=rprice size=50 class="input-sm"></td> 
-			</tr>
-			<tr>
 				<th width="30%" class="text-end">리워드 내용</th>
 				<td width="70%"><input type=text name=rcont size=50 class="input-sm"></td> 
+			</tr>
+			<tr>
+				<th width="30%" class="text-end">가격</th>
+				<td width="70%"><input type=text name=rprice size=50 class="input-sm"></td> 
 			</tr>
 			<tr>
 				<th width="30%" class="text-end">배송비</th>
@@ -77,7 +77,7 @@ $(function(){
 			</tr>
 			<tr>
 				<th width="30%" class="text-end">한정 수량</th>
-				<td width="70%"><input type=text name=limitQ size=50 class="input-sm"></td> 
+				<td width="70%"><input type=text name=limitq size=50 class="input-sm"></td> 
 			</tr>
 			<tr>
 				<td colspan="2" class="text-center">

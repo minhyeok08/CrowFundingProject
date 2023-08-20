@@ -14,10 +14,8 @@
 	
 }
 .Btnrow{
-	height: 50	px;
+	height: 50px;
 	margin-right: 0px;
-}
-.projectrow{
 }
 </style>
 </head>
@@ -36,7 +34,7 @@
 		</table>
 	</div>
 	<h4>리워드 등록 필요</h4>
-	<div class="row projectrow" >
+	<div class="row" >
 		<div class="col-md-4" v-for="vo in project_list" v-if="vo.rewardok==0">
 		    <div class="img-thumbnail">
 		      <a :href="'../makerpage/project_detail_for_reward.do?wfno='+vo.wfno">

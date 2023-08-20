@@ -105,6 +105,13 @@ public class MakerpageController {
 		model.addAttribute("wfno",wfno);
 		return "makerpage/project_detail_for_reward";
 	}
+	// 프로젝트 상세로 이동(reward등록 되어 있는 상태)
+	@GetMapping("makerpage/project_detail.do")
+	public String project_detail(int wfno,Model model)
+	{
+		model.addAttribute("wfno",wfno);
+		return "makerpage/project_detail";
+	}
 	// 리워드 등록으로 이동
 	@GetMapping("makerpage/reward_insert.do")
 	public String reward_insert(int wfno,Model model)
@@ -132,5 +139,11 @@ public class MakerpageController {
 	{
 		return "makerpage/makerpage_news_insert";
 	}
-	
+	// 프로젝트 수정하기
+	@GetMapping("makerpage/project_update.do")
+	public String project_update(int wfno,Model model)
+	{
+		model.addAttribute("wfno",wfno);
+		return "makerpage/project_update";
+	}
 }
