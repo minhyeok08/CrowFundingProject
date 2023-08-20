@@ -22,7 +22,6 @@
 <body>
 <div class="makerpagemainrow">
 	<div style="height: 20px"></div>
-	<div class="col-12 Btnrow">
 		<table class="table">
 			<tr>
 				<th width="80%" class="text-center"><h2>${sessionScope.name }님의 프로젝트 리스트</h2></th>
@@ -30,11 +29,9 @@
 					<a href ="../makerpage/fund_insert.do" class="btn btn-project" id="projectBtn" >프로젝트 등록</a>
 				</td>
 			</tr>
-		
 		</table>
-	</div>
-	<h4>리워드 등록 필요</h4>
-	<div class="row" >
+	<div class="row projectrow" >
+		<h4>리워드 등록 필요</h4>
 		<div class="col-md-4" v-for="vo in project_list" v-if="vo.rewardok==0">
 		    <div class="img-thumbnail">
 		      <a :href="'../makerpage/project_detail_for_reward.do?wfno='+vo.wfno">
