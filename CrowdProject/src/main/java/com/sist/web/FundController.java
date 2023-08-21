@@ -16,7 +16,13 @@ public class FundController {
 	public String fund_detail(int wfno,Model model)
 	{
 		model.addAttribute("wfno", wfno);
-		//model.addAttribute("main_jsp")
 		return "fund/fund_detail";
+	}
+	@GetMapping("fund/fund_choice.do")
+	public String fund_choice(String wfno,Model model)
+	{
+		int wfno2=(Integer.parseInt(wfno));
+		model.addAttribute("wfno", wfno2);
+		return "fund/fund_choice";
 	}
 }
