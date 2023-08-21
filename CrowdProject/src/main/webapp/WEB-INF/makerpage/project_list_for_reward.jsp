@@ -8,7 +8,7 @@
 <style type="text/css">
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
-	height: 800px;
+	height: 1000px;
 	margin: auto 0px;
 	overflow-y: auto;
 	
@@ -17,33 +17,60 @@
 	height: 50px;
 	margin-right: 0px;
 }
+.projectlisttable{
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 20px;
+}
+.projectlisttable tr,td,th{
+	border:none;
+}
+.rounded-image {
+  border-radius: 50%;
+  width: 50x; /* 이미지 너비 설정 */
+  height: 50px; /* 이미지 높이 설정 */
+}
 </style>
 </head>
 <body>
 <div class="makerpagemainrow">
 	<div style="height: 20px"></div>
-		<table class="table">
+		<table class="table" style="border: none">
 			<tr>
-				<th width="80%" class="text-center"><h2>${sessionScope.name }님의 프로젝트 리스트</h2></th>
+				<th width="80%" class="text-center"  style="border: none"><h2>${sessionScope.name }님의 프로젝트 리스트</h2></th>
 				<td width="20%">					
-					<a href ="../makerpage/fund_insert.do" class="btn btn-project" id="projectBtn" >프로젝트 등록</a>
+					<a href ="../makerpage/fund_insert.do" class="btn btn-project text-center" id="projectBtn" >프로젝트 등록</a>
 				</td>
 			</tr>
 		</table>
 	<div class="row projectrow" >
 		<h4>리워드 등록 필요</h4>
 		<div class="col-md-4" v-for="vo in project_list" v-if="vo.rewardok==0">
-		    <div class="img-thumbnail">
-		      <a :href="'../makerpage/project_detail_for_reward.do?wfno='+vo.wfno">
-		        <img :src="'../Fundimages/'+vo.mainimg" style="width:400px;height: 200px;">
-		        <div class="caption">
-		          <p>{{vo.fcname}}</p>
-		          <p>{{vo.ftitle}}</p>
-		          <p>{{vo.stropenday}}~{{vo.strendday}}</p>
-		          <p>{{vo.makername}}</p>
-		        </div>
-		      </a>
-		    </div>
+		    <table class="table projectlisttable">
+		    	<tr>
+		    		<td class="text-center" colspan="2">
+		    			<a :href="'../makerpage/project_detail_for_reward.do?wfno='+vo.wfno">
+		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:600px;height: 400px;">
+		    			</a>
+		    		</td>
+		    	</tr>
+		    	<tr>
+		    		<th width="30%" class="text-end">카테고리 명</th>
+		    		<td width="70%" style="font-size: 15pt">{{vo.fcname}}</td>
+		    	</tr>
+		    	<tr>
+		    		<th width="30%" class="text-end">프로젝트명</th>
+		    		<td width="70%" style="font-size: 15pt">{{vo.ftitle}}</td>
+		    	</tr>
+		    	<tr>
+		    		<td colspan="2" class="text-end" style="color: #a6d8ce;font-size: 15pt">{{vo.stropenday}}~{{vo.strendday}}&nbsp;&nbsp;</td>
+		    	</tr>
+		    	<tr>
+		    		<th width="30%" class="text-end">
+		    			<img :src="'../Fundimages/'+vo.makerphoto" class="rounded-image">
+		    		</th>
+		    		<td width="70%" style="font-size: 15pt">{{vo.makername}}</td>
+		    	</tr>
+		    </table>
 	  </div>
 	  <div class="text-center">
 	  	<table class="table">

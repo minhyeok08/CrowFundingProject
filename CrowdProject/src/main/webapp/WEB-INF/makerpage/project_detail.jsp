@@ -8,7 +8,7 @@
 <style type="text/css">
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
-	height: 800px;
+	height: 1000px;
 	overflow-y: auto;
 	
 }
@@ -20,6 +20,18 @@
 	border: 2px solid #a6d8ce;
 	height: 600px;
 	overflow-y: auto;
+}
+.storytable{
+	text-align: center;
+}
+.storytable img {
+  width: 750px;
+  height: auto;
+}
+.rounded-image {
+  border-radius: 50%;
+  width: 50x; /* 이미지 너비 설정 */
+  height: 50px; /* 이미지 높이 설정 */
 }
 </style>
 </head>
@@ -37,33 +49,68 @@
 	</div>
 	<div class="row" >
 		<div class="col-7">
-			<table class="table">
+			<table class="table storytable">
 				<tr>
-					<td>{{detail_data.mainimg}}</td>
+					<td>
+						<img :src="'../Fundimages/'+detail_data.mainimg">
+					</td>
 				</tr>
 				<tr>
-					<td><h4>스토리 소개</h4></td>
-				</tr>
-				<tr v-for="img in detailimg">
-					<td>{{img}}</td>
+					<td style="font-style: bold;color: #616161"><h4>프로젝트 스토리</h4></td>
 				</tr>
 				<tr v-if="detail_data.detailcont!=null">
+					<td style="font-size: 20pt">{{detail_data.detailcont}}</td>
+				</tr>
+				<tr v-for="img in detailimg">
+					<td>
+						<img :src="'../Fundimages/'+img">
+					</td>
 				</tr>
 			</table>
 		</div>
 		<div class="col-5">
 			<table class="table">
 				<tr>
-					<td>{{detail_data.fcname}}&nbsp;{{detail_data.tag}}</td>
+					<td style="font-style: bold">{{detail_data.fcname}}&nbsp;&gt;&nbsp;<span style="color: #a6d8ce">#</span><span style="font-size: 10pt">{{detail_data.tag}}</span></td>
 				</tr>
 				<tr>
-					<td><h2>{{detail_data.ftitle}}</h2></td>
+					<td style="font-size: 20pt;font-style: bold">{{detail_data.ftitle}}</td>
 				</tr>
 				<tr>
-					<td><h4>{{detail_data.fsubtitle}}</h4></td>
+					<td style="font-size: 10pt;">{{detail_data.fsubtitle}}</td>
 				</tr>
 				<tr>
-					<td><h4>목표금액:<span style="color: cyan">{{detail_data.aim_amount}}</span>원</h4></td>
+					<td style="font-size: 15pt;">목표금액&nbsp;<span style="color: #a6d8ce;font-size: 20pt">{{detail_data.str_aim_mount}}</span>원</td>
+				</tr>
+			</table>
+			<table class="table">
+				<tr>
+					<td width="20%" class="text-center">
+						<img :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image">
+					</td>
+					<td width="80%">
+						<h5 style="font-style: bold">{{detail_data.makername}}</h5>
+					</td>
+				</tr>
+				<tr>
+					<th width="20%" class="text-center">문의 전화</th>
+					<td width="80%">{{detail_data.makertel}}</td>
+				</tr>
+				<tr>
+					<th width="20%" class="text-center">문의 메일</th>
+					<td width="80%">{{detail_data.makeremail}}</td>
+				</tr>
+				<tr v-if=detail_data.makerhomepage!=null>
+					<th width="20%" class="text-center">홈페이지</th>
+					<td width="80%">{{detail_data.makerhomepage}}</td>
+				</tr>
+				<tr v-if="detail_data.makerinsta!=null || detail_data.makerfacebook!=null || detail_data.makertwitter!=null">
+					<th width="20%" class="text-center">SNS</th>
+					<td width="80%" style="font-size: 30pt">
+						<a :href="'https://www.instagram.com/'+detail_data.makerinsta+'/'" target="_blank"><i v-if=detail_data.makerinsta!=null class="fa-brands fa-instagram"></i></a>					
+						<a :href="'https://www.facebook.com/'+detail_data.makerfacebook+'/'" target="_blank"><i v-if=detail_data.makerfacebook!=null class="fa-brands fa-facebook"></i></a>					
+						<a :href="'https://www.twitter.com/'+detail_data.makertwitter+'/'" target="_blank"><i v-if=detail_data.makertwitter!=null class="fa-brands fa-twitter"></i></a>					
+					</td>
 				</tr>
 			</table>
 			<div class="rewardtable">

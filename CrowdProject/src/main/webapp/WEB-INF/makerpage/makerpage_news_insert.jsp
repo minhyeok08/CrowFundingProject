@@ -8,7 +8,7 @@
 <style type="text/css">
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
-	height: 800px;
+	height: 1000px;
 	margin: auto 0px;
 }
 #newstable{

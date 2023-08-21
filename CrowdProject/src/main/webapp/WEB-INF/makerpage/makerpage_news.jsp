@@ -8,7 +8,7 @@
 <style type="text/css">
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
-	height: 800px;
+	height: 1000px;
 	margin: auto 0px;
 }
 #newstable{
@@ -23,7 +23,6 @@
 <div class="row makerpagemainrow">
 	<div style="height: 50px;"></div>
 	<h2 class="text-center">새소식</h2>
-	<div style="height: 30px;"></div>
 	<div id="newstable">
 		<table class="table">
 			<tr>

@@ -8,11 +8,8 @@
 <style type="text/css">
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
-	height: 800px; 
+	height: 1000px; 
 	overflow-y:auto; 
-}
-.fundinsert{
-	height:800px;
 }
 </style>
 <script type="text/javascript">
@@ -41,7 +38,7 @@ $(function(){
 <body>
 	<div class="row makerpagemainrow">
 		<form method="post" action="../makerpage/fund_insert_ok.do" enctype="multipart/form-data">	
-			<table class="table fundinsert">
+			<table class="table">
 				<tr>
 					<th width="30%" class="text-end">메이커명</th>
 					<td width="70%"><input type=text name=makername size=50 class="input-sm"></td> 

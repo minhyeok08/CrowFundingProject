@@ -30,7 +30,10 @@ public interface FundMapper {
 	@Select("SELECT CEIL(COUNT(*)/6.0) FROM fundmaking WHERE id=#{id} AND rewardok=1")
 	public int projectrewardOkTotalpage(String id);
 	// 프로젝트 상세=> 리워드 등록 안된 거 => 리워드 등록이 필요함 
-	@Select("SELECT wfno,mainimg,detailimg,detailcont,fcname,tag,ftitle,fsubtitle,aim_amount FROM fundmaking WHERE wfno=#{wfno}")
+	@Select("SELECT wfno,mainimg,detailimg,detailcont,fcname,tag,ftitle,fsubtitle,aim_amount,"
+			+ "makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter "
+			+ "FROM fundmaking "
+			+ "WHERE wfno=#{wfno}")
 	public FundVO projectDetailData(int wfno);
 	
 	/*

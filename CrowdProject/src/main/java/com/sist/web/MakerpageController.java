@@ -56,7 +56,7 @@ public class MakerpageController {
 		String filenames="";
 		for(MultipartFile mf:list)
 		{
-			File file = new File("C:\\springDev\\springStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\CrowdProject\\WEB-INF\\Fundimages\\"+mf.getOriginalFilename());
+			File file = new File("C:\\springDev\\springStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\CrowdProject\\Fundimages\\"+mf.getOriginalFilename());
 			try
 			{
 				mf.transferTo(file);

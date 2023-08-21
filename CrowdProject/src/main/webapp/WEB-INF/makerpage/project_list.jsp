@@ -8,7 +8,7 @@
 <style type="text/css">
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
-	height: 800px;
+	height: 1000px;
 	margin: auto 0px;
 	overflow-y: auto;
 	
@@ -17,7 +17,17 @@
 	height: 50	px;
 	margin-right: 0px;
 }
-.projectrow{
+.projectlisttable{
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 20px;
+}
+.projectlisttable tr,td,th{
+	border:none;
+}
+.rounded-image {
+  border-radius: 50%;
+  width: 50x; /* 이미지 너비 설정 */
+  height: 50px; /* 이미지 높이 설정 */
 }
 </style>
 </head>
@@ -25,17 +35,32 @@
 <div class="makerpagemainrow">
 	<div class="row projectrow">
 		<div class="col-md-4" v-for="vo in project_list" v-if="vo.rewardok==1">
-		    <div class="img-thumbnail">
-		      <a :href="'../makerpage/project_detail.do?wfno='+vo.wfno">
-		        <img :src="'../Fundimages/'+vo.mainimg" style="width:400px;height: 200px;">
-		        <div class="caption">
-		          <p>{{vo.fcname}}</p>
-		          <p>{{vo.ftitle}}</p>
-		          <p>{{vo.stropenday}}~{{vo.strendday}}</p>
-		          <p>{{vo.makername}}</p>
-		        </div>
-		      </a>
-		    </div>
+		    <table class="table projectlisttable">
+		    	<tr>
+		    		<td class="text-center" colspan="2">
+		    			<a :href="'../makerpage/project_detail.do?wfno='+vo.wfno">
+		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:600px;height: 400px;">
+		    			</a>
+		    		</td>
+		    	</tr>
+		    	<tr>
+		    		<th width="30%" class="text-end">카테고리</th>
+		    		<td width="70%" style="font-size: 15pt">{{vo.fcname}}</td>
+		    	</tr>
+		    	<tr>
+		    		<th width="30%" class="text-end">프로젝트명</th>
+		    		<td width="70%" style="font-size: 15pt">{{vo.ftitle}}</td>
+		    	</tr>
+		    	<tr>
+		    		<td colspan="2" class="text-end" style="color: #a6d8ce;font-size: 15pt">{{vo.stropenday}}~{{vo.strendday}}&nbsp;&nbsp;</td>
+		    	</tr>
+		    	<tr>
+		    		<th width="30%" class="text-end">
+		    			<img :src="'../Fundimages/'+vo.makerphoto" class="rounded-image">
+		    		</th>
+		    		<td width="70%" style="font-size: 15pt">{{vo.makername}}</td>
+		    	</tr>
+		    </table>
 	  </div>
 	  <div class="text-center">
 	  	<table class="table">

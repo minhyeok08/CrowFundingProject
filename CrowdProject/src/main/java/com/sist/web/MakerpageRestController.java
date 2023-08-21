@@ -58,6 +58,10 @@ public class MakerpageRestController {
 	public String project_detail_for_reward(int wfno) throws Exception
 	{
 		FundVO vo = dao.projectDetailData(wfno);
+		DecimalFormat df = new DecimalFormat("###,###,###");
+		int aim_mount = vo.getAim_amount();
+		String str_aim_mount= df.format(aim_mount);
+		vo.setStr_aim_mount(str_aim_mount);
 		ObjectMapper mapper = new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
@@ -66,6 +70,10 @@ public class MakerpageRestController {
 	public String project_detail_reward(int wfno) throws Exception
 	{
 		FundVO vo = dao.projectDetailData(wfno);
+		DecimalFormat df = new DecimalFormat("###,###,###");
+		int aim_mount = vo.getAim_amount();
+		String str_aim_mount= df.format(aim_mount);
+		vo.setStr_aim_mount(str_aim_mount);
 		ObjectMapper mapper = new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
