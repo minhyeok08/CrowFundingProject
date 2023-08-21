@@ -1,35 +1,39 @@
-package com.sist.dao;
+package com.sist.service;
 
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-import com.sist.mapper.AdminMapper;
+import com.sist.dao.AdminDAO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
 
-@Repository
-public class AdminDAO {
-	@Autowired
-	private AdminMapper mapper;
+@Service
+public class AdminServiceimpl implements AdminService {
 	
+	@Autowired
+	private AdminDAO dao;
+	
+	@Override
 	public List<CrowdStoreVO> crowdStoreListData(Map map) {
-		return mapper.crowdStoreListData(map);
+		return dao.crowdStoreListData(map);
 	}
 
+	@Override
 	public List<CrowdFundVO> crowdFundListData(Map map) {
-		return mapper.crowdFundListData(map);
+		return dao.crowdFundListData(map);
 	}
 	
+	@Override
 	public int storeTotalPage() {
-		return mapper.storeTotalPage();
+		return dao.storeTotalPage();
 	}
-	
+
+	@Override
 	public int fundTotalPage() {
-		return mapper.fundTotalPage();
+		return dao.fundTotalPage();
 	}
-	
+
 }
