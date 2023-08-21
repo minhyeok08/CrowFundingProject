@@ -1,5 +1,8 @@
 package com.sist.dao;
 
-public class AdminDAO {
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class AdminDAO {
+	
 }

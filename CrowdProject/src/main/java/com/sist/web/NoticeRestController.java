@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sist.dao.NoticeDAO;
+import com.sist.service.NoticeService;
 import com.sist.vo.NoticeVO;
 
 
@@ -19,7 +19,7 @@ import com.sist.vo.NoticeVO;
 public class NoticeRestController {
 	
 	@Autowired
-	private NoticeDAO dao;
+	private NoticeService service;
 
 	@GetMapping(value = "notice/notice_vue.do",produces = "text/plain;charset=UTF-8")
 	public String notice_list(String category,String page) throws Exception{
@@ -33,9 +33,9 @@ public class NoticeRestController {
 		map.put("start", start);
 		map.put("end", end);
 		
-		int totalPage=dao.boardTotalPage();
+		int totalPage=service.boardTotalPage();
 		
-		List<NoticeVO> list=dao.noticeListData(map);
+		List<NoticeVO> list=service.noticeListData(map);
 		
 	    
 	    ObjectMapper mapper = new ObjectMapper();
@@ -46,7 +46,7 @@ public class NoticeRestController {
 	
 	@GetMapping(value = "notice/detail_vue.do",produces = "text/plain;charset=UTF-8")
 	public String notice_detail(int wnno) throws Exception {
-		NoticeVO vo=dao.noticeDetailData(wnno);
+		NoticeVO vo=service.noticeDetailData(wnno);
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
