@@ -116,6 +116,38 @@ public class MakerpageRestController {
 	public String reward_list(int wfno) throws Exception
 	{
 		List<RewardVO> list = dao.rewardListData(wfno);
+		for(RewardVO vo:list)
+		{
+			DecimalFormat df = new DecimalFormat("###,###,###");
+			String strrprice= df.format(vo.getRprice())+"원";
+			vo.setStrrprice(strrprice);
+			if(vo.getDelfee()!=0)
+			{
+				String strdelfee= df.format(vo.getDelfee())+"원";
+				vo.setStrdelfee(strdelfee);
+			}
+			else
+			{
+				vo.setStrdelfee("무료배송");
+			}
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	@GetMapping(value = "makerpage/reward_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String reward_detail(int rno) throws Exception
+	{
+		RewardVO vo = dao.reward_detail(rno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "makerpage/reward_delete_vue.do",produces = "text/plain;charset=UTF-8")
+	public String reward_delete(int rno,int wfno) throws Exception
+	{
+		dao.reward_delete(rno);
+		List<RewardVO> list = dao.rewardListData(wfno);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
 		return json;

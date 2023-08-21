@@ -39,7 +39,7 @@
 		    	<tr>
 		    		<td class="text-center" colspan="2">
 		    			<a :href="'../makerpage/project_detail.do?wfno='+vo.wfno">
-		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:450px;height: 300px;">
+		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:400px;height: 300px;">
 		    			</a>
 		    		</td>
 		    	</tr>

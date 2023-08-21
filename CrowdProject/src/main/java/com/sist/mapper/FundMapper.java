@@ -1,6 +1,7 @@
 package com.sist.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -58,4 +59,10 @@ public interface FundMapper {
 	public List<RewardVO> rewardListData(int wfno);
 	@Update("UPDATE fundmaking SET makername=#{makername},makerphoto=#{makerphoto},makeremail=#{makeremail},makertel=#{makertel},makerhomepage=#{makerhomepage},makerinsta=#{makerinsta},makerfacebook=#{makerfacebook},makertwitter=#{makertwitter},fcno=#{fcno},fcname=#{fcname},ftitle=#{ftitle},fsubtitle=#{fsubtitle},aim_amount=#{aim_amount},mainimg=#{mainimg},openday=#{openday},endday=#{endday},tag=#{tag},detailimg=#{detailimg},detailcont=#{detailcont} WHERE wfno=#{wfno}")
 	public void project_update(FundVO vo);
+	@Select("SELECT wfno,rname,rprice,rcont,delfee,delstart,limitq FROM rewardmaking WHERE rno=#{rno}")
+	public RewardVO reward_detail(int rno);
+	@Update("UPDATE rewardmaking SET rname=#{rname},rprice=#{rprice},rcont=#{rcont},delfee=#{delfee},delstart=#{delstart},limitq=#{limitq} WHERE rno=#{rno}")
+	public void reward_update_ok(RewardVO vo);
+	@Delete("DELETE FROM rewardmaking WHERE rno=#{rno}")
+	public void reward_delete(int rno);
 }

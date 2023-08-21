@@ -59,7 +59,7 @@
 					<td style="font-style: bold;color: #616161"><h4>프로젝트 스토리</h4></td>
 				</tr>
 				<tr v-if="detail_data.detailcont!=null">
-					<td style="font-size: 20pt">{{detail_data.detailcont}}</td>
+					<td style="font-size: 17pt" class="text-start">{{detail_data.detailcont}}</td>
 				</tr>
 				<tr v-for="img in detailimg">
 					<td>
@@ -140,12 +140,12 @@
 								</tr>	
 								<tr>
 									<th width="30%">가격</th>
-									<td width="70%">{{vo.rprice}}</td>
+									<td width="70%">{{vo.strrprice}}</td>
 								</tr>	
 								<tr>
 									<th width="30%">배송비</th>
-									<td width="70%">{{vo.delfee}}</td>
-								</tr>	
+									<td width="70%">{{vo.strdelfee}}</td>
+								</tr>
 								<tr>
 									<th width="30%">배송시작일</th>
 									<td width="70%">{{vo.delstart}}</td>
@@ -156,8 +156,8 @@
 								</tr>
 								<tr class="text-end">
 									<td colspan="2">
-										<a href="#" class="btn btn-sm btn-warning">수정</a>
-										<a href="#" class="btn btn-sm btn-danger">삭제</a>
+										<a :href="'../makerpage/reward_update.do?rno='+vo.rno" class="btn btn-sm btn-warning">수정</a>
+										<button class="btn btn-sm btn-danger" @click="rewardDelete(vo.rno)">삭제</button>
 									</td>
 								</tr>	
 							</table>
@@ -199,6 +199,16 @@ new Vue({
 				this.reward_list=response.data
 			})
 			
+		},
+		rewardDelete:function(no){
+			axios.get("http://localhost/web/makerpage/reward_delete_vue.do",{
+				params:{
+					rno:no,
+					wfno:this.wfno
+				}
+			}).then(response=>{
+				this.reward_list=response.data
+			})
 		}
 	}
 })

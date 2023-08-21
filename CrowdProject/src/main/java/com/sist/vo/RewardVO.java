@@ -19,4 +19,5 @@ WFNO              NUMBER
 public class RewardVO {
 	private int rno,rprice,delfee,limitq,curq,wfno;
 	private String rname,rcont,delstart;
+	private String strrprice,strdelfee;
 }

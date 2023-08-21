@@ -3,6 +3,7 @@ import java.util.*;
 import com.sist.mapper.*;
 import com.sist.vo.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -85,5 +86,21 @@ public class FundDAO {
 	public void project_update(FundVO vo)
 	{
 		mapper.project_update(vo);
+	}
+	//리워드 상세정보
+//	@Select("SELECT rname,rprice,rcont,delfee,delstart,limiq FROM rewardmaking WHERE rno=#{rno}")
+	public RewardVO reward_detail(int rno)
+	{
+		return mapper.reward_detail(rno);
+	}
+//	@Update("UPDATE rewardmaking SET rname=#{rname},rprice=#{rprice},rcont=#{rcont},delfee=#{delfee},delstart=#{delstart},limitq=#{limitq} WHERE rno=#{rno}")
+	public void reward_update_ok(RewardVO vo)
+	{
+		mapper.reward_update_ok(vo);
+	}
+//	@Delete("DELETE FROM rewardmaking WHERE rno=#{rno}")
+	public void reward_delete(int rno)
+	{
+		mapper.reward_delete(rno);
 	}
 }

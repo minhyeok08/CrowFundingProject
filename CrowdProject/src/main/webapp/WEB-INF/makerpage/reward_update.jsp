@@ -16,50 +16,38 @@
 </style>
 </head>
 <body>
-<!-- 
-/*
-	    RNO      NOT NULL NUMBER         
-		RPRICE            NUMBER         
-		RNAME    NOT NULL VARCHAR2(1000) 
-		RCONT    NOT NULL CLOB           
-		DELFEE            NUMBER         
-		DELSTART          VARCHAR2(1000) 
-		LIMITQ            NUMBER         
-		CURQ              NUMBER         
-		WFNO              NUMBER     
-*/
- -->
 <div class="row makerpagemainrow">
-	<form method="post" action="../makerpage/reward_insert_ok.do">
+	<form method="post" action="../makerpage/reward_update_ok.do">
 		<table class="table">
 			<tr>
 				<th width="30%" class="text-end">리워드명</th>
 				<td width="70%">
-					<input type=text name=rname size=50 class="input-sm">
-					<input type="hidden" name=wfno value="${wfno }"> <!-- wfno전송 -->
+					<input type=text name=rname size=50 class="input-sm" :value="reward_data.rname">
+					<input type=hidden name=rno value="${rno }">
+					<input type=hidden name=wfno :value="reward_data.wfno">
 				</td> 
 			</tr>
 			<tr>
 				<th width="30%" class="text-end">리워드 내용</th>
-				<td width="70%"><input type=text name=rcont size=50 class="input-sm"></td> 
+				<td width="70%"><input type=text name=rcont size=50 class="input-sm" :value="reward_data.rcont"></td> 
 			</tr>
 			<tr>
 				<th width="30%" class="text-end">가격</th>
-				<td width="70%"><input type=text name=rprice size=50 class="input-sm"></td> 
+				<td width="70%"><input type=text name=rprice size=50 class="input-sm" :value="reward_data.rprice"></td> 
 			</tr>
 			<tr>
 				<th width="30%" class="text-end">배송비</th>
 				<td width="70%">
-					<input type="text" name="delfee" size="5">
+					<input type="text" name="delfee" size="5" :value="reward_data.delfee">
 				</td>
 			</tr>
 			<tr>
 				<th width="30%" class="text-end">배송시작 정보</th>
-				<td width="70%"><input type=text name=delstart size=50 class="input-sm"></td> 
+				<td width="70%"><input type=text name=delstart size=50 class="input-sm" :value="reward_data.delstart"></td> 
 			</tr>
 			<tr>
 				<th width="30%" class="text-end">한정 수량</th>
-				<td width="70%"><input type=text name=limitq size=50 class="input-sm"></td> 
+				<td width="70%"><input type=text name=limitq size=50 class="input-sm" :value="reward_data.limitq"></td> 
 			</tr>
 			<tr>
 				<td colspan="2" class="text-center">
@@ -71,6 +59,23 @@
 		</table>
 	</form>
 </div>
-
+<script>
+	new Vue({
+		el:'.makerpagemainrow',
+		data:{
+			rno:${rno},
+			reward_data:{}
+		},
+		mounted:function(){
+			axios.get("http://localhost/web/makerpage/reward_detail_vue.do",{
+				params:{
+					rno:this.rno
+				}
+			}).then(response=>{
+				this.reward_data=response.data
+			})
+		}
+	})
+</script>
 </body>
 </html>
