@@ -25,4 +25,10 @@ public interface MemberMapper {
 	
 	//<update id="AuthStatusUpdate" parameterType="hashMap">
 	public void AuthStatusUpdate(Map map);
+	
+	//<select id="memberFindID" resultType="String" parameterType="String">
+	public String memberFindID(String email);
+	
+	//<update id="pwdUpdate" parameterType="hashmap" >
+	public void pwdUpdate(Map map);
 }

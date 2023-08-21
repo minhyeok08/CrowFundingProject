@@ -48,4 +48,14 @@ public class MemberServiceImpl implements MemberService{
 		dao.AuthStatusUpdate(map);
 	}
 
+	@Override
+	public String memberFindID(String email) {
+		return dao.memberFindID(email);
+	}
+
+	@Override
+	public void pwdUpdate(Map map) {
+		dao.pwdUpdate(map);
+	}
+
 }

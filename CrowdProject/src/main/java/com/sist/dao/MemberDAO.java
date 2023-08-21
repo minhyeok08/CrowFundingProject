@@ -39,4 +39,12 @@ public class MemberDAO {
 	public void AuthStatusUpdate(Map map) {
 		mapper.AuthStatusUpdate(map);
 	}
+	
+	public String memberFindID(String email) {
+		return mapper.memberFindID(email);
+	}
+	
+	public void pwdUpdate(Map map) {
+		mapper.pwdUpdate(map);
+	}
 }

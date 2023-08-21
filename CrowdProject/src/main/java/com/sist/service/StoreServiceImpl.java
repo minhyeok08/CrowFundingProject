@@ -18,6 +18,6 @@ public class StoreServiceImpl implements StoreService{
 	public List<StoreVO> storeListData(Map map) {
 		return dao.storeListData(map);
 	}
-	
-	
+
 }
+

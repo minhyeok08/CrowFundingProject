@@ -78,30 +78,30 @@ input::placeholder{
 	  	</div>
 			<div class="mb-3">
         <label for="password" class="form-label">비밀번호</label>
-        <input type="password" class="form-control" id="password" v-model="password" required>
+        <input type="password" class="form-control" id="password" v-model="password" ref="password">
         <small id="passwordHelp" class="form-text" :class="passwordHelpClass">
             {{ passwordMessage }}
         </small>
        </div>
        <div class="mb-3">
         <label for="confirmPassword" class="form-label">비밀번호 확인</label>
-        <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword" required>
+        <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword" ref="confirmPassword">
         <small id="confirmPasswordHelp" class="form-text" :class="confirmPasswordHelpClass">
             {{ confirmPasswordMessage }}
         </small>
        </div>
 			<div class="mb-3">
 			  <label for="name" class="form-label">이름</label>
-			  <input type="text" class="form-control" :ref="name" id="name" v-model="name" required>
+			  <input type="text" class="form-control" ref="name" id="name" v-model="name">
 			</div>
 			<div class="mb-3">
 			  <label for="nickname" class="form-label">닉네임</label>
-			  <input type="text" class="form-control" :ref="nickname" id="nickname" v-model="nickname" required>
+			  <input type="text" class="form-control" ref="nickname" id="nickname" v-model="nickname">
 			</div>
 			<div class="mb-3" >
 			  <label style="margin-bottom: 10px;">성별</label><br>
 			  <label for="male" class="form-check-label">남성</label>
-			  <input type="radio"  id="male" value="남성" name="sex" v-model="sex" class="form-check-input">
+			  <input type="radio"  id="male" value="남성" name="sex" v-model="sex" class="form-check-input" ref="sex">
 			  <label for="female" style="margin-left: 20px;" class="form-check-label">여성</label>
 			  <input type="radio" id="female" value="여성" name="sex" v-model="sex" class="form-check-input">
 			</div>
@@ -159,7 +159,7 @@ input::placeholder{
 			  <input type="text" class="form-control" id="content" style="width: 400px;height: 150px;" v-model="content" required>
 			</div>
 			<div class="parentContainer mt-3 mb-4">
-			  <button class="btn btn-outline joinBtn" @click="memberJoin">회원가입</button>
+			  <button class="btn btn-outline joinBtn" @click="memberJoin" :disabled="isDisabled">회원가입</button>
 			</div>
 	</div>
 </div>
@@ -197,7 +197,8 @@ new Vue({
       phoneReadOnly:false,
       birthYear:"",
       birthMonth:"",
-      birthDay:""
+      birthDay:"",
+      isDisabled:false
     },
     mounted(){
         // 출생연도 selectBox option에 목록 동적 생성
@@ -417,22 +418,67 @@ new Vue({
 	    	 },
 	    	 // 회원가입
 	    	 memberJoin:function(){
+	    		 this.isDisabled=true
 	    		 if(!this.idChecked){
 	    			 alert("아이디 중복검사를 진행해주세요.")
-	    			 this.id='';
+	    			 this.isDisabled=false
 	    			 return;
-	    		 } if(this.name===""){
+	    		 }
+	    		 if(this.password.trim()===""){
+	    			 alert("비밀번호를 입력해주세요")
+	    			 this.isDisabled=false
+	    			 this.$refs.password.focus()
+	    			 return;
+	    		 }
+	    		 if(this.passwordMessage !== "비밀번호가 유효합니다."){
+	    			 alert("유효하지 않은 비밀번호 입니다.")
+	    			 this.$refs.password.focus()
+	    			 return;
+	    		 }
+	    		 if(this.password!==this.confirmPassword || this.confirmPassword===""){
+	    			 alert("비밀번호 확인을 진행해주세요")
+	    			 this.isDisabled=false
+	    			 this.$refs.confirmPassword.focus()
+	    			 return;
+	    		 }
+	    		 if(this.name===""){
 	    			 alert("이름을 입력해주세요.")
+	    			 this.isDisabled=false
 	    			 this.$refs.name.focus()
 	    			 return;
-	    		 } if(this.nickname===""){
+	    		 } 
+	    		 if(this.nickname===""){
 	    			 alert("닉네임을 입력해주세요.")
+	    			 this.isDisabled=false
 	    			 this.$refs.nickname.focus()
 	    			 return;
-	    		 } if (!this.emailChecked){
+	    		 } 
+	    		 if(this.sex===""){
+	    			 alert("성별을 선택해주세요.")
+	    			 this.isDisabled=false
+	    			 this.$refs.sex.focus()
+	    			 return;
+	    		 }
+	    		 if(this.birthYear==="" || this.birthMonth==="" || this.birthDay===""){
+	    			 alert("생년월일을 선택해주세요")
+	    			 this.isDisabled=false
+	    			 return;
+	    		 }
+	    		 if (!this.emailChecked){
 	    			 alert("이메일 중복검사를 진행해주세요.")
-	    		 } if (!this.phoneChecked){
+	    			 this.isDisabled=false
+	    			 return;
+	    		 } 
+	    		 if(this.post==="" || this.addr1===""){
+	    			 alert("주소검색을 진행해주세요")
+	    			 this.isDisabled=false
+	    			 this.$refs.post.focus()
+	    			 return;
+	    		 }
+	    		 if (!this.phoneChecked){
 	    			 alert("연락처 중복검사를 진행해주세요.")
+	    			 this.isDisabled=false
+	    			 return;
 	    		 } 
 	    		 axios.post('../member/join.do',null,{
 	    			 params:{
@@ -454,6 +500,8 @@ new Vue({
 	    			 let res=response.data;
 	    			 if(res==='no'){
 	    				 alert("회원가입 실패");
+	    				 this.isDisabled=false
+	    				 return;
 	    			 } else {
 	    				 location.href="../member/join_temp.do";
 	    			 }

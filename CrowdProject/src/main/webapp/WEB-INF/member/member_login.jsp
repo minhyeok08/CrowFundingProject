@@ -47,6 +47,9 @@
 	  		<a href="../member/member_join.do">회원가입</a>
 	  	</div>
 	  	<div class="mb-3">
+	  		<a href="../member/id_pwd_find.do">아이디/비밀번호 찾기</a>
+	  	</div>
+	  	<div class="mb-3">
 	  		<button type="button" class="btn btn-outline loginBtn" value="로그인" @click="memberLogin">로그인</button>
 	  	</div>
 		</div>
@@ -96,23 +99,25 @@ new Vue({
 							id:this.id,
 							pwd:this.pwd
 						}
-					}).then((response)=>{
+					}).then(response=>{
 						console.log(response.data)
 						let res=response.data
 						if(res.msg==='noid'){
 							this.idCheckMessage="아이디가 존재하지 않습니다."
 							this.idHelpClass="form-text text-danger"
 							this.$refs.id.focus()
+							return;
 						} else if(res.msg==='nopwd'){
 							this.pwdCheckMessage="비밀번호가 틀립니다."
 							this.pwdHelpClass="form-text text-danger"
 							this.$refs.pwd.focus()
+							return;
 						} else if(res.msg==='emailNotVerified'){
 							this.pwdCheckMessage="이메일 인증이 필요합니다."
 							this.pwdHelpClass="form-text text-danger"
 							this.$refs.pwd.focus()
-						} 
-						else {
+							return;
+						} else {
 							location.href="../main/main.do";
 						}
 					}).catch((error)=>{

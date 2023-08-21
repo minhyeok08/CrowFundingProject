@@ -19,4 +19,8 @@ public interface MemberService {
 	public void authKeyUpdate(Map map);
 	
 	public void AuthStatusUpdate(Map map);
+	
+	public String memberFindID(String email);
+	
+	public void pwdUpdate(Map map);
 }

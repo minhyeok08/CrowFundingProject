@@ -26,4 +26,10 @@
 	update wadiz_member set authstatus=1
 	WHERE email=#{email} AND authkey=#{authkey}
 	</update>
+	<select id="memberFindID" resultType="String" parameterType="String">
+	SELECT CONCAT(SUBSTR(id, 1, 4), RPAD('*', LENGTH(id) - 4, '*')) FROM wadiz_member WHERE email=#{email}
+	</select>
+	<update id="pwdUpdate" parameterType="hashmap" >
+	update wadiz_member set pwd=#{pwd} where email=#{email}
+	</update>
 </mapper>
