@@ -41,7 +41,7 @@
 			</div>
 			<div class="col-lg-4">
 				<div class="row">
-					<p>'#'{{fund_detail.tag}}</p>
+					<p><strong>'#'{{fund_detail.tag}}</strong></p>
 				</div>
 				<hr>
 				<div class="row">
@@ -58,21 +58,25 @@
 					<div v-for="vo in fund_reward">
 						<div class="thumbnail" style="width: 260px;">
 							<div class="caption">
-								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{vo.limitq}}</p>
+								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{vo.rprice}}원</p>
 								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{vo.rname}}</p>
+								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{vo.rcont}}</p>
+								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">배송비 : {{vo.delfee}}원</p>
+								<hr>
+								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">배송시작일 : {{vo.delstart}}</p>	
+								<hr>
+								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{vo.limitq}}개 남음</p>	
+								<hr>
+								<hr>
 							</div>	
 						</div>
 					</div>
-				</div>
+				</div>				
 				<div class="row">
-					<div v-for="vo in fund_reward">
-						<div class="thumbnail" style="width: 260px;">
-								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{vo.rcont}}</p>
-								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{vo.delstart}}</p>
-						</div>
-					</div>
+					<button>찜</button>
+					<button>지지</button>
+					<a :href="'../fund/fund_choice.do?wfno='+wfno" class="button">구매하기</a>
 				</div>
-				
 			</div>
 		</div>
 	</div>
