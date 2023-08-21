@@ -30,7 +30,7 @@ public interface FundMapper {
 	@Select("SELECT CEIL(COUNT(*)/6.0) FROM fundmaking WHERE id=#{id} AND rewardok=1")
 	public int projectrewardOkTotalpage(String id);
 	// 프로젝트 상세=> 리워드 등록 안된 거 => 리워드 등록이 필요함 
-	@Select("SELECT wfno,mainimg,detailimg,detailcont,fcname,tag,ftitle,fsubtitle,aim_amount,"
+	@Select("SELECT wfno,mainimg,detailimg,detailcont,fcno,fcname,tag,ftitle,fsubtitle,aim_amount,"
 			+ "makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter "
 			+ "FROM fundmaking "
 			+ "WHERE wfno=#{wfno}")
@@ -56,4 +56,6 @@ public interface FundMapper {
 	public void rewardInsertData(RewardVO vo);
 	@Select("SELECT rno,rname,rprice,rcont,delfee,delstart,limitq FROM rewardmaking WHERE wfno=#{wfno}")
 	public List<RewardVO> rewardListData(int wfno);
+	@Update("UPDATE fundmaking SET makername=#{makername},makerphoto=#{makerphoto},makeremail=#{makeremail},makertel=#{makertel},makerhomepage=#{makerhomepage},makerinsta=#{makerinsta},makerfacebook=#{makerfacebook},makertwitter=#{makertwitter},fcno=#{fcno},fcname=#{fcname},ftitle=#{ftitle},fsubtitle=#{fsubtitle},aim_amount=#{aim_amount},mainimg=#{mainimg},openday=#{openday},endday=#{endday},tag=#{tag},detailimg=#{detailimg},detailcont=#{detailcont} WHERE wfno=#{wfno}")
+	public void project_update(FundVO vo);
 }

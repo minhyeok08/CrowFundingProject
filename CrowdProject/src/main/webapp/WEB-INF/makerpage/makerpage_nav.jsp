@@ -28,7 +28,7 @@ $(function(){
 <style type="text/css">
 .makerpagenavrow{
 	background-color: #a6d8ce;
-	height:1000px; 
+	height:900px; 
 }
 .projectMn{
 	display: none;

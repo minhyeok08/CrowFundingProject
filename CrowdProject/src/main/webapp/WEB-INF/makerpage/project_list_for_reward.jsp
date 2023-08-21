@@ -8,7 +8,7 @@
 <style type="text/css">
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
-	height: 1000px;
+	height: 900px;
 	margin: auto 0px;
 	overflow-y: auto;
 	
@@ -49,7 +49,7 @@
 		    	<tr>
 		    		<td class="text-center" colspan="2">
 		    			<a :href="'../makerpage/project_detail_for_reward.do?wfno='+vo.wfno">
-		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:600px;height: 400px;">
+		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:450px;height: 300px;">
 		    			</a>
 		    		</td>
 		    	</tr>

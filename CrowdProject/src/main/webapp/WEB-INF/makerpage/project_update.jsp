@@ -8,7 +8,7 @@
 <style type="text/css">
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
-	height: 1000px; 
+	height: 900px; 
 	overflow-y:auto; 
 }
 .fundinsert{
@@ -40,7 +40,7 @@ $(function(){
 </head>
 <body>
 	<div class="row makerpagemainrow">
-		<form method="post" action="#" enctype="multipart/form-data">	
+		<form method="post" action="../makerpage/project_update_ok.do" enctype="multipart/form-data">	
 			<table class="table fundinsert">
 				<tr>
 					<th width="30%" class="text-end">메이커명</th>
@@ -56,27 +56,27 @@ $(function(){
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">문의메일</th>
-					<td width="70%"><input type=text name=makeremail size=50 class="input-sm"></td> 
+					<td width="70%"><input type=text name=makeremail size=50 class="input-sm" :value="detail_data.makeremail"></td> 
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">문의번호</th>
-					<td width="70%"><input type=text name=makertel size=50 class="input-sm"></td> 
+					<td width="70%"><input type=text name=makertel size=50 class="input-sm" :value="detail_data.makertel"></td> 
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">홈페이지</th>
-					<td width="70%"><input type=text name=makerhomepage size=50 class="input-sm"></td> 
+					<td width="70%"><input type=text name=makerhomepage size=50 class="input-sm" :value="detail_data.makerhomepage"></td> 
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">instagram</th>
-					<td width="70%"><input type=text name=makerinsta size=50 class="input-sm"></td> 
+					<td width="70%"><input type=text name=makerinsta size=50 class="input-sm" :value="detail_data.makerinsta"></td> 
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">facebook</th>
-					<td width="70%"><input type=text name=makerfacebook size=50 class="input-sm"></td> 
+					<td width="70%"><input type=text name=makerfacebook size=50 class="input-sm" :value="detail_data.makerfacebook"></td> 
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">twitter</th>
-					<td width="70%"><input type=text name=makertwitter size=50 class="input-sm"></td> 
+					<td width="70%"><input type=text name=makertwitter size=50 class="input-sm" :value="detail_data.makertwitter"></td> 
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">카테고리</th>
@@ -84,7 +84,7 @@ $(function(){
 						<select id="category" name="fcno" style="width: 408px">
 							<option value="1">테크·가전</option>
 							<option value="2">패션·잡화</option>
-							<option value="3">홈·리빙</option>
+							<option :value="3" >홈·리빙</option>
 							<option value="4">뷰티</option>
 							<option value="5">푸드</option>
 							<option value="6">출판</option>
@@ -107,7 +107,7 @@ $(function(){
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">목표금액</th>
-					<td width="70%"><input type=text name=aim_amount size=50 class="input-sm"></td> 
+					<td width="70%"><input type=text name=aim_amount size=50 class="input-sm" :value="detail_data.aim_amount"></td> 
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">대표사진</th>
@@ -124,13 +124,13 @@ $(function(){
 				<tr>
 					<th width="30%" class="text-end">검색 태그</th>
 					<td width="70%">
-					<input type=text name=tag size=50 class="input-sm" placeholder="#태그">
+					<input type=text name=tag size=50 class="input-sm" :value="detail_data.tag">
 					</td>
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">스토리 소개</th>
 					<td width="70%">
-						<textarea cols="50" rows="5" name="fsubtitle">스토리 간단 소개</textarea>
+						<textarea cols="50" rows="5" name="fsubtitle">{{detail_data.fsubtitle}}</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -157,7 +157,7 @@ $(function(){
 				<tr>
 					<th width="30%" class="text-end">설명</th>
 					<td width="70%">
-						<textarea cols="50" rows="5" name="detailcont"></textarea>
+						<textarea cols="50" rows="5" name="detailcont">{{detail_data.detailcont}}</textarea>
 					</td>
 				</tr>
 				<tr>

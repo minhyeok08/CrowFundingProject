@@ -8,7 +8,7 @@
 <style type="text/css">
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
-	height: 1000px;
+	height: 900px;
 	margin: auto 0px;
 	overflow-y: auto;
 	
