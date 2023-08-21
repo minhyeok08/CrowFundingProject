@@ -20,5 +20,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/sist/mapper/fund-mapper.xml"/>
 		<mapper resource="com/sist/mapper/store-mapper.xml"/>
 		<mapper resource="com/sist/mapper/admin-mapper.xml"/>
+		<mapper resource="com/sist/mapper/mypage-mapper.xml"/>
 	</mappers>
 </configuration>
