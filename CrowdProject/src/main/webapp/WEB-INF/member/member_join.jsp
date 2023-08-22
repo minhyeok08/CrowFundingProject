@@ -156,7 +156,7 @@ input::placeholder{
 			</div>
 			<div class="mb-3">
 			  <label for="content" class="form-label">소개</label>
-			  <input type="text" class="form-control" id="content" style="width: 400px;height: 150px;" v-model="content" required>
+			  <textarea class="form-control" rows="5" cols="55" id="content" v-model="content" required></textarea>
 			</div>
 			<div class="parentContainer mt-3 mb-4">
 			  <button class="btn btn-outline joinBtn" @click="memberJoin" :disabled="isDisabled">회원가입</button>
@@ -432,6 +432,7 @@ new Vue({
 	    		 }
 	    		 if(this.passwordMessage !== "비밀번호가 유효합니다."){
 	    			 alert("유효하지 않은 비밀번호 입니다.")
+	    			 this.isDisabled=false
 	    			 this.$refs.password.focus()
 	    			 return;
 	    		 }
