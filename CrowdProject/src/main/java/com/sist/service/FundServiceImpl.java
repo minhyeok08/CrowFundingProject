@@ -24,5 +24,12 @@ public class FundServiceImpl implements FundService {
 	public List<FundRewardVO> fundRewardList(int wfno) {
 		return dao.fundRewardList(wfno);
 	}
+
+	@Override
+	public FundRewardVO fundBuyData(int rno) {
+		return dao.fundBuyData(rno);
+	}
+
+	
 	
 }

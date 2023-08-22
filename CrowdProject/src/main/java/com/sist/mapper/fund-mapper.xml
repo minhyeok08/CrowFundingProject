@@ -60,4 +60,5 @@
 	  	FROM wadiz_funding_reward r,wadiz_fund_detail d
 	  	WHERE d.wfno=#{wfno} and r.wfno=d.wfno
   	</select>
+  	
  </mapper>

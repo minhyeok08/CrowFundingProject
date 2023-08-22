@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class FundRewardVO {
 	private int rno,wfno,rprice,delfee,limitq,curq;
-	private String rname,rcont,delstart;
+	private String rname,rcont,delstart,strRprice;
 }

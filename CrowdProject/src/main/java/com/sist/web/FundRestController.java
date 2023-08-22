@@ -45,6 +45,7 @@ public class FundRestController {
 		return json;
 	}
 	
+	
 	@GetMapping(value="fund/fund_reward_vue.do",produces = "text/plain;charset=UTF-8")
 	public String fundRewardList(int wfno) throws Exception
 	{

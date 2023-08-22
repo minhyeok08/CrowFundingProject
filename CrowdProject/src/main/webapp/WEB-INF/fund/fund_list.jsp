@@ -369,7 +369,7 @@ ul, li {
 		    </div>
 		<div class="col-lg-12 wlist">
 			<div class="row">
-				<h2 style="margin: 20px 0px 20px 0px;">펀딩 + 리스트</h2>
+				<h2 style="margin: 20px 0px 20px 0px;"></h2>
 				<div class="col-md-4" v-for="vo in fund_list">
 					<div class="thumbnail" style="width: 260px;">
 						<a :href="'../fund/fund_detail.do?wfno='+vo.wfno"> <img

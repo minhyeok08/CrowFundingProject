@@ -145,4 +145,11 @@ public class FundDAO {
 	{
 		return mapper.makerNewsDetailData(no);
 	}
+	
+	/*@Select("SELECT * FROM wadiz_funding_reward "
+			+ "WHERE rno=#{rno}")*/
+	public FundRewardVO fundBuyData(int rno)
+	{
+		return mapper.fundBuyData(rno);
+	}
 }
