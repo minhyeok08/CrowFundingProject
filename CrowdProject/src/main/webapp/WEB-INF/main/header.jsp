@@ -31,10 +31,9 @@
 /* 검색 아이콘을 absolute position으로 설정하여 input 요소에 상대적으로 위치하도록 합니다. */
 #searchIcon {
 	position: absolute;
-	right: 10px; /* 아이콘의 오른쪽 여백을 조정할 수 있습니다. */
+	right: 20px; /* 아이콘의 오른쪽 여백을 조정할 수 있습니다. */
 	top: 50%; /* 아이콘을 수직 중앙에 배치하기 위해 필요한 부분입니다. */
 	transform: translateY(-50%); /* 아이콘을 수직 중앙에 배치하기 위해 필요한 부분입니다. */
-	pointer-events: none; /* 아이콘은 클릭 이벤트를 받지 않도록 합니다. */
 	color: #a6d8ce;
 }
 
@@ -80,6 +79,19 @@
 .search-options ul li:last-child {
     border-bottom: none;
 }
+.search-options input[type="radio"] {
+    display: none;
+}
+
+.search-options label.radio-label {
+    cursor: pointer;
+}
+#searchButton {
+    background-color: transparent; /* 버튼 배경 투명하게 설정 */
+    border: none; /* 버튼 테두리 없애기 */
+    cursor: pointer; /* 마우스 커서 모양 변경 */
+    padding: 0; /* 내부 패딩 제거 */
+}
 .btn-login, .btn-logout {
 	border:2px solid #a6d8ce;
 	color:#a6d8ce;
@@ -116,11 +128,17 @@ document.addEventListener("click", function(event) {
         searchOptions.style.display = "none";
     }
 });
+
+function setSelectedCategory(category) {
+	var selectedCategoryInput = document.getElementById("selectedCategory");
+    selectedCategoryInput.value = category;
+    document.querySelector("form").submit();
+}
 </script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm bg-white fixed-top">
-		<div class="container-fluid">
+		<div class="container-fluid" id="header">
 			<a class="navbar-brand" href="../main/main.do"><img src="../images/crowd-logo.png" style="width:100px; height:auto;"></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -143,11 +161,13 @@ document.addEventListener("click", function(event) {
 				</ul>
 				<form method="get" action="../search/search.do">
 					<div class="search">
-			            <input id="searchInput" type="text" class=""
+			            <input id="searchInput" type="text"
 			                placeholder="새로운 일상이 필요하신가요?"
 			                onclick="showSearchOptions()"
 			                name="keyword">
-			            <i id="searchIcon" class="fa-solid fa-search"></i>
+			            <button type="submit" id="searchButton">
+			            	<i id="searchIcon" class="fa-solid fa-search fa-xl"></i>
+			            </button>
 			        </div>
 			        <div id="searchOptions" class="search-options">
 			        	<div class="row">
@@ -161,28 +181,100 @@ document.addEventListener("click", function(event) {
 				            </div>
 				            <div class="col-md-6">
 				            	<h4 style="color:gray">카테고리</h4>
+				            	<input type="hidden" id="selectedCategory" name="category" value="${param.category}">
 					            <ul>
-					                <li>캐릭터·굿즈</li>
-					                <li>홈·리빙</li>
-					                <li>여행·숙박</li>
-					                <li>푸드</li>
-					                <li>뷰티</li>
-					                <li>레저·아웃도어</li>
-					                <li>반려동물</li>
-					                <li>패션·잡화</li>
-					                <li>테크·가전</li>
-					                <li>출판</li>
-					                <li>게임·취미</li>
-					                <li>스포츠·모빌리티</li>
-					                <li>베이비·키즈</li>
-					                <li>컬쳐·아티스트</li>
-					            </ul>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="charGoods" value="캐릭터·굿즈" onclick="setSelectedCategory('캐릭터·굿즈')">
+								            캐릭터·굿즈
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="homeLiving" value="홈·리빙" onclick="setSelectedCategory('홈·리빙')">
+								            홈·리빙
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="travelAccommodation" value="여행·숙박" onclick="setSelectedCategory('여행·숙박')">
+								            여행·숙박
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="food" value="푸드" onclick="setSelectedCategory('푸드')">
+								            푸드
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="beauty" value="뷰티" onclick="setSelectedCategory('뷰티')">
+								            뷰티
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="leisureOutdoor" value="레저·아웃도어" onclick="setSelectedCategory('레저·아웃도어')">
+								            레저·아웃도어
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="pet" value="반려동물" onclick="setSelectedCategory('반려동물')">
+								            반려동물
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="fashionAccessories" value="패션·잡화" onclick="setSelectedCategory('패션·잡화')">
+								            패션·잡화
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="techAppliances" value="테크·가전" onclick="setSelectedCategory('테크·가전')">
+								            테크·가전
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="publishing" value="출판" onclick="setSelectedCategory('출판')">
+								            출판
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="gameHobby" value="게임·취미" onclick="setSelectedCategory('게임·취미')">
+								            게임·취미
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="sportsMobility" value="스포츠·모빌리티" onclick="setSelectedCategory('스포츠·모빌리티')">
+								            스포츠·모빌리티
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="babyKids" value="베이비·키즈" onclick="setSelectedCategory('베이비·키즈')">
+								            베이비·키즈
+								        </label>
+								    </li>
+								    <li>
+								        <label class="radio-label">
+								            <input type="radio" id="cultureArtist" value="컬쳐·아티스트" onclick="setSelectedCategory('컬쳐·아티스트')">
+								            컬쳐·아티스트
+								        </label>
+								    </li>
+								</ul>
 				            </div>
 			            </div>
 			        </div>
 				</form>
 				<c:if test="${sessionScope.id==null }">
 					<a href="../member/member_login.do" class="btn btn-outline-info btn-login">로그인</a>
+					<a href="../member/member_login.do" class="btn btn-project">프로젝트 만들기</a>
 				</c:if>
 				<c:if test="${sessionScope.id!=null }">
 					<a href="../member/member_logout.do" class="btn btn-outline-info btn-login">로그아웃</a>

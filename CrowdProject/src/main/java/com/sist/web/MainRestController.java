@@ -13,8 +13,6 @@ import com.sist.dao.*;
 public class MainRestController {
 	@Autowired
 	private MainService service;
-	@Autowired
-	private MainDAO dao;
 	
 	@GetMapping(value = "main/store_list_vue.do", produces = "text/plain;charset=UTF-8")
 	public String crowdStoreListData() throws Exception {

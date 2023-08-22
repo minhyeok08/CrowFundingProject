@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.SearchMapper">
+	<!-- 상품 검색 -->
+	<select id="searchStoreListData" resultType="StoreVO" parameterType="hashmap">
+		SELECT wsno, main_poster, goods_title, score, maker_name, price, num
+		FROM ( SELECT wsno, main_poster, goods_title, score, maker_name, price, rownum as num
+		    FROM ( SELECT wsno, main_poster, goods_title, score, maker_name, price
+		        FROM wadiz_store_detail
+		        <if test="category != '' || keyword != ''">
+		        	WHERE
+		            <if test="category != ''">
+		                scname = #{category}
+		            </if>
+		            <if test="keyword != ''">
+		            	<if test="category != ''">
+		            		AND
+		            	</if>
+		                goods_title LIKE '%' || #{keyword} || '%'
+		            </if>
+		        </if>
+		        ORDER BY wsno ASC
+		    )
+		)
+	</select>
+	
+	<!-- 펀딩 검색 -->
+	<select id="searchFundListData" resultType="FundVO" parameterType="hashmap">
+		SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, TO_CHAR(openday, 'yyyy-mm-dd') as stropenday, TO_CHAR(endday, 'yyyy-mm-dd') as strendday, aim_amount, num
+		FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, rownum AS num
+		    FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount
+		        FROM WADIZ_FUND_DETAIL
+		        <if test="category != '' || keyword != ''">
+		        	WHERE
+		            <if test="category != ''">
+		                fcname = #{category}
+		            </if>
+		            <if test="keyword != ''">
+		            	<if test="category != ''">
+		            		AND
+		            	</if>
+		                ftitle LIKE '%' || #{keyword} || '%'
+		                OR tag LIKE '%' || #{keyword} || '%'
+		            </if>
+		        </if>
+		        ORDER BY wfno ASC
+		    )
+		)
+	</select>
+</mapper>

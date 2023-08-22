@@ -73,7 +73,7 @@ td {
 							<div class="caption">
 								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{svo.goods_title}}</p>
 								<p style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-									<strong style="color:#a6d8ce">{{svo.price}}</strong>&nbsp;원&nbsp;
+									<strong style="color:#a6d8ce">{{svo.price | numberWithCommas}}</strong>&nbsp;원&nbsp;
 									<span style="color:orange">{{svo.score}}</span>
 									<span style="text-align:right; margin-left: auto; margin-right:10px;">{{svo.maker_name}}</span>
 								</p>
@@ -162,7 +162,13 @@ td {
 					this.curpage = this.endPage+1
 					this.send()
 				} */
-			}
+			},
+			filters: {
+		        numberWithCommas: function (value) {
+		            // 숫자에 쉼표 추가 함수 정의
+		            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		        }
+		    },
 		})
 	</script>
 </body>
