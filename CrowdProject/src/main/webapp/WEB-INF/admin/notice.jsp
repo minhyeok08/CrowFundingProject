@@ -63,11 +63,31 @@
      background-color: #a6d8ce;
      border-color: #a6d8ce;
  }
+.btn-custom {
+    background-color: transparent; 
+    border-color: #00b2b2; 
+    color: #00b2b2; 
+    transition: background-color 0.3s;
+   	font-size: 14px;
+}
+.btn-custom:hover {
+    background-color: rgb(234, 248, 249); 
+    border-color: #00b2b2; 
+    color: #00b2b2;
+}
+.table-container {
+  position: relative;
+}
+
+.btn-container {
+  position: absolute;
+}
 </style>
 </head>
 <body>
 	<div style="height: 40px;"></div>
 	<div class="adminContainer">
+		<div class="table-container">
 		<table class="table" id="member_table">
 		<thead>
 			<tr style="border-bottom: 1px solid gray;">
@@ -81,20 +101,19 @@
 		</thead>
 		<tbody>
 			<tr v-for="vo in notice_list">
-				<td class="text-center">{{vo.subject}}</td>
+				<td>&nbsp;&nbsp;{{vo.subject}}</td>
 				<td class="text-center">{{vo.writer}}</td>
 				<td class="text-center">{{vo.dbday}}</td>
 				<td class="text-center">{{vo.category}}</td>
 				<td class="text-center">{{vo.hit}}</td>
 				<td class="text-center">{{vo.state}}</td>
 			</tr>
-			<tr>
-				<td class="text-right">
-					<a href="#" class="btn bt"></a>
-				</td>
-			</tr>
 		</tbody>
 	</table>
+	<div class="btn-container">
+      <a href="../admin/notice_insert.do" class="btn btn-custom">등록</a>
+    </div>
+  </div>
 	<div class="pagination-container">
 		<nav aria-label="Page navigation">
 		    <ul class="pagination justify-content-center">

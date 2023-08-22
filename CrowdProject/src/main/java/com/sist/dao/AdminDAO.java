@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.AdminMapper;
+import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
 import com.sist.vo.MemberVO;
@@ -45,5 +46,21 @@ public class AdminDAO {
 	}
 	public int noticeTotalPage() {
 		return mapper.noticeTotalPage();
+	}
+	
+	public int qnaTotalPage() {
+		return mapper.qnaTotalPage();
+	}
+
+	public List<AdminqnaVO> qnaListData(Map map){
+		return mapper.qnaListData(map);
+	}
+	
+	public MemberVO supDetailData(String id) {
+		return mapper.supDetailData(id);
+	}
+	
+	public void supUpdate(MemberVO vo) {
+		mapper.supUpdate(vo);
 	}
 }

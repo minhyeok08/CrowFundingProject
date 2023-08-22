@@ -8,7 +8,7 @@
 <style type="text/css">
 .adminContainer{
 	margin: 0px auto;
-	width: 90%;
+	width: 70%;
 }
 #member_table > thaed {
 	font-size: 11pt;
@@ -71,23 +71,18 @@
 		<table class="table" id="member_table">
 		<thead>
 			<tr style="border-bottom: 1px solid gray;">
+				<th class="text-center">아이디</th>
 				<th class="text-center">제목</th>
-				<th class="text-center">id</th>
 				<th class="text-center">작성일</th>
 				<th class="text-center">답변상태</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr v-for="vo in qna_list">
-				<td class="text-center">{{vo.subject}}</td>
 				<td class="text-center">{{vo.id}}</td>
+				<td class="text-center">{{vo.subject}}</td>
 				<td class="text-center">{{vo.dbday}}</td>
 				<td class="text-center">{{vo.state}}</td>
-			</tr>
-			<tr>
-				<td class="text-right">
-					<a href="#" class="btn bt"></a>
-				</td>
 			</tr>
 		</tbody>
 	</table>

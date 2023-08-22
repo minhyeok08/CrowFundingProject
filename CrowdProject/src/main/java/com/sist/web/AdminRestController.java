@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.AdminService;
+import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
 import com.sist.vo.MemberVO;
@@ -198,4 +199,54 @@ public class AdminRestController {
 		
 		return json;
 	}
+	
+	
+	@GetMapping(value = "admin/qna_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String qna_list_vue(int page) throws Exception {
+		Map map=new HashMap();
+		int rowSize=10;
+		int start=(rowSize*page)-(rowSize-1);
+		int end=rowSize*page;
+		map.put("start", start);
+		map.put("end", end);
+		List<AdminqnaVO> list=service.qnaListData(map);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "admin/qna_page_vue.do",produces = "text/plain;charset=UTF-8")
+	public String qna_page_list(int page) throws Exception {
+		
+		int totalpage=service.qnaTotalPage();
+		
+		final int BLOCK=10;
+		
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage) {
+			endPage=totalpage;
+		}
+		PageVO vo=new PageVO();
+		vo.setCurpage(page);
+		vo.setStartPage(startPage);
+		vo.setEndPage(endPage);
+		vo.setTotalpage(totalpage);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "admin/sup_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String sup_detail_vue(String id) throws Exception {
+		MemberVO vo=service.supDetailData(id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	
 }

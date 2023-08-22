@@ -10,7 +10,7 @@
 	margin: 0px auto;
 	width: 90%;
 }
-#member_table > thaed {
+#member_table > thead {
 	font-size: 11pt;
 	border-bottom: 1px solid;
 }
@@ -64,6 +64,10 @@
      background-color: #a6d8ce;
      border-color: #a6d8ce;
  }
+ #member_table > tbody > tr:hover {
+	background-color: orange;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -85,7 +89,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="vo in member_list">
+			<tr v-for="vo in member_list" @click="goToDetailPage(vo.id)">
 				<td class="text-center">{{vo.id}}</td>
 				<td class="text-center">{{vo.name}}</td>
 				<td class="text-center">{{vo.email}}</td>
@@ -182,6 +186,9 @@
 				next:function(){
 					this.curpage=this.endPage+1;
 					this.memberListData();
+				},
+				goToDetailPage: function (id) {
+					location.href = '../admin/sup_detail.do?id='+ id;
 				}
 	 	    }
 		})

@@ -17,4 +17,11 @@
 		FROM WADIZ_FUND_DETAIL WHERE fcno=#{fcno} ORDER BY wfno ASC))
 		WHERE num BETWEEN #{start} AND #{end}
 	</select>
+	<!-- (name,nickname,birthday,sex,email,phone,post,addr1,addr2,content,admin) -->
+	<update id="supUpdate" parameterType="MemberVO">
+		UPDATE wadiz_member
+			SET name=#{name},nickname=#{nickname},birthday=#{birthday},sex=#{sex},
+			email=#{email},phone=#{phone},post=#{post},addr1=#{addr1},addr2=#{addr2},
+			content=#{content},admin=#{admin},point=#{point} WHERE id=#{id}
+	</update>
 </mapper>

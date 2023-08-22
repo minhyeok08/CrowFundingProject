@@ -3,6 +3,7 @@ package com.sist.service;
 import java.util.List;
 import java.util.Map;
 
+import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
 import com.sist.vo.MemberVO;
@@ -24,4 +25,12 @@ public interface AdminService {
 	public List<NoticeVO> noticeListData(Map map);
 	
 	public int noticeTotalPage();
+	
+	public int qnaTotalPage();
+
+	public List<AdminqnaVO> qnaListData(Map map);
+	
+	public MemberVO supDetailData(String id);
+	
+	public void supUpdate(MemberVO vo);
 }

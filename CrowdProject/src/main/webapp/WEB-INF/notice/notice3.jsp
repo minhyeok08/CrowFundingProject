@@ -120,7 +120,7 @@ input[type="text"] {
 <div style="height: 50px"></div>
 	<div class="container">
 		<div class="row1">
-			<h1 class="text-center">공지사항</h1>
+			<h1 class="text-center"><b>공지사항</b></h1>
 			<div style="height: 20px"></div>
 			<div style="text-align: center;">
 				<ul style="list-style: none; display: inline-block; padding: 0;">
@@ -138,7 +138,7 @@ input[type="text"] {
 						@mouseout="unhoverEffect">보도자료</li>
 				</ul>
 			</div>
-			<div style="height: 20px;"></div>
+			<hr>
 			<div class="row">
 				<input type="text" ref="fd" class="input-sm" placeholder="검색어 입력"
 					id="keyword" v-on:keyup="selectMusic()">

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 
+import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
 import com.sist.vo.MemberVO;
@@ -40,4 +41,21 @@ public interface AdminMapper {
 			+ "FROM wadiz_notice ORDER BY wnno DESC)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<NoticeVO> noticeListData(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/10.0) FROM wadiz_admin_qna")
+	public int qnaTotalPage();
+
+	@Select("SELECT waqno, subject,id,content,state,TO_CHAR(regdate,'yyyy-mm-dd') as dbday, filename,filesize,filecount, num "
+			+ "FROM (SELECT waqno, subject,id,content,state,regdate, filename,filesize,filecount, rownum as num  "
+			+ "FROM (SELECT waqno, subject,id,content,state,regdate, filename,filesize,filecount "
+			+ "FROM wadiz_admin_qna ORDER BY waqno DESC)) "
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<AdminqnaVO> qnaListData(Map map);
+	
+	@Select("SELECT no,id,name,nickname,birthday,sex,email,post,addr1,addr2,phone,content, "
+			+ "TO_CHAR(regdate,'YYYY-MM-DD hh24:mi:ss'),point,admin FROM wadiz_member "
+			+ "WHERE id=#{id}")
+	public MemberVO supDetailData(String id);
+	
+	public void supUpdate(MemberVO vo);
 }
