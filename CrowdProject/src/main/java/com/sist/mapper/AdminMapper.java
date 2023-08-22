@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
@@ -35,7 +36,7 @@ public interface AdminMapper {
 	@Select("SELECT CEIL(COUNT(*)/10.0) FROM wadiz_notice")
 	public int noticeTotalPage();
 	
-	@Select("SELECT wnno, subject,content,category,TO_CHAR(regdate,'yyyy-mm-dd') as dbday, hit, writer, state, num "
+	@Select("SELECT wnno, subject,content,category,TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, writer, state, num "
 			+ "FROM (SELECT wnno, subject,content,category,regdate, hit, writer, state, rownum as num "
 			+ "FROM (SELECT wnno, subject,content,category,regdate, hit, writer, state "
 			+ "FROM wadiz_notice ORDER BY wnno DESC)) "
@@ -58,4 +59,25 @@ public interface AdminMapper {
 	public MemberVO supDetailData(String id);
 	
 	public void supUpdate(MemberVO vo);
+	
+	@Select("SELECT no, name,id, email, phone, sex, birthday, addr1, addr2, post, admin, point, TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbday, num "
+			+ "FROM (SELECT no,name, id, email, phone, sex, birthday, addr1, addr2, post, admin, point, regdate, rownum as num "
+			+ "FROM (SELECT no,name, id, email, phone, sex, birthday, addr1, addr2, post, admin, point, regdate "
+			+ "FROM wadiz_member WHERE id IN(SELECT DISTINCT id FROM fundmaking ) ORDER BY no DESC )) "
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<MemberVO> makerListData(Map map);
+	
+	@Select("SELECT CEIL(COUNT(*)/10.0) FROM fundmaking")
+	public int makerTotalPage();
+	
+	@Select("SELECT wnno, subject, content, category, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, writer, state FROM wadiz_notice WHERE wnno=#{wnno}")
+	public NoticeVO noticeDetailData(int wnno);
+	
+	@Select("SELECT CEIL(COUNT(*)/10.0) FROM wadiz_notice")
+	public int boardTotalPage();
+	
+	@Update("UPDATE wadiz_notice SET subject=#{subject},content=#{content},writer=#{writer},state=#{state},category=#{category} "
+			+ "WHERE wnno=#{wnno}")
+	public void noticeUpdate(NoticeVO vo); 
+	
 }

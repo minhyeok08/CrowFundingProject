@@ -249,4 +249,12 @@ public class AdminRestController {
 		return json;
 	}
 	
+	@GetMapping(value = "admin/notice_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String notice_detail_vue(int wnno) throws Exception {
+		NoticeVO vo=service.noticeDetailData(wnno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	
 }

@@ -82,6 +82,10 @@
 .btn-container {
   position: absolute;
 }
+#member_table > tbody > tr:hover {
+	background-color: orange;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -95,12 +99,12 @@
 				<th class="text-center">작성자</th>
 				<th class="text-center">작성일</th>
 				<th class="text-center">카테고리</th>
-				<th class="text-center">작성일</th>
+				<th class="text-center">조회수</th>
 				<th class="text-center">중요</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="vo in notice_list">
+			<tr v-for="vo in notice_list"  @click="goToDetailPage(vo.wnno)">
 				<td>&nbsp;&nbsp;{{vo.subject}}</td>
 				<td class="text-center">{{vo.writer}}</td>
 				<td class="text-center">{{vo.dbday}}</td>
@@ -197,6 +201,9 @@
 				next:function(){
 					this.curpage=this.endPage+1;
 					this.send();
+				},
+				goToDetailPage: function (wnno) {
+					location.href = '../admin/notice_detail.do?wnno='+ wnno;
 				}
 	 	    }
 		})

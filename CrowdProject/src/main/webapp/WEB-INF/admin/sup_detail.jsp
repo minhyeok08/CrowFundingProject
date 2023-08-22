@@ -76,6 +76,7 @@
 	background-position: calc(100% - 8px) center;
 	width: 50%; /* 크기 조정 */
 }
+
 </style>
 </head>
 <body>

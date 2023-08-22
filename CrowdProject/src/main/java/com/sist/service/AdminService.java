@@ -33,4 +33,10 @@ public interface AdminService {
 	public MemberVO supDetailData(String id);
 	
 	public void supUpdate(MemberVO vo);
+	
+	public NoticeVO noticeDetailData(int wnno);
+	
+	public int boardTotalPage();
+	
+	public void noticeUpdate(NoticeVO vo);
 }

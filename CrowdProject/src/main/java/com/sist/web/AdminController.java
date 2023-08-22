@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sist.service.AdminService;
 import com.sist.vo.MemberVO;
+import com.sist.vo.NoticeVO;
 
 @Controller
 public class AdminController {
@@ -59,6 +60,7 @@ public class AdminController {
 		return "admin/notice_insert";
 	}
 	
+	
 	@GetMapping("admin/sup_detail.do")
 	public String admin_sup_detail(String id,Model model) {
 		model.addAttribute("id",id);
@@ -79,4 +81,23 @@ public class AdminController {
 		return "redirect:../admin/sup_detail.do?id="+vo.getId();
 	}
 	
+	@GetMapping("admin/notice_detail.do")
+	public String admin_notice_detail(int wnno,Model model) {
+		model.addAttribute("wnno",wnno);
+		return "admin/notice_detail";
+	}
+	
+	@GetMapping("admin/notice_update.do")
+	public String admin_notice_update(int wnno,Model model) {
+		NoticeVO vo=service.noticeDetailData(wnno);
+		model.addAttribute("wnno",wnno);
+		model.addAttribute("vo",vo);
+		return "admin/notice_update";
+	}
+	
+	@PostMapping("admin/notice_update_ok.do")
+	public String notice_update_ok(NoticeVO vo) {
+		service.noticeUpdate(vo);
+		return "redirect:../admin/notice_detail.do?wnno="+vo.getWnno();
+	}
 }

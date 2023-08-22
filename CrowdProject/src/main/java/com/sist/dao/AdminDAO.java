@@ -63,4 +63,16 @@ public class AdminDAO {
 	public void supUpdate(MemberVO vo) {
 		mapper.supUpdate(vo);
 	}
+	
+	public NoticeVO noticeDetailData(int wnno) {
+		return mapper.noticeDetailData(wnno);
+	}
+	
+	public int boardTotalPage() {
+		return mapper.boardTotalPage();
+	}
+	
+	public void noticeUpdate(NoticeVO vo) {
+		mapper.noticeUpdate(vo);
+	}
 }

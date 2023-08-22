@@ -73,4 +73,18 @@ public class AdminServiceimpl implements AdminService {
 	public void supUpdate(MemberVO vo) {
 		dao.supUpdate(vo);
 	}
+	@Override
+	public NoticeVO noticeDetailData(int wnno) {
+		return dao.noticeDetailData(wnno);
+	}
+	
+	@Override
+	public int boardTotalPage() {
+		return dao.boardTotalPage();
+	}
+	
+	@Override
+	public void noticeUpdate(NoticeVO vo) {
+		dao.noticeUpdate(vo);
+	}
 }
