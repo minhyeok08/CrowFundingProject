@@ -34,5 +34,10 @@ public class NoticeServiceImpl implements NoticeService {
 	public NoticeVO noticeDetailData(int wnno) {
 		return dao.noticeDetailData(wnno);
 	}
+	
+	@Override
+	public List<NoticeVO> noticeAllListData(Map map){
+		return dao.noticeAllListData(map);
+	}
 
 }

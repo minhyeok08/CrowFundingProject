@@ -132,7 +132,7 @@
 					this.endPage=this.page_list.endPage
 				}).catch(error=>{
 					console.log(error.response)
-				 })
+				})
 				
 			},
 			range:function(start, end){

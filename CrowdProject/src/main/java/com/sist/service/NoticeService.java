@@ -13,4 +13,6 @@ public interface NoticeService {
 	public int boardTotalPage();
 	
 	public NoticeVO noticeDetailData(int wnno);
+	
+	public List<NoticeVO> noticeAllListData(Map map);
 }

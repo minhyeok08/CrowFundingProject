@@ -67,6 +67,53 @@ input[type="text"] {
 	margin-right: 20px;
 	margin-left: 10px;
 }
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+}
+.pagination .page-link {
+     border-radius: 30px;
+     color: #333;
+     background-color: #fff;
+     border: 1px solid #ddd;
+     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+ }
+
+ .pagination .page-link:hover {
+     color: #fff;
+     background-color: #a6d8ce;
+     border-color: #a6d8ce;
+ }
+
+ .pagination .page-item.disabled .page-link {
+     color: #ccc;
+     background-color: transparent;
+     border-color: #ddd;
+ }
+
+ .pagination .page-item.active .page-link {
+     color: #fff;
+     background-color: #a6d8ce;
+     border-color: #a6d8ce;
+ }
+
+ /* 이전, 다음 버튼 스타일링 */
+ .pagination .page-item:first-child .page-link,
+ .pagination .page-item:last-child .page-link {
+     border-radius: 30px; /* 둥글게 */
+     color: #333;
+     background-color: #fff;
+     border: 1px solid #ddd;
+     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+ }
+
+ .pagination .page-item:first-child .page-link:hover,
+ .pagination .page-item:last-child .page-link:hover {
+     color: #fff;
+     background-color: #a6d8ce;
+     border-color: #a6d8ce;
+ }
 </style>
 </head>
 <body>
@@ -110,7 +157,7 @@ input[type="text"] {
 				<div class="text-center">
 					<table class="table">
 						<tr>
-							<th>작성자</th>
+							<th width="15%">작성자</th>
 							<td>{{ notice_detail ? notice_detail.writer : '' }}</td>
 						</tr>
 						<tr>
@@ -119,17 +166,36 @@ input[type="text"] {
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><pre style="white-space: pre-wrap;">{{ notice_detail ? notice_detail.content : '' }}</pre></td>
+							<td><pre style="white-space: pre-wrap; text-align: left">{{ notice_detail ? notice_detail.content : '' }}</pre></td>
 						</tr>
 						<tr>
 							<th>작성일</th>
-							<td>{{ notice_detail ? notice_detail.dbday : '' }}</td>
+							<td class="text-left">{{ notice_detail ? notice_detail.dbday : '' }}</td>
 						</tr>
 					</table>
 					<b-button class="btn-custom" @click="isShow=false">닫기</b-button>
 				</div>
 			</div>
 			</b-modal>
+			<div class="pagination-container">
+				<nav aria-label="Page navigation">
+				    <ul class="pagination justify-content-center">
+				        <li class="page-item" v-if="startPage>1">
+				        	<a class="page-link" href="#" aria-label="Previous" @click="prev()">
+				        		<span aria-hidden="true">&laquo;</span>
+				        	</a>
+				        </li>
+				        <li class="page-item" v-for="i in range(startPage, endPage)">
+				        	<a class="page-link" href="#" @click="pageChange(i)">{{i}}</a>
+				        </li>
+				        <li class="page-item" v-if="endPage<totalpage">
+				        	<a class="page-link" href="#" aria-label="Next" @click="next()">
+				        		<span aria-hidden="true">&raquo;</span>
+				        	</a>
+				        </li>
+				    </ul>
+				</nav>
+			</div>
 		</div>
 	</div>
 
@@ -140,7 +206,7 @@ input[type="text"] {
 		props:['detaildata'],	// <notice>의 속성값을 detaildata로 받는다는 의미
 		template:'<ul class="boardul" id="searchUl">'
 				+'<li v-for="vo in detaildata" @click="noticeDetail(vo.wnno,true)">'
-				+'<span style="color: #00b2b2; font-size: 12px;">이벤트&nbsp;</span>·<span style="color: blue; font-size: 12px;">&nbsp;중요</span>'
+				+'<span style="color: #00b2b2; font-size: 12px;">{{vo.category}}&nbsp;</span><span v-if="vo.state===\'yes\'">·</span><span v-if="vo.state===\'yes\'" style="color: blue; font-size: 12px;">&nbsp;중요</span>'
 				+'<div class="boardTitle" @mouseover="hoverEffectComponent($event)" @mouseout="unhoverEffectComponent($event)">{{vo.subject}}</div>'
 				+'<div class="boardWriter">'
 				+'<span class="boardWriterSpan">{{vo.writer}}</span><span>{{vo.dbday}}</span>'
@@ -165,14 +231,18 @@ input[type="text"] {
 new Vue({
 	el:'.container',
 	data:{
-		category:'event',
-		page:1,
+		category:'all',
 		isShow:false,
 		notice_list:[],
-		notice_detail:{}
+		notice_detail:{},
+		page_list:{},
+		curpage:1,
+		totalpage:0,
+		startPage:0,
+		endPage:0,
 	},
 	mounted:function(){
-		this.noticeListData('event','1');
+		this.noticeListData('all',1);
 		$('#keyword').keyup(function(){
 			let k=$(this).val();
 			$('#searchUl > li').hide();
@@ -201,7 +271,7 @@ new Vue({
             axios.get('http://localhost/web/notice/notice_vue.do', {
                 params: {
                     category: category,
-                    page: '1'
+                    page: this.curpage
                 }
             }).then(response => {
                 console.log(response.data)
@@ -209,6 +279,23 @@ new Vue({
             }).catch(error => {
                 console.log(error.response)
             })
+            
+            axios.get('http://localhost/web/notice/notice_page_vue.do',{
+				params:{
+					page:this.curpage
+				}
+			}).then(response=>{
+				console.log(response.data)
+				this.page_list=response.data
+				this.curpage=this.page_list.curpage
+				this.totalpage=this.page_list.totalpage
+				this.startPage=this.page_list.startPage
+				this.endPage=this.page_list.endPage
+			}).catch(error=>{
+				console.log(error.response)
+			})
+            
+            
         },
         selectCategory: function (selectedCategory) {
             this.category = selectedCategory;
@@ -222,7 +309,28 @@ new Vue({
         },
         detailShow:function(){
         	this.$refs['my-modal'].show();			// 모달효과 
-        }
+        },
+		range:function(start, end){
+			let arr=[];
+			let length=end-start;
+			for(let i=0;i<=length;i++){
+				arr[i]=start;
+				start++;
+			}
+			return arr;
+		},
+		pageChange:function(page){
+			this.curpage=page;
+			this.noticeListData();
+		},
+		prev:function(){
+			this.curpage=this.startPage-1;
+			this.noticeListData();
+		},
+		next:function(){
+			this.curpage=this.endPage+1;
+			this.noticeListData();
+		}
     }
 })
 </script>

@@ -10,4 +10,13 @@
 		FROM wadiz_notice WHERE category=#{category}))
 		WHERE num BETWEEN #{start} AND #{end}  
 	</select>
+	
+	<select id="noticeAllListData" resultType="NoticeVO" parameterType="hashmap">
+		SELECT wnno, subject, content, category, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, writer, state, num 
+		FROM (SELECT wnno, subject, content, category, regdate, hit, writer, state, rownum as num
+		FROM (SELECT wnno, subject, content, category, regdate, hit, writer, state
+		FROM wadiz_notice ORDER BY wnno DESC)) 
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	
 </mapper>

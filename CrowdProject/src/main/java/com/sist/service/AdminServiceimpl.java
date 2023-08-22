@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.sist.dao.AdminDAO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
+import com.sist.vo.MemberVO;
+import com.sist.vo.NoticeVO;
 
 @Service
 public class AdminServiceimpl implements AdminService {
@@ -34,6 +36,25 @@ public class AdminServiceimpl implements AdminService {
 	@Override
 	public int fundTotalPage() {
 		return dao.fundTotalPage();
+	}
+	
+	@Override
+	public List<MemberVO> memberListData(Map map){
+		return dao.memberListData(map);
+	}
+	
+	@Override
+	public int supTotalPage() {
+		return dao.supTotalPage();
+	}
+	
+	@Override
+	public List<NoticeVO> noticeListData(Map map){
+		return dao.noticeListData(map);
+	}
+	@Override
+	public int noticeTotalPage() {
+		return dao.noticeTotalPage();
 	}
 
 }

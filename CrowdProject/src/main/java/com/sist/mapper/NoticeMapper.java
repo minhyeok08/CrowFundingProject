@@ -20,7 +20,10 @@ public interface NoticeMapper {
 									// vo.getName() , vo.getSubject()
 	public void noticeInsert(NoticeVO vo);
 	
-	@Select("SELECT * FROM wadiz_notice WHERE wnno=#{wnno}")
+	@Select("SELECT wnno, subject, content, category, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, writer, state FROM wadiz_notice WHERE wnno=#{wnno}")
 	public NoticeVO noticeDetailData(int wnno);
+	
+	//<select id="noticeAllListData" resultType="NoticeVO" parameterType="hashmap">
+	public List<NoticeVO> noticeAllListData(Map map);
 	
 }

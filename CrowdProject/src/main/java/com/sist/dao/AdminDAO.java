@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.sist.mapper.AdminMapper;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
+import com.sist.vo.MemberVO;
+import com.sist.vo.NoticeVO;
 
 @Repository
 public class AdminDAO {
@@ -32,4 +34,16 @@ public class AdminDAO {
 		return mapper.fundTotalPage();
 	}
 	
+	public List<MemberVO> memberListData(Map map){
+		return mapper.memberListData(map);
+	}
+	public int supTotalPage() {
+		return mapper.supTotalPage();
+	}
+	public List<NoticeVO> noticeListData(Map map){
+		return mapper.noticeListData(map);
+	}
+	public int noticeTotalPage() {
+		return mapper.noticeTotalPage();
+	}
 }

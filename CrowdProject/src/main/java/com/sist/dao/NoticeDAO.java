@@ -31,4 +31,8 @@ public class NoticeDAO {
 		return mapper.noticeDetailData(wnno);
 	}
 	
+	public List<NoticeVO> noticeAllListData(Map map){
+		return mapper.noticeAllListData(map);
+	}
+	
 }
