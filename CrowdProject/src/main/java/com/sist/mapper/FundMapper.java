@@ -22,7 +22,14 @@ public interface FundMapper {
 	@Select("SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,num "
 			+ "FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,rownum as num "
 			+ "FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok "
-			+ "FROM fundmaking WHERE id=#{id})) "
+			+ "FROM fundmaking WHERE id=#{id} AND rewardok=0)) "
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<FundVO> projectListDataForReward(Map map);
+	// 프로젝트 리스트 => 리워드 등록 된 것.
+	@Select("SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,num "
+			+ "FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,rownum as num "
+			+ "FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok "
+			+ "FROM fundmaking WHERE id=#{id} AND rewardok=1)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundVO> projectListData(Map map);
 	// 프로젝트 리스트 총 페이지 수(3개씩 출력)
@@ -95,4 +102,8 @@ public interface FundMapper {
 	public List<NewsVO> makerNewsListData(Map map);
 	@Select("SELECT CEIL(COUNT(*)/10.0) FROM newstable WHERE id=#{id}")
 	public int makerNewsTotalPage(String id); 
+	@Select("SELECT no,tno,subject,(SELECT ftitle FROM fundmaking WHERE wfno=aa.wfno) as ftitle,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,"
+			+ "filename,filesize,filecount "
+			+ "FROM newstable aa WHERE no=#{no}")
+	public NewsVO makerNewsDetailData(int no);
 }

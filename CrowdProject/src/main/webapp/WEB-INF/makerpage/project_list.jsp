@@ -20,6 +20,10 @@
 .projectlisttable{
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 20px;
+	width: 350px;
+	height: 500px;
+	margin: 0px auto;
+	margin-top: 10px;
 }
 .projectlisttable tr,td,th{
 	border:none;
@@ -29,6 +33,7 @@
   width: 50x; /* 이미지 너비 설정 */
   height: 50px; /* 이미지 높이 설정 */
 }
+
 </style>
 </head>
 <body>
@@ -39,7 +44,7 @@
 		    	<tr>
 		    		<td class="text-center" colspan="2">
 		    			<a :href="'../makerpage/project_detail.do?wfno='+vo.wfno">
-		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:400px;height: 300px;">
+		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:300px;height: 250px;">
 		    			</a>
 		    		</td>
 		    	</tr>
@@ -62,6 +67,7 @@
 		    	</tr>
 		    </table>
 	  </div>
+	  <div style="height: 30px"></div>
 	  <div class="text-center">
 	  	<table class="table">
 	  		<tr>
@@ -81,6 +87,7 @@
 			data:{
 				id:'${sessionScope.id}',
 				project_list:[],
+				page_list:{},
 				curpage:1,
 				totalpage:0
 			},

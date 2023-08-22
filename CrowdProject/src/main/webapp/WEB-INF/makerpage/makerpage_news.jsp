@@ -92,7 +92,7 @@
 			</tr>
 			<tr v-for="vo,index in board_list">
 				<td width="10%" class="text-center">{{index+1}}</td>
-				<td width="40%" class="text-center"><a :href="'../makerpage/news_update.do?no='+vo.no">[{{vo.tname}}]&nbsp;{{vo.subject}}</a></td>
+				<td width="40%" class="text-center"><a :href="'../makerpage/makerpage_news_detail.do?no='+vo.no">[{{vo.tname}}]&nbsp;{{vo.subject}}</a></td>
 				<td width="20%" class="text-center">{{vo.ftitle}}</td>
 				<td width="20%" class="text-center">{{vo.dbday}}</td>
 				<td width="10%" class="text-center">{{vo.hit}}</td>

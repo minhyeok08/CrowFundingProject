@@ -26,13 +26,13 @@ public class MakerpageRestController {
 	public String project_list_for_reward(int page,String id) throws Exception
 	{
 		Map map = new HashMap();
-		int rowSize=3;
+		int rowSize=6;
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
 		map.put("start", start);
 		map.put("end", end);
 		map.put("id", id);
-		List<FundVO> list = dao.projectListData(map);
+		List<FundVO> list = dao.projectListDataForReward(map);
 		for(FundVO vo:list)
 		{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -85,7 +85,7 @@ public class MakerpageRestController {
 	public String project_list(int page,String id) throws Exception
 	{
 		Map map = new HashMap();
-		int rowSize=3;
+		int rowSize=6;
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
 		map.put("start", start);
@@ -240,6 +240,16 @@ public class MakerpageRestController {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "makerpage/makerpage_news_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String makerpage_news_detail_vue(int no) throws Exception
+	{
+		NewsVO vo = dao.makerNewsDetailData(no);
+		String[] tname= {"","결제","교환/환불/AS","이벤트","리워드 안내","기타"};
+		vo.setTname(tname[vo.getTno()]);
+		ObjectMapper mapper = new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
 		return json;
 	}
 }	

@@ -35,10 +35,19 @@ public class FundDAO {
 	{
 		mapper.fundInsertData(vo);
 	}
+	//@Select("SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,num "
+	//		+ "FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,rownum as num "
+	//		+ "FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok "
+	//		+ "FROM fundmaking WHERE id=#{id} AND rewardok=0)) "
+	//		+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<FundVO> projectListDataForReward(Map map)
+	{
+		return mapper.projectListDataForReward(map);
+	}
 	//@Select("SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,num "
 	//		+ "FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,rownum as num "
 	//		+ "FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername "
-	//		+ "FROM fundmaking WHERE id=#{id} AND rewardok=0)) "
+	//		+ "FROM fundmaking WHERE id=#{id} AND rewardok=1)) "
 	//		+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundVO> projectListData(Map map)
 	{
@@ -128,5 +137,12 @@ public class FundDAO {
 	public int makerNewsTotalPage(String id)
 	{
 		return mapper.makerNewsTotalPage(id);
+	}
+	//@Select("SELECT no,tno,subject,(SELECT ftitle FROM fundmaking WHERE wfno=aa.wfno) as ftitle,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,"
+	//		+ "filename,filesize,filecount "
+	//		+ "FROM newstable aa WHERE no=#{no}")
+	public NewsVO makerNewsDetailData(int no)
+	{
+		return mapper.makerNewsDetailData(no);
 	}
 }

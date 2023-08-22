@@ -1,11 +1,16 @@
 package com.sist.web;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +105,7 @@ public class MakerpageController {
 		String id = (String)session.getAttribute("id");
 		vo.setId(id);
 		dao.fundInsertData(vo);
-		return "redirect: ../makerpage/project_list.do";
+		return "redirect: ../makerpage/project_list_for_reward.do";
 	}
 	// 프로젝트 상세로 이동(reward등록을 위해서)
 	@GetMapping("makerpage/project_detail_for_reward.do")
@@ -215,5 +220,36 @@ public class MakerpageController {
 		}
 		dao.project_update(vo);
 		return "redirect: ../makerpage/project_list.do";
+	}
+	@GetMapping("makerpage/makerpage_news_detail.do")
+	public String makerpage_news_detail(int no,Model model)
+	{
+		model.addAttribute("no",no);
+		return "makerpage/makerpage_news_detail";
+	}
+	@GetMapping("makerpage/download.do")
+	public void databoard_download(String fn,HttpServletResponse response,HttpServletRequest request)
+	{
+		String path=request.getSession().getServletContext().getRealPath("/")+"newsfiles\\";
+		path=path.replace("\\", File.separator);
+		try
+		{
+			File file=new File(path+fn);
+			response.setHeader("Content-Disposition", "attachement;filename="
+					+URLEncoder.encode(fn,"UTF-8"));
+			response.setContentLength((int)file.length());
+			BufferedInputStream bis = 
+					new BufferedInputStream(new FileInputStream(file));
+			BufferedOutputStream bos = 
+					new BufferedOutputStream(response.getOutputStream());
+			int i=0;
+			byte[] buffer = new byte[1024];
+			while((i=bis.read(buffer,0,1024))!=-1)
+			{
+				bos.write(buffer,0,i);
+			}
+			bis.close();
+			bos.close();
+		}catch(Exception ex) {}
 	}
 }
