@@ -1,5 +1,6 @@
 package com.sist.web;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,8 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class MakerpageRestController {
@@ -150,6 +153,93 @@ public class MakerpageRestController {
 		List<RewardVO> list = dao.rewardListData(wfno);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	@GetMapping(value = "makerpage/project_list_for_news_vue.do",produces = "text/plain;charset=UTF-8")
+	public String project_list_for_news(String id) throws Exception
+	{
+		List<FundVO> list = dao.project_list_for_news(id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	@PostMapping(value = "makerpage/news_insert_vue.do",produces = "text/plain;charset=UTF-8")
+	public String databoard_insert(NewsVO vo,HttpServletRequest request)
+	{
+		String path=request.getSession().getServletContext().getRealPath("/")+"newsfiles\\";
+		path=path.replace("\\", File.separator);
+		List<MultipartFile> list = vo.getFundfiles();
+		if(list==null)
+		{
+//			System.out.println("파일 업로드가 없습니다.");
+			vo.setFilename("");
+			vo.setFilesize("");
+			vo.setFilecount(0);
+		}
+		else
+		{
+//			System.out.println("파일이 "+list.size()+"개 업로드 됨");
+			String filename="";
+			String filesize="";
+			for(MultipartFile mf:list)
+			{
+				String name= mf.getOriginalFilename();
+				File file = new File(path+name);
+				try
+				{
+					mf.transferTo(file); // 업로드
+				}catch(Exception ex) {}
+				filename+=name+",";
+				filesize+= file.length()+",";
+			}
+			filename=filename.substring(0,filename.lastIndexOf(","));
+			filesize=filesize.substring(0,filesize.lastIndexOf(","));
+			vo.setFilecount(list.size());
+			vo.setFilename(filename);
+			vo.setFilesize(filesize);
+		}
+		dao.news_insert(vo);
+		return "ok";
+	}
+	// 새소식 리스트 출력
+	@GetMapping(value = "makerpage/maker_news_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String maker_news_list(int page,String id) throws Exception
+	{
+		Map map = new HashMap();
+		int rowSize=10;
+		int start = (rowSize*page)-(rowSize-1);
+		int end=rowSize*page;
+		map.put("id", id);
+		map.put("start", start);
+		map.put("end", end);
+		List<NewsVO> list = dao.makerNewsListData(map);
+		String[] tname= {"","결제","교환/환불/AS","이벤트","리워드 안내","기타"};
+		for(NewsVO vo:list)
+		{
+			vo.setTname(tname[vo.getTno()]);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	//새소식 페이지네이션
+	@GetMapping(value = "makerpage/news_page_vue.do",produces = "text/plain;charset=UTF-8")
+	public String news_page(int page,String id) throws Exception
+	{
+		int totalpage=dao.makerNewsTotalPage(id);
+		final int BLOCK=5;
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage)
+			endPage=totalpage;
+		PageVO vo = new PageVO();
+		vo.setCurpage(page);
+		vo.setTotalpage(totalpage);
+		vo.setStartPage(startPage);
+		vo.setEndPage(endPage);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
 		return json;
 	}
 }	

@@ -103,4 +103,30 @@ public class FundDAO {
 	{
 		mapper.reward_delete(rno);
 	}
+	// 새소식 등록을 위한 프로젝트 리스트 출력
+//	@Select("SELECT wfno,ftitle FROM fundmaking WHERE id=#{id} AND rewardOk=1")
+	public List<FundVO> project_list_for_news(String id)
+	{
+		return mapper.project_list_for_news(id);
+	}
+//	@Insert("INSERT INTO newstable VALUES("
+//			+ "news_no_seq.nextval,#{wfno},#{tno},#{subject},#{content},SYSDATE,0,#{filename},#{filecount},#{filesize})")
+	public void news_insert(NewsVO vo)
+	{
+		mapper.news_insert(vo);
+	}
+//	@Select("SELECT no,tno,subject,(SELECT ftitle FROM fundmaking WHERE wfno=newstable.wfno) as ftitle,TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit,num "
+//			+ "FROM (SELECT no,tno,subject,wfno,regdate,hit,rownum as num "
+//			+ "FROM (SELECT no,tno,subject,wfno,regdate,hit "
+//			+ "FROM newstable WHERE id=#{id} ORDER BY no DESC)) "
+//			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<NewsVO> makerNewsListData(Map map)
+	{
+		return mapper.makerNewsListData(map);
+	}
+//	@Select("SELECT CEIL(COUNT(*)/10.0) FROM newstable WHERE id=#{id}")
+	public int makerNewsTotalPage(String id)
+	{
+		return mapper.makerNewsTotalPage(id);
+	}
 }

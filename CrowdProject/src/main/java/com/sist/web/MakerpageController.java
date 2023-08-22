@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,14 +50,17 @@ public class MakerpageController {
 	}
 	// 프로젝트 등록 후 리스트 페이지로 이동
 	@PostMapping("makerpage/fund_insert_ok.do")
-	public String fund_insert_ok(FundVO vo,HttpSession session)
+	public String fund_insert_ok(FundVO vo,HttpSession session,HttpServletRequest request)
 	{
+		String path=request.getSession().getServletContext().getRealPath("/")+"Fundimages\\";
+		path=path.replace("\\", File.separator);
 		List<MultipartFile> list = vo.getFiles();
-		System.out.println(list);
+//		System.out.println(list);
 		String filenames="";
 		for(MultipartFile mf:list)
 		{
-			File file = new File("C:\\springDev\\springStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\CrowdProject\\Fundimages\\"+mf.getOriginalFilename());
+			String name=mf.getOriginalFilename();
+			File file = new File(path+name);
 			try
 			{
 				mf.transferTo(file);
@@ -143,14 +147,18 @@ public class MakerpageController {
 	}
 	// 새소식 리스트 이동
 	@GetMapping("makerpage/makerpage_news.do")
-	public String maker_news()
+	public String maker_news(HttpSession session,Model model)
 	{
+		String id=(String)session.getAttribute("id");
+		model.addAttribute("id",id);
 		return "makerpage/makerpage_news";
 	}
 	// 새소식 등록 페이지 이동
 	@GetMapping("makerpage/makerpage_news_insert.do")
-	public String maker_news_insert()
+	public String maker_news_insert(Model model,HttpSession session)
 	{
+		String id=(String)session.getAttribute("id");
+		model.addAttribute("id",id);
 		return "makerpage/makerpage_news_insert";
 	}
 	// 프로젝트 수정하기

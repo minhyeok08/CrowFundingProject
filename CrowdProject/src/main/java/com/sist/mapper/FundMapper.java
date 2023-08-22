@@ -65,4 +65,34 @@ public interface FundMapper {
 	public void reward_update_ok(RewardVO vo);
 	@Delete("DELETE FROM rewardmaking WHERE rno=#{rno}")
 	public void reward_delete(int rno);
+	// 새소식 등록을 위한 프로젝트 리스트 출력
+	@Select("SELECT wfno,ftitle FROM fundmaking WHERE id=#{id} AND rewardOk=1")
+	public List<FundVO> project_list_for_news(String id);
+	/*
+	NO        NOT NULL NUMBER         
+	WFNO               NUMBER         
+	TNO                NUMBER         
+	SUBJECT            VARCHAR2(1000) 
+	CONTENT            CLOB           
+	REGDATE            DATE           
+	HIT                NUMBER         
+	FILENAME           VARCHAR2(1000) 
+	FILESIZE           VARCHAR2(1000) 
+	FILECOUNT          NUMBER
+	ID 				   VARCHAR2(100)     
+	 */
+
+	@Insert("INSERT INTO newstable VALUES("
+			+ "news_no_seq.nextval,#{wfno},#{tno},#{subject},#{content},SYSDATE,0,#{filename},#{filecount},#{filesize},#{id})")
+	public void news_insert(NewsVO vo);
+	
+	//새소식 리스트 출력
+	@Select("SELECT no,tno,subject,(SELECT ftitle FROM fundmaking WHERE wfno=aa.wfno) as ftitle,TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit,num "
+			+ "FROM (SELECT no,tno,subject,wfno,regdate,hit,rownum as num "
+			+ "FROM (SELECT no,tno,subject,wfno,regdate,hit "
+			+ "FROM newstable WHERE id=#{id} ORDER BY no DESC)) aa "
+			+ "WHERE num BETWEEN #{start} AND #{end}")
+	public List<NewsVO> makerNewsListData(Map map);
+	@Select("SELECT CEIL(COUNT(*)/10.0) FROM newstable WHERE id=#{id}")
+	public int makerNewsTotalPage(String id); 
 }
