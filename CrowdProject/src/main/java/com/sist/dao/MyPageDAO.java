@@ -16,11 +16,6 @@ public class MyPageDAO {
 		return mapper.myInfo(id);
 	}
 	
-	// profile insert
-	public void myImageInsert(MemberVO vo) {
-		mapper.myImageInsert(vo);
-	}
-	
 	//update
 	public void myInfoUpdate(MemberVO vo) {
 		mapper.myInfoUpdate(vo);

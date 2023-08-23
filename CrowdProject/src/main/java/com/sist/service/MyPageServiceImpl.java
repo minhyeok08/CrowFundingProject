@@ -16,11 +16,6 @@ public class MyPageServiceImpl implements MyPageService {
 	public MemberVO myInfo(String id) {
 		return mapper.myInfo(id);
 	}
-	
-	@Override
-	public void myImageInsert(MemberVO vo) {
-		mapper.myImageInsert(vo);
-	}
 
 	@Override
 	public void myInfoUpdate(MemberVO vo) {

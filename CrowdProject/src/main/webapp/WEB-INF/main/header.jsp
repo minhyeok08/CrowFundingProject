@@ -286,7 +286,10 @@ function setSelectedCategory(category) {
 					<a href="../member/member_login.do" class="btn btn-project">프로젝트 만들기</a>
 				</c:if>
 				<c:if test="${sessionScope.id!=null }">
-					<a href="../mypage/mypage_main.do" class="btn btn-outline-info btn-login">로그아웃</a>
+					<a href="../mypage/mypage_main.do">
+						<img src="${sessionScope.profileImage }" 
+									style="border-radius: 50%; width: 35px; height: 35px;margin: 10px;">
+					</a>
 					<a href="../makerpage/makerpage_home.do" class="btn btn-project">프로젝트 만들기</a>
 				</c:if>
 			</div>

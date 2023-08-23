@@ -267,12 +267,11 @@ new Vue({
     methods: {
     		// 비밀번호 설정 조건(유효성 검사)
         validatePassword: function (password) {
-            const hasUpperCase = /[A-Z]/.test(password);
             const hasLowerCase = /[a-z]/.test(password);
             const hasDigit = /\d/.test(password);
             const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
 
-            if (password.length >= 8 && hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar) {
+            if (password.length >= 8 && hasLowerCase && hasDigit && hasSpecialChar) {
                 this.passwordMessage = "비밀번호가 유효합니다.";
                 this.passwordHelpClass = "form-text text-success";
                 

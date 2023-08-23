@@ -13,6 +13,10 @@
 	display: flex;
 	padding: 10px;
 }
+.myfunding, .mystore {
+	align-items: center;
+	height: 88px;
+}
 .btn-custom {
 	border:1px solid #d3d3d3;
 	width: 130px;
@@ -27,7 +31,7 @@
 <div class="wrap">
 	<div class="container mt-5 container1">
 		<div class="row">
-			<div class="col-sm-2 text-center">
+			<div class="col-sm-2 text-center" style="border-right:0.7px solid #d3d3d3;">
 				<div class="profileImageClass mb-3">
 					<img :src="infoData.profile_url" style="border-radius: 50%; width: 100px; height: 100px;">
 				</div>
@@ -41,7 +45,7 @@
 						<div class="mypoint mt-3">
 						<!-- 보유 포인트 -->
 							<div class="row" style="padding: 0xp">
-								<p style="display: flex; justify-content: space-between; align-items: center;">
+								<p style="display: flex; justify-content: space-between; align-items: center; margin:0px;">
 									<strong>포인트</strong>
 									<span style="text-align:right; margin-left: auto; margin-right:10px;">{{infoData.point}}P</span>
 								</p>
@@ -50,7 +54,7 @@
 						<div class="mycupon mt-1">
 							<!-- 보유중인 쿠폰 갯수 -->
 							<div class="row" style="padding: 0xp">
-								<p style="display: flex; justify-content: space-between; align-items: center;">
+								<p style="display: flex; justify-content: space-between; align-items: center; margin:0px;">
 									<strong>쿠폰</strong>
 									<span style="text-align:right; margin-left: auto; margin-right:10px;">0장</span>
 								</p>
@@ -60,20 +64,25 @@
 					<div class="col-sm-8">
 						<div class="row">
 							<div class="col-sm-6">
-								<div class="myfunding mt-3">
-									<strong>참여펀딩</strong>
-									<a href="#" class="text-right">0건</a>
+								<div class="row myfunding mt-3">
+									<p style="display: flex; justify-content: space-between; align-items: center; margin:0px;">
+										<strong>참여펀딩</strong>
+										<span style="text-align:right; margin-left: auto; margin-right:10px;">0건</span>
+									</p>
 								</div>
 							</div>
 							<div class="col-sm-6">
-								<div class="mystore mt-3">
-									<strong>스토어</strong>
-									<a href="#" class="text-right">0건</a>
+								<div class="row myfunding mt-3">
+									<p style="display: flex; justify-content: space-between; align-items: center; margin:0px;">
+										<strong>스토어</strong>
+										<span style="text-align:right; margin-left: auto; margin-right:10px;">0건</span>
+									</p>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="container mt-3 container2">
+					<div style="border-top: 0.7px solid #d3d3d3;"></div>
  						<div class="row mt-4">
  						<strong>나의 활동</strong>
  							<!-- 찜하기 -->
@@ -81,6 +90,7 @@
  								<a href="#">찜하기</a>
  							</div>
  						</div>
+ 						<div style="height: 30px;border-bottom: 0.7px solid #d3d3d3;"></div>
 						<!-- 나의 문의 -->
 						<div class="row mt-4">
 						<strong>${sessionScope.name } 님 문의</strong>
@@ -93,6 +103,7 @@
 								<a href="#">관리자 문의</a>
 							</div>
 						</div>
+						<div style="height: 30px;border-bottom: 0.7px solid #d3d3d3;"></div>
 						<!-- 고객센터 -->
 						<div class="row mt-4">
 							<strong>고객센터</strong>
@@ -105,6 +116,7 @@
 								<a href="../mypage/my_info_update.do">내정보 설정</a>
 							</div>
 						</div>
+						<div style="height: 30px;"></div>
 					</div>
 				</div>
 			</div>

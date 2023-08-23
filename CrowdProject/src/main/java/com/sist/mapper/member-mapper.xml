@@ -22,7 +22,10 @@
 	)
 	</insert>
 	<select id="memberLogin" resultType="memberVO" parameterType="String">
-	select pwd,name,sex,authStatus from wadiz_member where id=#{id}
+	    SELECT m.pwd, m.name, m.sex, m.authStatus, m.admin, p.profile_url 
+	    FROM wadiz_member m
+	    LEFT JOIN wadiz_member_profile p ON m.id = p.id
+	    WHERE m.id = #{id}
 	</select>
 	<update id="authKeyUpdate" parameterType="hashmap">
 	update wadiz_member set authkey=#{authkey} WHERE email=#{email}

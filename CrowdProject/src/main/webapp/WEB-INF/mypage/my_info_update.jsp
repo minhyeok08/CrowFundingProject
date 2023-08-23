@@ -16,7 +16,7 @@
 }
 .updatMyInfo input{
 	width: 300px;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 #submitBtn, #cancelBtn{
 	padding: 0px;
@@ -33,12 +33,14 @@
 <body>
 <div class="wrap">
 	<div class="container mt-5">
-		<h4>프로필 정보 설정</h4>
-		<div class="profileImage-wrap">
+		<h3>프로필 정보 설정</h3>
+		<div class="profileImage-wrap mt-4">
 			<p>프로필 사진</p>
-			<img class="profileImage mb-3" v-if="filename !== ''" :src="filename" style="margin: 0px auto;"><br>
-			<button @click="selectFile" type="button" class="btn">변경</button>
-			<button @click="deleteImage" type="button" class="btn">삭제</button>
+			<div class="wrap text-center">
+				<img class="profileImage mb-3" v-if="filename" :src="filename"><br>
+				<button @click="selectFile" type="button" class="btn">변경</button>
+				<button @click="deleteImage" type="button" class="btn">삭제</button>
+			</div>
 		</div>
 		<form @submit.prevent="submitform">
 		<div class="mb-3 updatMyInfo">
@@ -58,6 +60,7 @@
 		</div>
 		</form>
 	</div>
+	<div style="height: 30px;"></div>
 </div>
 <script>
 var json='${json}';
@@ -69,9 +72,6 @@ new Vue({
 		id:'${sessionScope.id}',
 		profile_file:{},
 		vo:JSON.parse(json)
-	},
-	mounted: function() {
-		
 	},
 	methods:{
 		previewImage: function(event) {
@@ -87,29 +87,29 @@ new Vue({
 		submitform:function(){
 			let formData=new FormData();
 			const file = this.$refs.profileInsert.files[0];
-		  formData.append("image", file);
+			if (file) {
+        formData.append("image", file); // 파일이 있는 경우 첨부
+	    }
 			formData.append("id",this.id);
 			formData.append("name",this.vo.name);
 			formData.append("email",this.vo.email);
 			formData.append("phone",this.vo.phone);
-			axios.post("../mypage/profileImage_insert_ok.do",formData,{
+			axios.post("../mypage/update_my_info.do",formData,{
 				headers:{
 					"Content-Type":"multipart/form-data"
 				}
 			}).then(response=>{
 				console.log(response)
-				/* this.profile_file=response.data
-				this.fileUrl=response.data.profile_file.profile_url */
 				location.href="../mypage/mypage_main.do";
 			}).catch(error=>{
-				console.error("Error uploading profile Image:",error)
+				console.error("Error:",error)
 			})
 		},
 		selectFile:function(){
 		     this.$refs.profileInsert.click();
 		},
 		deleteImage:function(){
-		   this.filename = '../images/1.jpg'; // 기본 이미지 경로로 설정
+		   this.filename = '../mypage/1.jpg'; // 기본 이미지 경로로 설정
 		   this.profileInsert = ''; // input file 초기화
 		},
 		cancelBtn:function(){

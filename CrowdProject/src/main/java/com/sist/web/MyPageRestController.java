@@ -46,19 +46,27 @@ public class MyPageRestController {
 		return json;
 	}
 	
-	@PostMapping(value="mypage/profileImage_insert_ok.do", produces="text/plain;charset=utf-8")
+	@PostMapping(value="mypage/update_my_info.do", produces="text/plain;charset=utf-8")
 	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
-	public String mypage_profileImage_insert(MemberVO vo,HttpSession session,HttpServletRequest request) throws Exception {
+	public String mypage_update_my_info(MemberVO vo,HttpSession session,HttpServletRequest request) throws Exception {
 		// 이미지 저장 경로 설정
 		String path = request.getSession().getServletContext().getRealPath("/") +"profileImage\\";
 		path=path.replace("\\", File.separator);
-		
+	   
+		// 폴더가 없을 경우 자동으로 폴더 생성
+	    File dir = new File(path);
+	    if (!dir.exists()) {
+	        dir.mkdirs(); // 필요한 모든 상위 경로도 함께 생성
+	    }
+	    
+	    System.out.println("vo.getimage:"+vo.getImage());
+	    
 		MultipartFile mfile=vo.getImage();
+		System.out.println("mfile:"+mfile);
 		
-		if(mfile==null) {
-			vo.setProfile_name("");
-			vo.setProfile_size(0);
-			vo.setProfile_url("");
+		if(vo.getImage() == null) {
+			session.setAttribute("name", vo.getName());
+			service.myInfoUpdate(vo);
 		} else {
 			String fileName="";
 			long fileSize=0;
@@ -83,20 +91,13 @@ public class MyPageRestController {
 			vo.setProfile_name(fileName);
 			vo.setProfile_size(file.length());
 			vo.setProfile_url(profileImageUrl);
+			
+			session.setAttribute("profileImage", vo.getProfile_url());
+			session.setAttribute("name", vo.getName());
+			
+			service.myProfileUpdate(vo);
+			service.myInfoUpdate(vo);
 		}
-		service.myProfileUpdate(vo);
-		service.myInfoUpdate(vo);
-		
-//		// vo -> json으로!!
-//		ObjectMapper mapper=new ObjectMapper();
-//		String json=mapper.writeValueAsString(vo);
-//		
-//		HttpHeaders headers=new HttpHeaders();
-//		headers.setContentType(MediaType.APPLICATION_JSON);
-//		headers.set("Content-Type", "application/json;charset=UTF-8");
-//		
-//	    // ResponseEntity 반환
-//	    return new ResponseEntity<>(json, headers, HttpStatus.OK);
 		return "ok";
 	}
 }

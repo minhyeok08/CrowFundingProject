@@ -136,8 +136,15 @@ public class MemberRestController {
 			service.authKeyUpdate(map);
 			
 			// profileImage insert!!!!
+			// 이미지 저장 경로 설정
 			String path = request.getSession().getServletContext().getRealPath("/") +"profileImage\\";
 			path=path.replace("\\", File.separator);
+			
+		    // 폴더가 없을 경우 자동으로 폴더 생성
+		    File dir = new File(path);
+		    if (!dir.exists()) {
+		        dir.mkdirs(); // 필요한 모든 상위 경로도 함께 생성
+		    }
 			
 			// default file 지정
 			String defaultFilePath = "../member/1.jpg";
@@ -210,8 +217,10 @@ public class MemberRestController {
 	                    session.setAttribute("name", vo.getName());
 	                    session.setAttribute("sex", vo.getSex());
 	                    session.setAttribute("admin", vo.getAdmin());
+	                    session.setAttribute("profileImage", vo.getProfile_url());
 	                }
 				} else {
+					vo = new MemberVO();
 					vo.setMsg("nopwd");
 				}
 			}
