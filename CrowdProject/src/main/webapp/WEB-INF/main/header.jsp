@@ -134,6 +134,41 @@ function setSelectedCategory(category) {
     selectedCategoryInput.value = category;
     document.querySelector("form").submit();
 }
+
+/* document.addEventListener("DOMContentLoaded", function() {
+    // 최근 검색어 목록을 가져와서 동적으로 추가하는 함수
+    function updateRecentSearchList() {
+        var recentSearchList = document.getElementById("recentSearchList");
+
+        // 쿠키에서 최근 검색어 값을 가져옵니다.
+        var recentSearchCookie = getCookie("recentSearch");
+
+        if (recentSearchCookie) {
+            var recentSearches = recentSearchCookie.split("|");
+            recentSearchList.innerHTML = ""; // 기존 목록 초기화
+
+            // 가져온 최근 검색어 값을 목록에 추가합니다.
+            for (var i = 0; i < recentSearches.length; i++) {
+                var listItem = document.createElement("li");
+                listItem.textContent = recentSearches[i];
+                recentSearchList.appendChild(listItem);
+            }
+        }
+    }
+
+    // 쿠키에서 값을 가져오는 함수
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+
+        if (parts.length === 2) {
+            return parts.pop().split(";").shift();
+        }
+    }
+
+    // 페이지 로드 시 최근 검색어 목록을 업데이트합니다.
+    updateRecentSearchList();
+}); */
 </script>
 </head>
 <body>
@@ -159,7 +194,7 @@ function setSelectedCategory(category) {
 					<li class="nav-item"><a class="nav-link"
 						href="../admin/main.do">adminTest</a></li>	
 				</ul>
-				<form method="get" action="../search/search.do">
+				<form method="get" action="../search/search_before.do">
 					<div class="search">
 			            <input id="searchInput" type="text"
 			                placeholder="새로운 일상이 필요하신가요?"
@@ -174,10 +209,11 @@ function setSelectedCategory(category) {
 				            <div class="col-md-6">
 				            	<h4 style="color:gray">최근 검색어</h4>
 					            <ul>
-					                <li>최근 검색어 1</li>
-					                <li>최근 검색어 2</li>
-					                <li>최근 검색어 3</li>
-					            </ul>
+									<li v-for="(keyword, index) in keywords" :key="index">
+								      {{ keyword }}
+								      <button @click="removeKeyword(index)">X</button>
+								    </li>
+							    </ul>
 				            </div>
 				            <div class="col-md-6">
 				            	<h4 style="color:gray">카테고리</h4>
@@ -283,5 +319,29 @@ function setSelectedCategory(category) {
 			</div>
 		</div>
 	</nav>
+	<script>
+		new Vue({
+			el:'#header',
+			data: {
+				keywords: []
+			},
+			mounted:function(){
+				this.fetchKeywords();
+			},
+			methods:{
+				async fetchKeywords() {
+		            try {
+		                const res = await axios.get("../search/keyword_vue.do", {
+		                    withCredentials: true // 쿠키 전달을 위한 옵션 설정
+		                });
+		                console.log(res.data);
+		                this.keywords = res.data;
+		            } catch (error) {
+		                console.error('Error fetching keywords:', error);
+		            }
+		        }
+			}
+		})
+	</script>
 </body>
 </html>
