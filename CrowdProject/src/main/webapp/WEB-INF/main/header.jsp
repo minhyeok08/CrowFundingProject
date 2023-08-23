@@ -112,6 +112,10 @@
 	color:#a6d8ce;
 	border: 2px solid #a6d8ce;
 }
+.recentDelBtn {
+	background-color: transparent;
+	border: none;
+}
 </style>
 <script type="text/javascript">
 function showSearchOptions() {
@@ -134,41 +138,10 @@ function setSelectedCategory(category) {
     selectedCategoryInput.value = category;
     document.querySelector("form").submit();
 }
-
-/* document.addEventListener("DOMContentLoaded", function() {
-    // 최근 검색어 목록을 가져와서 동적으로 추가하는 함수
-    function updateRecentSearchList() {
-        var recentSearchList = document.getElementById("recentSearchList");
-
-        // 쿠키에서 최근 검색어 값을 가져옵니다.
-        var recentSearchCookie = getCookie("recentSearch");
-
-        if (recentSearchCookie) {
-            var recentSearches = recentSearchCookie.split("|");
-            recentSearchList.innerHTML = ""; // 기존 목록 초기화
-
-            // 가져온 최근 검색어 값을 목록에 추가합니다.
-            for (var i = 0; i < recentSearches.length; i++) {
-                var listItem = document.createElement("li");
-                listItem.textContent = recentSearches[i];
-                recentSearchList.appendChild(listItem);
-            }
-        }
-    }
-
-    // 쿠키에서 값을 가져오는 함수
-    function getCookie(name) {
-        var value = "; " + document.cookie;
-        var parts = value.split("; " + name + "=");
-
-        if (parts.length === 2) {
-            return parts.pop().split(";").shift();
-        }
-    }
-
-    // 페이지 로드 시 최근 검색어 목록을 업데이트합니다.
-    updateRecentSearchList();
-}); */
+/* function deleteKeyCookie(cookieName) {
+	const keyword = "key_" + encodeURI( cookieName );
+    document.cookie = keyword + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+} */
 </script>
 </head>
 <body>
@@ -211,7 +184,7 @@ function setSelectedCategory(category) {
 					            <ul>
 									<li v-for="(keyword, index) in keywords" :key="index">
 								      {{ keyword }}
-								      <button @click="removeKeyword(index)">X</button>
+								      <button type="button" @click="deleteKeyCookie(keyword)" class="recentDelBtn"><i class="fa-solid fa-x"></i></button>
 								    </li>
 							    </ul>
 				            </div>
@@ -338,6 +311,24 @@ function setSelectedCategory(category) {
 		                this.keywords = res.data;
 		            } catch (error) {
 		                console.error('Error fetching keywords:', error);
+		            }
+		        },
+		        async deleteKeyCookie(cookieName) {
+		            // 키워드 삭제 요청을 보냄
+		            try {
+		            	await axios.post(
+		                        "../search/delete_keyword_vue.do",
+		                        null, // 요청 바디에 데이터를 보내지 않으므로 null로 설정
+		                        {
+		                            params: { keyword: cookieName }, // 쿼리 파라미터로 keyword 값을 전달
+		                            withCredentials: true
+		                        }
+		                    );
+		                
+		                // 헤더 정보 업데이트
+		                this.fetchKeywords();
+		            } catch (error) {
+		                console.error('Error deleting keyword:', error);
 		            }
 		        }
 			}

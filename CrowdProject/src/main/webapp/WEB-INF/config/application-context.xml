@@ -13,7 +13,7 @@
 	<mvc:annotation-driven/>
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/main/main.do"/>
+			<mvc:mapping path="/**"/>
 			<bean id="keywordIntercepter" class="com.sist.intercepter.KeywordIntercepter"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
