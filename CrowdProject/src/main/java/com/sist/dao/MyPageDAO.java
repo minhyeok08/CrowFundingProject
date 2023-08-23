@@ -25,4 +25,8 @@ public class MyPageDAO {
 	public void myInfoUpdate(MemberVO vo) {
 		mapper.myInfoUpdate(vo);
 	}
+	
+	public void myProfileUpdate(MemberVO vo) {
+		mapper.myProfileUpdate(vo);
+	}
 }

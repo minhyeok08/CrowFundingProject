@@ -9,11 +9,14 @@
     LEFT JOIN wadiz_member_profile p ON m.ID = p.ID
     WHERE m.ID = #{id}
 	</select>
-	<insert id="myImageInsert" parameterType="memberVO">
+<!-- 	<insert id="myImageInsert" parameterType="memberVO">
 	insert into wadiz_member_profile values(
 		wmp_no_seq.nextval,#{id},#{profile_name},#{profile_size},#{profile_url})
-	</insert>
+	</insert> -->
 	<update id="myInfoUpdate" parameterType="memberVO">
 	update wadiz_member set name=#{name}, email=#{email}, phone=#{phone} where id=#{id}
+	</update>
+	<update id="myProfileUpdate" parameterType="memberVO">
+	update wadiz_member_profile set profile_name=#{profile_name}, profile_size=#{profile_size}, profile_url=#{profile_url}
 	</update>
 </mapper>

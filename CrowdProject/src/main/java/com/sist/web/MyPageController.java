@@ -33,7 +33,7 @@ public class MyPageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		System.out.println("myUrl:"+vo.getProfile_url());
 		model.addAttribute("json", json);
 		return "mypage/my_info_update";
 	}

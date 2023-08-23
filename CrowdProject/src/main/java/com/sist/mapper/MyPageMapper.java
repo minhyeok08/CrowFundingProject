@@ -11,4 +11,7 @@ public interface MyPageMapper {
 	
 	//<update id="myInfoUpdate" parameterType="memberVO">
 	public void myInfoUpdate(MemberVO vo);
+	
+	//	<update id="myProfileUpdate" parameterType="memberVO">
+	public void myProfileUpdate(MemberVO vo);
 }

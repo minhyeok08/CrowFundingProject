@@ -36,7 +36,7 @@
 		<h4>프로필 정보 설정</h4>
 		<div class="profileImage-wrap">
 			<p>프로필 사진</p>
-			<img class="profileImage mb-3" v-if="filename" :src="filename" style="margin: 0px auto;"><br>
+			<img class="profileImage mb-3" v-if="filename !== ''" :src="filename" style="margin: 0px auto;"><br>
 			<button @click="selectFile" type="button" class="btn">변경</button>
 			<button @click="deleteImage" type="button" class="btn">삭제</button>
 		</div>
@@ -65,13 +65,13 @@ new Vue({
 	el:'.container',
 	data:{
 		profileInsert:'',
-		filename:'',
+		filename: JSON.parse(json).profile_url, // db에 저장된 filedata
 		id:'${sessionScope.id}',
 		profile_file:{},
 		vo:JSON.parse(json)
 	},
 	mounted: function() {
-    this.filename='../images/1.jpg' // 기본 이미지 경로
+		
 	},
 	methods:{
 		previewImage: function(event) {

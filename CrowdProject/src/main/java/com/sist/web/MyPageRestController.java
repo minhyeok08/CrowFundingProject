@@ -11,6 +11,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +28,7 @@ public class MyPageRestController {
 	private MyPageServiceImpl service;
 	
 	@GetMapping(value="mypage/myInfoData.do", produces="text/plain;charset=utf-8")
-	public String mypage_mypoint(MemberVO vo,HttpSession session) {
+	public String mypage_myinfoData(MemberVO vo,HttpSession session) {
 		String json="";
 		try {
 			String id=(String)session.getAttribute("id");
@@ -45,6 +47,7 @@ public class MyPageRestController {
 	}
 	
 	@PostMapping(value="mypage/profileImage_insert_ok.do", produces="text/plain;charset=utf-8")
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public String mypage_profileImage_insert(MemberVO vo,HttpSession session,HttpServletRequest request) throws Exception {
 		// 이미지 저장 경로 설정
 		String path = request.getSession().getServletContext().getRealPath("/") +"profileImage\\";
@@ -81,7 +84,7 @@ public class MyPageRestController {
 			vo.setProfile_size(file.length());
 			vo.setProfile_url(profileImageUrl);
 		}
-		service.myImageInsert(vo);
+		service.myProfileUpdate(vo);
 		service.myInfoUpdate(vo);
 		
 //		// vo -> json으로!!
