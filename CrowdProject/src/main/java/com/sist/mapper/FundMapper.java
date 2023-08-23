@@ -118,4 +118,9 @@ public interface FundMapper {
 	public NewsVO newstableFileInfoData(int no);
 	@Delete("DELETE FROM newstable WHERE no=#{no}")
 	public void maker_news_delete(int no);
+	// 프로젝트 만들기(리워드 없는) 삭제
+	@Select("SELECT mainimg,makerphoto,detailimg FROM fundmaking WHERE wfno=#{wfno}")
+	public FundVO project_for_rewardFileInfoData(int wfno);
+	@Delete("DELETE FROM fundmaking WHERE wfno=#{wfno}")
+	public void project_for_rewardDelete(int wfno);
 }

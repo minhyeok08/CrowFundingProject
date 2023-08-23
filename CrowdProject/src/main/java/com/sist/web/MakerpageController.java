@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,6 +67,8 @@ public class MakerpageController {
 		for(MultipartFile mf:list)
 		{
 			String name=mf.getOriginalFilename();
+			UUID uuid = UUID.randomUUID();
+			name = uuid.toString()+"_"+name;
 			File file = new File(path+name);
 			try
 			{
@@ -174,15 +177,77 @@ public class MakerpageController {
 		model.addAttribute("wfno",wfno);
 		return "makerpage/project_update";
 	}
-	@PostMapping("makerpage/project_update_ok.do")
-	public String project_update_ok(FundVO vo,HttpSession session)
+	@GetMapping("makerpage/project_update_for_reward.do")
+	public String project_update_for_reward(int wfno,Model model)
 	{
+		model.addAttribute("wfno",wfno);
+		return "makerpage/project_update_for_reward";
+	}
+	@PostMapping("makerpage/project_update_for_reward_ok.do")
+	public String project_update_for_reward_ok(FundVO vo,HttpSession session,HttpServletRequest request)
+	{
+		String path=request.getSession().getServletContext().getRealPath("/")+"Fundimages\\";
+		path=path.replace("\\", File.separator);
 		List<MultipartFile> list = vo.getFiles();
-		System.out.println(list);
 		String filenames="";
 		for(MultipartFile mf:list)
 		{
-			File file = new File("C:\\springDev\\springStudy\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\CrowdProject\\Fundimages\\"+mf.getOriginalFilename());
+			String name=mf.getOriginalFilename();
+			UUID uuid = UUID.randomUUID();
+			name = uuid.toString()+"_"+name;
+			File file = new File(path+name);
+			try
+			{
+				mf.transferTo(file);
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			filenames+=file.getName()+"^";
+		}
+		filenames=filenames.substring(0,filenames.lastIndexOf("^"));
+		String makerphoto = filenames.substring(0,filenames.indexOf("^"));
+		filenames=filenames.substring(filenames.indexOf("^")+1);
+		String mainimg = filenames.substring(0,filenames.indexOf("^"));
+		String detailimg=filenames.substring(filenames.indexOf("^")+1);
+		vo.setMainimg(mainimg);
+		vo.setMakerphoto(makerphoto);
+		vo.setDetailimg(detailimg);
+		int fcno = vo.getFcno();
+		String[] fcatecno = {
+				"","테크·가전","패션·잡화","홈·리빙","뷰티","푸드","출판",
+				"클래스·컨설팅","레저·아웃도어","스포츠·모빌리티","컬쳐·아티스트","캐릭터·굿즈",
+				"반려동물","베이비·키즈","게임·취미","여행·숙박","기부·캠페인","후원","모임"
+		};
+		String fcname = fcatecno[fcno];
+		vo.setFcname(fcname);
+		String stropenday = vo.getStropenday();
+		String strendday = vo.getStrendday();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date openday = dateFormat.parse(stropenday);
+			Date endday = dateFormat.parse(strendday);
+			vo.setOpenday(openday);
+			vo.setEndday(endday);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		dao.project_update(vo);
+		return "redirect: ../makerpage/project_list_for_reward.do";
+	}
+	@PostMapping("makerpage/project_update_ok.do")
+	public String project_update_ok(FundVO vo,HttpSession session,HttpServletRequest request)
+	{
+		String path=request.getSession().getServletContext().getRealPath("/")+"Fundimages\\";
+		path=path.replace("\\", File.separator);
+		List<MultipartFile> list = vo.getFiles();
+		String filenames="";
+		for(MultipartFile mf:list)
+		{
+			String name=mf.getOriginalFilename();
+			UUID uuid = UUID.randomUUID();
+			name = uuid.toString()+"_"+name;
+			File file = new File(path+name);
 			try
 			{
 				mf.transferTo(file);

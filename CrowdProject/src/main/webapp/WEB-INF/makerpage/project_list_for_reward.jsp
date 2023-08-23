@@ -24,16 +24,69 @@
 	height: 500px;
 	margin: 0px auto;
 	margin-top: 10px;
+ 	 border: 2px solid #a6d8ce; 
 }
 .projectlisttable tr,td,th{
 	border:none;
 }
 .rounded-image {
   border-radius: 50%;
-  width: 50x; /* 이미지 너비 설정 */
-  height: 50px; /* 이미지 높이 설정 */
+  max-width: 50px; /* 이미지 너비 설정 */
+  max-height: 50px; /* 이미지 높이 설정 */
+  border: 2px solid #a6d8ce; 
 }
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+}
+.pagination .page-link {
+     border-radius: 30px;
+     color: #333;
+     background-color: #fff;
+     border: 1px solid #ddd;
+     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+ }
 
+ .pagination .page-link:hover {
+     color: #fff;
+     background-color: #a6d8ce;
+     border-color: #a6d8ce;
+ }
+
+ .pagination .page-item.disabled .page-link {
+     color: #ccc;
+     background-color: transparent;
+     border-color: #ddd;
+ }
+
+ .pagination .page-item.active .page-link {
+     color: #fff;
+     background-color: #a6d8ce;
+     border-color: #a6d8ce;
+ }
+
+ /* 이전, 다음 버튼 스타일링 */
+ .pagination .page-item:first-child .page-link,
+ .pagination .page-item:last-child .page-link {
+     border-radius: 30px; /* 둥글게 */
+     color: #333;
+     background-color: #fff;
+     border: 1px solid #ddd;
+     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+ }
+
+ .pagination .page-item:first-child .page-link:hover,
+ .pagination .page-item:last-child .page-link:hover {
+     color: #fff;
+     background-color: #a6d8ce;
+     border-color: #a6d8ce;
+ }
+ .imgContainer{
+ 	width:50px;
+ 	height: 50px;
+ 	text-align: end;
+ }
 </style>
 </head>
 <body>
@@ -77,29 +130,39 @@
 		    	</tr>
 		    </table>
 	  </div>
-	  <div style="height: 30px"></div>
-	  <div class="text-center">
-	  	<table class="table">
-	  		<tr>
-			  	<td class="text-right">
-					<a href="#" class="btn btn-sm btn-danger">이전</a>
-						{{curpage }} page/ {{totalpage }} pages
-					<a href="#" class="btn btn-sm btn-primary">다음</a>
-				</td>
-			</tr>
-	  	</table>
-	  </div>
   </div>
+	  <div style="height: 30px"></div>
+	  <div class="pagination-container">
+		<nav aria-label="Page navigation">
+		    <ul class="pagination justify-content-center">
+		        <li class="page-item" v-if="startPage>1">
+		        	<a class="page-link" href="#" aria-label="Previous" @click="prev()">
+		        		<span aria-hidden="true">&laquo;</span>
+		        	</a>
+		        </li>
+		        <li class="page-item" v-for="i in range(startPage, endPage)">
+		        	<a class="page-link" href="#" @click="pageChange(i)">{{i}}</a>
+		        </li>
+		        <li class="page-item" v-if="endPage<totalpage">
+		        	<a class="page-link" href="#" aria-label="Next" @click="next()">
+		        		<span aria-hidden="true">&raquo;</span>
+		        	</a>
+		        </li>
+		    </ul>
+		</nav>
+	</div>
  </div>
 <script>
 	new Vue({
-		el:'.projectrow',
+		el:'.makerpagemainrow',
 		data:{
 			id:'${sessionScope.id}',
 			project_list:[],
 			page_list:{},
 			curpage:1,
-			totalpage:0
+			totalpage:0,
+			startPage:0,
+			endPage:0
 		},
 		mounted:function(){
 			this.dataRecv()
@@ -129,9 +192,32 @@
 					this.page_list=response.data
 					this.curpage=this.page_list.curpage
 					this.totalpage=this.page_list.totalpage
+					this.startPage=this.page_list.startPage
+					this.endPage=this.page_list.endPage
 				}).catch(error=>{
 					console.log(error.response)
 				})
+			},
+			range:function(start, end){
+				let arr=[];
+				let length=end-start;
+				for(let i=0;i<=length;i++){
+					arr[i]=start;
+					start++;
+				}
+				return arr;
+			},
+			pageChange:function(page){
+				this.curpage=page;
+				this.dataRecv()
+			},
+			prev:function(){
+				this.curpage=this.startPage-1;
+				this.dataRecv()
+			},
+			next:function(){
+				this.curpage=this.endPage+1;
+				this.dataRecv()
 			}
 			
 		}

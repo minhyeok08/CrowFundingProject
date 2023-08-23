@@ -168,4 +168,15 @@ public class FundDAO {
 	{
 		mapper.maker_news_delete(no);
 	}
+	// 프로젝트 만들기 삭제(리워드 등록 안된)
+//	@Select("SELECT mainimg,makerphoto,detailimg FROM fundmaking WHERE wfno=#{wfno}")
+	public FundVO project_for_rewardFileInfoData(int wfno)
+	{
+		return mapper.project_for_rewardFileInfoData(wfno);
+	}
+//	@Delete("DELECT FROM fundmaking WHERE wfno=#{wfno}")
+	public void project_for_rewardDelete(int wfno)
+	{
+		mapper.project_for_rewardDelete(wfno);
+	}
 }

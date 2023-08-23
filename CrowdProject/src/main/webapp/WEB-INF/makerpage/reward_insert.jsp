@@ -9,9 +9,19 @@
 .makerpagemainrow{
 	border: 2px solid #a6d8ce;
 	height: 900px;
-	margin: auto 0px;
+	margin: 0px auto;
 	overflow-y: auto;
 	
+}
+#firstreward{
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 20px;
+	border: none;
+	width: 700px;
+	margin: 0px auto;
+}
+td,th,tr{
+	border: none;
 }
 </style>
 </head>
@@ -29,9 +39,12 @@
 		WFNO              NUMBER     
 */
  -->
-<div class="row makerpagemainrow">
+<div class="makerpagemainrow">
+	<div style="height: 30px;"></div>
 	<form method="post" action="../makerpage/reward_insert_ok.do">
-		<table class="table">
+	<div style="height: 30px;"></div>
+		<h3 class="text-center">첫 리워드를 등록해 주세요!</h3>			
+		<table class="table" id="firstreward">
 			<tr>
 				<th width="30%" class="text-end">리워드명</th>
 				<td width="70%">

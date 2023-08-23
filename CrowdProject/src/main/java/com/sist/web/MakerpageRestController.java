@@ -51,9 +51,16 @@ public class MakerpageRestController {
 	public String page_list(int page,String id) throws Exception
 	{
 		int totalpage=dao.projectrewardnoTotalpage(id);
+		final int BLOCK=5;
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage)
+			endPage=totalpage;
 		PageVO vo = new PageVO();
-		vo.setTotalpage(totalpage);
 		vo.setCurpage(page);
+		vo.setTotalpage(totalpage);
+		vo.setStartPage(startPage);
+		vo.setEndPage(endPage);
 		ObjectMapper mapper = new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
@@ -110,9 +117,16 @@ public class MakerpageRestController {
 	public String page_Oklist(int page,String id) throws Exception
 	{
 		int totalpage=dao.projectrewardOkTotalpage(id);
+		final int BLOCK=5;
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage)
+			endPage=totalpage;
 		PageVO vo = new PageVO();
-		vo.setTotalpage(totalpage);
 		vo.setCurpage(page);
+		vo.setTotalpage(totalpage);
+		vo.setStartPage(startPage);
+		vo.setEndPage(endPage);
 		ObjectMapper mapper = new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
@@ -184,10 +198,11 @@ public class MakerpageRestController {
 //			System.out.println("파일이 "+list.size()+"개 업로드 됨");
 			String filename="";
 			String filesize="";
-			System.out.println("path:"+path);
 			for(MultipartFile mf:list)
 			{
-				String name= mf.getOriginalFilename();
+				String name=mf.getOriginalFilename();
+				UUID uuid = UUID.randomUUID();
+				name = uuid.toString()+"_"+name;
 				File file = new File(path+name);
 				try
 				{
@@ -315,5 +330,22 @@ public class MakerpageRestController {
 			}
 		}
 		dao.maker_news_delete(no);
+	}
+	@GetMapping(value = "makerpage/makerpage_project_for_reward_delete_vue.do",produces = "text/plain;charset=UTF-8")
+	public void project_for_reward_delete(int wfno,HttpServletRequest request)
+	{
+		FundVO vo = dao.project_for_rewardFileInfoData(wfno);
+		String path=request.getSession().getServletContext().getRealPath("/")+"Fundimages\\";
+		path=path.replace("\\", File.separator);
+		String files=vo.getMainimg()+"^"+vo.getMakerphoto()+"^"+vo.getDetailimg();
+		StringTokenizer st = new StringTokenizer(files,"^");
+		while(st.hasMoreTokens())
+		{
+			path=path+st.nextToken();
+			File file = new File(path);
+			file.delete();
+		}	
+		dao.project_for_rewardDelete(wfno);
+		
 	}
 }	

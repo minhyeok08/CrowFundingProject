@@ -34,6 +34,18 @@
 </head>
 <body>
 <div class="row makerpagemainrow">
+	<div class="Btnrow">
+		<table class="table">
+			<tr class="text-end">
+				<td>
+					<a href="../makerpage/project_update_for_reward.do?wfno=${wfno }" class="btn btn-warning">수정</a>
+					<button type="button" class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+    					삭제
+    				</button>
+				</td>
+			</tr>
+		</table>
+	</div>
 	<div class="col-sm-7">
 		<table class="table storytable">
 			<tr>
@@ -115,6 +127,24 @@
 			</tr>
 		</table>
 	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">프로젝트 만들기</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        게시물을 정말 삭제하시겠습니까?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-xs btn-project" @click="del()">확인</button>
+	        <button type="button" class="btn btn-xs btn-secondary" data-bs-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </div>
 <script>
 	new Vue({
@@ -133,6 +163,17 @@
 				this.detail_data=response.data
 				this.detailimg = this.detail_data.detailimg.split('^');
 			})
+		},
+		methods:{
+			del:function(){
+				axios.get('../makerpage/makerpage_project_for_reward_delete_vue.do',{
+					params:{
+						wfno:this.wfno
+					}
+				}).then(res=>{
+					location.href="../makerpage/project_list_for_reward.do"
+				})
+			}
 		}
 	})
 </script>
