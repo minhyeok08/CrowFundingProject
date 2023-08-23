@@ -3,6 +3,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sist.vo.*;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.*;
 import com.sist.dao.*;
 @RestController
+@CrossOrigin("*")
 public class MainRestController {
 	@Autowired
 	private MainService service;

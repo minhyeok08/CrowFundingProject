@@ -3,6 +3,7 @@ package com.sist.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -11,6 +12,7 @@ import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
 
 @Controller
+@CrossOrigin("*")
 public class AdminController {
 	@Autowired
 	private AdminService service;

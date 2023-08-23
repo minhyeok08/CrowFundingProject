@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import com.sist.vo.NoticeVO;
 import com.sist.vo.PageVO;
 
 @RestController
+@CrossOrigin("*")
 public class AdminRestController {
 	@Autowired
 	private AdminService service;

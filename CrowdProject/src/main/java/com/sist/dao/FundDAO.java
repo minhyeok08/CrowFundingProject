@@ -152,4 +152,9 @@ public class FundDAO {
 	{
 		return mapper.fundBuyData(rno);
 	}
+//	@Update("UPDATE newstable SET subject=#{subject},content=#{content},filename=#{filename},filecount=#{filecount},filesize=#{filesize} WHERE no=#{no}")
+	public void makerNewsUpdate(NewsVO vo)
+	{
+		mapper.makerNewsUpdate(vo);
+	}
 }

@@ -2,6 +2,7 @@ package com.sist.web;
 
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@CrossOrigin("*")
 public class MakerpageRestController {
 	@Autowired
 	private FundDAO dao;
@@ -169,6 +171,7 @@ public class MakerpageRestController {
 		String path=request.getSession().getServletContext().getRealPath("/")+"newsfiles\\";
 		path=path.replace("\\", File.separator);
 		List<MultipartFile> list = vo.getFundfiles();
+		System.out.println("파일크기:"+list.size());
 		if(list==null)
 		{
 //			System.out.println("파일 업로드가 없습니다.");
@@ -181,6 +184,7 @@ public class MakerpageRestController {
 //			System.out.println("파일이 "+list.size()+"개 업로드 됨");
 			String filename="";
 			String filesize="";
+			System.out.println("path:"+path);
 			for(MultipartFile mf:list)
 			{
 				String name= mf.getOriginalFilename();
@@ -189,6 +193,7 @@ public class MakerpageRestController {
 				{
 					mf.transferTo(file); // 업로드
 				}catch(Exception ex) {}
+				System.out.println("파일:"+file.length());
 				filename+=name+",";
 				filesize+= file.length()+",";
 			}
@@ -251,5 +256,46 @@ public class MakerpageRestController {
 		ObjectMapper mapper = new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
+	}
+	@PostMapping(value = "makerpage/news_update_vue.do",produces = "text/plain;charset=UTF-8")
+	public String databoard_update(NewsVO vo,HttpServletRequest request)
+	{
+		String path=request.getSession().getServletContext().getRealPath("/")+"newsfiles\\";
+		path=path.replace("\\", File.separator);
+		List<MultipartFile> list = vo.getFundfiles();
+		
+		if(list==null)
+		{
+//			System.out.println("파일 업로드가 없습니다.");
+			vo.setFilename("");
+			vo.setFilesize("");
+			vo.setFilecount(0);
+		}
+		else
+		{
+//			System.out.println("파일이 "+list.size()+"개 업로드 됨");
+			String filename="";
+			String filesize="";
+			for(MultipartFile mf:list)
+			{
+				String name= mf.getOriginalFilename();
+				UUID uuid = UUID.randomUUID();
+				name = uuid.toString()+"_"+name;
+				File file = new File(path+name);
+				try
+				{
+					mf.transferTo(file); // 업로드
+				}catch(Exception ex) {}
+				filename+=name+",";
+				filesize+= file.length()+",";
+			}
+			filename=filename.substring(0,filename.lastIndexOf(","));
+			filesize=filesize.substring(0,filesize.lastIndexOf(","));
+			vo.setFilecount(list.size());
+			vo.setFilename(filename);
+			vo.setFilesize(filesize);
+		}
+		dao.makerNewsUpdate(vo);
+		return "ok";
 	}
 }	

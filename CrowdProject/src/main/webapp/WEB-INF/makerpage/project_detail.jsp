@@ -182,7 +182,7 @@ new Vue({
 	},
 	methods:{
 		dataRecv:function(){
-			axios.get("http://localhost/web/makerpage/project_detail_vue.do",{
+			axios.get("../makerpage/project_detail_vue.do",{
 				params:{
 					wfno:this.wfno
 				}
@@ -191,7 +191,7 @@ new Vue({
 				this.detailimg = this.detail_data.detailimg.split('^');
 			})
 			
-			axios.get("http://localhost/web/makerpage/reward_list_vue.do",{
+			axios.get("../makerpage/reward_list_vue.do",{
 				params:{
 					wfno:this.wfno
 				}
@@ -201,7 +201,7 @@ new Vue({
 			
 		},
 		rewardDelete:function(no){
-			axios.get("http://localhost/web/makerpage/reward_delete_vue.do",{
+			axios.get("../makerpage/reward_delete_vue.do",{
 				params:{
 					rno:no,
 					wfno:this.wfno

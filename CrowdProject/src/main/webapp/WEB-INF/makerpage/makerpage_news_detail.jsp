@@ -29,7 +29,7 @@
 		<table class="table">
 			<tr>
     			<td colspan="4" class="text-end">
-	    			<a href="#" class="btn btn-xs btn-project">수정</a>
+	    			<a href="../makerpage/makerpage_news_update.do?no=${no }" class="btn btn-xs btn-project">수정</a>
     				<a href="#" class="btn btn-xs btn-danger">삭제</a>
     				<a href="../makerpage/makerpage_news.do" class="btn btn-xs btn-secondary">목록</a>
     			</td>

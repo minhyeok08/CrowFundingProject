@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,7 @@ import com.sist.vo.RewardVO;
 
 
 @Controller
+@CrossOrigin("*")
 public class MakerpageController {
 	@Autowired
 	private FundDAO dao;
@@ -251,5 +253,11 @@ public class MakerpageController {
 			bis.close();
 			bos.close();
 		}catch(Exception ex) {}
+	}
+	@GetMapping("makerpage/makerpage_news_update.do")
+	public String makerpage_news_update(int no ,Model model)
+	{
+		model.addAttribute("no",no);
+		return "makerpage/makerpage_news_update";
 	}
 }

@@ -96,7 +96,7 @@
 			},
 			methods:{
 				dataRecv:function(){
-					axios.get("http://localhost/web/makerpage/project_list_vue.do",{
+					axios.get("../makerpage/project_list_vue.do",{
 						params:{
 							page:this.curpage,
 							id:this.id
@@ -107,7 +107,7 @@
 					})
 					
 					// 페이지 정보
-					axios.get('http://localhost/web/makerpage/page_Oklist_vue.do',{
+					axios.get('../makerpage/page_Oklist_vue.do',{
 						params:{
 							page:this.curpage,
 							id:this.id

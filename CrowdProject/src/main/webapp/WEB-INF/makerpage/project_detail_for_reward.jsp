@@ -125,7 +125,7 @@
 			detailimg:[]
 		},
 		mounted:function(){
-			axios.get("http://localhost/web/makerpage/project_detail_for_reward_vue.do",{
+			axios.get("../makerpage/project_detail_for_reward_vue.do",{
 				params:{
 					wfno:this.wfno
 				}

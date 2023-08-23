@@ -136,7 +136,7 @@
 		},
 		methods:{
 			dataRecv:function(){
-				axios.get('http://localhost/web/makerpage/maker_news_list_vue.do',{
+				axios.get('http://211.238.142.117/web/makerpage/maker_news_list_vue.do',{
 					params:{
 						id:this.id,
 						page:this.curpage
@@ -147,7 +147,7 @@
 				}).catch(error=>{
 					console.log(error.response)
 				})
-				axios.get('http://localhost/web/makerpage/news_page_vue.do',{
+				axios.get('http://211.238.142.117/web/makerpage/news_page_vue.do',{
 					params:{
 						id:this.id,
 						page:this.curpage
