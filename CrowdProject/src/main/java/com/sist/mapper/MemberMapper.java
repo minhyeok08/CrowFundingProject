@@ -17,6 +17,9 @@ public interface MemberMapper {
 	//<insert id="memberJoin" parameterType="memberVO">
 	public void memberJoin(MemberVO vo);
 	
+	//<insert id="memberProfileInsert" parameterType="memberVO">
+	public void memberProfileInsert(MemberVO vo);
+	
 	//<select id="memberLogin" resultType="memberVO" parameterType="String">
 	public MemberVO memberLogin(String id);
 	

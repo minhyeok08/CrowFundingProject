@@ -1,26 +1,36 @@
 package com.sist.web;
 
+import java.io.File;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.MemberDAO;
@@ -37,7 +47,7 @@ public class MemberRestController {
 	@Autowired
 	private SendMailService mailservice;
 	
-	@GetMapping("member/idCheck.do")
+	@GetMapping(value="member/idCheck.do", produces="text/plain;charset=utf-8")
 	public String member_idCheck(String id) {
 		String result="";
 		int count=service.memberIdCheck(id);
@@ -59,7 +69,7 @@ public class MemberRestController {
 		return result;
 	}
 	
-	@GetMapping("member/phoneCheck.do")
+	@GetMapping(value="member/phoneCheck.do",produces="text/plain;charset=utf-8")
 	public String member_phoneCheck(String phone) {
 		String result="";
 		int count=service.memberPhoneCheck(phone);
@@ -104,7 +114,8 @@ public class MemberRestController {
     }
 	
 	@PostMapping(value="member/join.do",produces="text/plain;charset=UTF-8")
-	public String member_join_ok(MemberVO vo) {
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+	public String member_join_ok(MemberVO vo,HttpServletRequest request) {
 		String result="";
 		try {
 			String pwd=encoder.encode(vo.getPwd());
@@ -123,6 +134,51 @@ public class MemberRestController {
 			
 			// DB에 AuthKey 업데이트(db에 저장된 email이 같은 경우 authKey 저장)
 			service.authKeyUpdate(map);
+			
+			// profileImage insert!!!!
+			String path = request.getSession().getServletContext().getRealPath("/") +"profileImage\\";
+			path=path.replace("\\", File.separator);
+			
+			// default file 지정
+			String defaultFilePath = "../member/1.jpg";
+			Resource resource=new ClassPathResource(defaultFilePath);
+			
+			byte[] defaultFileBytes;
+			try (InputStream inputStream = resource.getInputStream()) {
+			    defaultFileBytes = StreamUtils.copyToByteArray(inputStream);
+			    String defaultFileName="1.jpg";
+			    MultipartFile mfile = new MockMultipartFile(defaultFileName, defaultFileName, "image/jpeg", defaultFileBytes);
+
+			if(mfile.isEmpty()) {
+				vo.setProfile_name("");
+				vo.setProfile_size(0);
+				vo.setProfile_url("");
+			} else {
+				String fileName="";
+				long fileSize=0;
+				fileName=mfile.getOriginalFilename();
+				
+				// 이미지 저장
+				File file=new File(path+fileName);
+				try {
+					mfile.transferTo(file);
+				}catch(Exception ex) {
+					ex.printStackTrace();
+				}
+				
+				fileSize=file.length();
+				
+				// 이미지 url 생성
+				String contextPath = request.getContextPath();
+				String profileImageUrl = contextPath + "/profileImage/" + fileName;
+				//System.out.println("url:"+profileImageUrl);
+				
+				vo.setProfile_name(fileName);
+				vo.setProfile_size(file.length());
+				vo.setProfile_url(profileImageUrl);
+			}
+			}
+			service.memberProfileInsert(vo);
 			
 			result="yes";
 		} catch (Exception e) {

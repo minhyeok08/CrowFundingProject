@@ -16,6 +16,11 @@
 	INSERT INTO wadiz_member(no,id,pwd,name,sex,birthday,email,post,addr1,addr2,phone,content,admin,regdate,point) 
 	VALUES(wm_no_seq.nextval,#{id},#{pwd},#{name},#{sex},#{birthday},#{email},#{post},#{addr1},#{addr2},#{phone},#{content},'n',SYSDATE,3000)
 	</insert>
+	<insert id="memberProfileInsert" parameterType="memberVO">
+	INSERT INTO wadiz_member_profile VALUES(
+		wmp_mpno_seq.nextval,#{id},#{profile_name},#{profile_size},#{profile_url}
+	)
+	</insert>
 	<select id="memberLogin" resultType="memberVO" parameterType="String">
 	select pwd,name,sex,authStatus from wadiz_member where id=#{id}
 	</select>

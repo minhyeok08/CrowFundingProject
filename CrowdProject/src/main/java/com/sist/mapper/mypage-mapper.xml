@@ -2,11 +2,18 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sist.mapper.MypageMapper">
-	<select id="myPoint" parameterType="String" resultType="int">
-	select point from wadiz_member where id=#{id}
+<mapper namespace="com.sist.mapper.MyPageMapper">
+	<select id="myInfo" resultType="memberVO" parameterType="String">
+    SELECT m.*, p.*
+    FROM wadiz_member m
+    LEFT JOIN wadiz_member_profile p ON m.ID = p.ID
+    WHERE m.ID = #{id}
 	</select>
-<!-- 	<select id="myCupon" parameterType="String" resultType="int">
-	select count(*) from wadiz_my_cupon from id=#{id}
-	</select>  -->
+	<insert id="myImageInsert" parameterType="memberVO">
+	insert into wadiz_member_profile values(
+		wmp_no_seq.nextval,#{id},#{profile_name},#{profile_size},#{profile_url})
+	</insert>
+	<update id="myInfoUpdate" parameterType="memberVO">
+	update wadiz_member set name=#{name}, email=#{email}, phone=#{phone} where id=#{id}
+	</update>
 </mapper>

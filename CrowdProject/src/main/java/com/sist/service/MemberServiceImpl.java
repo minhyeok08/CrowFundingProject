@@ -34,6 +34,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public void memberProfileInsert(MemberVO vo) {
+		dao.memberProfileInsert(vo);
+	}
+	
+	@Override
 	public MemberVO memberLogin(String id) {
 		return dao.memberLogin(id);
 	}
@@ -57,5 +62,6 @@ public class MemberServiceImpl implements MemberService{
 	public void pwdUpdate(Map map) {
 		dao.pwdUpdate(map);
 	}
+
 
 }

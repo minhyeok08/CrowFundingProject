@@ -286,7 +286,7 @@ function setSelectedCategory(category) {
 					<a href="../member/member_login.do" class="btn btn-project">프로젝트 만들기</a>
 				</c:if>
 				<c:if test="${sessionScope.id!=null }">
-					<a href="../member/member_logout.do" class="btn btn-outline-info btn-login">로그아웃</a>
+					<a href="../mypage/mypage_main.do" class="btn btn-outline-info btn-login">로그아웃</a>
 					<a href="../makerpage/makerpage_home.do" class="btn btn-project">프로젝트 만들기</a>
 				</c:if>
 			</div>

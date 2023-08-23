@@ -13,6 +13,8 @@ public interface MemberService {
 	public int memberPhoneCheck(String phone);
 
 	public void memberJoin(MemberVO vo);
+	
+	public void memberProfileInsert(MemberVO vo);
 
 	public MemberVO memberLogin(String id);
 	

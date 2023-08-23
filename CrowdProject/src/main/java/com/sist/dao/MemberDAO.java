@@ -28,6 +28,10 @@ public class MemberDAO {
 		mapper.memberJoin(vo);
 	}
 	
+	public void memberProfileInsert(MemberVO vo) {
+		mapper.memberProfileInsert(vo);
+	}
+	
 	public MemberVO memberLogin(String id) {
 		return mapper.memberLogin(id);
 	}
