@@ -171,7 +171,7 @@ public class MakerpageRestController {
 		String path=request.getSession().getServletContext().getRealPath("/")+"newsfiles\\";
 		path=path.replace("\\", File.separator);
 		List<MultipartFile> list = vo.getFundfiles();
-		System.out.println("파일크기:"+list.size());
+
 		if(list==null)
 		{
 //			System.out.println("파일 업로드가 없습니다.");
@@ -211,7 +211,7 @@ public class MakerpageRestController {
 	public String maker_news_list(int page,String id) throws Exception
 	{
 		Map map = new HashMap();
-		int rowSize=10;
+		int rowSize=8;
 		int start = (rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
 		map.put("id", id);
@@ -297,5 +297,23 @@ public class MakerpageRestController {
 		}
 		dao.makerNewsUpdate(vo);
 		return "ok";
+	}
+	@GetMapping(value = "makerpage/makerpage_news_delete_vue.do",produces = "text/plain;charset=UTF-8")
+	public void makerpage_news_delete(int no,HttpServletRequest request)
+	{
+		NewsVO vo = dao.newstableFileInfoData(no);
+		if(vo.getFilecount()!=0)
+		{
+			String path=request.getSession().getServletContext().getRealPath("/")+"newsfiles\\";
+			path=path.replace("\\", File.separator);
+			StringTokenizer st = new StringTokenizer(vo.getFilename(),",");
+			while(st.hasMoreTokens())
+			{
+				path=path+st.nextToken();
+				File file = new File(path);
+				file.delete();
+			}
+		}
+		dao.maker_news_delete(no);
 	}
 }	

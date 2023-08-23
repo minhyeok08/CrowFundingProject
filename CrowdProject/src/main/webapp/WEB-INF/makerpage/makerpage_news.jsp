@@ -136,7 +136,7 @@
 		},
 		methods:{
 			dataRecv:function(){
-				axios.get('http://211.238.142.117/web/makerpage/maker_news_list_vue.do',{
+				axios.get('../makerpage/maker_news_list_vue.do',{
 					params:{
 						id:this.id,
 						page:this.curpage
@@ -147,7 +147,7 @@
 				}).catch(error=>{
 					console.log(error.response)
 				})
-				axios.get('http://211.238.142.117/web/makerpage/news_page_vue.do',{
+				axios.get('../makerpage/news_page_vue.do',{
 					params:{
 						id:this.id,
 						page:this.curpage
@@ -174,15 +174,15 @@
 			},
 			pageChange:function(page){
 				this.curpage=page;
-				this.send();
+				this.dataRecv()
 			},
 			prev:function(){
 				this.curpage=this.startPage-1;
-				this.send();
+				this.dataRecv()
 			},
 			next:function(){
 				this.curpage=this.endPage+1;
-				this.send();
+				this.dataRecv()
 			}
 		}
 	})

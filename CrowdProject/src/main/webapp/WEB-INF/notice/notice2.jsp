@@ -68,6 +68,14 @@ input[type="text"] {
 	margin-left: 10px;
 }
 </style>
+<script type="text/javascript">
+var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})
+</script>
 </head>
 <body>
 <div style="height: 50px"></div>

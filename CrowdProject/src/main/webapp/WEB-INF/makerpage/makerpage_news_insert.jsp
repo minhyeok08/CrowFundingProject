@@ -19,6 +19,7 @@
 	overflow-y: auto; 
 }
 </style>
+
 </head>
 <body>
 <div class="row makerpagemainrow">
@@ -89,7 +90,7 @@
 			fundfiles:''
 		},
 		mounted:function(){
-			axios.get("http://localhost/web/makerpage/project_list_for_news_vue.do",{
+			axios.get("../makerpage/project_list_for_news_vue.do",{
 				params:{
 					id:this.id
 				}
@@ -130,7 +131,7 @@
 						form.append("fundfiles["+i+"]",this.$refs.fundfiles.files[i])
 					}
 				}
-				axios.post('http://localhost/web/makerpage/news_insert_vue.do',form,{
+				axios.post('../makerpage/news_insert_vue.do',form,{
 					headers:{
 						'Context-Type':'multipart/form-data'
 					}

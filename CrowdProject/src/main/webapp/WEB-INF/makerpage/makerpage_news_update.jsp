@@ -118,7 +118,7 @@
 						form.append("fundfiles["+i+"]",this.$refs.fundfiles.files[i])
 					}
 				}
-				axios.post('http://localhost/web/makerpage/news_update_vue.do',form,{
+				axios.post('../makerpage/news_update_vue.do',form,{
 					headers:{
 						'Context-Type':'multipart/form-data'
 					}

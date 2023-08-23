@@ -104,7 +104,7 @@ public interface FundMapper {
 			+ "FROM newstable WHERE id=#{id} ORDER BY no DESC)) aa "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<NewsVO> makerNewsListData(Map map);
-	@Select("SELECT CEIL(COUNT(*)/10.0) FROM newstable WHERE id=#{id}")
+	@Select("SELECT CEIL(COUNT(*)/8.0) FROM newstable WHERE id=#{id}")
 	public int makerNewsTotalPage(String id); 
 	@Select("SELECT no,tno,subject,(SELECT ftitle FROM fundmaking WHERE wfno=aa.wfno) as ftitle,content,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,"
 			+ "filename,filesize,filecount "
@@ -112,4 +112,10 @@ public interface FundMapper {
 	public NewsVO makerNewsDetailData(int no);
 	@Update("UPDATE newstable SET subject=#{subject},content=#{content},filename=#{filename},filecount=#{filecount},filesize=#{filesize} WHERE no=#{no}")
 	public void makerNewsUpdate(NewsVO vo);
+	// 새소식 삭제
+	@Select("SELECT filename,filecount FROM newstable "
+			+ "WHERE no=#{no}")
+	public NewsVO newstableFileInfoData(int no);
+	@Delete("DELETE FROM newstable WHERE no=#{no}")
+	public void maker_news_delete(int no);
 }

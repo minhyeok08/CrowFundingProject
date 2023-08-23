@@ -30,7 +30,9 @@
 			<tr>
     			<td colspan="4" class="text-end">
 	    			<a href="../makerpage/makerpage_news_update.do?no=${no }" class="btn btn-xs btn-project">수정</a>
-    				<a href="#" class="btn btn-xs btn-danger">삭제</a>
+    				<button type="button" class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+    					삭제
+    				</button>
     				<a href="../makerpage/makerpage_news.do" class="btn btn-xs btn-secondary">목록</a>
     			</td>
     		</tr>
@@ -69,7 +71,25 @@
 			
 		</table>
 	</div>
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        게시물을 정말 삭제하시겠습니까?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-xs btn-project" @click="del()">확인</button>
+	        <button type="button" class="btn btn-xs btn-secondary" data-bs-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </div>	
+
 <script>
 	new Vue({
 		el:'.makerpagemainrow',
@@ -81,7 +101,7 @@
 			filesizes:[]
 		},
 		mounted:function(){
-			axios.get('http://localhost/web/makerpage/makerpage_news_detail_vue.do',{
+			axios.get('../makerpage/makerpage_news_detail_vue.do',{
 				params:{
 					no:this.no
 				}
@@ -94,6 +114,17 @@
 			}).catch(error=>{
 				console.log(error.response)
 			})
+		},
+		methods:{
+			del:function(){
+				axios.get('../makerpage/makerpage_news_delete_vue.do',{
+					params:{
+						no:this.no
+					}
+				}).then(res=>{
+					location.href="../makerpage/makerpage_news.do"
+				})
+			}
 		}
 	})
 </script>

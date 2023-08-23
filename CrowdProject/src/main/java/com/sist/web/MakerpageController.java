@@ -27,7 +27,6 @@ import com.sist.vo.RewardVO;
 
 
 @Controller
-@CrossOrigin("*")
 public class MakerpageController {
 	@Autowired
 	private FundDAO dao;

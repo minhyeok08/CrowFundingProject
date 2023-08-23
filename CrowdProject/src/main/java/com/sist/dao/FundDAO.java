@@ -157,4 +157,15 @@ public class FundDAO {
 	{
 		mapper.makerNewsUpdate(vo);
 	}
+//	@Select("SELECT filename,filecount FROM newstable "
+//			+ "WHERE no=#{no}")
+	public NewsVO newstableFileInfoData(int no)
+	{
+		return mapper.newstableFileInfoData(no);
+	}
+//	@Delete("DELETE FROM newstable WHERE no=#{no}")
+	public void maker_news_delete(int no)
+	{
+		mapper.maker_news_delete(no);
+	}
 }
