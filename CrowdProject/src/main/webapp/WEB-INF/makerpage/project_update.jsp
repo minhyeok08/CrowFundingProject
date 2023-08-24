@@ -15,28 +15,6 @@
 	height:800px;
 }
 </style>
-<script type="text/javascript">
-let fileIndex=3
-$(function(){
-    $('#imgaddBtn').click(function(){
-		$('#user-table > tbody').append(
-			'<tr id="m2'+(fileIndex)+'">'
-			+'<td>소개 사진 :'+(fileIndex-1)+'<input type=file size=20 name=files['+fileIndex+']>'
-			+'</td>'
-			+'</tr>'
-		)
-		fileIndex++;
-	})
-	$('#imgremoveBtn').click(function(){
-		if(fileIndex>3)
-		{
-			$('#m2'+(fileIndex-1)).remove();
-			fileIndex--;
-		}
-	})
-    
-})
-</script>
 </head>
 <body>
 	<div class="row makerpagemainrow">
@@ -52,7 +30,9 @@ $(function(){
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">메이커사진</th>
-					<td width="70%"><input type=file name=files[0] size=50></td> 
+					<td width="70%">
+						<img :src="'../Fundimages/'+detail_data.makerphoto" style="width: 50px;height: 50px;">
+					</td> 
 				</tr>
 				<tr>
 					<th width="30%" class="text-end">문의메일</th>
@@ -112,7 +92,7 @@ $(function(){
 				<tr>
 					<th width="30%" class="text-end">대표사진</th>
 					<td width="70%">
-						<input type=file size=20 name=files[1]>
+						<img :src="'../Fundimages/'+detail_data.mainimg" style="width: 50px;height: 50px;">
 					</td>
 				</tr>
 				<tr>
@@ -136,24 +116,10 @@ $(function(){
 				<tr>
 					<th rowspan="2" width="30%" class="text-end">소개 사진</th>
 					<td width="70%" >
-						<table class="table" id="user-table">
-							<tbody>
-								<tr>
-									<td>소개 사진 1:&nbsp;<input type=file size=20 name=files[2]>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<img v-for="img in detailimages" :src="'../Fundimages/'+img" style="width: 30px;height: 30px;">
 					</td>
 				</tr>
-				<tr>
-					<td width="70%">
-						<input type="button" value="추가"
-						class ="btn btn-xs btn-info" id="imgaddBtn">
-						<input type="button" value="취소"
-						class ="btn btn-xs btn-warning" id="imgremoveBtn">
-					</td>
-				</tr>
+				
 				<tr>
 					<th width="30%" class="text-end">설명</th>
 					<td width="70%">
@@ -175,15 +141,17 @@ $(function(){
 		el:'.makerpagemainrow',
 		data:{
 			wfno:${wfno},
-			detail_data:{}
+			detail_data:{},
+			detailimages:[],
 		},
 		mounted:function(){
-			axios.get("http://localhost/web/makerpage/project_detail_vue.do",{
+			axios.get("../makerpage/project_detail_vue.do",{
 				params:{
 					wfno:this.wfno
 				}
 			}).then(response=>{
 				this.detail_data=response.data
+				this.detailimages=this.detail_data.detailimg.split("^")
 			})
 		}
 	})

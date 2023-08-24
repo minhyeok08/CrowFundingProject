@@ -92,6 +92,10 @@
 <body>
 <div class="makerpagemainrow">
 	<div class="row projectrow">
+		<div style="height: 20px"></div>
+		<div class="col-md-12">
+			<h2 class="text-center">${sessionScope.name }님의 프로젝트 리스트</h2>
+		</div>
 		<div class="BtnRow">
 			<table class="table">
 				<tr>

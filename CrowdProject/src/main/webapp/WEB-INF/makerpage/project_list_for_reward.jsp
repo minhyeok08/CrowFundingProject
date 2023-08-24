@@ -20,14 +20,18 @@
 .projectlisttable{
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 20px;
-	width: 300px;
+	width:300px;
 	height: 500px;
 	margin: 0px auto;
 	margin-top: 10px;
  	 border: 2px solid #a6d8ce; 
+ 	 
 }
 .projectlisttable tr,td,th{
 	border:none;
+}
+.projectlisttable th{
+	font-size: 13px;
 }
 .rounded-image {
   border-radius: 50%;
@@ -92,16 +96,17 @@
 <body>
 <div class="makerpagemainrow">
 	<div style="height: 20px"></div>
-		<table class="table" style="border: none">
-			<tr>
-				<th width="80%" class="text-center"  style="border: none"><h2>${sessionScope.name }님의 프로젝트 리스트</h2></th>
-				<td width="20%">					
-					<a href ="../makerpage/fund_insert.do" class="btn btn-project text-center" id="projectBtn" >프로젝트 등록</a>
-				</td>
-			</tr>
-		</table>
 	<div class="row projectrow" >
-		<h4>리워드 등록 필요</h4>
+		<div class="col-md-7">
+			<h2 class="text-end">프로젝트 만들기</h2>
+		</div>
+		<div class="col-md-5  text-end">
+			<a href ="../makerpage/fund_insert.do" class="btn btn-project" id="projectBtn" >프로젝트 등록</a>
+		</div>
+		<div style="height: 20px"></div>
+		<div class="col-md-12">
+			<h3 class="text-center" style="background-color: #a6d8ce;color: white">리워드 등록이 필요합니다.</h3>
+		</div>
 		<div class="col-md-3" v-for="vo in project_list" v-if="vo.rewardok==0">
 		    <table class="table projectlisttable">
 		    	<tr>
@@ -112,21 +117,27 @@
 		    		</td>
 		    	</tr>
 		    	<tr>
-		    		<th width="30%" class="text-end">카테고리 명</th>
-		    		<td width="70%" style="font-size: 15pt">{{vo.fcname}}</td>
+		    		<th width="30%" class="text-end">카테고리</th>
+		    		<td width="70%" style="font-size: 15px">{{vo.fcname}}</td>
 		    	</tr>
 		    	<tr>
 		    		<th width="30%" class="text-end">프로젝트명</th>
-		    		<td width="70%" style="font-size: 15pt">{{vo.ftitle}}</td>
+		    		<td width="70%" style="font-size: 15px">{{vo.ftitle}}</td>
 		    	</tr>
 		    	<tr>
-		    		<td colspan="2" class="text-end" style="color: #a6d8ce;font-size: 15pt">{{vo.stropenday}}~{{vo.strendday}}&nbsp;&nbsp;</td>
+					<th width="30%" class="text-end">설정기간</th>
+		    		<td width="70%" style="color: #a6d8ce;font-size: 15px ">{{vo.stropenday}}~{{vo.strendday}}&nbsp;&nbsp;</td>
 		    	</tr>
 		    	<tr>
 		    		<th width="30%" class="text-end">
-		    			<img :src="'../Fundimages/'+vo.makerphoto" class="rounded-image">
+		    			<img :src="'../Fundimages/'+vo.makerphoto" class="rounded-image" style="width: 50px;height: 50px">
 		    		</th>
-		    		<td width="70%" style="font-size: 15pt">{{vo.makername}}</td>
+		    		<td width="70%" style="font-size: 15pz">{{vo.makername}}</td>
+		    	</tr>
+		    	<tr>
+		    		<td colspan="2" class="text-center">
+			    		<a :href="'../makerpage/reward_insert.do?wfno='+vo.wfno" class="btn btn-project">리워드 등록하기</a>
+		    		</td>
 		    	</tr>
 		    </table>
 	  </div>

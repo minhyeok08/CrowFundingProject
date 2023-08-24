@@ -17,18 +17,38 @@
 	text-align: center;
 }
 .storytable img {
-  width: 750px;
-  height: auto;
+	width: 650px;
+	height: auto;
+	border-radius: 8px; 
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+}
+.storytable tr,td{
+	border: none;
 }
 .rounded-image {
   border-radius: 50%;
-  width: 50x; /* 이미지 너비 설정 */
-  height: 50px; /* 이미지 높이 설정 */
+  width: 30x; /* 이미지 너비 설정 */
+  height: 30px; /* 이미지 높이 설정 */
 }
 .reward
 {
 	border-radius: 30%;
 	border: 5px dotted #a6d8ce; 
+}
+.makertable{
+	border-collapse: collapse;
+	border-radius: 10px; /* 원하는 radius 값으로 조정 가능 */
+	overflow: hidden; /* 모서리 내용이 반경을 벗어나지 않도록 함 */
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 6px;
+}
+.makertable th{
+	border: none;
+	color: #adb5bd;
+	font-size: 10pt
+}
+.makertable td{
+	border: none;
+	font-size: 10pt
 }
 </style>
 </head>
@@ -69,22 +89,24 @@
 	<div class="col-sm-5">
 		<table class="table">
 			<tr>
-				<td style="font-style: bold">{{detail_data.fcname}}&nbsp;&gt;&nbsp;<span style="color: #a6d8ce">#</span><span style="font-size: 10pt">{{detail_data.tag}}</span></td>
+				<td style="font-style: bold">{{detail_data.fcname}}&nbsp;&gt;&nbsp;<span style="background-color: #f2f2f2; padding: 2px 5px; border-radius: 4px; color: black; font-size: 14px;"><span style="color: #a6d8ce">#</span>{{detail_data.tag}}</span></td>
 			</tr>
 			<tr>
-				<td style="font-size: 20pt;font-style: bold">{{detail_data.ftitle}}</td>
+				<td>
+					<strong>{{detail_data.ftitle}}</strong>
+				</td>
 			</tr>
 			<tr>
-				<td style="font-size: 10pt;">{{detail_data.fsubtitle}}</td>
+				<td style="font-size: 13px">{{detail_data.fsubtitle}}</td>
 			</tr>
 			<tr>
-				<td style="font-size: 15pt;">목표금액&nbsp;<span style="color: #a6d8ce;font-size: 20pt">{{detail_data.str_aim_mount}}</span>원</td>
+				<td style="font-size: 10pt;"><strong>목표금액&nbsp;<span style="color: #a6d8ce;font-size: 15pt">{{detail_data.str_aim_mount}}</span>원</strong></td>
 			</tr>
 		</table>
-		<table class="table">
+		<table class="table makertable">
 			<tr>
-				<td width="20%" class="text-center">
-					<img :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image">
+				<td width="20%" class="text-center circle-image">
+					<img :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image" style="width: 30px;height: 30px;">
 				</td>
 				<td width="80%">
 					<h5 style="font-style: bold">{{detail_data.makername}}</h5>

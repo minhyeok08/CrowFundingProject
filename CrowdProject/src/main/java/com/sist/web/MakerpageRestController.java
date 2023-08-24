@@ -44,6 +44,12 @@ public class MakerpageRestController {
 			String dbendday=sdf.format(vo.getEndday());
 			vo.setStropenday(dbopenday);
 			vo.setStrendday(dbendday);
+			String ftitle = vo.getFtitle();
+			if(ftitle.length()>12)
+			{
+				ftitle=ftitle.substring(0,12)+"...";
+				vo.setFtitle(ftitle);
+			}
 			
 		}
 		ObjectMapper mapper = new ObjectMapper();
