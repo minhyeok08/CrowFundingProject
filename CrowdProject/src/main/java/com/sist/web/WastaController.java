@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sist.dao.ListDAO;
+import com.sist.dao.WastaDAO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.ProfileVO;
 
 @Controller
 public class WastaController {
 	@Autowired
-	private ListDAO dao;
+	private WastaDAO dao;
 
 	@GetMapping("wasta/main.do")
 	public String wasta_main() {

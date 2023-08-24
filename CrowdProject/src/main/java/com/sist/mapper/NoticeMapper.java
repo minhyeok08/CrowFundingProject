@@ -41,13 +41,13 @@ public interface NoticeMapper {
 		filename,filesize,filecount 
 		FROM newstable aa WHERE no=#{no}
 	*/
-	@Select("SELECT rno, id, wfno, content, TO_CHAR(regdate,'MM-DD') as dbday, regdate, likecnt, category," + 
-			"		(SELECT name FROM wadiz_member WHERE id=wfr.id) AS name," + 
-			"		(SELECT nickname FROM wadiz_member WHERE id=wfr.id) AS nickname," + 
-			"		(SELECT no FROM wadiz_member WHERE id=wfr.id) AS NO," + 
-			"		(SELECT profile_name FROM wadiz_member_profile WHERE id=wfr.id) AS profile_name," + 
-			"		(SELECT profile_url FROM wadiz_member_profile WHERE id=wfr.id) AS profile_url " + 
-			"		FROM wadiz_fund_review wfr WHERE wfno=7 ORDER BY rno DESC")
+	@Select("SELECT rno, id, wfno, content, TO_CHAR(regdate,'MM-DD') as dbday, regdate, likecnt, category, " + 
+			"			(SELECT name FROM wadiz_member WHERE id=wfr.id) AS name, " + 
+			"			(SELECT nickname FROM wadiz_member WHERE id=wfr.id) AS nickname, " + 
+			"			(SELECT no FROM wadiz_member WHERE id=wfr.id) AS NO, " + 
+			"			(SELECT profile_name FROM wadiz_member_profile WHERE id=wfr.id) AS profile_name, " + 
+			"			(SELECT profile_url FROM wadiz_member_profile WHERE id=wfr.id) AS profile_url " + 
+			"			FROM wadiz_fund_review wfr WHERE wfno=#{wfno} ORDER BY rno DESC")
 	public List<ReviewVO> reviewListData(int wfno);
 	
 }

@@ -191,55 +191,14 @@
 		<div class="wastamain">
 		<div style="height: 50px;"></div>
 			<div class="follower_container">
-				<div class="follower">
+				<div class="follower" v-for="vo in friend_list">
 					<div class="User">
-						<img src="../img/activity_logo.png" class="followerImg">
-						<div class="user_nickname">나의 활동</div>
-					</div>
-				</div>
-				<div class="follower">
-					<div class="User">
-						<img src="../img/foodie_logo.png" class="followerImg">
-						<div class="user_nickname">나의 활동</div>
-					</div>
-				</div>
-				<div class="follower">
-					<div class="User">
-						<img src="../img/kids_logo.png" class="followerImg">
-						<div class="user_nickname">나의 활동</div>
-					</div>
-				</div>
-				<div class="follower">
-					<div class="User">
-						<img src="../img/kids_logo.png" class="followerImg">
-						<div class="user_nickname">나의 활동</div>
-					</div>
-				</div>
-				<div class="follower">
-					<div class="User">
-						<img src="../img/kids_logo.png" class="followerImg">
-						<div class="user_nickname">나의 활동</div>
-					</div>
-				</div>
-				<div class="follower">
-					<div class="User">
-						<img src="../img/kids_logo.png" class="followerImg">
-						<div class="user_nickname">나의 활동</div>
-					</div>
-				</div>
-				<div class="follower">
-					<div class="User">
-						<img src="../img/kids_logo.png" class="followerImg">
-						<div class="user_nickname">나의 활동</div>
-					</div>
-				</div>
-				<div class="follower">
-					<div class="User">
-						<img src="../img/kids_logo.png" class="followerImg">
-						<div class="user_nickname">나의 활동</div>
+						<img :src="vo.profile_url" class="followerImg">
+						<div class="user_nickname">{{vo.name}}</div>
 					</div>
 				</div>
 			</div>
+			
 			<div style="height: 30px;"></div>
 			<div class="feed_container">
 				<div class="feed_card_container">
@@ -292,5 +251,39 @@
 		</div>
 	</div>
 </div>
+<script>
+	new Vue({
+		el:'.wastamain',
+		data:{
+			review_list:[],
+			id:'',
+			friend_list:[]
+		},
+		mounted:function(){
+			this.wastaList();
+			this.friendList();
+		},
+		methods:{
+			wastaList:function(){
+				axios.get('../wasta/list_vue.do')
+				.then(res=>{
+					console.log(res.data)
+					this.review_list=res.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			},
+			friendList:function(){
+				axios.get('../wasta/friend_vue.do')
+				.then(res=>{
+					console.log(res.data)
+					this.friend_list=res.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			}
+		}
+	})
+</script>
 </body>
 </html>

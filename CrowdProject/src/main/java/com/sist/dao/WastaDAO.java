@@ -7,13 +7,14 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sist.mapper.ListMapper;
+import com.sist.mapper.WastaMapper;
 import com.sist.vo.ProfileVO;
+import com.sist.vo.ReviewVO;
 
 @Repository
-public class ListDAO {
+public class WastaDAO {
 	@Autowired
-	private ListMapper mapper;
+	private WastaMapper mapper;
 	
 //	@Select("SELECT img_name, img_size, profile_img_path, id, pno FROM member_profiles "
 //			+ "WHERE id=#{id}")
@@ -27,4 +28,11 @@ public class ListDAO {
 		mapper.profileInsert(vo);
 	}
 	
+	public List<ReviewVO> wastaReviewListData(){
+		return mapper.wastaReviewListData();
+	}
+	
+	public List<ReviewVO> wastaFriendListData(){
+		return mapper.wastaFriendListData();
+	}
 }
