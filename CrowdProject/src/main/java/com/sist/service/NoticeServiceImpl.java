@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.dao.NoticeDAO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.ReviewVO;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -38,6 +39,24 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public List<NoticeVO> noticeAllListData(Map map){
 		return dao.noticeAllListData(map);
+	}
+	
+	// review 임시
+	@Override
+	public void reviewInsert(ReviewVO vo) {
+		dao.reviewInsert(vo);
+	}
+	@Override
+	public ReviewVO imgInsertvo() {
+		return dao.imgInsertvo();
+	}
+	@Override
+	public void reviewImgInsert(ReviewVO vo) {
+		dao.reviewImgInsert(vo);
+	}
+	@Override
+	public List<ReviewVO> reviewListData(int wfno){
+		return dao.reviewListData(wfno);
 	}
 
 }

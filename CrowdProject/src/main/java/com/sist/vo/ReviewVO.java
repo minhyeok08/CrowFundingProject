@@ -18,10 +18,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReviewVO {
-	private int rno, wfno, likecnt;
+	private int rno, wfno, likecnt,rino;
 	private String id, name, nickname, content, category, dbday;
 	private Date regdate;
 	
-	private String filename, filesize, filepath;
+	private String imgname, imgsize, imgpath;
 	private List<MultipartFile> images;
+	private String profile_name, profile_size, profile_url;
+	private int mpno, no;
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sist.mapper.NoticeMapper;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.ReviewVO;
 
 @Repository
 public class NoticeDAO {
@@ -33,6 +34,20 @@ public class NoticeDAO {
 	
 	public List<NoticeVO> noticeAllListData(Map map){
 		return mapper.noticeAllListData(map);
+	}
+	
+	// review 임시
+	public void reviewInsert(ReviewVO vo) {
+		mapper.reviewInsert(vo);
+	}
+	public ReviewVO imgInsertvo() {
+		return mapper.imgInsertvo();
+	}
+	public void reviewImgInsert(ReviewVO vo) {
+		mapper.reviewImgInsert(vo);
+	}
+	public List<ReviewVO> reviewListData(int wfno){
+		return mapper.reviewListData(wfno);
 	}
 	
 }

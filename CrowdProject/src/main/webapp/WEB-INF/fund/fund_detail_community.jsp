@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -336,6 +337,34 @@ ul, li {
   box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.3); /* 선택 시 약간 두꺼운 테두리 스타일 */
   outline: none;
 }
+.mint-file-input {
+  border: none; /* 기본 테두리 제거 */
+  background-color: #f0f7f4; /* 배경색 설정 */
+  color: #333; /* 텍스트 색상 설정 */
+  padding: 10px; /* 내부 여백 */
+  border-radius: 5px; /* 모서리를 둥글게 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가 */
+  cursor: pointer; /* 마우스 커서 스타일 변경 */
+  transition: background-color 0.3s, box-shadow 0.3s; /* 전환 효과 설정 */
+}
+
+/* 호버 상태일 때 스타일 변경 */
+.mint-file-input:hover {
+  background-color: #d3e1df; /* 호버 상태 배경색 변경 */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* 약한 그림자 증가 */
+}
+
+/* 파일 선택 시 스타일 변경 */
+.mint-file-input:active,
+.mint-file-input:focus {
+  background-color: #b8cec9; /* 선택 상태 배경색 변경 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 증가 */
+  outline: none; /* 선택 상태 아웃라인 제거 */
+}
+.btn-right{
+	float: right;
+	margin-right: 10px;
+}
 </style>
 </head>
 <body>
@@ -406,8 +435,14 @@ ul, li {
 					<p class="endPro">프로젝트 종료 전에 남긴 글입니다.</p>
 				</div>
 				<!-- <button class="btn btn-custom reviewBtn" @click="reviewWrite(true)">글 남기기</button> -->
-				<b-button v-b-modal.modal-lg @click="openModal" class="btn btn-custom reviewBtn">글 남기기</b-button>
-				<b-modal id="modal-lg" v-model="showModal"size="lg" title="글 남기기" hide-header-close ok-only no-close-on-backdrop>
+				<c:if test="${sessionScope.id==null }">
+					<button @click="noId" class="btn btn-custom reviewBtn">글 남기기</button>
+				</c:if>
+				<c:if test="${sessionScope.id!=null }">
+					<b-button v-b-modal.modal-lg @click="openModal" class="btn btn-custom reviewBtn">글 남기기</b-button>
+				</c:if>
+				<b-modal id="modal-lg" v-model="showModal" size="lg" title="글 남기기" hide-header-close hide-footer ok-only no-close-on-backdrop>
+				<form method="post" action="../fund/review_insert_ok.do" enctype="multipart/form-data" id="reviewForm">
 					<div class="reviewWrite">
 						<p class="reviewp">
 						응원 · 의견 · 체험 리뷰를 남겨주세요.
@@ -415,22 +450,24 @@ ul, li {
 						메이커의 답변이 필요한 문의는 ‘메이커에게 문의하기’를 이용해주세요.
 						</p>
 						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+						  <input class="form-check-input" type="radio" name="category" value="응원" id="flexRadioDefault1" checked>
 						  <label class="form-check-label radio-btn" for="flexRadioDefault1">
 						    <b>응원</b><small class="radiosmall">메이커를 응원하고 싶어요.</small>
 						  </label>
 						</div>
 						<div style="height: 6px;"></div>
 						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+						  <input class="form-check-input" type="radio" name="category" value="리뷰" id="flexRadioDefault2">
 						  <label class="form-check-label radio-btn" for="flexRadioDefault2">
 						    <b>체험리뷰</b><small class="radiosmall">먼저 체험한 리뷰를 남기고 싶어요.</small>
 						  </label>
 						</div>
 						<div style="height: 15px;"></div> 
-						<textarea class="textarea-box" rows="5" cols="70" placeholder="  응원∙의견∙체험 리뷰 메시지를 남겨주세요.">
+						<textarea class="textarea-box" id="reviewContent" name="content" rows="5" cols="70" placeholder="  응원∙의견∙체험 리뷰 메시지를 남겨주세요." required>
 						
 						</textarea>
+						<div style="height: 15px;"></div> 
+						<input type="file" name="images" multiple="multiple" class="mint-file-input">
 						<div style="height: 15px;"></div> 
 						<div class="warningBox">
 							<div class="warnMsg">
@@ -451,31 +488,34 @@ ul, li {
 							</div>
 						</div>
 					</div>
-					<template #modal-footer>
-						<b-button class="btn btn-custom" @click="closeModal">취소</b-button>
-						<b-button class="btn btn-custom">등록하기</b-button>
-					</template>
+					<input type="hidden" name="id" value="${sessionScope.id }">
+					<input type="hidden" name="wfno" value="${wfno }">
+					<div style="height: 10px;"></div>
+					<input type="submit" class="btn btn-custom btn-right" value="등록하기">
+					</form>
+					<b-button class="btn btn-custom btn-right" @click="closeModal">취소</b-button>
 				</b-modal>
 				
 			</div>
 			<div class="reviewTable">
 				<hr>
 				<ul>
-					<li>
+					<li v-for="vo in review_list">
 						<div class="reviewCard">
 							<div class="reviewContent">
 								<div class="reviewerImg">
 									<a href="#">
-										<img src="../images/people.png" class="reviewImg">
+										<img :src="vo.profile_url" class="reviewImg">
 									</a>
 								</div>
 								<div class="reviewCont">
 									<div class="reviewCont_header">
 										<div class="reviewCont_header_right">
 											<span class="review_name">
-												<a href="#">리뷰어이름</a>
+												<a href="#" v-if="vo.nickname!=null">{{vo.nickname}}</a>
+												<a href="#" v-if="vo.nickname==null">{{vo.name}}</a>
 											</span>
-											<span class="review_time">3시간 전</span>
+											<span class="review_time">{{vo.dbday}}</span>
 										</div>
 										<div class="reviewCont_header_left">
 											<button class="imgBtn">
@@ -485,61 +525,7 @@ ul, li {
 									</div>
 									<div class="reviewCont_body">
 										<div class="reviewCont_body2">
-											알람신청 완료!
-											인스타 팔로우 완료!!
-											지지서명 완료!!!
-											펀딩 완료!!!!!
-											
-											펀딩번호 : 11032092
-											
-											ddd.ceo
-											
-											이런 아이템을 기다렸습니다!! 브라켓도 화이링~!!!
-										</div>
-									</div>
-									<div style="height: 10px"></div>
-									<div class="reviewCont_footer">
-										<button class="btn btn-reply">답글</button>
-									</div>
-								</div>
-							</div>
-							<hr class="reviewHr">
-						</div>
-					</li>
-					<li>
-						<div class="reviewCard">
-							<div class="reviewContent">
-								<div class="reviewerImg">
-									<a href="#">
-										<img src="../images/people.png" class="reviewImg">
-									</a>
-								</div>
-								<div class="reviewCont">
-									<div class="reviewCont_header">
-										<div class="reviewCont_header_right">
-											<span class="review_name">
-												<a href="#">리뷰어이름</a>
-											</span>
-											<span class="review_time">3시간 전</span>
-										</div>
-										<div class="reviewCont_header_left">
-											<button class="imgBtn">
-												<img class="morePoint" src="../images/point.png">
-											</button>
-										</div>
-									</div>
-									<div class="reviewCont_body">
-										<div class="reviewCont_body2">
-											알람신청 완료!
-											인스타 팔로우 완료!!
-											지지서명 완료!!!
-											펀딩 완료!!!!!
-											
-											펀딩번호 : 11032092
-											
-											ddd.ceo
-											
-											이런 아이템을 기다렸습니다!! 브라켓도 화이링~!!!
+											{{vo.content}}
 										</div>
 									</div>
 									<div style="height: 10px"></div>
@@ -560,6 +546,8 @@ ul, li {
 		
 	</div>
 	<script>
+	
+    
 	 new Vue({
 		 el:'.comContainer',
 		 data:{
@@ -568,7 +556,9 @@ ul, li {
 			 fund_detail:{},
 			 no:0,
 			 isShow:false,
-			 showModal: false
+			 showModal: false,
+			 review_list:[],
+			 member_profile:{}
 		 },
 		 mounted:function(){
 			 axios.get('../fund/fund_detail_vue.do',{
@@ -581,14 +571,35 @@ ul, li {
 			 }).catch(error=>{
 				 console.log(error.response)
 			 })
+			 
+			 this.reviewGet();
 		 },
 		 methods:{
-			 openModal() {
+			openModal() {
 			      this.showModal = true;
-			    },
+			},
 		    closeModal() {
 		      this.showModal = false;
+		    },
+		    noId(){
+		    	alert("로그인이 필요합니다!");
+		    	location.href="../member/member_login.do"
+		    },
+		    reviewGet:function(){
+		    	axios.get('../fund/fund_reviewGet_vue.do',{
+		    		params:{
+		    			wfno:this.wfno
+		    		}
+		    	}).then(response=>{
+		    		console.log(response.data)
+		    		this.review_list=response.data
+		    	}).catch(error=>{
+		    		console.log(error.response)
+		    	})
+		    	
+		    	
 		    }
+		    
 		 }
 	 })	
 	</script>
