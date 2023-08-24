@@ -4,7 +4,11 @@ import java.util.List;
 import com.sist.vo.*;
 
 public interface MainService {
-	public List<CrowdStoreVO> crowdStoreListData();
+	public List<StoreVO> crowdStoreListData();
 	
-	public List<CrowdFundVO> crowdFundListData();
+	public List<FundVO> crowdFundListData();
+	
+	public String crowdTasteFcname(String id);
+	
+	public List<FundVO> crowdTasteFundListData(String fcname);
 }

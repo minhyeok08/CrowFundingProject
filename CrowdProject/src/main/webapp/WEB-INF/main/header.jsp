@@ -183,8 +183,10 @@ function setSelectedCategory(category) {
 				            	<h4 style="color:gray">최근 검색어</h4>
 					            <ul>
 									<li v-for="(keyword, index) in keywords" :key="index">
-								      {{ keyword }}
-								      <button type="button" @click="deleteKeyCookie(keyword)" class="recentDelBtn"><i class="fa-solid fa-x"></i></button>
+								        <span @click="performSearch(keyword)">
+								            {{ keyword }}
+								        </span>
+								        <button type="button" @click="deleteKeyCookie(keyword)" class="recentDelBtn"><i class="fa-solid fa-x"></i></button>
 								    </li>
 							    </ul>
 				            </div>
@@ -333,6 +335,19 @@ function setSelectedCategory(category) {
 		            } catch (error) {
 		                console.error('Error deleting keyword:', error);
 		            }
+		        },
+		        performSearch(keyword) {
+		            const searchInput = document.getElementById("searchInput");
+		            const searchOptions = document.getElementById("searchOptions");
+
+		            // 검색어를 입력란에 설정
+		            searchInput.value = keyword;
+
+		            // 검색 옵션 숨기기
+		            searchOptions.style.display = "none";
+
+		            // 검색 페이지로 이동
+		            document.querySelector("form").submit();
 		        }
 			}
 		})

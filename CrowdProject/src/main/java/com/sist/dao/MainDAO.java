@@ -12,11 +12,19 @@ public class MainDAO {
 	@Autowired
 	private MainMapper mapper;
 	
-	public List<CrowdStoreVO> crowdStoreListData() {
+	public List<StoreVO> crowdStoreListData() {
 		return mapper.crowdStoreListData();
 	}
 	
-	public List<CrowdFundVO> crowdFundListData() {
+	public List<FundVO> crowdFundListData() {
 		return mapper.crowdFundListData();
+	}
+	
+	public String crowdTasteFcname(String id) {
+		return mapper.crowdTasteFcname(id);
+	}
+	
+	public List<FundVO> crowdTasteFundListData(String fcname) {
+		return mapper.crowdTasteFundListData(fcname);
 	}
 }

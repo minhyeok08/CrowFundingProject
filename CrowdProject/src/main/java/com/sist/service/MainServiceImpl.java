@@ -13,12 +13,22 @@ public class MainServiceImpl implements MainService {
 	private MainDAO dao;
 
 	@Override
-	public List<CrowdStoreVO> crowdStoreListData() {
+	public List<StoreVO> crowdStoreListData() {
 		return dao.crowdStoreListData();
 	}
 
 	@Override
-	public List<CrowdFundVO> crowdFundListData() {
+	public List<FundVO> crowdFundListData() {
 		return dao.crowdFundListData();
+	}
+
+	@Override
+	public String crowdTasteFcname(String id) {
+		return dao.crowdTasteFcname(id);
+	}
+
+	@Override
+	public List<FundVO> crowdTasteFundListData(String fcname) {
+		return dao.crowdTasteFundListData(fcname);
 	}
 }

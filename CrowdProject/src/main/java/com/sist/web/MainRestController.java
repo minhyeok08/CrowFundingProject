@@ -1,6 +1,8 @@
 package com.sist.web;
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +21,7 @@ public class MainRestController {
 	@GetMapping(value = "main/store_list_vue.do", produces = "text/plain;charset=UTF-8")
 	public String crowdStoreListData() throws Exception {
 		
-		List<CrowdStoreVO> list = service.crowdStoreListData();
+		List<StoreVO> list = service.crowdStoreListData();
 
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
@@ -28,10 +30,21 @@ public class MainRestController {
 	}
 	
 	@GetMapping(value = "main/fund_list_vue.do", produces = "text/plain;charset=UTF-8")
-	public String crowdFundListData() throws Exception {
+	public String crowdFundListData(HttpSession session) throws Exception {
 		
-		List<CrowdFundVO> list = service.crowdFundListData();
+		String id = (String)session.getAttribute("id");
+		List<FundVO> list = new ArrayList<FundVO>();
 		
+		if (id != null) {
+			String fcname = service.crowdTasteFcname(id);
+			if (fcname != null) {
+				list = service.crowdTasteFundListData(fcname);
+			} else {
+				list = service.crowdFundListData();
+			}
+		} else {
+			list = service.crowdFundListData();
+		}
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
 		

@@ -34,7 +34,7 @@ td {
 				<h2>펀딩</h2>
 				<div class="col-md-6" v-for="fvo in search_fund">
 					<div class="thumbnail" style="width: 260px;">
-						<a href="#">
+						<a :href="'../fund/fund_detail_before.do?wfno='+fvo.wfno">
 							<img :src="fvo.mainimg" class="store_poster" style="width:260px; height:180px">
 							<div class="caption">
 								<p style="font-size: 16px; margin:2px 0px 2px 0px; height: 50px;">{{fvo.ftitle}}</p>

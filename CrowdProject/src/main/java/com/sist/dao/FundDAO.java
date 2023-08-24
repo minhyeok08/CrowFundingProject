@@ -22,7 +22,12 @@ public class FundDAO {
 	
 	public FundVO fundDetailData(int wfno)
 	{
+		mapper.fundhitIncrement(wfno);
 		return mapper.fundDetailData(wfno);
+	}
+	
+	public void fundTasteInsert(Map map) {
+		mapper.fundTasteInsert(map);
 	}
 	
 	public List<FundRewardVO> fundRewardList(int wfno)

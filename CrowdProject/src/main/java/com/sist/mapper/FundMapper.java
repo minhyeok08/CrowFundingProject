@@ -10,6 +10,15 @@ import org.springframework.expression.spel.ast.Projection;
 import com.sist.vo.*;
 public interface FundMapper {
 	public List<FundVO> fundListData(Map map);
+
+	// 펀딩 상품 hit수 증가
+	@Update("UPDATE wadiz_fund_detail SET "
+			+ "hit = hit+1 "
+			+ "WHERE wfno=#{wfno}")
+	public void fundhitIncrement(int wfno);
+	
+	// 사용자 펀딩 취향분석용 테이블 insert/update문
+	public void fundTasteInsert(Map map);
 	
 	public FundVO fundDetailData(int wfno);
 	

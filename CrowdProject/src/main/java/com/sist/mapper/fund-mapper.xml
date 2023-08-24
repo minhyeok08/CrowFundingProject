@@ -50,7 +50,7 @@
  		</if>
  	</select>
  	 	<select id="fundDetailData" resultType="FundVO" parameterType="int">
-	    SELECT wfno,acno,mainimg,detailimg,tag,ftitle,fsubtitle,achieve_rate,cum_amount,parti_count,jjim,support,
+	    SELECT wfno,acno,mainimg,detailimg,tag,fcname,ftitle,fsubtitle,achieve_rate,cum_amount,parti_count,jjim,support,
 	    makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter
 	    FROM wadiz_fund_detail
 	    WHERE wfno=#{wfno} 
@@ -73,4 +73,13 @@
   		)) 
   		WHERE num BETWEEN #{start} AND #{end}
   	</select>
+  	<update id="fundTasteInsert" parameterType="hashmap">
+        MERGE INTO wadiz_taste wt
+        USING (SELECT #{id} AS id, #{fcname} AS fcname FROM dual) src
+        ON (wt.id = src.id AND wt.fcname = src.fcname)
+        WHEN MATCHED THEN
+            UPDATE SET wt.taste_num = wt.taste_num + 1
+        WHEN NOT MATCHED THEN
+            INSERT (id, fcname, taste_num) VALUES (src.id, src.fcname, 1)
+    </update>
  </mapper>

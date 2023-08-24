@@ -30,4 +30,8 @@ public class FundServiceImpl implements FundService {
 		return dao.fundBuyData(rno);
 	}
 
+	@Override
+	public void fundTasteInsert(Map map) {
+		dao.fundTasteInsert(map);
+	}
 }

@@ -3,3 +3,4 @@
 .deployables
 .git
 pom.properties
+.DS_Store

@@ -3,33 +3,35 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.MainMapper">
-	<select id="crowdStoreListData" resultType="CrowdStoreVO">
+	<select id="crowdStoreListData" resultType="StoreVO">
 		SELECT wsno, main_poster, goods_title, score, maker_name, price, num
 		FROM (SELECT wsno, main_poster, goods_title, score, maker_name, price, rownum as num
 		FROM (SELECT wsno, main_poster, goods_title, score, maker_name, price
 		FROM wadiz_store_detail ORDER BY wsno ASC))
 		WHERE num BETWEEN 1 AND 6
 	</select>
-	<select id="crowdFundListData" resultType="CrowdFundVO">
-		SELECT wfno, mainimg, fcname, fcno, tag, ftitle, achieve_rate, num
-		FROM (SELECT wfno, mainimg, fcname, fcno, tag, ftitle, achieve_rate, rownum AS num
-		FROM (SELECT wfno, mainimg, fcname, fcno, tag, ftitle, achieve_rate
-		FROM WADIZ_FUND_DETAIL ORDER BY wfno ASC))
-		WHERE num BETWEEN 1 AND 5
+	<select id="crowdFundListData" resultType="FundVO">
+		SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, TO_CHAR(openday, 'yyyy-mm-dd') as stropenday, TO_CHAR(endday, 'yyyy-mm-dd') as strendday, aim_amount, hit, num
+		FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, hit, rownum AS num
+	    FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, hit
+		FROM WADIZ_FUND_DETAIL ORDER BY hit DESC, wfno ASC))
+		WHERE num BETWEEN 1 AND 6
 	</select>
-	<!-- <select id="foodCategoryInfoData" resultType="CategoryVO" parameterType="int">
-		SELECT title, subject
-		FROM food_category
-		WHERE cno = #{cno}
+	<select id="crowdTasteFcname" resultType="String" parameterType="String">
+		SELECT fcname
+		FROM (
+		    SELECT fcname
+		    FROM WADIZ_TASTE
+		    WHERE id = #{id}
+		    ORDER BY taste_num DESC
+		)
+		WHERE ROWNUM = 1
 	</select>
-	<select id="foodListData" resultType="FoodVO" parameterType="int">
-		SELECT fno, name, type, address, phone, poster, score
-		FROM food_house
-		WHERE cno = #{cno}
+	<select id="crowdTasteFundListData" resultType="FundVO" parameterType="String">
+		SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, TO_CHAR(openday, 'yyyy-mm-dd') as stropenday, TO_CHAR(endday, 'yyyy-mm-dd') as strendday, aim_amount, hit, num
+		FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, hit, rownum AS num
+	    FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, hit
+		FROM WADIZ_FUND_DETAIL WHERE fcname = #{fcname} ORDER BY hit DESC, wfno ASC))
+		WHERE num BETWEEN 1 AND 6
 	</select>
-	<select id="foodDetailData" resultType="FoodVO" parameterType="int">
-		SELECT fno, name, address, phone, poster, type, time, parking, price, score, menu
-		FROM food_house
-		WHERE fno = #{fno}
-	</select> -->
 </mapper>

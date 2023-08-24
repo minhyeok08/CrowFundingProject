@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.sist.vo.FundRewardVO;
 import com.sist.vo.FundVO;
 
-@Service
 public interface FundService {
 	public List<FundVO> fundListData(Map map);
 	
@@ -17,5 +16,5 @@ public interface FundService {
 	
 	public FundRewardVO fundBuyData(int rno);
 	
-
+	public void fundTasteInsert(Map map);
 }

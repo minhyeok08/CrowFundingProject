@@ -66,16 +66,19 @@ td {
 			<div class="col-lg-8">
 				<div class="row" style="padding-left:">
 				<h2>취향 맞춤 프로젝트</h2>
-				<div class="col-md-4" v-for="svo in store_list">
+				<div class="col-md-4" v-for="fvo in fund_list">
 					<div class="thumbnail" style="width: 260px;">
-						<a href="#">
-							<img :src="svo.main_poster" class="store_poster" style="width:260px; height:180px">
+						<a :href="'../fund/fund_detail_before.do?wfno='+fvo.wfno">
+							<img :src="fvo.mainimg" class="store_poster" style="width:260px; height:180px">
 							<div class="caption">
-								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{svo.goods_title}}</p>
+								<p style="font-size: 16px; margin:2px 0px 2px 0px; height: 50px;">{{fvo.ftitle}}</p>
+								<p style="font-size: 12px; margin:2px 0px 2px 0px; color:gray;">{{fvo.fcname}} | {{fvo.makername}}</p>
+								<div class="progress" style="height:3px;">
+								  <div class="progress-bar" :style="{ width: fvo.achieve_rate + '%' }" style="background-color:#a6d8ce;"></div>
+								</div> 
 								<p style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-									<strong style="color:#a6d8ce">{{svo.price | numberWithCommas}}</strong>&nbsp;원&nbsp;
-									<span style="color:orange">{{svo.score}}</span>
-									<span style="text-align:right; margin-left: auto; margin-right:10px;">{{svo.maker_name}}</span>
+									<span style="color:gray;"><strong style="color:#a6d8ce; font-size:16px;">{{fvo.achieve_rate}}%</strong>·{{fvo.aim_amount}}원</span>
+									<span style="color:gray;">{{getRemainingDays(fvo.strendday)}}일 남음</span>
 								</p>
 							</div>
 						</a>
@@ -140,7 +143,17 @@ td {
 						console.log(response.data)
 						this.fund_list = response.data
 					})
-				}
+				},
+				getRemainingDays:function(endDate) {
+		            const now = new Date();
+		            const end = new Date(endDate);
+		            
+					// 한 달 뒤의 날짜를 구하기 위해 월을 1 증가시킴
+		           	end.setMonth(end.getMonth() + 1);
+		            const timeDiff = end - now;
+		            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		            return daysDiff;
+		        }
 				/* range:function(start, end) {
 					let arr = []
 					let length = end-start
