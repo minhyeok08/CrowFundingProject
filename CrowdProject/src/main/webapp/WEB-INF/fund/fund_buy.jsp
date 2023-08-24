@@ -165,25 +165,17 @@ table td {
 				title : '개인정보 국외 이전 동의 (필수)'
 			})
 		})
-		//let rno = $('#buyBtn').attr("data-no");
+
 		let rprice = $('#price').val();
 		let tprice = $('#total_price').attr('data-total');
-		//let dbday = $('#dbday').val();
-		//let startDate = $('#startDate').val();
-		//let endDate = $('#endDate').val();
-		//<input type="hidden" id="rno" data-rno="${rvo.rno }"> 
-		//<input type="hidden" id="wfno" data-wfno="${vo.wfno }"> 
 		let rno = $('#rno').attr('data-rno');
 		let wfno = $('#wfno').attr('data-wfno');
 		let rname = $('#rname').attr('data-rname');
-		//let name = $('#name').attr('data-name');
 		let name = $('#name').text();
+		
 		$('#buyBtn').click(function(){
 			$.ajax({
 				type:'get',
-				//url:'../mypage/mypage_rentcar_reserve.do',
-				//url:'../fund/fund_list.do',
-				//data:{"rno":rno,"tprice":tprice},
 				url:'../fund/fund_test.do',
 				data:{"rno":rno,"wfno":wfno,"rname":rname,"name":name},
 				success:function(result){
@@ -298,7 +290,7 @@ table td {
 				<table class="table">
 					<tr>
 						<td width="20%">이름</td>
-						<td width="80%" id="name" class="text-right">${mvo.name }</td>
+						<td width="80%" id="name" class="text-right">${mvo.name }${gcount }</td>
 					</tr>
 					<tr>
 						<td width="20%">이메일</td>

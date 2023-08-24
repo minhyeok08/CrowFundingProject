@@ -40,7 +40,7 @@ public class FundController {
 	}
 
 	@GetMapping("fund/fund_buy.do")
-	public String fund_buy(int wfno,int rno, Model model,HttpSession session) {
+	public String fund_buy(int wfno,int rno, int gcount, Model model,HttpSession session) {
 		FundVO vo = service.fundDetailData(wfno);
 		FundRewardVO rvo = service.fundBuyData(rno);
 		
@@ -51,7 +51,11 @@ public class FundController {
         int cum_amount = vo.getCum_amount();
         String str_cum_amount= df.format(cum_amount);
         vo.setStrCum(str_cum_amount);
-       
+        
+        //String strgcount = request.getParameter(gcount);
+		//int gcount = Integer.parseInt(strgcount);
+        System.out.println(gcount);
+        model.addAttribute("gcount", gcount);
         model.addAttribute("mvo", mvo);
 	    model.addAttribute("wfno", wfno);
 	    model.addAttribute("vo", vo);
@@ -59,23 +63,7 @@ public class FundController {
 
 	    return "fund/fund_buy";
 	}
-	@GetMapping("fund/fund_detail_before.do")
-    public String fund_detail_before(@RequestParam int wfno,HttpSession session, Model model) {
-		String id = (String)session.getAttribute("id");
-		
-		if (id != null) {
-			FundVO vo = service.fundDetailData(wfno);
-			Map map = new HashMap();
-			map.put("id", id);
-			map.put("fcname", vo.getFcname());
-			service.fundTasteInsert(map);
-		}
 
-	    model.addAttribute("wfno", wfno);
-        
-        // 나머지 로직 처리
-        return "redirect:../fund/fund_detail.do";
-    }
 	@GetMapping("fund/fund_detail.do")
     public String fund_detail(@RequestParam int wfno, Model model) {
 		FundVO vo = service.fundDetailData(wfno);
@@ -98,6 +86,7 @@ public class FundController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		String strwfno = request.getParameter("wfno");
 		int wfno = Integer.parseInt(strwfno);
 		String strrno = request.getParameter("rno");
@@ -108,7 +97,6 @@ public class FundController {
 		String poster=vo.getMainimg();
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
-		
 		BuyVO bvo = new BuyVO();
 		bvo.setWfno(wfno);
 		bvo.setRno(rno);
