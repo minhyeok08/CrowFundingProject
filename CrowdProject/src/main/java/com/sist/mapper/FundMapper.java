@@ -28,14 +28,14 @@ public interface FundMapper {
 			+ "WHERE rno=#{rno}")
 	public FundRewardVO fundBuyData(int rno);
 	
-	@Insert("INSERT INTO fundmaking(wfno,makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter,fcno,fcname,ftitle,fsubtitle,aim_amount,mainimg,openday,endday,tag,detailimg,detailcont,id) "
-			+ "VALUES(fm_wfno_seq.nextval,#{makername},#{makerphoto},#{makeremail},#{makertel},#{makerhomepage},#{makerinsta},#{makerfacebook},#{makertwitter},#{fcno},#{fcname},#{ftitle},#{fsubtitle},#{aim_amount},#{mainimg},#{openday},#{endday},#{tag},#{detailimg},#{detailcont},#{id})")
+	@Insert("INSERT INTO wadiz_fund_detail(wfno,makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter,fcno,fcname,ftitle,fsubtitle,aim_amount,mainimg,openday,endday,tag,detailimg,detailcont,id) "
+			+ "VALUES(wfd_wfno_seq.nextval,#{makername},#{makerphoto},#{makeremail},#{makertel},#{makerhomepage},#{makerinsta},#{makerfacebook},#{makertwitter},#{fcno},#{fcname},#{ftitle},#{fsubtitle},#{aim_amount},#{mainimg},#{openday},#{endday},#{tag},#{detailimg},#{detailcont},#{id})")
 	public void fundInsertData(FundVO vo);
 	// 프로젝트 리스트 => 리워드 등록 안된 것.
 	@Select("SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,num "
 			+ "FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,rownum as num "
-			+ "FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok "
-			+ "FROM fundmaking WHERE id=#{id} AND rewardok=0)) "
+			+ "FROM (SELECT /*+ INDEX_ASC(wadiz_fund_detail wfd_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok "
+			+ "FROM wadiz_fund_detail WHERE id=#{id} AND rewardok=0)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundVO> projectListDataForReward(Map map);
 	// 프로젝트 리스트 => 리워드 등록 된 것.
@@ -45,15 +45,15 @@ public interface FundMapper {
 //			+ "FROM fundmaking WHERE id=#{id} AND rewardok=1)) "
 //			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundVO> projectListData(Map map);
-	// 프로젝트 리스트 총 페이지 수(3개씩 출력)
-	@Select("SELECT CEIL(COUNT(*)/8.0) FROM fundmaking WHERE id=#{id} AND rewardok=0")
+	// 프로젝트 리스트 총 페이지 수(4개씩 출력)
+	@Select("SELECT CEIL(COUNT(*)/4.0) FROM wadiz_fund_detail WHERE id=#{id} AND rewardok=0")
 	public int projectrewardnoTotalpage(String id);
-	@Select("SELECT CEIL(COUNT(*)/8.0) FROM fundmaking WHERE rewardok=1 AND acno=#{acno} AND id=#{id}")
+	@Select("SELECT CEIL(COUNT(*)/4.0) FROM wadiz_fund_detail WHERE rewardok=1 AND acno=#{acno} AND id=#{id}")
 	public int projectrewardOkTotalpage(Map map);
-	@Select("SELECT CEIL(COUNT(*)/4.0) FROM fundmaking WHERE rewardok=1 AND acno=#{acno} AND id=#{id}")
+	@Select("SELECT CEIL(COUNT(*)/4.0) FROM wadiz_fund_detail WHERE rewardok=1 AND acno=#{acno} AND id=#{id}")
 	public int makerpagehomeprojectTotalpage(Map map);
 	// 프로젝트 상세=> 리워드 등록 안된 거 => 리워드 등록이 필요함 
-	@Select("SELECT * FROM fundmaking WHERE wfno=#{wfno}")
+	@Select("SELECT * FROM wadiz_fund_detail WHERE wfno=#{wfno}")
 	public FundVO projectDetailData(int wfno);
 	
 	/*
@@ -68,24 +68,23 @@ public interface FundMapper {
 		WFNO              NUMBER     
 	 */
 	//리워드 등록
-	@Update("UPDATE fundmaking SET rewardOk=1,acno = CASE WHEN openday <= SYSDATE THEN 1 ELSE 3 END WHERE wfno=#{wfno}")
+	@Update("UPDATE wadiz_fund_detail SET rewardOk=1,acno = CASE WHEN openday <= SYSDATE THEN 1 ELSE 3 END WHERE wfno=#{wfno}")
 	public void project_rewardOk(int wfno); // 리워드가 등록되면 rewardOk를 1로 바꾸고, 개시일 openday가 현 시스템 날짜보다 이전이면 1(오픈된 상품)으로 변경
-	
-	@Insert("INSERT INTO rewardmaking (rno,rname,rprice,rcont,delfee,delstart,limitq,wfno) "
-			+ "VALUES(rem_rno_seq.nextval,#{rname},#{rprice},#{rcont},#{delfee},#{delstart},#{limitq},#{wfno})")
+	@Insert("INSERT INTO wadiz_funding_reward (rno,rname,rprice,rcont,delfee,delstart,limitq,wfno) "
+			+ "VALUES(wfr_rno_seq.nextval,#{rname},#{rprice},#{rcont},#{delfee},#{delstart},#{limitq},#{wfno})")
 	public void rewardInsertData(RewardVO vo);
-	@Select("SELECT rno,rname,rprice,rcont,delfee,delstart,limitq FROM rewardmaking WHERE wfno=#{wfno}")
+	@Select("SELECT rno,rname,rprice,rcont,delfee,delstart,limitq FROM wadiz_funding_reward WHERE wfno=#{wfno}")
 	public List<RewardVO> rewardListData(int wfno);
-	@Update("UPDATE fundmaking SET makername=#{makername},makerphoto=#{makerphoto},makeremail=#{makeremail},makertel=#{makertel},makerhomepage=#{makerhomepage},makerinsta=#{makerinsta},makerfacebook=#{makerfacebook},makertwitter=#{makertwitter},fcno=#{fcno},fcname=#{fcname},ftitle=#{ftitle},fsubtitle=#{fsubtitle},aim_amount=#{aim_amount},mainimg=#{mainimg},openday=#{openday},endday=#{endday},tag=#{tag},detailimg=#{detailimg},detailcont=#{detailcont} WHERE wfno=#{wfno}")
+	@Update("UPDATE wadiz_fund_detail SET makername=#{makername},makerphoto=#{makerphoto},makeremail=#{makeremail},makertel=#{makertel},makerhomepage=#{makerhomepage},makerinsta=#{makerinsta},makerfacebook=#{makerfacebook},makertwitter=#{makertwitter},fcno=#{fcno},fcname=#{fcname},ftitle=#{ftitle},fsubtitle=#{fsubtitle},aim_amount=#{aim_amount},mainimg=#{mainimg},openday=#{openday},endday=#{endday},tag=#{tag},detailimg=#{detailimg},detailcont=#{detailcont} WHERE wfno=#{wfno}")
 	public void project_update(FundVO vo);
-	@Select("SELECT wfno,rname,rprice,rcont,delfee,delstart,limitq FROM rewardmaking WHERE rno=#{rno}")
+	@Select("SELECT wfno,rname,rprice,rcont,delfee,delstart,limitq FROM wadiz_funding_reward WHERE rno=#{rno}")
 	public RewardVO reward_detail(int rno);
-	@Update("UPDATE rewardmaking SET rname=#{rname},rprice=#{rprice},rcont=#{rcont},delfee=#{delfee},delstart=#{delstart},limitq=#{limitq} WHERE rno=#{rno}")
+	@Update("UPDATE wadiz_funding_reward SET rname=#{rname},rprice=#{rprice},rcont=#{rcont},delfee=#{delfee},delstart=#{delstart},limitq=#{limitq} WHERE rno=#{rno}")
 	public void reward_update_ok(RewardVO vo);
-	@Delete("DELETE FROM rewardmaking WHERE rno=#{rno}")
+	@Delete("DELETE FROM wadiz_funding_reward WHERE rno=#{rno}")
 	public void reward_delete(int rno);
 	// 새소식 등록을 위한 프로젝트 리스트 출력
-	@Select("SELECT wfno,ftitle FROM fundmaking WHERE id=#{id} AND rewardOk=1")
+	@Select("SELECT wfno,ftitle FROM wadiz_fund_detail WHERE id=#{id} AND rewardOk=1")
 	public List<FundVO> project_list_for_news(String id);
 	/*
 	NO        NOT NULL NUMBER         
@@ -106,7 +105,7 @@ public interface FundMapper {
 	public void news_insert(NewsVO vo);
 	
 	//새소식 리스트 출력
-	@Select("SELECT no,tno,subject,(SELECT ftitle FROM fundmaking WHERE wfno=aa.wfno) as ftitle,TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit,num "
+	@Select("SELECT no,tno,subject,(SELECT ftitle FROM wadiz_fund_detail WHERE wfno=aa.wfno) as ftitle,TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit,num "
 			+ "FROM (SELECT no,tno,subject,wfno,regdate,hit,rownum as num "
 			+ "FROM (SELECT no,tno,subject,wfno,regdate,hit "
 			+ "FROM newstable WHERE id=#{id} ORDER BY no DESC)) aa "
@@ -127,9 +126,9 @@ public interface FundMapper {
 	@Delete("DELETE FROM newstable WHERE no=#{no}")
 	public void maker_news_delete(int no);
 	// 프로젝트 만들기(리워드 없는) 삭제
-	@Select("SELECT mainimg,makerphoto,detailimg FROM fundmaking WHERE wfno=#{wfno}")
+	@Select("SELECT mainimg,makerphoto,detailimg FROM wadiz_fund_detail WHERE wfno=#{wfno}")
 	public FundVO project_for_rewardFileInfoData(int wfno);
-	@Delete("DELETE FROM fundmaking WHERE wfno=#{wfno}")
+	@Delete("DELETE FROM wadiz_fund_detail WHERE wfno=#{wfno}")
 	public void project_for_rewardDelete(int wfno);
 	
 }

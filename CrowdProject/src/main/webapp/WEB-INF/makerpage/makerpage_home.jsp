@@ -80,7 +80,9 @@
 				<h3 class="text-center"><strong style="color: #a6d8ce">${sessionScope.name }</strong>&nbsp;님의 정보</h3>
 			<div style="height: 50px"></div>
 			<div class="mb-3">
-				<img :src="user_info.profile_url" style="border-radius: 50%; width: 200px; height: 200px; border: 1px solid #a6d8ce;">
+				<a href="../mypage/mypage_main.do">
+					<img :src="user_info.profile_url" style="border-radius: 50%; width: 200px; height: 200px; border: 1px solid #a6d8ce;">
+				</a>
 			</div>
 			<br>
 			<div style="height: 50px"></div>
@@ -120,7 +122,19 @@
 				      <a href="#">
 				        <img :src="'../Fundimages/'+vo.mainimg" style="width:100%;height: 200px;">
 				        <div class="caption">
-				          <p class="text-center">{{vo.ftitle}}</p>
+				          
+				          <p>
+				          	<div class="progress" style="height:3px;">
+							  <div class="progress-bar" :style="'width: '+vo.acheieve_rate+'% background-color:#a6d8ce;'"></div>
+							</div>
+				          </p>
+				          <p v-if="vo.achieve_rate!=0">
+				          	<strong style="color: #a6d8ce;">달성률 {{vo.achieve_rate}}%</strong>
+				          </p>
+				          <p v-else>
+				          	<strong style="color: #adb5bd;">달성률 {{vo.achieve_rate}}%</strong>
+				          </p>
+				          <p class="text-center"><strong>{{vo.ftitle}}</strong></p>
 				        </div>
 				      </a>
 				    </div>

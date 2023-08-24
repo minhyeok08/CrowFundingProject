@@ -30,7 +30,7 @@ public class MakerpageRestController {
 	public String project_list_for_reward(int page,String id) throws Exception
 	{
 		Map map = new HashMap();
-		int rowSize=8;
+		int rowSize=4;
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
 		map.put("start", start);
@@ -80,9 +80,9 @@ public class MakerpageRestController {
 	{
 		FundVO vo = dao.projectDetailData(wfno);
 		DecimalFormat df = new DecimalFormat("###,###,###");
-		int aim_mount = vo.getAim_amount();
-		String str_aim_mount= df.format(aim_mount);
-		vo.setStr_aim_mount(str_aim_mount);
+		int aim_amount = vo.getAim_amount();
+		String str_aim_amount= df.format(aim_amount);
+		vo.setStr_aim_amount(str_aim_amount);
 		ObjectMapper mapper = new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
@@ -92,9 +92,18 @@ public class MakerpageRestController {
 	{
 		FundVO vo = dao.projectDetailData(wfno);
 		DecimalFormat df = new DecimalFormat("###,###,###");
-		int aim_mount = vo.getAim_amount();
-		String str_aim_mount= df.format(aim_mount);
-		vo.setStr_aim_mount(str_aim_mount);
+		int aim_amount = vo.getAim_amount();
+		int cum_amount=vo.getCum_amount();
+		int parti_count=vo.getParti_count();
+		int achieve_rate=vo.getAchieve_rate();
+		String str_aim_amount= df.format(aim_amount);
+		String str_cum_amount=df.format(cum_amount);
+		String str_parti_count=df.format(parti_count);
+		String str_achieve_rate = df.format(achieve_rate);
+		vo.setStr_aim_amount(str_aim_amount);
+		vo.setStr_cum_amount(str_cum_amount);
+		vo.setStr_parti_count(str_parti_count);
+		vo.setStr_achieve_rate(str_achieve_rate);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String dbopenday= sdf.format(vo.getOpenday());
 		String dbendday=sdf.format(vo.getEndday());
@@ -108,7 +117,7 @@ public class MakerpageRestController {
 	public String project_list(int page,String id,int acno) throws Exception
 	{
 		Map map = new HashMap();
-		int rowSize=8;
+		int rowSize=4;
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
 		map.put("start", start);
@@ -269,6 +278,12 @@ public class MakerpageRestController {
 		for(NewsVO vo:list)
 		{
 			vo.setTname(tname[vo.getTno()]);
+			String ftitle = vo.getFtitle();
+			if(ftitle.length()>22)
+			{
+				ftitle=ftitle.substring(0,22)+"...";
+			}
+			vo.setFtitle(ftitle);
 		}
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);

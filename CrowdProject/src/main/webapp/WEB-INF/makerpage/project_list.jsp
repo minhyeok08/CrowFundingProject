@@ -117,14 +117,15 @@
 		    	<tr>
 		    		<td class="text-center" colspan="2">
 		    			<a :href="'../makerpage/project_detail.do?wfno='+vo.wfno">
-		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:250px;height: 200px;">
+		    				<img v-if="vo.mainimg.startsWith('https')" :src="vo.mainimg" style="width:250px;height: 200px;">
+		    				<img v-else :src="'../Fundimages/'+vo.mainimg" style="width:250px;height: 200px;">
 		    			</a>
 		    		</td>
 		    	</tr>
 		    	<tr>
 		    		<td colspan="2">
 		    			<div class="progress" style="height:3px;">
-						  <div class="progress-bar" :style="'width: '+vo.acheieve_rate+'% background-color:#a6d8ce;'"></div>
+						  <div class="progress-bar" :style="{ width: vo.achieve_rate + '%' }" style="background-color:#a6d8ce;"></div>
 						</div>
 		    		</td>
 		    	</tr>
@@ -135,7 +136,7 @@
 		    	</tr>
 		    	<tr v-else>
 		    		<td colspan="2" class="text-end">
-		    			<strong style="color: ##adb5bd;">달성률 {{vo.achieve_rate}}%</strong>
+		    			<strong style="color: #adb5bd;">달성률 {{vo.achieve_rate}}%</strong>
 		    		</td>
 		    	</tr>
 		    	<tr>
@@ -156,7 +157,8 @@
 		    	</tr>
 		    	<tr>
 		    		<th width="30%" class="text-end">
-		    			<img :src="'../Fundimages/'+vo.makerphoto" class="rounded-image" style="width: 50px;height: 50px">
+		    			<img v-if="vo.makerphoto.startsWith('https')" :src="vo.makerphoto" class="rounded-image" style="width: 50px;height: 50px">
+		    			<img v-else="vo.makerphoto.startsWith('https')" :src="'../Fundimages/'+vo.makerphoto" class="rounded-image" style="width: 50px;height: 50px">
 		    		</th>
 		    		<td width="70%" style="font-size: 15pz">{{vo.makername}}</td>
 		    	</tr>

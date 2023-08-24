@@ -53,5 +53,5 @@ public class FundVO {
 	private String stropenday,strendday,detailcont,opendaykor;
 	private List<MultipartFile> files;
 	private int rewardok;
-	private String id,str_aim_mount;
+	private String id,str_aim_amount,str_cum_amount,str_parti_count,str_achieve_rate;
 }

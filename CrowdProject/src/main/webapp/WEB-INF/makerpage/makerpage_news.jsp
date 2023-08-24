@@ -13,7 +13,7 @@
 }
 #newstable{
 	width: 1000px;
-	height: 600px;
+	height: 700px;
 	border: 2px solid #a6d8ce;
 	margin: 0px auto;
 }

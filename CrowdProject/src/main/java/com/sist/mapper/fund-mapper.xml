@@ -68,8 +68,8 @@
   	<select id="projectListData" resultType="FundVO" parameterType="hashmap">
   		SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,achieve_rate,num 
   		FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,achieve_rate,rownum as num
-  		FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,achieve_rate 
-  		FROM fundmaking WHERE rewardok=1 AND acno=#{acno} AND id=#{id}
+  		FROM (SELECT /*+ INDEX_ASC(wadiz_fund_detail wfd_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,achieve_rate 
+  		FROM wadiz_fund_detail WHERE rewardok=1 AND acno=#{acno} AND id=#{id}
   		)) 
   		WHERE num BETWEEN #{start} AND #{end}
   	</select>

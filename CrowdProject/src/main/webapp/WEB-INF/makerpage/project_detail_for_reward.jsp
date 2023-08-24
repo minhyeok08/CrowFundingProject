@@ -70,7 +70,8 @@
 		<table class="table storytable">
 			<tr>
 				<td>
-					<img :src="'../Fundimages/'+detail_data.mainimg">
+					<img v-if="detail_data.mainimg.startsWith('https')" :src="detail_data.mainimg">
+					<img v-else :src="'../Fundimages/'+detail_data.mainimg">
 				</td>
 			</tr>
 			<tr>
@@ -106,7 +107,8 @@
 		<table class="table makertable">
 			<tr>
 				<td width="20%" class="text-center circle-image">
-					<img :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image" style="width: 30px;height: 30px;">
+					<img  v-if="detail_data.makerphoto.startsWith('https')" :src="detail_data.makerphoto" class="rounded-image" style="width: 30px;height: 30px;">
+					<img  v-else :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image" style="width: 30px;height: 30px;">
 				</td>
 				<td width="80%">
 					<h5 style="font-style: bold">{{detail_data.makername}}</h5>

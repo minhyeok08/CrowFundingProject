@@ -83,7 +83,8 @@
 			<table class="table storytable">
 				<tr>
 					<td>
-						<img :src="'../Fundimages/'+detail_data.mainimg">
+						<img v-if="detail_data.mainimg.startsWith('https')" :src="detail_data.mainimg">
+						<img v-else :src="'../Fundimages/'+detail_data.mainimg">
 					</td>
 				</tr>
 				<tr>
@@ -94,7 +95,8 @@
 				</tr>
 				<tr v-for="img in detailimg">
 					<td>
-						<img :src="'../Fundimages/'+img">
+						<img v-if="img.startsWith('https')" :src="img">
+						<img v-else :src="'../Fundimages/'+img">
 					</td>
 				</tr>
 			</table>
@@ -113,17 +115,17 @@
 					<td style="font-size: 13px">{{detail_data.fsubtitle}}</td>
 				</tr>
 				<tr>
-					<td style="font-size: 10pt;"><strong>목표금액&nbsp;<span style="color: #a6d8ce;font-size: 15pt">{{detail_data.str_aim_mount}}</span>원</strong></td>
+					<td style="font-size: 10pt;"><strong>목표금액&nbsp;<span style="color: #a6d8ce;font-size: 15pt">{{detail_data.str_aim_amount}}</span>원</strong></td>
 				</tr>
 				<tr>
 					<td style="color: #a6d8ce;">
-						<span style="font-size: 25px"><strong>{{detail_data.cum_amount}}</strong></span>원 달성
+						<span style="font-size: 25px"><strong>{{detail_data.str_cum_amount}}</strong></span>원 달성
 					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 17px">
-						<strong>{{detail_data.achieve_rate}}% 달성</strong>&nbsp;&nbsp;&nbsp;
-						<span style="background-color: #f2f2f2; padding: 2px 5px; border-radius: 4px; color: black; font-size: 14px;">{{detail_data.parti_count}}명 참여</span>
+						<strong>{{detail_data.str_achieve_rate}}% 달성</strong>&nbsp;&nbsp;&nbsp;
+						<span style="background-color: #f2f2f2; padding: 2px 5px; border-radius: 4px; color: black; font-size: 14px;">{{detail_data.str_parti_count}}명 참여</span>
 					</td>
 				</tr>
 				<tr>
@@ -146,7 +148,8 @@
 			<table class="table makertable">
 				<tr>
 					<td width="20%" class="text-center circle-image">
-						<img :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image" style="width: 30px;height: 30px;">
+						<img  v-if="detail_data.makerphoto.startsWith('https')" :src="detail_data.makerphoto" class="rounded-image" style="width: 30px;height: 30px;">
+						<img  v-else :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image" style="width: 30px;height: 30px;">
 					</td>
 					<td width="80%">
 						<strong>{{detail_data.makername}}</strong>
