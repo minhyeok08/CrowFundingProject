@@ -6,11 +6,13 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.service.MemberServiceImpl;
 import com.sist.service.MyPageServiceImpl;
 import com.sist.vo.MemberVO;
 
@@ -26,6 +29,10 @@ import com.sist.vo.MemberVO;
 public class MyPageRestController {
 	@Autowired
 	private MyPageServiceImpl service;
+	@Autowired
+	private MemberServiceImpl mservice;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	@GetMapping(value="mypage/myInfoData.do", produces="text/plain;charset=utf-8")
 	public String mypage_myinfoData(MemberVO vo,HttpSession session) {
@@ -99,5 +106,49 @@ public class MyPageRestController {
 			service.myInfoUpdate(vo);
 		}
 		return "ok";
+	}
+	
+	//pwd update
+	@PostMapping(value="mypage/pwd_update_ok.do", produces="application/json;charset=utf-8")
+	public String mypage_pwd_update_ok(String newPwd,MemberVO vo) {
+		String json="";
+		String res="";
+		try {
+			String db_pwd=service.pwdCheck(vo);
+			if(encoder.matches(vo.getPwd(),db_pwd)) {
+				String pwd=encoder.encode(newPwd);
+				vo.setPwd(pwd);
+				service.passwordUpdate(vo);
+			} else {
+				res="nopwd";
+			}
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	@GetMapping(value="mypage/emailCheck.do",produces="text/plain;charset=utf-8")
+	public String member_emailCheck(String email) {
+		String result="no";
+		int count=mservice.memberEmailCheck(email);
+		if(count==0) {
+			result="yes";
+		}
+		return result;
+	}
+	
+	@GetMapping(value="mypage/phoneCheck.do",produces="text/plain;charset=utf-8")
+	public String member_phoneCheck(String phone) {
+		String result="";
+		int count=mservice.memberPhoneCheck(phone);
+		if(count==0) {
+			result="yes";
+		} else if(count==1) {
+			result="no";
+		}
+		return result;
 	}
 }

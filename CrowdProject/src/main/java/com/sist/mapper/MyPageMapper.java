@@ -1,5 +1,9 @@
 package com.sist.mapper;
 
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Select;
+
 import com.sist.vo.MemberVO;
 
 public interface MyPageMapper {
@@ -11,4 +15,10 @@ public interface MyPageMapper {
 	
 	//	<update id="myProfileUpdate" parameterType="memberVO">
 	public void myProfileUpdate(MemberVO vo);
+	
+	//<update id="passwordUpdate" parameterType="memberVO">
+	public void passwordUpdate(MemberVO vo);
+	
+	@Select("select pwd from wadiz_member where id=#{id}")
+	public String pwdCheck(MemberVO vo);
 }

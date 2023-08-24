@@ -24,4 +24,12 @@ public class MyPageDAO {
 	public void myProfileUpdate(MemberVO vo) {
 		mapper.myProfileUpdate(vo);
 	}
+	
+	public void passwordUpdate(MemberVO vo) {
+		mapper.passwordUpdate(vo);
+	}
+	
+	public String pwdCheck(MemberVO vo) {
+		return mapper.pwdCheck(vo);
+	}
 }

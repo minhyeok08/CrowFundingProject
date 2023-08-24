@@ -10,9 +10,12 @@
     WHERE m.ID = #{id}
 	</select>
 	<update id="myInfoUpdate" parameterType="memberVO">
-	update wadiz_member set name=#{name}, email=#{email}, phone=#{phone} where id=#{id}
+	update wadiz_member set name=#{name}, email=#{email}, phone=#{phone}, nickname=#{nickname}, content=#{content} where id=#{id}
 	</update>
 	<update id="myProfileUpdate" parameterType="memberVO">
 	update wadiz_member_profile set profile_name=#{profile_name}, profile_size=#{profile_size}, profile_url=#{profile_url} where id=#{id}	
+	</update>
+	<update id="passwordUpdate" parameterType="memberVO">
+	update wadiz_member set pwd=#{pwd} where id=#{id}
 	</update>
 </mapper>

@@ -26,4 +26,14 @@ public class MyPageServiceImpl implements MyPageService {
 	public void myProfileUpdate(MemberVO vo) {
 		mapper.myProfileUpdate(vo);
 	}
+
+	@Override
+	public void passwordUpdate(MemberVO vo) {
+		mapper.passwordUpdate(vo);
+	}
+
+	@Override
+	public String pwdCheck(MemberVO vo) {
+		return mapper.pwdCheck(vo);
+	}
 }

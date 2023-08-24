@@ -26,14 +26,15 @@ public class MyPageController {
 		String json="";
 		String id=(String)session.getAttribute("id");
 		vo=service.myInfo(id);
-		
+		vo.setContent(vo.getContent() == null ? "" : vo.getContent());
+		vo.setNickname(vo.getNickname() == null ? "" : vo.getNickname());
 		try {
 			ObjectMapper mapper=new ObjectMapper();
 			json=mapper.writeValueAsString(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("myUrl:"+vo.getProfile_url());
+		//System.out.println("myUrl:"+vo.getProfile_url());
 		model.addAttribute("json", json);
 		return "mypage/my_info_update";
 	}
