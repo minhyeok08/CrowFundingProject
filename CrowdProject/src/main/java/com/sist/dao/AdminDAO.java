@@ -11,8 +11,10 @@ import com.sist.mapper.AdminMapper;
 import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
+import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.StoreVO;
 
 @Repository
 public class AdminDAO {
@@ -75,4 +77,30 @@ public class AdminDAO {
 	public void noticeUpdate(NoticeVO vo) {
 		mapper.noticeUpdate(vo);
 	}
+	
+	public List<MemberVO> makerListData(Map map){
+		return mapper.makerListData(map);
+	}
+	
+	public int makerTotalPage() {
+		return mapper.makerTotalPage();
+	}
+	
+	public List<FundVO> partiChart(){
+		return mapper.partiChart();
+	}
+	
+	public List<FundVO> catecount(){
+		return mapper.catecount();
+	}
+	
+	public List<StoreVO> spartiChart(){
+		return mapper.spartiChart();
+	}
+	
+	public List<StoreVO> scatecount(){
+		return mapper.scatecount();
+	}
+	
+	
 }

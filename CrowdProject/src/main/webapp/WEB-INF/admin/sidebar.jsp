@@ -33,12 +33,17 @@
     cursor: pointer;
     border-radius: 5px;
 }
+.sideImg{
+	width:30px;
+	height: 30px;
+}
+.fullscreen{
+	background-color: #e9ecef;
+}
 </style>
 </head>
 <body>
-	<div class="row">
-		<img src="">
-	</div>
+<div class="fullscreen">
 	<nav id="sidebar" class="d-md-block bg-light sidebar">
 		<div class="position-sticky">
 			<ul class="nav flex-column">
@@ -51,7 +56,9 @@
 							<h2 class="accordion-header" id="menu1Heading">
 								<button class="accordion-button menu1" type="button"
 									data-bs-toggle="collapse" data-bs-target="#menu1Collapse"
-									aria-expanded="true" aria-controls="menu1Collapse">회원</button>
+									aria-expanded="true" aria-controls="menu1Collapse">
+									<img src="../images/people.png" class="sideImg">
+									&nbsp;&nbsp;회원</button>
 							</h2>
 							<div id="menu1Collapse" class="accordion-collapse collapse"
 								aria-labelledby="menu1Heading" data-bs-parent="#menu1Accordion">
@@ -70,7 +77,9 @@
 							<h2 class="accordion-header" id="menu2Heading">
 								<button class="accordion-button menu2" type="button"
 									data-bs-toggle="collapse" data-bs-target="#menu2Collapse"
-									aria-expanded="true" aria-controls="menu2Collapse">상품</button>
+									aria-expanded="true" aria-controls="menu2Collapse">
+									<img src="../images/store.png" class="sideImg">
+									&nbsp;&nbsp;상품</button>
 							</h2>
 							<div id="menu2Collapse" class="accordion-collapse collapse"
 								aria-labelledby="menu2Heading" data-bs-parent="#menu2Accordion">
@@ -89,7 +98,9 @@
 							<h2 class="accordion-header" id="menu3Heading">
 								<button class="accordion-button menu3" type="button"
 									data-bs-toggle="collapse" data-bs-target="#menu3Collapse"
-									aria-expanded="true" aria-controls="menu2Collapse">공지 및 문의내역</button>
+									aria-expanded="true" aria-controls="menu2Collapse">
+									<img src="../images/board.png" class="sideImg">
+									&nbsp;&nbsp;공지 및 문의내역</button>
 							</h2>
 							<div id="menu3Collapse" class="accordion-collapse collapse"
 								aria-labelledby="menu3Heading" data-bs-parent="#menu3Accordion">
@@ -105,5 +116,6 @@
 			</ul>
 		</div>
 	</nav>
+</div>
 </body>
 </html>

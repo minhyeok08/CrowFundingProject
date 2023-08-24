@@ -1,18 +1,20 @@
 package com.sist.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sist.service.AdminService;
+import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.StoreVO;
 
 @Controller
-@CrossOrigin("*")
 public class AdminController {
 	@Autowired
 	private AdminService service;
@@ -53,7 +55,22 @@ public class AdminController {
 	}
 	
 	@GetMapping("admin/chart.do")
-	public String admin_chart() {
+	public String admin_chart(Model model) {
+		
+		List<FundVO> clist=service.catecount();
+		List<FundVO> list=service.partiChart();
+		List<StoreVO> slist=service.spartiChart();
+		for(StoreVO vo:slist) {
+			String title=vo.getGoods_title();
+			title=title.substring(0,8);
+			title=title+"...";
+			vo.setGoods_title(title);
+		}
+		List<StoreVO> sclist=service.scatecount();
+		model.addAttribute("slist",slist);
+		model.addAttribute("sclist",sclist);
+		model.addAttribute("clist",clist);
+		model.addAttribute("list",list);
 		return "admin/chart";
 	}
 	
@@ -102,4 +119,25 @@ public class AdminController {
 		service.noticeUpdate(vo);
 		return "redirect:../admin/notice_detail.do?wnno="+vo.getWnno();
 	}
+	
+	@GetMapping("admin/maker_detail.do")
+	public String admin_maker_detail(String id,Model model) {
+		model.addAttribute("id",id);
+		return "admin/sup_detail";
+	}
+	
+	@GetMapping("admin/maker_update.do")
+	public String admin_maker_update(String id,Model model) {
+		MemberVO vo=service.supDetailData(id);
+		model.addAttribute("id",id);
+		model.addAttribute("vo",vo);
+		return "admin/sup_update";
+	}
+	
+	@PostMapping("admin/maker_update_ok.do")
+	public String maker_update_ok(MemberVO vo) {
+		service.supUpdate(vo);
+		return "redirect:../admin/sup_detail.do?id="+vo.getId();
+	}
+	
 }

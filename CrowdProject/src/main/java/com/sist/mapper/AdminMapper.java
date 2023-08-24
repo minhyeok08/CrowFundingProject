@@ -9,8 +9,10 @@ import org.apache.ibatis.annotations.Update;
 import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
+import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.StoreVO;
 
 public interface AdminMapper {
 	public List<CrowdStoreVO> crowdStoreListData(Map map);
@@ -46,9 +48,9 @@ public interface AdminMapper {
 	@Select("SELECT CEIL(COUNT(*)/10.0) FROM wadiz_admin_qna")
 	public int qnaTotalPage();
 
-	@Select("SELECT waqno, subject,id,content,state,TO_CHAR(regdate,'yyyy-mm-dd') as dbday, filename,filesize,filecount, num "
-			+ "FROM (SELECT waqno, subject,id,content,state,regdate, filename,filesize,filecount, rownum as num  "
-			+ "FROM (SELECT waqno, subject,id,content,state,regdate, filename,filesize,filecount "
+	@Select("SELECT waqno, subject,id,content,isreply,group_id,group_step,group_tab,TO_CHAR(regdate,'yyyy-mm-dd') as dbday, filename,filesize,filecount, num "
+			+ "FROM (SELECT waqno, subject,id,content,isreply,group_id,group_step,group_tab,regdate, filename,filesize,filecount, rownum as num  "
+			+ "FROM (SELECT waqno, subject,id,content,isreply,group_id,group_step,group_tab,regdate, filename,filesize,filecount "
 			+ "FROM wadiz_admin_qna ORDER BY waqno DESC)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<AdminqnaVO> qnaListData(Map map);
@@ -80,4 +82,19 @@ public interface AdminMapper {
 			+ "WHERE wnno=#{wnno}")
 	public void noticeUpdate(NoticeVO vo); 
 	
+	@Select("SELECT ftitle,parti_count,cum_amount,achieve_rate, rownum "
+			+ "FROM (SELECT ftitle,parti_count,cum_amount,achieve_rate FROM wadiz_fund_detail ORDER BY parti_count DESC) "
+			+ "WHERE rownum<=10")
+	public List<FundVO> partiChart();
+	
+	@Select("SELECT count(*) as support,fcname FROM wadiz_fund_detail GROUP BY fcno,fcname")
+	public List<FundVO> catecount();
+	
+	@Select("SELECT goods_title, parti_count, rownum "
+			+ "FROM (SELECT goods_title, parti_count FROM wadiz_store_detail ORDER BY parti_count DESC) "
+			+ "WHERE rownum<=10")
+	public List<StoreVO> spartiChart();
+	
+	@Select("SELECT count(*) as price,scname FROM wadiz_store_detail GROUP BY scno,scname")
+	public List<StoreVO> scatecount();
 }

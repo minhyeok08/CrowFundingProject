@@ -3,6 +3,7 @@ package com.sist.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,10 @@ import com.sist.dao.AdminDAO;
 import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
+import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.StoreVO;
 
 @Service
 public class AdminServiceimpl implements AdminService {
@@ -87,4 +90,33 @@ public class AdminServiceimpl implements AdminService {
 	public void noticeUpdate(NoticeVO vo) {
 		dao.noticeUpdate(vo);
 	}
+	
+	@Override
+	public List<MemberVO> makerListData(Map map){
+		return dao.makerListData(map);
+	}
+	
+	@Override
+	public int makerTotalPage() {
+		return dao.makerTotalPage();
+	}
+	
+	@Override
+	public List<FundVO> partiChart(){
+		return dao.partiChart();
+	}
+	@Override
+	public List<FundVO> catecount(){
+		return dao.catecount();
+	}
+	@Override
+	public List<StoreVO> spartiChart(){
+		return dao.spartiChart();
+	}
+	
+	@Override
+	public List<StoreVO> scatecount(){
+		return dao.scatecount();
+	}
+	
 }

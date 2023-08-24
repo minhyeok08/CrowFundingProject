@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +18,6 @@ import com.sist.vo.NoticeVO;
 import com.sist.vo.PageVO;
 
 @RestController
-@CrossOrigin("*")
 public class AdminRestController {
 	@Autowired
 	private AdminService service;
@@ -28,7 +26,7 @@ public class AdminRestController {
 	public String storeListData(int curpage, int scno) throws Exception {
 		
 		Map map=new HashMap();
-		int rowSize=10;
+		int rowSize=16;
 		int start=(rowSize*curpage)-(rowSize-1);
 		int end=rowSize*curpage;
 		map.put("scno", scno);
@@ -68,7 +66,7 @@ public class AdminRestController {
 	@GetMapping(value = "admin/fund_list_vue.do", produces = "text/plain;charset=UTF-8")
 	public String fundListData(int curpage, int fcno) throws Exception {
 		Map map=new HashMap();
-		int rowSize=10;
+		int rowSize=16;
 		int start=(rowSize*curpage)-(rowSize-1);
 		int end=rowSize*curpage;
 		map.put("fcno", fcno);
@@ -154,10 +152,34 @@ public class AdminRestController {
 		int end=rowSize*page;
 		map.put("start", start);
 		map.put("end", end);
-		List<MemberVO> list = service.memberListData(map);
+		List<MemberVO> list = service.makerListData(map);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "admin/maker_page_vue.do",produces = "text/plain;charset=UTF-8")
+	public String maker_page_list(int page) throws Exception {
+		
+		int totalpage=service.makerTotalPage();
+		
+		final int BLOCK=10;
+		
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage) {
+			endPage=totalpage;
+		}
+		PageVO vo=new PageVO();
+		vo.setCurpage(page);
+		vo.setStartPage(startPage);
+		vo.setEndPage(endPage);
+		vo.setTotalpage(totalpage);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
 		
 		return json;
 	}

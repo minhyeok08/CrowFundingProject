@@ -56,14 +56,14 @@
 </head>
 <body>
 <div class="row" id="app">
-	<div class="col-md-4" v-for="fvo in fund_list">
+	<div class="col-md-3" v-for="fvo in fund_list">
 		<div class="thumbnail" style="width: 260px;">
 			<a href="#">
 				<img :src="fvo.mainimg" class="store_poster" style="width:260px; height:180px">
 				<div class="caption">
 					<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{fvo.ftitle}}</p>
 					<p style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-						<strong style="color:#a6d8ce">{{fvo.achieve_rate}}</strong>&nbsp;원&nbsp;
+						<strong style="color:#a6d8ce">{{fvo.achieve_rate}}%</strong>&nbsp;&nbsp;
 						<span style="color:orange">{{fvo.fcname}}</span>
 						<span style="text-align:right; margin-left: auto; margin-right:10px;">{{fvo.makername}}</span>
 					</p>

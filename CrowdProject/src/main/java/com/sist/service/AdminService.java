@@ -3,11 +3,15 @@ package com.sist.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Select;
+
 import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
+import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.StoreVO;
 
 public interface AdminService {
 	public List<CrowdStoreVO> crowdStoreListData(Map map);
@@ -39,4 +43,16 @@ public interface AdminService {
 	public int boardTotalPage();
 	
 	public void noticeUpdate(NoticeVO vo);
+	
+	public List<MemberVO> makerListData(Map map);
+	
+	public int makerTotalPage();
+	
+	public List<FundVO> partiChart();
+	
+	public List<FundVO> catecount();
+	
+	public List<StoreVO> spartiChart();
+	
+	public List<StoreVO> scatecount();
 }

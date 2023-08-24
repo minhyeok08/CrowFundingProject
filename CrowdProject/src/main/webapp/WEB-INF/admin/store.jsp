@@ -56,7 +56,7 @@
 </head>
 <body>
 <div class="row" id="app">
-	<div class="col-md-4" v-for="svo in store_list">
+	<div class="col-md-3" v-for="svo in store_list">
 		<div class="thumbnail" style="width: 260px;">
 			<a href="#">
 				<img :src="svo.main_poster" class="store_poster" style="width:260px; height:180px">
