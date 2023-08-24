@@ -30,17 +30,17 @@ public interface FundMapper {
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundVO> projectListDataForReward(Map map);
 	// 프로젝트 리스트 => 리워드 등록 된 것.
-	@Select("SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,num "
-			+ "FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,rownum as num "
-			+ "FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok "
-			+ "FROM fundmaking WHERE id=#{id} AND rewardok=1)) "
-			+ "WHERE num BETWEEN #{start} AND #{end}")
+//	@Select("SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,num "
+//			+ "FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,rownum as num "
+//			+ "FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok "
+//			+ "FROM fundmaking WHERE id=#{id} AND rewardok=1)) "
+//			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundVO> projectListData(Map map);
 	// 프로젝트 리스트 총 페이지 수(3개씩 출력)
-	@Select("SELECT CEIL(COUNT(*)/6.0) FROM fundmaking WHERE id=#{id} AND rewardok=0")
+	@Select("SELECT CEIL(COUNT(*)/8.0) FROM fundmaking WHERE id=#{id} AND rewardok=0")
 	public int projectrewardnoTotalpage(String id);
-	@Select("SELECT CEIL(COUNT(*)/6.0) FROM fundmaking WHERE id=#{id} AND rewardok=1")
-	public int projectrewardOkTotalpage(String id);
+	@Select("SELECT CEIL(COUNT(*)/8.0) FROM fundmaking WHERE rewardok=1 AND acno=#{acno} AND id=#{id}")
+	public int projectrewardOkTotalpage(Map map);
 	// 프로젝트 상세=> 리워드 등록 안된 거 => 리워드 등록이 필요함 
 	@Select("SELECT wfno,mainimg,detailimg,detailcont,fcno,fcname,tag,ftitle,fsubtitle,aim_amount,"
 			+ "makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter "
@@ -60,8 +60,8 @@ public interface FundMapper {
 		WFNO              NUMBER     
 	 */
 	//리워드 등록
-	@Update("UPDATE fundmaking SET rewardOk=1 WHERE wfno=#{wfno}")
-	public void project_rewardOk(int wfno);
+	@Update("UPDATE fundmaking SET rewardOk=1,acno = CASE WHEN openday <= SYSDATE THEN 1 ELSE 3 END WHERE wfno=#{wfno}")
+	public void project_rewardOk(int wfno); // 리워드가 등록되면 rewardOk를 1로 바꾸고, 개시일 openday가 현 시스템 날짜보다 이전이면 1(오픈된 상품)으로 변경
 	
 	@Insert("INSERT INTO rewardmaking (rno,rname,rprice,rcont,delfee,delstart,limitq,wfno) "
 			+ "VALUES(rem_rno_seq.nextval,#{rname},#{rprice},#{rcont},#{delfee},#{delstart},#{limitq},#{wfno})")
@@ -123,4 +123,5 @@ public interface FundMapper {
 	public FundVO project_for_rewardFileInfoData(int wfno);
 	@Delete("DELETE FROM fundmaking WHERE wfno=#{wfno}")
 	public void project_for_rewardDelete(int wfno);
+	
 }

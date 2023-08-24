@@ -60,5 +60,17 @@
 	  	FROM wadiz_funding_reward r,wadiz_fund_detail d
 	  	WHERE d.wfno=#{wfno} and r.wfno=d.wfno
   	</select>
-  	
+  	<!--@Select("SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,num "
+			+ "FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,rownum as num "
+			+ "FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok "
+			+ "FROM fundmaking WHERE id=#{id} AND rewardok=1)) "
+			+ "WHERE num BETWEEN #{start} AND #{end}")-->
+  	<select id="projectListData" resultType="FundVO" parameterType="hashmap">
+  		SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,achieve_rate,num 
+  		FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,achieve_rate,rownum as num
+  		FROM (SELECT /*+ INDEX_ASC(fundmaking fm_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,achieve_rate 
+  		FROM fundmaking WHERE rewardok=1 AND acno=#{acno} AND id=#{id}
+  		)) 
+  		WHERE num BETWEEN #{start} AND #{end}
+  	</select>
  </mapper>

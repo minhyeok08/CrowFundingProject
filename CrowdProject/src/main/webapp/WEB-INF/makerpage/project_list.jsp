@@ -20,7 +20,7 @@
 .projectlisttable{
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 20px;
-	width: 350px;
+	width:300px;
 	height: 500px;
 	margin: 0px auto;
 	margin-top: 10px;
@@ -82,17 +82,28 @@
      background-color: #a6d8ce;
      border-color: #a6d8ce;
  }
+
 </style>
 </head>
 <body>
 <div class="makerpagemainrow">
 	<div class="row projectrow">
-		<div class="col-md-4" v-for="vo in project_list" v-if="vo.rewardok==1">
+		<div class="BtnRow">
+			<table class="table">
+				<tr>
+					<td class="text-start">
+						<button class="btn btn-project" @click="changeAcno(3)" >오픈예정 프로젝트</button>
+						<button class="btn btn-project" @click="changeAcno(1)" >진행중인 프로젝트</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-3" v-for="vo in project_list">
 		    <table class="table projectlisttable">
 		    	<tr>
 		    		<td class="text-center" colspan="2">
 		    			<a :href="'../makerpage/project_detail.do?wfno='+vo.wfno">
-		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:300px;height: 250px;">
+		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:250px;height: 200px;">
 		    			</a>
 		    		</td>
 		    	</tr>
@@ -109,53 +120,60 @@
 		    	</tr>
 		    	<tr>
 		    		<th width="30%" class="text-end">
-		    			<img :src="'../Fundimages/'+vo.makerphoto" class="rounded-image">
+		    			<img :src="'../Fundimages/'+vo.makerphoto" class="rounded-image" style="width: 50px;height: 50px">
 		    		</th>
 		    		<td width="70%" style="font-size: 15pt">{{vo.makername}}</td>
 		    	</tr>
 		    </table>
 	  </div>
 	  <div style="height: 30px"></div>
-	  <div class="pagination-container">
-		<nav aria-label="Page navigation">
-		    <ul class="pagination justify-content-center">
-		        <li class="page-item" v-if="startPage>1">
-		        	<a class="page-link" href="#" aria-label="Previous" @click="prev()">
-		        		<span aria-hidden="true">&laquo;</span>
-		        	</a>
-		        </li>
-		        <li class="page-item" v-for="i in range(startPage, endPage)">
-		        	<a class="page-link" href="#" @click="pageChange(i)">{{i}}</a>
-		        </li>
-		        <li class="page-item" v-if="endPage<totalpage">
-		        	<a class="page-link" href="#" aria-label="Next" @click="next()">
-		        		<span aria-hidden="true">&raquo;</span>
-		        	</a>
-		        </li>
-		    </ul>
-		</nav>
+		 <div class="pagination-container">
+			<nav aria-label="Page navigation">
+			    <ul class="pagination justify-content-center">
+			        <li class="page-item" v-if="startPage>1">
+			        	<a class="page-link" href="#" aria-label="Previous" @click="prev()">
+			        		<span aria-hidden="true">&laquo;</span>
+			        	</a>
+			        </li>
+			        <li class="page-item" v-for="i in range(startPage, endPage)">
+			        	<a class="page-link" href="#" @click="pageChange(i)">{{i}}</a>
+			        </li>
+			        <li class="page-item" v-if="endPage<totalpage">
+			        	<a class="page-link" href="#" aria-label="Next" @click="next()">
+			        		<span aria-hidden="true">&raquo;</span>
+			        	</a>
+			        </li>
+			    </ul>
+			</nav>
+		</div>
 	</div>
 </div>
 <script>
 	new Vue({
 			el:'.projectrow',
 			data:{
-				id:'${sessionScope.id}',
+				id:'${id}',
 				project_list:[],
 				page_list:{},
 				curpage:1,
 				totalpage:0,
 				startPage:0,
-				endPage:0
+				endPage:0,
+				acno:3
 			},
 			mounted:function(){
 				this.dataRecv()
 			},
 			methods:{
+				changeAcno:function(acno){
+					this.acno=acno
+					this.dataRecv()
+				},
 				dataRecv:function(){
 					axios.get("../makerpage/project_list_vue.do",{
 						params:{
 							page:this.curpage,
+							acno:this.acno,
 							id:this.id
 						}
 					}).then(response=>{
@@ -167,6 +185,7 @@
 					axios.get('../makerpage/page_Oklist_vue.do',{
 						params:{
 							page:this.curpage,
+							acno:this.acno,
 							id:this.id
 						}
 					}).then(response=>{

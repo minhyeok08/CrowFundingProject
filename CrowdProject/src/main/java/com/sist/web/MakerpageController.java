@@ -45,8 +45,10 @@ public class MakerpageController {
 	}
 	// 프로젝트 리스트 이동
 	@GetMapping("makerpage/project_list.do")
-	public String project_list()
+	public String project_list(Model model, HttpSession session)
 	{
+		String id =(String)session.getAttribute("id");
+		model.addAttribute("id",id);
 		return "makerpage/project_list";
 	}
 	// 프로젝트 등록
@@ -132,6 +134,13 @@ public class MakerpageController {
 		model.addAttribute("wfno",wfno);
 		return "makerpage/reward_insert";
 	}
+	// 리워드 추가로 이동
+	@GetMapping("makerpage/reward_insert_add.do")
+	public String reward_insert_add(int wfno,Model model)
+	{
+		model.addAttribute("wfno",wfno);
+		return "makerpage/reward_insert_add";
+	}
 	//리워드 등록
 	@PostMapping("makerpage/reward_insert_ok.do")
 	public String reward_insert_ok(RewardVO vo)
@@ -140,6 +149,13 @@ public class MakerpageController {
 		dao.rewardInsertData(vo);
 		dao.project_rewardOk(vo.getWfno());
 		return "redirect: ../makerpage/project_list.do";
+	}
+	//리워드 추가 등록
+	@PostMapping("makerpage/reward_insert_add_ok.do")
+	public String reward_insert_add_ok(RewardVO vo)
+	{
+		dao.rewardInsertData(vo);
+		return "redirect: ../makerpage/project_detail.do?wfno="+vo.getWfno();
 	}
 	// 리워드 수정
 	@GetMapping("makerpage/reward_update.do")

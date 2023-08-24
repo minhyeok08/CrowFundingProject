@@ -60,9 +60,9 @@ public class FundDAO {
 		return mapper.projectrewardnoTotalpage(id);
 	}
 	// 리워드 등록 된거
-	public int projectrewardOkTotalpage(String id)
+	public int projectrewardOkTotalpage(Map map)
 	{
-		return mapper.projectrewardOkTotalpage(id);
+		return mapper.projectrewardOkTotalpage(map);
 	}
 	
 	//리워드 등록 안된거

@@ -20,7 +20,7 @@
 .projectlisttable{
 	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 20px;
-	width: 350px;
+	width: 300px;
 	height: 500px;
 	margin: 0px auto;
 	margin-top: 10px;
@@ -102,12 +102,12 @@
 		</table>
 	<div class="row projectrow" >
 		<h4>리워드 등록 필요</h4>
-		<div class="col-md-4" v-for="vo in project_list" v-if="vo.rewardok==0">
+		<div class="col-md-3" v-for="vo in project_list" v-if="vo.rewardok==0">
 		    <table class="table projectlisttable">
 		    	<tr>
 		    		<td class="text-center" colspan="2">
 		    			<a :href="'../makerpage/project_detail_for_reward.do?wfno='+vo.wfno">
-		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:300px;height: 250px;">
+		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:250px;height: 200px;">
 		    			</a>
 		    		</td>
 		    	</tr>

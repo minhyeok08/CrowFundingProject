@@ -28,7 +28,7 @@ public class MakerpageRestController {
 	public String project_list_for_reward(int page,String id) throws Exception
 	{
 		Map map = new HashMap();
-		int rowSize=6;
+		int rowSize=8;
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
 		map.put("start", start);
@@ -91,15 +91,16 @@ public class MakerpageRestController {
 		return json;
 	}
 	@GetMapping(value = "makerpage/project_list_vue.do",produces = "text/plain;charset=UTF-8")
-	public String project_list(int page,String id) throws Exception
+	public String project_list(int page,String id,int acno) throws Exception
 	{
 		Map map = new HashMap();
-		int rowSize=6;
+		int rowSize=8;
 		int start=(rowSize*page)-(rowSize-1);
 		int end=rowSize*page;
 		map.put("start", start);
 		map.put("end", end);
 		map.put("id", id);
+		map.put("acno", acno);
 		List<FundVO> list = dao.projectListData(map);
 		for(FundVO vo:list)
 		{
@@ -114,9 +115,12 @@ public class MakerpageRestController {
 		return json;
 	}
 	@GetMapping(value = "makerpage/page_Oklist_vue.do",produces = "text/plain;charset=UTF-8")
-	public String page_Oklist(int page,String id) throws Exception
+	public String page_Oklist(int page,String id,int acno) throws Exception
 	{
-		int totalpage=dao.projectrewardOkTotalpage(id);
+		Map map = new HashMap();
+		map.put("id", id);
+		map.put("acno", acno);
+		int totalpage=dao.projectrewardOkTotalpage(map);
 		final int BLOCK=5;
 		int startPage=((page-1)/BLOCK*BLOCK)+1;
 		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;

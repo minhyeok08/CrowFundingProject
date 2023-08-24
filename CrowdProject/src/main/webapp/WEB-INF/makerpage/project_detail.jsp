@@ -25,7 +25,7 @@
 	text-align: center;
 }
 .storytable img {
-  width: 750px;
+  width: 650px;
   height: auto;
 }
 .rounded-image {
@@ -86,7 +86,7 @@
 			<table class="table">
 				<tr>
 					<td width="20%" class="text-center">
-						<img :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image">
+						<img :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image" style="width: 50px;height: 50px;">
 					</td>
 					<td width="80%">
 						<h5 style="font-style: bold">{{detail_data.makername}}</h5>
@@ -122,7 +122,7 @@
 					</tr>
 					<tr class="text-end">
 						<td>
-							<a href="../makerpage/reward_insert.do?wfno=${wfno }" class="btn btn-sm btn-project">리워드 추가</a>
+							<a href="../makerpage/reward_insert_add.do?wfno=${wfno }" class="btn btn-sm btn-project">리워드 추가</a>
 						</td>
 					</tr>
 					<tr>
@@ -208,6 +208,7 @@ new Vue({
 				}
 			}).then(response=>{
 				this.reward_list=response.data
+				this.dataRecv()
 			})
 		}
 	}
