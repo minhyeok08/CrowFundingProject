@@ -25,6 +25,17 @@
 .btn-custom:hover {
 	border: 1px solid black;
 }
+ .myinfoModal{
+	color : black;
+	text-decoration: none;
+}
+.myinfoModal:hover{
+	cursor: pointer;
+}
+.modal-content{
+	margin : 0px auto;
+	width: 300px;
+}
 </style>
 </head>
 <body>
@@ -113,7 +124,33 @@
 							</div>
 							<!-- 내 정보 설정 -->
 							<div class="col-sm-6 myinfo  mt-3">
-								<a href="../mypage/my_info_update.do">내정보 설정</a>
+								<a class="myinfoModal" data-bs-toggle="modal" data-bs-target="#updateMyInfoModal">내정보 설정</a>
+								<!-- 비밀번호 입력 모달 -->	
+								<div class="modal fade" id="updateMyInfoModal" tabindex="-1" aria-labelledby="updateMyInfoLabel" aria-hidden="true" data-bs-backdrop="static">
+					      	<div class="modal-dialog modal-dialog-centered">
+					      		<div class="modal-content">
+					      			<div class="modal-header">
+					      				<h5 class="modal-title" id="updateMyInfoLabel">비밀번호 확인</h5>
+					      			</div>
+					      			<div class="modal-body">
+					      				<form>
+					      					<div class="mb-3">
+					      						<label for="password" class="col-form-label">비밀번호</label>
+					      						<input type="password" class="form-control" id="password" v-model="password" ref="password">
+					      						<small id="pwdCheckMessage" :class="pwdCheckHelp" class="form-text">
+					      							{{pwdCheckMessage}}
+					      						</small>
+					      					</div>
+					      				</form>
+					      			</div>
+					      			<div class="modal-footer">
+					      				<button type="button" class="btn closeBtn" data-bs-dismiss="modal">취소</button>
+					      				<button type="button" class="btn changeBtn" @click="myPwdCheck">확인</button>
+					      			</div>
+					      		</div>
+					      	</div>
+					      </div>
+								<!-- 모달 끝! -->
 							</div>
 						</div>
 						<div style="height: 30px;"></div>
@@ -124,26 +161,54 @@
 	</div>
 </div>
 <script>
+var updateMyInfo=document.getElementById('updateMyInfoModal')
+updateMyInfo.addEventListener('show.bs.modal',function(event){
+	
+})
 new Vue({
 	  el: '.container1',
 	  data: {
 	      infoData:{
 	    	  profile_url:''
-	      }
+	      },
+	    id:'${sessionScope.id}',
+	    password:'',
+	    pwdCheckMessage:'',
+	    pwdCheckHelp:'form-text text-muted'
 	  },
 	  mounted() {
 	      this.myInfoData();
 	  },
 	  methods:{
      myInfoData() {
-         axios.get("../mypage/myInfoData.do")
-         .then(response => {
-             console.log(response.data);
-             this.infoData = response.data;
-         })
-         .catch(error => {
-             console.error(error);
-         });
+        axios.get("../mypage/myInfoData.do")
+        .then(response => {
+            console.log(response.data);
+            this.infoData = response.data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+     },
+     myPwdCheck(){
+    	 let formData=new FormData();
+    	 formData.append("pwd",this.password);
+    	 formData.append("id",this.id);
+    	 axios.post("../mypage/myPwdCheck.do",formData)
+    	 .then(response=>{
+    		 console.log(response.data)
+    		 let res=response.data.msg
+    		 if(res == 'ok'){
+    			 this.password='';
+    		 	 location.href="../mypage/my_info_update.do";
+    		 } else if (res == 'no'){
+					this.password=''
+					this.pwdCheckMessage='비밀번호가 틀립니다';
+					this.pwdCheckHelp='form-text text-danger';
+    		 }
+    	 }).catch(error=>{
+    		 console.log(error)
+    	 })
      }
    }
 });

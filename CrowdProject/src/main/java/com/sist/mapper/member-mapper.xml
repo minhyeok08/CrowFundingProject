@@ -13,8 +13,8 @@
 	select count(*) from wadiz_member where phone=#{phone}
 	</select>
 	<insert id="memberJoin" parameterType="memberVO">
-	INSERT INTO wadiz_member(no,id,pwd,name,sex,birthday,email,post,addr1,addr2,phone,content,admin,regdate,point) 
-	VALUES(wm_no_seq.nextval,#{id},#{pwd},#{name},#{sex},#{birthday},#{email},#{post},#{addr1},#{addr2},#{phone},#{content},'n',SYSDATE,3000)
+	INSERT INTO wadiz_member(no,id,pwd,name,nickname,sex,birthday,email,post,addr1,addr2,phone,content,admin,regdate,point) 
+	VALUES(wm_no_seq.nextval,#{id},#{pwd},#{name},#{nickname},#{sex},#{birthday},#{email},#{post},#{addr1},#{addr2},#{phone},#{content},'n',SYSDATE,3000)
 	</insert>
 	<insert id="memberProfileInsert" parameterType="memberVO">
 	INSERT INTO wadiz_member_profile VALUES(

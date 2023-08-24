@@ -41,8 +41,8 @@ public class MyPageRestController {
 			String id=(String)session.getAttribute("id");
 			vo=service.myInfo(id);
 			
-			System.out.println("fileName: "+vo.getProfile_name());
-			System.out.println("fileUrl: "+vo.getProfile_url());
+//			System.out.println("fileName: "+vo.getProfile_name());
+//			System.out.println("fileUrl: "+vo.getProfile_url());
 			
 			ObjectMapper mapper=new ObjectMapper();
 			json=mapper.writeValueAsString(vo);
@@ -66,10 +66,10 @@ public class MyPageRestController {
 	        dir.mkdirs(); // 필요한 모든 상위 경로도 함께 생성
 	    }
 	    
-	    System.out.println("vo.getimage:"+vo.getImage());
+//	    System.out.println("vo.getimage:"+vo.getImage());
 	    
 		MultipartFile mfile=vo.getImage();
-		System.out.println("mfile:"+mfile);
+//		System.out.println("mfile:"+mfile);
 		
 		if(vo.getImage() == null) {
 			session.setAttribute("name", vo.getName());
@@ -78,7 +78,6 @@ public class MyPageRestController {
 			String fileName="";
 			long fileSize=0;
 			fileName=mfile.getOriginalFilename();
-			//fileName=new String(mfile.getOriginalFilename().getBytes("8859_1"), "UTF-8");
 			
 			// 이미지 저장
 			File file=new File(path+fileName);
@@ -91,7 +90,6 @@ public class MyPageRestController {
 			// 이미지 url 생성
 			String contextPath = request.getContextPath();
 			String profileImageUrl = contextPath + "/profileImage/" + fileName;
-			//System.out.println("url:"+profileImageUrl);
 			
 			String id=(String)session.getAttribute("id");
 			vo.setId(id); // session에 저장된 Id값 저장
@@ -150,5 +148,23 @@ public class MyPageRestController {
 			result="no";
 		}
 		return result;
+	}
+	
+	@PostMapping(value="mypage/myPwdCheck.do",produces = "text/plain;charset=utf-8")
+	public String member_pwd_check(MemberVO vo) {
+		String json="";
+		try {
+			String db_pwd=service.pwdCheck(vo);
+			if(encoder.matches(vo.getPwd(),db_pwd)) {
+				vo.setMsg("ok");
+			} else {
+				vo.setMsg("no");
+			}
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
 	}
 }

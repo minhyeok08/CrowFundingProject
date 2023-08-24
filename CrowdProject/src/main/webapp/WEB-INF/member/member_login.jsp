@@ -28,30 +28,32 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row login1">
-			<h2>일반 로그인</h2>
-		  <div style="margin-bottom: 30px;"></div>
-	  	<div class="mb-3">
-	  		<input type="text" class="form-control" id="id" ref="id" v-model="id" @input="validateId" style="width: 300px;" placeholder="아이디 입력" required>
-	  		<small id="idCheckMessage" :class="idHelpClass" class="form-text">
-	  			{{idCheckMessage}}
-	  		</small>
-	  	</div>
-	  	<div class="mb-3">
-	  		<input type="password" class="form-control" id="pwd" ref="pwd" v-model="pwd" @input="validatePwd" style="width: 300px;" placeholder="비밀번호 입력" required>
-	  		<small id="pwdCheckMessage" :class="pwdHelpClass" class="form-text">
-	  			{{pwdCheckMessage}}
-	  		</small>
-	  	</div>
-	  	<div class="mb-3">
-	  		<a href="../member/member_join.do">회원가입</a>
-	  	</div>
-	  	<div class="mb-3">
-	  		<a href="../member/id_pwd_find.do">아이디/비밀번호 찾기</a>
-	  	</div>
-	  	<div class="mb-3">
-	  		<button type="button" class="btn btn-outline loginBtn" value="로그인" @click="memberLogin">로그인</button>
-	  	</div>
+		<div class="row">
+			<div class="wrap login mt-5">
+				<h2>일반 로그인</h2>
+			  <div style="margin-bottom: 30px;"></div>
+		  	<div class="mb-3">
+		  		<input type="text" class="form-control" id="id" ref="id" v-model="id" @input="validateId" style="width: 300px;" placeholder="아이디 입력" required>
+		  		<small id="idCheckMessage" :class="idHelpClass" class="form-text">
+		  			{{idCheckMessage}}
+		  		</small>
+		  	</div>
+		  	<div class="mb-3">
+		  		<input type="password" class="form-control" id="pwd" ref="pwd" v-model="pwd" @input="validatePwd" style="width: 300px;" placeholder="비밀번호 입력" required>
+		  		<small id="pwdCheckMessage" :class="pwdHelpClass" class="form-text">
+		  			{{pwdCheckMessage}}
+		  		</small>
+		  	</div>
+		  	<div class="mb-3">
+		  		<a href="../member/member_join.do">회원가입</a>
+		  	</div>
+		  	<div class="mb-3">
+		  		<a href="../member/id_pwd_find.do">아이디/비밀번호 찾기</a>
+		  	</div>
+		  	<div class="mb-3">
+		  		<button type="button" class="btn btn-outline loginBtn" value="로그인" @click="memberLogin">로그인</button>
+		  	</div>
+			</div>
 		</div>
 		<div class="row login2">
 		
@@ -59,7 +61,7 @@
 	</div>
 <script>
 new Vue({
-	el:'.login1',
+	el:'.login',
 	data:{
 		id:"",
 		pwd:"",

@@ -12,7 +12,7 @@
 	width: 420px;
 }
 .form-control{
-	width: 400
+	width: 400px;
 }
 .form-control:hover{
 	border-color: black;
@@ -70,7 +70,7 @@ input::placeholder{
 	  		<label for="id" class="form-label">아이디</label>
 	  		<div class="d-flex align-items-center"> 
 	  			<input type="text" class="form-control" id="id" v-model="id" style="width: 250px;" :readonly="idReadOnly" required>
-	  			<button class="btn btn-outline idCheck" @click="idCheck">아이디 중복 체크</button>
+	  			<button class="btn btn-outline idCheck" @click="idCheck">중복 체크</button>
 	  		</div>
 	  		<small id="idCheckMessage" :class="idHelpClass" class="form-text">
 	  			{{ idCheckMessage }}
@@ -123,7 +123,7 @@ input::placeholder{
 			  <label for="email" class="form-label">이메일</label>
 			  <div class="d-flex align-items-center">
 			   <input type="email" class="form-control" id="email" v-model="email" style="width: 250px;" placeholder="email@gmail.com" :readonly="emailReadOnly" required>
-				 <button class="btn btn-outline emailCheck" @click="sendEmail">메일 중복 체크</button>
+				 <button class="btn btn-outline emailCheck" @click="sendEmail">중복 체크</button>
 			  </div>
 				<small id="emailHelpClass" class="form-text" :class="emailHelpClass">
 					{{emailCheckMessage}}
@@ -148,7 +148,7 @@ input::placeholder{
 			  <label for="phone" class="form-label">연락처</label>
 			  <div class="d-flex align-items-center">
 				  <input type="text" class="form-control" id="phone" v-model="phone" style="width: 250px;" placeholder="010-1111-1111" :readonly="phoneReadOnly" required>
-				  <button class="btn btn-outline phoneCheck" @click="phoneCheck">연락처 중복 체크</button>
+				  <button class="btn btn-outline phoneCheck" @click="phoneCheck">중복 체크</button>
 				</div>
 				<small id="phoneHelpClass" class="form-text" :class="phoneHelpClass">
 					{{phoneCheckMessage}}
@@ -503,7 +503,8 @@ new Vue({
 	    				 this.isDisabled=false
 	    				 return;
 	    			 } else {
-	    				 location.href="../member/join_temp.do";
+	    				 alert("입력한 이메일에서 인증을 진행해주세요!")
+	    				 location.href="../member/member_login.do";
 	    			 }
 	    		 }).catch((error)=>{
 	    			 console.log(error)

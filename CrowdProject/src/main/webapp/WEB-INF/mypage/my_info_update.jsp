@@ -88,44 +88,9 @@
 				<label class="form-text">아이디</label>
 				<input type=text class="form-control" id="id" :value="id" disabled>
 			</div>
-			<div class="wrap">
-				<label class="form-text">이름</label>
-				<input type=text class="form-control" id="inputname" v-model="vo.name" ref="name">
-			</div>
-			<div class="wrap">
-				<label class="form-text">닉네임</label>
-				<input type=text class="form-control" id="nickname" v-model="vo.nickname" ref="nickname">
-			</div>
-			<!-- 이메일 -->
-			<label class="form-text">이메일</label>
-			<div class="wrap d-flex emailCheckDiv">
-				<input type=text class="form-control" v-model="vo.email" ref="email" placeholder="email@gmail.com" :readonly="emailReadOnly">&nbsp;
-				<button type="button" class="btn btn-outline emailCheckBtn" @click="sendEmail">중복 체크</button>
-			</div>
-			<div class="wrap">
-				<small id="emailHelpClass" class="form-text" :class="emailHelpClass">
-					{{emailCheckMessage}}
-				</small>
-			</div>
-			<!-- 휴대폰 -->
-			<label class="form-text">휴대폰</label>
-			<div class="wrap d-flex phoneCheckDiv">
-				<input type=text class="form-control" v-model="vo.phone" ref="phone" placeholder="010-1111-1111" :readonly="phoneReadOnly">&nbsp;
-				<button tpye="button" class="btn btn-outline phoneCheck" @click="phoneCheck">중복 체크</button>
-			</div>
-			<div class="wrap">
-				<small id="phoneHelpClass" class="form-text" :class="phoneHelpClass">
-					{{phoneCheckMessage}}
-				</small>
-			</div>
-			<div class="wrap">
-			<label class="form-text">소개</label><br>
-			<textarea rows="5" cols="32" v-model="vo.content">
-			{{vo.content}}
-			</textarea>
-			</div>
+			
 			<!-- 비밀번호 변경 모달 START -->
-			<div class="mt-4"></div>
+			<div class="mt-1"></div>
       <button type="button" class="btn updatePwdModalBtn" data-bs-toggle="modal" data-bs-target="#pwdUpdate">비밀번호 변경</button>
 			<div class="modal fade" id="pwdUpdate" tabindex="-1" aria-labelledby="pwdUpdateLabel" aria-hidden="true" data-bs-backdrop="static">
       	<div class="modal-dialog">
@@ -167,6 +132,43 @@
       	</div>
       </div>
       <!-- 비밀번호 변경 모달 END -->
+			
+			<div class="wrap">
+				<label class="form-text">이름</label>
+				<input type=text class="form-control" id="inputname" v-model="vo.name" ref="name">
+			</div>
+			<div class="wrap">
+				<label class="form-text">닉네임</label>
+				<input type=text class="form-control" id="nickname" v-model="vo.nickname" ref="nickname">
+			</div>
+			<!-- 이메일 -->
+			<label class="form-text">이메일</label>
+			<div class="wrap d-flex emailCheckDiv">
+				<input type=text class="form-control" v-model="vo.email" ref="email" placeholder="email@gmail.com" :readonly="emailReadOnly">&nbsp;
+				<button type="button" class="btn btn-outline emailCheckBtn" @click="sendEmail">중복 체크</button>
+			</div>
+			<div class="wrap">
+				<small id="emailHelpClass" class="form-text" :class="emailHelpClass">
+					{{emailCheckMessage}}
+				</small>
+			</div>
+			<!-- 휴대폰 -->
+			<label class="form-text">휴대폰</label>
+			<div class="wrap d-flex phoneCheckDiv">
+				<input type=text class="form-control" v-model="vo.phone" ref="phone" placeholder="010-1111-1111" :readonly="phoneReadOnly">&nbsp;
+				<button type="button" class="btn btn-outline phoneCheck" @click="phoneCheck">중복 체크</button>
+			</div>
+			<div class="wrap">
+				<small id="phoneHelpClass" class="form-text" :class="phoneHelpClass">
+					{{phoneCheckMessage}}
+				</small>
+			</div>
+			<div class="wrap">
+			<label class="form-text">소개</label><br>
+			<textarea rows="5" cols="32" v-model="vo.content">
+			{{vo.content}}
+			</textarea>
+			</div>
 			<div class="wrap btnClass mt-4" style="display: flex;justify-content: center;">
 				<input type="submit" class="btn" id="submitBtn" value="완료">
 				<button id="cancelBtn" class="btn" @click="cancelBtn">취소</button>
@@ -274,13 +276,24 @@ new Vue({
 		sendEmail:function(){
   	   // 이메일 정규 표현식
   	   const validEmailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  	   if(this.vo.email==null){
+  	   
+  	   if(this.vo.email==""){
   		   	this.emailCheckMessage="이메일을 입력해주세요."
   			  this.emailHelpClass="form-text text-danger"
-  	   } else if(!validEmailPattern.test(this.vo.email)){
-  		 	   this.emailCheckMessage="올바른 이메일 형식이 아닙니다."
-     			 this.emailHelpClass="form-text text-info"
-  	   } else {
+  			  return;
+  	   }
+  	   if(!validEmailPattern.test(this.vo.email)){
+  		 	  this.emailCheckMessage="올바른 이메일 형식이 아닙니다."
+     			this.emailHelpClass="form-text text-info"
+     			return;
+  	   }
+  	   if(this.initEmail == this.vo.email){
+				this.emailChecked=true
+ 			  this.emailCheckMessage="";
+ 	     	this.emailHelpClass="form-text text-muted"
+ 			  return;
+  	   }
+			if(validEmailPattern.test(this.vo.email)){
   		   axios.get('../mypage/emailCheck.do',{
 					 params:{
      			   email:this.vo.email
@@ -309,12 +322,20 @@ new Vue({
 		phoneCheck:function(){
 		  // 연락처 정규 표현식
 			const validPhonePattern = /^\d{3}-\d{3,4}-\d{4}$/;
-			if(this.vo.phone == null){
+			if(this.initPhone == this.vo.phone){
+				this.phoneCheckMessage=""
+				this.phoneHelpClass="form-text text-muted"
+				this.phoneChecked=true
+				return;
+			}
+			if(this.vo.phone == ""){
 			  	this.phoneCheckMessage="연락처를 입력해 주세요."
 					this.phoneHelpClass="form-text text-danger"
+					return;
 				} else if(!validPhonePattern.test(this.vo.phone)){
 					this.phoneCheckMessage="올바른 연락처 형식이 아닙니다."
 			   	this.phoneHelpClass="form-text text-info"
+			   	return;
 				} else {
 			  	   axios.get('../mypage/phoneCheck.do',{
 			 		   params:{
@@ -349,22 +370,27 @@ new Vue({
 			if(this.initEmail == this.vo.email){
 				this.emailChecked=true
 			}
+			this.sendEmail();
+			
 			if(this.initPhone == this.vo.phone){
 				this.phoneChecked=true
 			}
+			this.phoneCheck();
+			
+			if(!this.emailChecked){
+	   			 alert("이메일 중복검사를 진행해주세요.")
+	   			 return;
+	   		 }
+	   		 if(!this.phoneChecked){
+	   			 alert("연락처 중복검사를 진행해주세요.")
+	   			 return;
+	   		 }
+			
 			let formData=new FormData();
 			const file = this.$refs.profileInsert.files[0];
 			if(file) {
         formData.append("image", file); // 파일이 있는 경우 첨부
 	    }
-			if(!this.emailChecked){
-   			 alert("이메일 중복검사를 진행해주세요.")
-   			 return;
-   		 }
-   		 if(!this.phoneChecked){
-   			 alert("연락처 중복검사를 진행해주세요.")
-   			 return;
-   		 }
 			formData.append("id",this.id);
 			formData.append("name",this.vo.name);
 			formData.append("nickname",this.vo.nickname);

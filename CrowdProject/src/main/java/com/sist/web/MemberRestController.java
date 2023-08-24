@@ -86,7 +86,6 @@ public class MemberRestController {
     public String sendAuthMail(String email) throws UnsupportedEncodingException, javax.mail.MessagingException {
     	// 6자리 난수 인증번호 생성
     	String authKey=mailservice.getKey(6);
-    	System.out.println("authKey: "+authKey);// 생성여부 확인
     	
         JavaMailSender sender = mailservice.javaMailSender();
         MimeMessage message = sender.createMimeMessage();
@@ -236,7 +235,7 @@ public class MemberRestController {
 	public String member_id_find(String email) {
 		String result="";
 		try {
-			System.out.println("inputEmail="+email);
+//			System.out.println("inputEmail="+email);
 			int count=service.memberEmailCheck(email);
 			if(count==0) {
 				result="noemail";
@@ -261,7 +260,7 @@ public class MemberRestController {
 				String tempPwd=mailservice.getKey(6);
 				String encodedPwd=encoder.encode(tempPwd); // 비밀번호 암호화
 				
-				System.out.println("tempPwd:"+tempPwd);
+//				System.out.println("tempPwd:"+tempPwd);
 				
 				JavaMailSender sender=mailservice.javaMailSender();
 				MimeMessage message=sender.createMimeMessage();
