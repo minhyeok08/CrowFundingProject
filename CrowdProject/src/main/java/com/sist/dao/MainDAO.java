@@ -27,4 +27,12 @@ public class MainDAO {
 	public List<FundVO> crowdTasteFundListData(String fcname) {
 		return mapper.crowdTasteFundListData(fcname);
 	}
+	
+	public void fundRankUpdate(Map map) {
+		mapper.fundRankUpdate(map);
+	}
+	
+	public List<FundVO> fundRankListData() {
+		return mapper.fundRankListData();
+	}
 }

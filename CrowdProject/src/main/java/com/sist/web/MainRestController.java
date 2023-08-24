@@ -50,4 +50,19 @@ public class MainRestController {
 		
 		return json;
 	}
+	
+	@GetMapping(value = "main/fund_rank_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String fundRankListData() throws Exception {
+		List<FundVO> list = service.fundRankListData();
+		
+		if(list.size() < 6) {
+			list = service.crowdFundListData();
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
 }

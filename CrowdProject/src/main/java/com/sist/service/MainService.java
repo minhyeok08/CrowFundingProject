@@ -1,6 +1,8 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.sist.vo.*;
 
 public interface MainService {
@@ -11,4 +13,8 @@ public interface MainService {
 	public String crowdTasteFcname(String id);
 	
 	public List<FundVO> crowdTasteFundListData(String fcname);
+	
+	public void fundRankUpdate(Map map);
+	
+	public List<FundVO> fundRankListData();
 }

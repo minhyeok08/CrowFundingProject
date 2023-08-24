@@ -1,7 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +30,15 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<FundVO> crowdTasteFundListData(String fcname) {
 		return dao.crowdTasteFundListData(fcname);
+	}
+
+	@Override
+	public void fundRankUpdate(Map map) {
+		dao.fundRankUpdate(map);
+	}
+
+	@Override
+	public List<FundVO> fundRankListData() {
+		return dao.fundRankListData();
 	}
 }

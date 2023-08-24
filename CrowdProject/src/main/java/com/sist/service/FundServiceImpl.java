@@ -34,4 +34,9 @@ public class FundServiceImpl implements FundService {
 	public void fundTasteInsert(Map map) {
 		dao.fundTasteInsert(map);
 	}
+
+	@Override
+	public void fundhitIncrement(int wfno) {
+		dao.fundhitIncrement(wfno);
+	}
 }

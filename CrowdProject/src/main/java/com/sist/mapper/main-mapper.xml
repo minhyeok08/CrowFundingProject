@@ -34,4 +34,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM WADIZ_FUND_DETAIL WHERE fcname = #{fcname} ORDER BY hit DESC, wfno ASC))
 		WHERE num BETWEEN 1 AND 6
 	</select>
+	<update id="fundRankUpdate" parameterType="hashmap">
+	    MERGE INTO wadiz_fund_rank r
+	    USING (SELECT #{wfno} AS wfno, TRUNC(SYSDATE) AS frday FROM dual) d
+	    ON (r.wfno = d.wfno AND TRUNC(r.frday) = d.frday)
+	    WHEN MATCHED THEN
+	        UPDATE SET r.score = r.score + #{score}
+	    WHEN NOT MATCHED THEN
+	        INSERT (r.frno, r.wfno, r.score, r.frday)
+	        VALUES (fr_frno_seq.nextval, d.wfno, #{score}, d.frday)
+	</update>
+	<select id="fundRankListData" resultType="FundVO">
+		SELECT wfno, mainimg, fcname, makername, ftitle, achieve_rate
+		FROM wadiz_fund_detail
+		WHERE wfno IN (
+		    SELECT WFNO
+		    FROM (
+		        SELECT WFNO,
+		               ROW_NUMBER() OVER (ORDER BY SCORE DESC) AS rn
+		        FROM wadiz_fund_rank
+		        WHERE FRDAY BETWEEN TRUNC(SYSDATE) - 7 AND TRUNC(SYSDATE)
+		    )
+		    WHERE rn BETWEEN 1 AND 6
+		)
+	</select>
 </mapper>

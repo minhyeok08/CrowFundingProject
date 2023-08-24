@@ -17,4 +17,6 @@ public interface FundService {
 	public FundRewardVO fundBuyData(int rno);
 	
 	public void fundTasteInsert(Map map);
+	
+	public void fundhitIncrement(int wfno);
 }

@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sist.dao.*;
-import com.sist.service.FundService;
-import com.sist.service.MemberService;
-import com.sist.service.MyPageService;
+import com.sist.service.*;
 import com.sist.vo.*;
 @Controller
 @CrossOrigin("*")
@@ -33,6 +31,9 @@ public class FundController {
 	private FundService service;
 	@Autowired
 	private MyPageService mpservice;
+	@Autowired
+	private MainService mservice;
+	
 	@GetMapping("fund/fund_list.do")
 	public String fund_list()
 	{
@@ -67,12 +68,23 @@ public class FundController {
     public String fund_detail_before(@RequestParam int wfno,HttpSession session, Model model) {
 		String id = (String)session.getAttribute("id");
 		
+		Map map = new HashMap();
+		
+		// 조회수
+		service.fundhitIncrement(wfno);
+		
+		// 랭킹 갱신용 (조회시 스코어 1증가)
+		map.put("wfno", wfno);
+		map.put("score", 1);
+		mservice.fundRankUpdate(map);
+		
+		// 취향 분석 데이터 갱신용
 		if (id != null) {
 			FundVO vo = service.fundDetailData(wfno);
-			Map map = new HashMap();
-			map.put("id", id);
-			map.put("fcname", vo.getFcname());
-			service.fundTasteInsert(map);
+			Map ftmap = new HashMap();
+			ftmap.put("id", id);
+			ftmap.put("fcname", vo.getFcname());
+			service.fundTasteInsert(ftmap);
 		}
 
 	    model.addAttribute("wfno", wfno);

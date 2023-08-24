@@ -22,8 +22,11 @@ public class FundDAO {
 	
 	public FundVO fundDetailData(int wfno)
 	{
-		mapper.fundhitIncrement(wfno);
 		return mapper.fundDetailData(wfno);
+	}
+	
+	public void fundhitIncrement(int wfno) {
+		mapper.fundhitIncrement(wfno);
 	}
 	
 	public void fundTasteInsert(Map map) {

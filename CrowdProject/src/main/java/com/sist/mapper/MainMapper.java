@@ -9,4 +9,8 @@ public interface MainMapper {
 	public String crowdTasteFcname(String id);
 	
 	public List<FundVO> crowdTasteFundListData(String fcname);
+	
+	public void fundRankUpdate(Map map);
+	
+	public List<FundVO> fundRankListData();
 }

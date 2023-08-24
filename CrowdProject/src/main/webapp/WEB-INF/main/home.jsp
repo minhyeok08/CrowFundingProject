@@ -91,16 +91,16 @@ td {
 					<h2>실시간 랭킹</h2>
 					<table class="table">
 						<tr><td>
-							<table class="table"  v-for="(fvo, index) in fund_list" :key="index">
+							<table class="table"  v-for="(frvo, index) in fund_rank_list" :key="index">
 								<tr>
 									<td width="5%" rowspan="2"><h3>{{ index+1 }}</h3></td>
-									<td width="70%" style="font-size: 16px;">{{fvo.ftitle}}</td>
+									<td width="70%" style="font-size: 16px;">{{frvo.ftitle}}</td>
 									<td width="25%" rowspan="2">
-										<img :src="fvo.mainimg" class="store_poster" style="width:91px; height:64px;">
+										<img :src="frvo.mainimg" class="store_poster" style="width:91px; height:64px;">
 									</td>
 								</tr>
 								<tr>
-									<td width="70%" style="font-size: 12px;"><span style="color:#a6d8ce">{{fvo.achieve_rate}}%</span>&nbsp;<span>{{fvo.fcname}}</span></td>
+									<td width="70%" style="font-size: 12px;"><span style="color:#a6d8ce">{{frvo.achieve_rate}}%</span>&nbsp;<span>{{frvo.fcname}}</span></td>
 								</tr>
 							</table>
 						</td></tr>
@@ -123,25 +123,25 @@ td {
 		new Vue({
 			el:'.main_home',
 			data:{
-				store_list:[],
-				fund_list:[]
+				fund_list:[],
+				fund_rank_list:[]
 			},
 			mounted:function(){
 				this.send()
 			},
 			methods:{
 				send:function(){
-					axios.get("../main/store_list_vue.do").then(response=>{
-						console.log(response.data)
-						this.store_list = response.data
-						/* this.curpage = response.data[0].curpage
-						this.totalpage = response.data[0].totalpage
-						this.startPage = response.data[0].startPage
-						this.endPage = response.data[0].endPage */
-					})
 					axios.get("../main/fund_list_vue.do").then(response=>{
 						console.log(response.data)
 						this.fund_list = response.data
+					}).catch(error=>{
+						console.log(error.response)
+					})
+					axios.get("../main/fund_rank_list_vue.do").then(response=>{
+						console.log(response.data)
+						this.fund_rank_list = response.data
+					}).catch(error=>{
+						console.log(error.response)
 					})
 				},
 				getRemainingDays:function(endDate) {
