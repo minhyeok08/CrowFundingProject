@@ -126,19 +126,19 @@
 						<span style="font-size: 14px; margin-bottom: 1px;">{{ vo.limitq}}개 남음</span><br>
 						<hr>
 						<span> 수량 선택 : &nbsp;&nbsp;
-							<select id="gcount" ref="gcount">
-								<option>1</option>
-								<option selected>2</option>
+							<select ref="gcount" v-model="gcount">
+								<option selected>1</option>
+								<option>2</option>
 								<option>3</option>
 								<option>4</option>
 								<option>5</option>			
 							</select>
 						</span>
-						<a :href="'../fund/fund_buy.do?rno=' + vo.rno + '&wfno=' + fund_detail.wfno + '&gcount=' + gcount"> 
+						<!-- <a :href="'../fund/fund_buy.do?rno=' + vo.rno + '&wfno=' + fund_detail.wfno + '&gcount=' + gcount"> --> 
 							<div class="button-container">
-								 <button class="bordered-button" id="buyBtn" @click="buyReward()" >구매하기</button>
+								 <button class="bordered-button" id="buyBtn" @click="buyReward(vo.rno)" >구매하기</button>
 							</div>
-						</a>
+						<!-- </a>  -->
 							<!--  <a :href="'../fund/fund_buy.do?wfno='+wfno" class="button">구매하기</a>-->
 							<!-- <button class="bordered-button" id="buyBtn">수량 선택</button> -->	
 					</div>
@@ -151,11 +151,11 @@
 		 el:'#fReward',
 		 data:{
 			 wfno:${wfno},
-			 
 			 fund_reward:[],
 			 fund_detail:{},
 			 no:0,
-			 gcount:1
+			 gcount:1,
+			 rno:1
 		 },
 		 mounted:function(){
 			 axios.get('../fund/fund_detail_vue.do',{
@@ -181,12 +181,11 @@
 			 })
 		 },
 		  methods: {
-		        buyReward: function() {
+		        buyReward: function(rno) {
 		            // 버튼 클릭 시 수행되는 함수
 		            let _this=this;
-		            let rno=this.rno;
 		            const gcount = this.$refs.gcount.value; // 선택된 수량 가져오기
-		            const url = "fund_buy.do?rno="+this.rno+"&wfno="+_this.wfno+"&gcount="+this.gcount;
+		            const url = "fund_buy.do?rno="+rno+"&wfno="+_this.wfno+"&gcount="+this.gcount;
 		           
 		            window.location.href = url; // 페이지 이동
 		        }
