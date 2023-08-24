@@ -63,7 +63,23 @@ public class FundController {
 
 	    return "fund/fund_buy";
 	}
+	@GetMapping("fund/fund_detail_before.do")
+    public String fund_detail_before(@RequestParam int wfno,HttpSession session, Model model) {
+		String id = (String)session.getAttribute("id");
+		
+		if (id != null) {
+			FundVO vo = service.fundDetailData(wfno);
+			Map map = new HashMap();
+			map.put("id", id);
+			map.put("fcname", vo.getFcname());
+			service.fundTasteInsert(map);
+		}
 
+	    model.addAttribute("wfno", wfno);
+        
+        // 나머지 로직 처리
+        return "redirect:../fund/fund_detail.do";
+    }
 	@GetMapping("fund/fund_detail.do")
     public String fund_detail(@RequestParam int wfno, Model model) {
 		FundVO vo = service.fundDetailData(wfno);
