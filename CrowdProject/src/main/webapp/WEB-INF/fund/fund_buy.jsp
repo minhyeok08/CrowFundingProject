@@ -165,19 +165,27 @@ table td {
 				title : '개인정보 국외 이전 동의 (필수)'
 			})
 		})
-		let rno = $('#buyBtn').attr("data-no");
+		//let rno = $('#buyBtn').attr("data-no");
 		let rprice = $('#price').val();
 		let tprice = $('#total_price').attr('data-total');
 		//let dbday = $('#dbday').val();
 		//let startDate = $('#startDate').val();
 		//let endDate = $('#endDate').val();
-		
+		//<input type="hidden" id="rno" data-rno="${rvo.rno }"> 
+		//<input type="hidden" id="wfno" data-wfno="${vo.wfno }"> 
+		let rno = $('#rno').attr('data-rno');
+		let wfno = $('#wfno').attr('data-wfno');
+		let rname = $('#rname').attr('data-rname');
+		//let name = $('#name').attr('data-name');
+		let name = $('#name').text();
 		$('#buyBtn').click(function(){
 			$.ajax({
 				type:'get',
 				//url:'../mypage/mypage_rentcar_reserve.do',
-				url:'../fund/fund_list.do',
-				data:{"rno":rno,"tprice":tprice},
+				//url:'../fund/fund_list.do',
+				//data:{"rno":rno,"tprice":tprice},
+				url:'../fund/fund_test.do',
+				data:{"rno":rno,"wfno":wfno,"rname":rname,"name":name},
 				success:function(result){
 					requestPay()
 				}
@@ -246,13 +254,12 @@ table td {
 				<hr>
 				<table class="table">
 					<tr>
-						<td rowspan="3" width="20%"><img
-							src=${vo.mainimg } class="reserveImg"></td>
+						<td rowspan="3" width="20%"><img src=${vo.mainimg } class="reserveImg"></td>
 						<td width="80%" style="font-size: 17px; font-weight: bold;">${rvo.rname }</td>
 					</tr>
-					<%-- <tr>
-						<td style="color: gray">${date }</td>
-					</tr> --%>
+					<tr>
+						<td style="color: gray">${vo.fsubtitle }</td>
+					</tr>
 					<tr>
 						<td style="color: gray"></td>
 					</tr>
@@ -261,22 +268,26 @@ table td {
 						<td width="80%" class="text-right"><fmt:formatNumber
 								value="${rvo.rprice }" pattern="#,###" />원</td>
 					</tr>
-					<!-- <tr style="background-color: rgb(248, 249, 250)">
+					<tr style="background-color: rgb(248, 249, 250)">
 						<td width="20%">개수</td>
-						<td width="80%" class="text-right"></td>
+						<td width="80%" class="text-right">1억개</td>
 					</tr>
 					<tr style="background-color: rgb(248, 249, 250)">
-						<td width="20%">보험 종류</td>
-						<td width="80%" class="text-right">${insOpt}</td>
+						<td width="20%">총금액</td>
+						<td width="80%" class="text-right">2억</td>
 					</tr>
 					<tr style="background-color: rgb(248, 249, 250)">
-						<td width="20%">보험비</td>
-						<td width="80%" class="text-right">${insPrice }원</td>
-					</tr>-->
+						<td width="20%">쿠폰할인</td>
+						<td width="80%" class="text-right">${rvo.rprice }원</td>
+					</tr>
 					<tr>
-						<td width="20%">최종 금액</td>
+						<td width="20%">포인트할인</td>
 						<td width="80%" class="text-right"><fmt:formatNumber
 								value="${rvo.rprice }" pattern="#,###" />원</td>
+					</tr>
+					<tr style="background-color: rgb(248, 249, 250)">
+						<td width="20%">최종금액</td>
+						<td width="80%" class="text-right">${rvo.rno }</td>
 					</tr>
 				</table>
 				<div style="height: 20px"></div>
@@ -286,16 +297,22 @@ table td {
 				<hr>
 				<table class="table">
 					<tr>
-						<td id="name">${mvo.name }</td>
+						<td width="20%">이름</td>
+						<td width="80%" id="name" class="text-right">${mvo.name }</td>
 					</tr>
 					<tr>
-						<td id="email">${mvo.email }</td>
+						<td width="20%">이메일</td>
+						<td width="80%" id="email" class="text-right">${mvo.email }</td>
 					</tr>
 					<tr>
-						<td id="phone">${mvo.phone }</td>
+						<td width="20%">전화번호</td>
+						<td width="80%" id="phone" class="text-right">${mvo.phone }</td>
+					</tr>
+					<tr>
+						<td width="20%">주소</td>
+						<td width="80%" id="addr1" class="text-right">${mvo.addr1 }</td>
 					</tr>
 				</table>
-
 				<div style="height: 20px"></div>
 				<h4>
 					<strong>결제 방법</strong>
@@ -424,6 +441,11 @@ table td {
 								<td colspan="2" class="center wishTd">
 									<div class="d-grid">
 										<input type="hidden" id="total_price" data-total="${rvo.rprice }"> 
+										<input type="hidden" id="rno" data-rno="${rvo.rno }"> 
+										<input type="hidden" id="wfno" data-wfno="${vo.wfno }">
+										<input type="hidden" id="rname" data-rname="${rvo.rname}">
+										
+										
 											<input type="hidden" id="post" value="${mvo.post }"> 
 											<input type="hidden" id="addr1" value="${mvo.addr1 }">
 											<!--  <input type="hidden" id="dbday" value="${date }">

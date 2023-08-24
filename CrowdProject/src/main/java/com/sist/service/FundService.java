@@ -16,4 +16,6 @@ public interface FundService {
 	public List<FundRewardVO> fundRewardList(int wfno);
 	
 	public FundRewardVO fundBuyData(int rno);
+	
+
 }

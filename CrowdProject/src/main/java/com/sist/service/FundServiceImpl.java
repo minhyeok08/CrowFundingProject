@@ -30,6 +30,4 @@ public class FundServiceImpl implements FundService {
 		return dao.fundBuyData(rno);
 	}
 
-	
-	
 }
