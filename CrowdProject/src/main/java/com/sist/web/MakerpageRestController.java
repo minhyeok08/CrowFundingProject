@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 public class MakerpageRestController {
 	@Autowired
 	private FundDAO dao;
+	@Autowired
+	private MyPageDAO mydao;
 	@GetMapping(value = "makerpage/project_list_for_reward_vue.do",produces = "text/plain;charset=UTF-8")
 	public String project_list_for_reward(int page,String id) throws Exception
 	{
@@ -42,6 +44,7 @@ public class MakerpageRestController {
 			String dbendday=sdf.format(vo.getEndday());
 			vo.setStropenday(dbopenday);
 			vo.setStrendday(dbendday);
+			
 		}
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
@@ -86,6 +89,11 @@ public class MakerpageRestController {
 		int aim_mount = vo.getAim_amount();
 		String str_aim_mount= df.format(aim_mount);
 		vo.setStr_aim_mount(str_aim_mount);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dbopenday= sdf.format(vo.getOpenday());
+		String dbendday=sdf.format(vo.getEndday());
+		vo.setStropenday(dbopenday);
+		vo.setStrendday(dbendday);
 		ObjectMapper mapper = new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;
@@ -109,6 +117,15 @@ public class MakerpageRestController {
 			String dbendday=sdf.format(vo.getEndday());
 			vo.setStropenday(dbopenday);
 			vo.setStrendday(dbendday);
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yy년M월d일 오픈예정");
+			String opendaykor=sdf2.format(vo.getOpenday());
+			vo.setOpendaykor(opendaykor);
+			String ftitle=vo.getFtitle();
+			if(ftitle.length()>12)
+			{
+				ftitle=ftitle.substring(0,12)+"...";
+			}
+			vo.setFtitle(ftitle);
 		}
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
@@ -188,6 +205,11 @@ public class MakerpageRestController {
 	{
 		String path=request.getSession().getServletContext().getRealPath("/")+"newsfiles\\";
 		path=path.replace("\\", File.separator);
+		// 폴더가 없을 경우 자동으로 폴더 생성
+	    File dir = new File(path);
+	    if (!dir.exists()) {
+	        dir.mkdirs(); // 필요한 모든 상위 경로도 함께 생성
+	    }
 		List<MultipartFile> list = vo.getFundfiles();
 
 		if(list==null)
@@ -351,5 +373,64 @@ public class MakerpageRestController {
 		}	
 		dao.project_for_rewardDelete(wfno);
 		
+	}
+	@GetMapping(value = "makerpage/makerpage_home_vue.do",produces = "text/plain;charset=UTF-8")
+	public String makerpage_home(String id,int acno,int page) throws Exception
+	{
+		Map map = new HashMap();
+		int rowSize=4;
+		int start=(rowSize*page)-(rowSize-1);
+		int end=rowSize*page;
+		map.put("start", start);
+		map.put("end", end);
+		map.put("id", id);
+		map.put("acno", acno);
+		List<FundVO> list = dao.projectListData(map);
+		for(FundVO vo:list)
+		{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String dbopenday= sdf.format(vo.getOpenday());
+			String dbendday=sdf.format(vo.getEndday());
+			vo.setStropenday(dbopenday);
+			vo.setStrendday(dbendday);
+			String ftitle = vo.getFtitle();
+			if(ftitle.length()>15)
+			{
+				ftitle=ftitle.substring(0,15)+"...";
+			}
+			vo.setFtitle(ftitle);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	@GetMapping(value = "makerpage/makerpage_home_project_page_vue.do",produces = "text/plain;charset=UTF-8")
+	public String makerpage_home_project_page(int acno,String id, int page) throws Exception
+	{
+		Map map = new HashMap();
+		map.put("id", id);
+		map.put("acno", acno);
+		int totalpage=dao.makerpagehomeprojectTotalpage(map);
+		final int BLOCK=5;
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage)
+			endPage=totalpage;
+		PageVO vo = new PageVO();
+		vo.setCurpage(page);
+		vo.setTotalpage(totalpage);
+		vo.setStartPage(startPage);
+		vo.setEndPage(endPage);
+		ObjectMapper mapper = new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "makerpage/userinfno_vue.do",produces = "text/plain;charset=UTF-8")
+	public String makerpage_userinfo(String id) throws Exception
+	{
+		MemberVO vo = mydao.myInfo(id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json=mapper.writeValueAsString(vo);
+		return json;
 	}
 }	

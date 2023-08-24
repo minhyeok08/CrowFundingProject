@@ -41,11 +41,10 @@ public interface FundMapper {
 	public int projectrewardnoTotalpage(String id);
 	@Select("SELECT CEIL(COUNT(*)/8.0) FROM fundmaking WHERE rewardok=1 AND acno=#{acno} AND id=#{id}")
 	public int projectrewardOkTotalpage(Map map);
+	@Select("SELECT CEIL(COUNT(*)/4.0) FROM fundmaking WHERE rewardok=1 AND acno=#{acno} AND id=#{id}")
+	public int makerpagehomeprojectTotalpage(Map map);
 	// 프로젝트 상세=> 리워드 등록 안된 거 => 리워드 등록이 필요함 
-	@Select("SELECT wfno,mainimg,detailimg,detailcont,fcno,fcname,tag,ftitle,fsubtitle,aim_amount,"
-			+ "makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter "
-			+ "FROM fundmaking "
-			+ "WHERE wfno=#{wfno}")
+	@Select("SELECT * FROM fundmaking WHERE wfno=#{wfno}")
 	public FundVO projectDetailData(int wfno);
 	
 	/*

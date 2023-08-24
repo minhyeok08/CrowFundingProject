@@ -179,4 +179,9 @@ public class FundDAO {
 	{
 		mapper.project_for_rewardDelete(wfno);
 	}
+//	@Select("SELECT CEIL(COUNT(*)/4.0) FROM fundmaking WHERE rewardok=1 AND acno=#{acno} AND id=#{id}")
+	public int makerpagehomeprojectTotalpage(Map map)
+	{
+		return mapper.makerpagehomeprojectTotalpage(map);
+	}
 }

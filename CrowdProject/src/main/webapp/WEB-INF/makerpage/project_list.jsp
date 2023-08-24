@@ -25,9 +25,13 @@
 	margin: 0px auto;
 	margin-top: 10px;
  	 border: 2px solid #a6d8ce; 
+ 	 
 }
 .projectlisttable tr,td,th{
 	border:none;
+}
+.projectlisttable th{
+	font-size: 13px;
 }
 .rounded-image {
   border-radius: 50%;
@@ -92,11 +96,17 @@
 			<table class="table">
 				<tr>
 					<td class="text-start">
-						<button class="btn btn-project" @click="changeAcno(3)" >오픈예정 프로젝트</button>
 						<button class="btn btn-project" @click="changeAcno(1)" >진행중인 프로젝트</button>
+						<button class="btn btn-project" @click="changeAcno(3)" >오픈예정 프로젝트</button>
 					</td>
 				</tr>
 			</table>
+		</div>
+		<div v-if="acno==1" class="col-md-12">
+			<h3 class="text-center" style="background-color: #a6d8ce;color: white">진행중인 프로젝트</h3>
+		</div>
+		<div v-else class="col-md-12">
+			<h3 class="text-center" style="background-color: #a6d8ce;color: white">오픈예정 프로젝트</h3>
 		</div>
 		<div class="col-md-3" v-for="vo in project_list">
 		    <table class="table projectlisttable">
@@ -108,21 +118,43 @@
 		    		</td>
 		    	</tr>
 		    	<tr>
+		    		<td colspan="2">
+		    			<div class="progress" style="height:3px;">
+						  <div class="progress-bar" :style="'width: '+vo.acheieve_rate+'% background-color:#a6d8ce;'"></div>
+						</div>
+		    		</td>
+		    	</tr>
+		    	<tr v-if="vo.achieve_rate!=0">
+		    		<td colspan="2" class="text-end">
+		    			<strong style="color: #a6d8ce;">달성률 {{vo.achieve_rate}}%</strong>
+		    		</td>
+		    	</tr>
+		    	<tr v-else>
+		    		<td colspan="2" class="text-end">
+		    			<strong style="color: ##adb5bd;">달성률 {{vo.achieve_rate}}%</strong>
+		    		</td>
+		    	</tr>
+		    	<tr>
 		    		<th width="30%" class="text-end">카테고리</th>
-		    		<td width="70%" style="font-size: 15pt">{{vo.fcname}}</td>
+		    		<td width="70%" style="font-size: 15px">{{vo.fcname}}</td>
 		    	</tr>
 		    	<tr>
 		    		<th width="30%" class="text-end">프로젝트명</th>
-		    		<td width="70%" style="font-size: 15pt">{{vo.ftitle}}</td>
+		    		<td width="70%" style="font-size: 15px">{{vo.ftitle}}</td>
 		    	</tr>
-		    	<tr>
-		    		<td colspan="2" class="text-end" style="color: #a6d8ce;font-size: 15pt">{{vo.stropenday}}~{{vo.strendday}}&nbsp;&nbsp;</td>
+		    	<tr v-if="acno==1">
+		    		<th width="30%" class="text-end">진행기간</th>
+		    		<td width="70%" style="color: #a6d8ce;font-size: 15px ">{{vo.stropenday}}~{{vo.strendday}}&nbsp;&nbsp;</td>
+		    	</tr>
+		    	<tr v-else>
+		    		<th width="30%" class="text-end">오픈예정일</th>
+		    		<td width="70%" style="color: #a6d8ce;font-size: 15px ">{{vo.opendaykor}}</td>
 		    	</tr>
 		    	<tr>
 		    		<th width="30%" class="text-end">
 		    			<img :src="'../Fundimages/'+vo.makerphoto" class="rounded-image" style="width: 50px;height: 50px">
 		    		</th>
-		    		<td width="70%" style="font-size: 15pt">{{vo.makername}}</td>
+		    		<td width="70%" style="font-size: 15pz">{{vo.makername}}</td>
 		    	</tr>
 		    </table>
 	  </div>
@@ -159,7 +191,7 @@
 				totalpage:0,
 				startPage:0,
 				endPage:0,
-				acno:3
+				acno:1
 			},
 			mounted:function(){
 				this.dataRecv()

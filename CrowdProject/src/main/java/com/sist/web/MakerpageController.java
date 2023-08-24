@@ -63,6 +63,12 @@ public class MakerpageController {
 	{
 		String path=request.getSession().getServletContext().getRealPath("/")+"Fundimages\\";
 		path=path.replace("\\", File.separator);
+		// 폴더가 없을 경우 자동으로 폴더 생성
+	    File dir = new File(path);
+	    if (!dir.exists()) {
+	        dir.mkdirs(); // 필요한 모든 상위 경로도 함께 생성
+	    }
+	    
 		List<MultipartFile> list = vo.getFiles();
 //		System.out.println(list);
 		String filenames="";

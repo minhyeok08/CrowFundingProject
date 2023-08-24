@@ -50,7 +50,7 @@ public class FundVO {
 	
 	
 	// 태준 추가 내용
-	private String stropenday,strendday,detailcont;
+	private String stropenday,strendday,detailcont,opendaykor;
 	private List<MultipartFile> files;
 	private int rewardok;
 	private String id,str_aim_mount;

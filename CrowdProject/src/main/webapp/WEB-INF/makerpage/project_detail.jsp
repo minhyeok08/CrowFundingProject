@@ -16,8 +16,10 @@
 	height: 50px;
 	margin-right: 0px;
 }
-.rewardtable{
-	border: 2px solid #a6d8ce;
+.reward{
+	border-collapse: collapse;
+	border-radius: 10px; /* 원하는 radius 값으로 조정 가능 */
+	border: 1px solid #dde2e6;
 	height: 600px;
 	overflow-y: auto;
 }
@@ -27,11 +29,40 @@
 .storytable img {
   width: 650px;
   height: auto;
+  border-radius: 8px; 
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+}
+.storytable tr,td{
+	border: none;
 }
 .rounded-image {
   border-radius: 50%;
-  width: 50x; /* 이미지 너비 설정 */
-  height: 50px; /* 이미지 높이 설정 */
+  width: 30x; /* 이미지 너비 설정 */
+  height: 30px; /* 이미지 높이 설정 */
+}
+.makertable{
+	border-collapse: collapse;
+	border-radius: 10px; /* 원하는 radius 값으로 조정 가능 */
+	overflow: hidden; /* 모서리 내용이 반경을 벗어나지 않도록 함 */
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 6px;
+}
+.makertable th{
+	border: none;
+	color: #adb5bd;
+	font-size: 10pt
+}
+.makertable td{
+	border: none;
+	font-size: 10pt
+}
+.rewardtable{
+	border-collapse: collapse;
+	border-radius: 10px; /* 원하는 radius 값으로 조정 가능 */
+	overflow: hidden; /* 모서리 내용이 반경을 벗어나지 않도록 함 */
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 6px;
+}
+.rewardtable th,td{
+	border:none;
 }
 </style>
 </head>
@@ -71,25 +102,54 @@
 		<div class="col-5">
 			<table class="table">
 				<tr>
-					<td style="font-style: bold">{{detail_data.fcname}}&nbsp;&gt;&nbsp;<span style="color: #a6d8ce">#</span><span style="font-size: 10pt">{{detail_data.tag}}</span></td>
+					<td style="font-style: bold">{{detail_data.fcname}}&nbsp;&gt;&nbsp;<span style="background-color: #f2f2f2; padding: 2px 5px; border-radius: 4px; color: black; font-size: 14px;"><span style="color: #a6d8ce">#</span>{{detail_data.tag}}</span></td>
 				</tr>
 				<tr>
-					<td style="font-size: 20pt;font-style: bold">{{detail_data.ftitle}}</td>
+					<td>
+						<strong>{{detail_data.ftitle}}</strong>
+					</td>
 				</tr>
 				<tr>
-					<td style="font-size: 10pt;">{{detail_data.fsubtitle}}</td>
+					<td style="font-size: 13px">{{detail_data.fsubtitle}}</td>
 				</tr>
 				<tr>
-					<td style="font-size: 15pt;">목표금액&nbsp;<span style="color: #a6d8ce;font-size: 20pt">{{detail_data.str_aim_mount}}</span>원</td>
+					<td style="font-size: 10pt;"><strong>목표금액&nbsp;<span style="color: #a6d8ce;font-size: 15pt">{{detail_data.str_aim_mount}}</span>원</strong></td>
+				</tr>
+				<tr>
+					<td style="color: #a6d8ce;">
+						<span style="font-size: 25px"><strong>{{detail_data.cum_amount}}</strong></span>원 달성
+					</td>
+				</tr>
+				<tr>
+					<td style="font-size: 17px">
+						<strong>{{detail_data.achieve_rate}}% 달성</strong>&nbsp;&nbsp;&nbsp;
+						<span style="background-color: #f2f2f2; padding: 2px 5px; border-radius: 4px; color: black; font-size: 14px;">{{detail_data.parti_count}}명 참여</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<button class="rounded" style="border: none">
+							<img width="30" height="20" alt="Clapping Hands"
+								src="../images/hands-clapping.svg">
+								<br>
+								{{detail_data.jjim}}	
+						</button>
+						<button class="rounded" style="border: none">
+							<img width="30" height="20" alt="Clapping Hands"
+								src="../images/heart.svg">
+							<br>
+								{{detail_data.jjim}}	
+						</button>
+					</td>
 				</tr>
 			</table>
-			<table class="table">
+			<table class="table makertable">
 				<tr>
-					<td width="20%" class="text-center">
-						<img :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image" style="width: 50px;height: 50px;">
+					<td width="20%" class="text-center circle-image">
+						<img :src="'../Fundimages/'+detail_data.makerphoto" class="rounded-image" style="width: 30px;height: 30px;">
 					</td>
 					<td width="80%">
-						<h5 style="font-style: bold">{{detail_data.makername}}</h5>
+						<strong>{{detail_data.makername}}</strong>
 					</td>
 				</tr>
 				<tr>
@@ -106,18 +166,22 @@
 				</tr>
 				<tr v-if="detail_data.makerinsta!=null || detail_data.makerfacebook!=null || detail_data.makertwitter!=null">
 					<th width="20%" class="text-center">SNS</th>
-					<td width="80%" style="font-size: 30pt">
+					<td width="80%" style="font-size: 15pt">
 						<a :href="'https://www.instagram.com/'+detail_data.makerinsta+'/'" target="_blank"><i v-if=detail_data.makerinsta!=null class="fa-brands fa-instagram"></i></a>					
 						<a :href="'https://www.facebook.com/'+detail_data.makerfacebook+'/'" target="_blank"><i v-if=detail_data.makerfacebook!=null class="fa-brands fa-facebook"></i></a>					
 						<a :href="'https://www.twitter.com/'+detail_data.makertwitter+'/'" target="_blank"><i v-if=detail_data.makertwitter!=null class="fa-brands fa-twitter"></i></a>					
 					</td>
 				</tr>
 			</table>
-			<div class="rewardtable">
+			<div class="reward">
 				<table class="table">
 					<tr>
 						<td>
-							<h5>리워드 목록</h5>
+							<div class="row">
+								<div class=col-6><span style="font-size: 20px" class="text-start">리워드 목록</span></div>
+								<div class=col-6 class="text-end"><strong style="font-size: 12px;color: #adb5bd;">진행기간&nbsp;{{detail_data.stropenday}}~{{detail_data.strendday}}</strong></div>
+							</div>
+							
 						</td>
 					</tr>
 					<tr class="text-end">
@@ -127,7 +191,7 @@
 					</tr>
 					<tr>
 						<td>
-							<table class="table" v-for="vo,index in reward_list">
+							<table class="table rewardtable" v-for="vo,index in reward_list">
 								<tr>
 									<th colspan="2" class="text-start" style="color: #a6d8ce;font-size: 15pt">리워드 {{index+1}}</th>
 								</tr>
