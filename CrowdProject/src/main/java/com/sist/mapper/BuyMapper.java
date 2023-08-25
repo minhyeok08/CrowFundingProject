@@ -2,6 +2,7 @@ package com.sist.mapper;
 import java.util.*;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 public interface BuyMapper {
@@ -20,6 +21,9 @@ public interface BuyMapper {
 	@Insert("INSERT INTO wadiz_buy_info (bino, acno, wsno, name, poster, rname, tprice, gcount, regdate, id) "
 			+ "VALUES(wbi_bino_seq.nextval, 2, #{wsno}, #{rno}, #{name}, #{poster}, #{rname}, #{tprice}, #{gcount}, SYSDATE, #{id})")
 	public void storeBuyInsert(BuyVO vo);
+	
+	@Update("UPDATE wadiz_funding_reward SET curq = curq-#{gcount} where rno=#{rno}")
+	public void fundCount (Map map);
 }
 // wfno => poster
 // rno => rname, tprice (rprice*gcount(2로)

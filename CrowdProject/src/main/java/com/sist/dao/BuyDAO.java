@@ -4,6 +4,7 @@ import com.sist.vo.*;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,5 +26,11 @@ public class BuyDAO {
 	public void storeBuyInsert(BuyVO vo)
 	{
 		mapper.storeBuyInsert(vo);
+	}
+	
+	//@Update("UPDATE wadiz_funding_reward SET curq = curq-#{gcount} where rno=#{rno}")
+	public void fundCount (Map map)
+	{
+		mapper.fundCount(map);
 	}
 }

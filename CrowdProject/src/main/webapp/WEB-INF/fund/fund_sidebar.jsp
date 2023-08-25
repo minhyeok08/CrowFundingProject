@@ -126,7 +126,7 @@
 						<hr>
 						<p style="font-size: 14px; margin-bottom: 1px;">배송시작일 : {{vo.delstart }}</p>
 						<hr>
-						<span style="font-size: 14px; margin-bottom: 1px;">{{ vo.limitq}}개 남음</span><br>
+						<span style="font-size: 14px; margin-bottom: 1px;">{{ vo.curq}}개 남음</span><br>
 						<hr>
 						<span> 수량 선택 : &nbsp;&nbsp;
 							<select ref="gcount" v-model="gcount">

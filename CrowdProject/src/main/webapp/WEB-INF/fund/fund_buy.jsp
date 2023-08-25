@@ -168,22 +168,26 @@ table td {
 		})
 
 		let rprice = $('#price').val();
-		let tprice = $('#total_price').attr('data-total');
+		//let tprice = $('#total_price').attr('data-total');
 		let rno = $('#rno').attr('data-rno');
 		let wfno = $('#wfno').attr('data-wfno');
 		let rname = $('#rname').attr('data-rname');
 		let name = $('#name').text();
+		let gcount = $('#gcount').val();
+		let tprice = $('#tprice').val();
 		
 		$('#buyBtn').click(function(){
 			$.ajax({
 				type:'get',
-				url:'../fund/fund_test.do',
-				data:{"rno":rno,"wfno":wfno,"rname":rname,"name":name},
+				url:'../fund/fund_buy_ok.do',
+				data:{"rno":rno,"wfno":wfno,"rname":rname,"name":name,"gcount":gcount,"tprice":tprice},
 				success:function(result){
 					requestPay()
+					
 				}
 			})
-	})
+
+		})
 	})
 	var IMP = window.IMP; // 생략 가능
 		IMP.init("imp36806187"); // 예: imp00000000
@@ -218,7 +222,15 @@ table td {
 					msg += '결제 금액 : ' + rsp.paid_amount;
 					msg += '카드 승인번호 : ' + rsp.apply_num;
 				} else {
-					location.href = "../fund/fund_list.do";
+				 	location.href = "../mypage/mypage_main.do";
+					/* $.ajax({
+						type:'get',
+						url:'../fund/fund_count.do',
+						data:{"rno":rno,"wfno":wfno,"gcount":gcount},
+						success:function(result){
+							console.log("카운트성공")
+						}
+					}) */
 				}
 			});
 		}
@@ -245,7 +257,10 @@ table td {
 					<strong>상품정보</strong>
 				</h4>
 				<hr>
+				<input type="hidden" id="gcount" value="${gcount}"> 
+				<input type="hidden" id="tprice" value="${gcount*rvo.rprice}">
 				<table class="table">
+					 
 					<tr>
 						<td rowspan="3" width="20%"><img src=${vo.mainimg } class="reserveImg"></td>
 						<td width="80%" style="font-size: 17px; font-weight: bold;">${rvo.rname }</td>
@@ -286,6 +301,8 @@ table td {
 						<td width="80%" class="text-right"><fmt:formatNumber
 								value="${gcount *rvo.rprice }" pattern="#,###" />원</td>
 					</tr>
+					
+					
 				</table>
 				<div style="height: 20px"></div>
 				<h4>
@@ -371,14 +388,14 @@ table td {
 							<tr height="60px;"
 								style="vertical-align: middle; font-size: 10pt;">
 								<td>주문 금액</td>
-								<td><fmt:formatNumber value="${rvo.rprice }" pattern="#,###" />원</td>
+								<td><fmt:formatNumber value="${gcount *rvo.rprice }" pattern="#,###" />원</td>
 							</tr>
 							<tr height="60px;"
 								style="vertical-align: middle; background-color: rgb(246, 251, 255);">
 								<td style="color: #a6d8ce;"><strong>총 결제
 										금액</strong></td>
 								<td style="font-size: 20pt; color: #a6d8ce;"><b>
-										<fmt:formatNumber value="${rvo.rprice }"
+										<fmt:formatNumber value="${gcount *rvo.rprice }"
 											pattern="#,###" />원
 								</b></td>
 							</tr>
@@ -437,10 +454,12 @@ table td {
 							<tr>
 								<td colspan="2" class="center wishTd">
 									<div class="d-grid">
-										<input type="hidden" id="total_price" data-total="${rvo.rprice }"> 
+										<input type="hidden" id="total_price" data-total="${gcount*rvo.rprice }"> 
 										<input type="hidden" id="rno" data-rno="${rvo.rno }"> 
 										<input type="hidden" id="wfno" data-wfno="${vo.wfno }">
 										<input type="hidden" id="rname" data-rname="${rvo.rname}">
+										<%-- <input type="hidden" id="gcount" data-gcount="${gcount}">
+										<input type="hidden" id="tprice" data-tprice="${gcount *rvo.rprice }"> --%>
 										
 										
 											<input type="hidden" id="post" value="${mvo.post }"> 
@@ -454,7 +473,7 @@ table td {
 												data-no="${rvo.rname }" >
 												<h5>
 													<strong> <fmt:formatNumber
-															value="${rvo.rprice }" pattern="#,###" />원
+															value="${gcount *rvo.rprice }" pattern="#,###" />원
 														결제하기
 													</strong>
 												</h5>

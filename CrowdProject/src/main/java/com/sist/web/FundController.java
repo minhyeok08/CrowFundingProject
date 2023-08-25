@@ -108,8 +108,8 @@ public class FundController {
         // 나머지 로직 처리
         return "fund/fund_detail";
     }
-	@RequestMapping("fund/fund_test.do")
-	public String buyTest(HttpServletRequest request,HttpServletResponse response)
+	@RequestMapping("fund/fund_buy_ok.do")
+	public String buy_Ok(HttpServletRequest request,HttpServletResponse response)
 	{
 		try {
 			request.setCharacterEncoding("UTF-8");
@@ -117,6 +117,10 @@ public class FundController {
 			e.printStackTrace();
 		}
 		
+		String strtprice = request.getParameter("tprice");
+		int tprice = Integer.parseInt(strtprice);
+		String strgcount = request.getParameter("gcount");
+		int gcount = Integer.parseInt(strgcount);
 		String strwfno = request.getParameter("wfno");
 		int wfno = Integer.parseInt(strwfno);
 		String strrno = request.getParameter("rno");
@@ -133,11 +137,17 @@ public class FundController {
 		bvo.setName(name);
 		bvo.setPoster(poster);
 		bvo.setRname(rname);
-		bvo.setTprice(20000);
-		bvo.setGcount(2);
+		bvo.setTprice(tprice);
+		bvo.setGcount(gcount);
 		bvo.setId(id);
 		
+		Map map=new HashMap();
+		map.put("rno", rno);
+		map.put("gcount", gcount);
+		bdao.fundCount(map);
 		bdao.fundBuyInsert(bvo);
+		
+		//bdao.fundRewardCount();
 		
 		System.out.println(wfno);
 		System.out.println(name);
@@ -146,7 +156,8 @@ public class FundController {
 		System.out.println(poster);
 		System.out.println(rname);
 		System.out.println(rno);
-		return "redirect:../fund/fund_list.do";
+		
+		return "redirect:../mypage/mypage_main.do";
 	}
 	
 	@GetMapping("fund/agreeBtn1.do")
@@ -163,4 +174,35 @@ public class FundController {
     public String agreeBtn3() {
     	return "fund/agreeBtn3";
     }
+    
+    /*
+    @RequestMapping("fund/fund_count.do")
+	public String fund_count(HttpServletRequest request,HttpServletResponse response)
+	{
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		String strtprice = request.getParameter("tprice");
+		int tprice = Integer.parseInt(strtprice);
+		String strgcount = request.getParameter("gcount");
+		int gcount = Integer.parseInt(strgcount);
+		String strwfno = request.getParameter("wfno");
+		int wfno = Integer.parseInt(strwfno);
+		String strrno = request.getParameter("rno");
+		int rno = Integer.parseInt(strrno);
+		String rname = request.getParameter("rname");
+		String name = request.getParameter("name");
+		FundVO vo = dao.fundDetailData(wfno);
+		String poster=vo.getMainimg();
+		HttpSession session=request.getSession();
+		String id=(String)session.getAttribute("id");
+		
+		
+		return "redirect:../mypage/mypage_main.do";
+	}
+    */
 }
