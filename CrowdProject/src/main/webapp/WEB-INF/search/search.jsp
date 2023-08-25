@@ -33,9 +33,9 @@ td {
 				<div class="row">
 				<h2>펀딩</h2>
 				<div class="col-md-6" v-for="fvo in search_fund">
-					<div class="thumbnail" style="width: 260px;">
+					<div class="thumbnail" style="width: 100%;">
 						<a :href="'../fund/fund_detail_before.do?wfno='+fvo.wfno">
-							<img :src="fvo.mainimg" class="store_poster" style="width:260px; height:180px">
+							<img :src="fvo.mainimg" class="store_poster" style="width:100%; height:auto; object-fit:cover;">
 							<div class="caption">
 								<p style="font-size: 16px; margin:2px 0px 2px 0px; height: 50px;">{{fvo.ftitle}}</p>
 								<p style="font-size: 12px; margin:2px 0px 2px 0px; color:gray;">{{fvo.fcname}} | {{fvo.makername}}</p>
@@ -56,9 +56,9 @@ td {
 				<div class="row">
 					<h2>스토어</h2>
 					<div class="col-md-6" v-for="svo in search_store">
-					<div class="thumbnail" style="width: 260px;">
+					<div class="thumbnail" style="width: 100%;">
 						<a href="#">
-							<img :src="svo.main_poster" class="store_poster" style="width:260px; height:180px">
+							<img :src="svo.main_poster" class="store_poster" style="width:100%; height:70%">
 							<div class="caption">
 								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{svo.goods_title}}</p>
 								<p style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">

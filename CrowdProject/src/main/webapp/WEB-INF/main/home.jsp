@@ -67,9 +67,9 @@ td {
 				<div class="row" style="padding-left:">
 				<h2>취향 맞춤 프로젝트</h2>
 				<div class="col-md-4" v-for="fvo in fund_list">
-					<div class="thumbnail" style="width: 260px;">
+					<div class="thumbnail" style="width: 100%;">
 						<a :href="'../fund/fund_detail_before.do?wfno='+fvo.wfno">
-							<img :src="fvo.mainimg" class="store_poster" style="width:260px; height:180px">
+							<img :src="fvo.mainimg" class="store_poster" :style="{width:'100%', height:getWidthDependentHeight(fvo.mainimg)+'px'}">
 							<div class="caption">
 								<p style="font-size: 16px; margin:2px 0px 2px 0px; height: 50px;">{{fvo.ftitle}}</p>
 								<p style="font-size: 12px; margin:2px 0px 2px 0px; color:gray;">{{fvo.fcname}} | {{fvo.makername}}</p>
@@ -153,6 +153,9 @@ td {
 		            const timeDiff = end - now;
 		            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
 		            return daysDiff;
+		        },
+		        getWidthDependentHeight(imageUrl) {
+		        	return window.innerHeight * 0.25;
 		        }
 				/* range:function(start, end) {
 					let arr = []

@@ -37,10 +37,6 @@ public class FundRestController {
 		Map map = new HashMap();
 		map.put("wfno", wfno);
 		FundVO vo = service.fundDetailData(wfno);
-		String detailimg = vo.getDetailimg();
-		detailimg = detailimg.substring(0,detailimg.indexOf("^"));
-		detailimg = detailimg.replace("#", "&");
-		vo.setDetailimg(detailimg);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
 		

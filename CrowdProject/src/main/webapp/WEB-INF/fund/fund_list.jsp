@@ -372,8 +372,10 @@ ul, li {
 				<h2 style="margin: 20px 0px 20px 0px;"></h2>
 				<div class="col-md-4" v-for="vo in fund_list">
 					<div class="thumbnail" style="width: 260px;">
-						<a :href="'../fund/fund_detail_before.do?wfno='+vo.wfno"> <img
-							:src="vo.mainimg" class="store_poster"
+						<a :href="'../fund/fund_detail_before.do?wfno='+vo.wfno"> 
+						<img v-if="vo.mainimg.startsWith('http')" :src="vo.mainimg" class="store_poster"
+							style="width: 260px; height: 180px">
+						<img v-else :src="'../Fundimages/'+vo.mainimg" class="store_poster"
 							style="width: 260px; height: 180px">
 							<div class="caption">
 								<p style="font-size: 16px; margin-bottom: 1px; height: 50px;">{{vo.ftitle}}</p>

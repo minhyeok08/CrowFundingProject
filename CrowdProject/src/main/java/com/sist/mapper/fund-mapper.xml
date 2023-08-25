@@ -16,7 +16,7 @@
  		WHERE fcno=2 and acno=1 and rewardOk=1 ORDER BY regdate desc
  		</if>
  		<if test="fcno==3">
- 		WHERE fcno=3 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		WHERE fcno=3 and acno=1 and rewardOk=1 ORDER BY regdate desc
  		</if>		
  		<if test="fcno==4">
  		WHERE fcno=4 and acno=1 and rewardOk=1 ORDER BY regdate desc
