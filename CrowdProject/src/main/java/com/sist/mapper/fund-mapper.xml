@@ -48,6 +48,7 @@
  		<if test="fcno==13">
  		WHERE fcno=13
  		</if>
+ 		and acno=1 and rewardOk=1
  	</select>
  	 	<select id="fundDetailData" resultType="FundVO" parameterType="int">
 	    SELECT wfno,acno,mainimg,detailimg,tag,fcname,ftitle,fsubtitle,achieve_rate,cum_amount,parti_count,jjim,support,

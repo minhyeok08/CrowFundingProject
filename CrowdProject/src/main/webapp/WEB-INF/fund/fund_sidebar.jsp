@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,7 +120,9 @@
 							리워드 구성 : <br><br>{{ vo.rcont }}
 						</p>
 						<hr>
-						<p style="font-size: 14px; margin-bottom: 1px;">배송비 : {{vo.delfee }}원</p>
+						<p v-if="vo.delfee == 0" style="font-size: 14px; margin-bottom: 1px;">배송비 : 무료</p>
+        				<p v-else style="font-size: 14px; margin-bottom: 1px;">배송비 : {{ vo.delfee }}원</p>
+						
 						<hr>
 						<p style="font-size: 14px; margin-bottom: 1px;">배송시작일 : {{vo.delstart }}</p>
 						<hr>
@@ -135,9 +138,19 @@
 							</select>
 						</span>
 						<!-- <a :href="'../fund/fund_buy.do?rno=' + vo.rno + '&wfno=' + fund_detail.wfno + '&gcount=' + gcount"> --> 
+						 
 							<div class="button-container">
+								<c:if test="${sessionScope.id!=null }">
 								 <button class="bordered-button" id="buyBtn" @click="buyReward(vo.rno)" >구매하기</button>
+								</c:if>
+								 <c:if test="${sessionScope.id==null }">
+								 <a href="../member/member_login.do">
+								 <button class="bordered-button">구매하기</button>
+								</a>
+						 		</c:if> 
 							</div>
+						 
+						
 						<!-- </a>  -->
 							<!--  <a :href="'../fund/fund_buy.do?wfno='+wfno" class="button">구매하기</a>-->
 							<!-- <button class="bordered-button" id="buyBtn">수량 선택</button> -->	

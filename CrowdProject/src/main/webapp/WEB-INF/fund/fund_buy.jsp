@@ -13,6 +13,7 @@
 .row {
 	margin: 0px auto;
 	width: 1100px;
+	margin-top: 30px;
 }
 
 .reserveImg {
@@ -256,30 +257,34 @@ table td {
 						<td style="color: gray"></td>
 					</tr>
 					<tr style="background-color: rgb(248, 249, 250)">
-						<td width="20%">가격</td>
+						<td width="20%">상품 가격</td>
 						<td width="80%" class="text-right"><fmt:formatNumber
 								value="${rvo.rprice }" pattern="#,###" />원</td>
 					</tr>
 					<tr style="background-color: rgb(248, 249, 250)">
 						<td width="20%">개수</td>
-						<td width="80%" class="text-right">1억개</td>
+						<td width="80%" class="text-right">${gcount }개</td>
 					</tr>
 					<tr style="background-color: rgb(248, 249, 250)">
 						<td width="20%">총금액</td>
-						<td width="80%" class="text-right">2억</td>
+						<td width="80%" class="text-right"><fmt:formatNumber
+								value="${gcount *rvo.rprice }" pattern="#,###" />원</td>
+								
 					</tr>
 					<tr style="background-color: rgb(248, 249, 250)">
 						<td width="20%">쿠폰할인</td>
-						<td width="80%" class="text-right">${rvo.rprice }원</td>
+						<td width="80%" class="text-right"><fmt:formatNumber
+								value="" pattern="#,###" />- 0원</td>
 					</tr>
 					<tr>
 						<td width="20%">포인트할인</td>
 						<td width="80%" class="text-right"><fmt:formatNumber
-								value="${rvo.rprice }" pattern="#,###" />원</td>
-					</tr>
+								value="" pattern="#,###" />- 0원</td>
+					</tr> 
 					<tr style="background-color: rgb(248, 249, 250)">
 						<td width="20%">최종금액</td>
-						<td width="80%" class="text-right">${rvo.rno }</td>
+						<td width="80%" class="text-right"><fmt:formatNumber
+								value="${gcount *rvo.rprice }" pattern="#,###" />원</td>
 					</tr>
 				</table>
 				<div style="height: 20px"></div>
@@ -290,7 +295,7 @@ table td {
 				<table class="table">
 					<tr>
 						<td width="20%">이름</td>
-						<td width="80%" id="name" class="text-right">${mvo.name }${gcount }</td>
+						<td width="80%" id="name" class="text-right">${mvo.name }</td>
 					</tr>
 					<tr>
 						<td width="20%">이메일</td>
