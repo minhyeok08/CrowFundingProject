@@ -93,13 +93,15 @@ public class FundController {
         return "redirect:../fund/fund_detail.do";
     }
 	@GetMapping("fund/fund_detail.do")
-    public String fund_detail(@RequestParam int wfno, Model model) {
+    public String fund_detail(@RequestParam int wfno, Model model,HttpSession session) {
+		String id = (String)session.getAttribute("id");
 		FundVO vo = service.fundDetailData(wfno);
 		DecimalFormat df = new DecimalFormat("###,###,###");
         int cum_amount = vo.getCum_amount();
         String str_cum_amount= df.format(cum_amount);
         vo.setStrCum(str_cum_amount);
-
+        
+        model.addAttribute("id", id);
 	    model.addAttribute("wfno", wfno);
 	    model.addAttribute("vo", vo);
         

@@ -25,5 +25,6 @@ public class ReviewVO {
 	private String imgname, imgsize, imgpath;
 	private List<MultipartFile> images;
 	private String profile_name, profile_size, profile_url;
-	private int mpno, no;
+	private int mpno, no,parti_count,acno;
+	private String mainimg,fcname,tag,ftitle,fsubtitle,makerphoto,makername;
 }

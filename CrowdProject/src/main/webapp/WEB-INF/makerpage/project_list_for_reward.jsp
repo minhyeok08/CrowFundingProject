@@ -112,7 +112,8 @@
 		    	<tr>
 		    		<td class="text-center" colspan="2">
 		    			<a :href="'../makerpage/project_detail_for_reward.do?wfno='+vo.wfno">
-		    				<img :src="'../Fundimages/'+vo.mainimg" style="width:250px;height: 200px;">
+		    				<img v-if="vo.mainimg.startsWith('https')"  :src="vo.mainimg" style="width:250px;height: 200px;">
+		    				<img v-else  :src="'../Fundimages/'+vo.mainimg" style="width:250px;height: 200px;">
 		    			</a>
 		    		</td>
 		    	</tr>
@@ -130,7 +131,8 @@
 		    	</tr>
 		    	<tr>
 		    		<th width="30%" class="text-end">
-		    			<img :src="'../Fundimages/'+vo.makerphoto" class="rounded-image" style="width: 50px;height: 50px">
+		    			<img v-if="vo.makerphoto.startsWith('https')"  :src="vo.makerphoto" class="rounded-image" style="width: 50px;height: 50px">
+		    			<img v-else  :src="'../Fundimages/'+vo.makerphoto" class="rounded-image" style="width: 50px;height: 50px">
 		    		</th>
 		    		<td width="70%" style="font-size: 15pz">{{vo.makername}}</td>
 		    	</tr>
@@ -151,7 +153,7 @@
 		        		<span aria-hidden="true">&laquo;</span>
 		        	</a>
 		        </li>
-		        <li class="page-item" v-for="i in range(startPage, endPage)">
+		        <li class="page-item" :class="i==curpage?'active':''" v-for="i in range(startPage, endPage)">
 		        	<a class="page-link" href="#" @click="pageChange(i)">{{i}}</a>
 		        </li>
 		        <li class="page-item" v-if="endPage<totalpage">

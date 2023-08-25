@@ -100,8 +100,8 @@
 			<table class="table">
 				<tr>
 					<td class="text-start">
-						<button class="btn btn-project" @click="changeAcno(1)" >진행중인 프로젝트</button>
-						<button class="btn btn-project" @click="changeAcno(3)" >오픈예정 프로젝트</button>
+						<button class="btn btn-project" @click="changeAcno(1)" >My프로젝트</button>
+						<button class="btn btn-project" @click="changeAcno(3)" >오픈예정</button>
 					</td>
 				</tr>
 			</table>
@@ -149,7 +149,11 @@
 		    	</tr>
 		    	<tr v-if="acno==1">
 		    		<th width="30%" class="text-end">진행기간</th>
-		    		<td width="70%" style="color: #a6d8ce;font-size: 15px ">{{vo.stropenday}}~{{vo.strendday}}&nbsp;&nbsp;</td>
+		    		<td v-if="new Date()>vo.endday" width="70%" style="color: #adb5bd;font-size: 15px ">{{vo.stropenday}}~{{vo.strendday}}&nbsp;&nbsp;
+		    			<br>
+		    			[종료]
+		    		</td>
+		    		<td v-else width="70%" style="color: #a6d8ce;font-size: 15px ">{{vo.stropenday}}~{{vo.strendday}}&nbsp;&nbsp;</td>
 		    	</tr>
 		    	<tr v-else>
 		    		<th width="30%" class="text-end">오픈예정일</th>
@@ -173,7 +177,7 @@
 			        		<span aria-hidden="true">&laquo;</span>
 			        	</a>
 			        </li>
-			        <li class="page-item" v-for="i in range(startPage, endPage)">
+			        <li class="page-item" :class="i==curpage?'active':''" v-for="i in range(startPage, endPage)">
 			        	<a class="page-link" href="#" @click="pageChange(i)">{{i}}</a>
 			        </li>
 			        <li class="page-item" v-if="endPage<totalpage">

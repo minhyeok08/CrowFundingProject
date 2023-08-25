@@ -73,7 +73,9 @@
 			<tr class="text-end">
 				<td>
 					<a href="../makerpage/project_update.do?wfno=${wfno }" class="btn btn-warning">수정</a>
-					<a href="#" class="btn btn-danger">삭제</a>
+					<button type="button" class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+    					삭제
+    				</button>
 				</td>
 			</tr>
 		</table>
@@ -177,7 +179,17 @@
 				</tr>
 			</table>
 			<div class="reward">
-				<table class="table">
+				<table v-if="new Date()>detail_data.endday" class="table">
+					<tr>
+						<td>
+							<div class="text-end"><strong style="font-size: 12px;color: #adb5bd;">진행기간&nbsp;{{detail_data.stropenday}}~{{detail_data.strendday}}</strong></div>
+							<div style="height: 250px"></div>
+								<center><strong style="font-size: 30px;color: #adb5bd">종료된 프로젝트 입니다.	</strong></center>
+							<div style="height: 200px"></div>
+						</td>
+					</tr>
+				</table>
+				<table v-else class="table">
 					<tr>
 						<td>
 							<div class="row">
@@ -234,6 +246,24 @@
 			</div>
 		</div>
 	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">프로젝트 만들기</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        게시물을 정말 삭제하시겠습니까?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-xs btn-project" @click="del()">확인</button>
+	        <button type="button" class="btn btn-xs btn-secondary" data-bs-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </div>
 <script>
 new Vue({
@@ -276,6 +306,15 @@ new Vue({
 			}).then(response=>{
 				this.reward_list=response.data
 				this.dataRecv()
+			})
+		},
+		del:function(){
+			axios.get('../makerpage/makerpage_project_delete_vue.do',{
+				params:{
+					wfno:this.wfno
+				}
+			}).then(res=>{
+				location.href="../makerpage/project_list.do"
 			})
 		}
 	}
