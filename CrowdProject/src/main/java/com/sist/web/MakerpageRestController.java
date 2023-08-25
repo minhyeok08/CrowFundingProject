@@ -371,28 +371,31 @@ public class MakerpageRestController {
 			StringTokenizer st = new StringTokenizer(vo.getFilename(),",");
 			while(st.hasMoreTokens())
 			{
-				path=path+st.nextToken();
+
 				File file = new File(path);
 				file.delete();
 			}
 		}
 		dao.maker_news_delete(no);
 	}
-	@GetMapping(value = "makerpage/makerpage_project_for_reward_delete_vue.do",produces = "text/plain;charset=UTF-8")
+	@GetMapping(value = "makerpage/makerpage_project_delete_vue.do",produces = "text/plain;charset=UTF-8")
 	public void project_for_reward_delete(int wfno,HttpServletRequest request)
 	{
-		FundVO vo = dao.project_for_rewardFileInfoData(wfno);
-		String path=request.getSession().getServletContext().getRealPath("/")+"Fundimages\\";
-		path=path.replace("\\", File.separator);
-		String files=vo.getMainimg()+"^"+vo.getMakerphoto()+"^"+vo.getDetailimg();
-		StringTokenizer st = new StringTokenizer(files,"^");
-		while(st.hasMoreTokens())
+		FundVO vo = dao.projectFileInfoData(wfno);
+		if(!vo.getMainimg().contains("http"))
 		{
-			path=path+st.nextToken();
-			File file = new File(path);
-			file.delete();
+			String path=request.getSession().getServletContext().getRealPath("/")+"Fundimages\\";
+			path=path.replace("\\", File.separator);
+			String files=vo.getMainimg()+"^"+vo.getMakerphoto()+"^"+vo.getDetailimg();
+			StringTokenizer st = new StringTokenizer(files,"^");
+			while(st.hasMoreTokens())
+			{
+				path=path+st.nextToken();
+				File file = new File(path);
+				file.delete();
+			}	
 		}	
-		dao.project_for_rewardDelete(wfno);
+		dao.projectDelete(wfno);
 		
 	}
 	@GetMapping(value = "makerpage/makerpage_home_vue.do",produces = "text/plain;charset=UTF-8")

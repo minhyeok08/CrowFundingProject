@@ -178,14 +178,14 @@ public class FundDAO {
 	}
 	// 프로젝트 만들기 삭제(리워드 등록 안된)
 //	@Select("SELECT mainimg,makerphoto,detailimg FROM fundmaking WHERE wfno=#{wfno}")
-	public FundVO project_for_rewardFileInfoData(int wfno)
+	public FundVO projectFileInfoData(int wfno)
 	{
-		return mapper.project_for_rewardFileInfoData(wfno);
+		return mapper.projectFileInfoData(wfno);
 	}
 //	@Delete("DELECT FROM fundmaking WHERE wfno=#{wfno}")
-	public void project_for_rewardDelete(int wfno)
+	public void projectDelete(int wfno)
 	{
-		mapper.project_for_rewardDelete(wfno);
+		mapper.projectDelete(wfno);
 	}
 //	@Select("SELECT CEIL(COUNT(*)/4.0) FROM fundmaking WHERE rewardok=1 AND acno=#{acno} AND id=#{id}")
 	public int makerpagehomeprojectTotalpage(Map map)

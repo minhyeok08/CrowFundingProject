@@ -120,12 +120,13 @@
 				<div class="col-3" v-for="vo in project_list">
 					<div class="img-thumbnail">
 				      <a href="#">
-				        <img :src="'../Fundimages/'+vo.mainimg" style="width:100%;height: 200px;">
+				        <img v-if="vo.mainimg.startsWith('https')" :src="vo.mainimg" style="width:100%;height: 200px;">
+				        <img v-else :src="'../Fundimages/'+vo.mainimg" style="width:100%;height: 200px;">
 				        <div class="caption">
 				          
 				          <p>
 				          	<div class="progress" style="height:3px;">
-							  <div class="progress-bar" :style="'width: '+vo.acheieve_rate+'% background-color:#a6d8ce;'"></div>
+							  <div class="progress-bar" :style="{ width: vo.achieve_rate + '%' }" style="background-color:#a6d8ce;"></div>
 							</div>
 				          </p>
 				          <p v-if="vo.achieve_rate!=0">

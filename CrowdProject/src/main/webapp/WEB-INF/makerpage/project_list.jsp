@@ -173,7 +173,7 @@
 			        		<span aria-hidden="true">&laquo;</span>
 			        	</a>
 			        </li>
-			        <li class="page-item" v-for="i in range(startPage, endPage)">
+			        <li class="page-item" :class="i==curpage?'active':''" v-for="i in range(startPage, endPage)">
 			        	<a class="page-link" href="#" @click="pageChange(i)">{{i}}</a>
 			        </li>
 			        <li class="page-item" v-if="endPage<totalpage">

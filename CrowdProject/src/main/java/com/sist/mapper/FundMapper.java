@@ -127,8 +127,8 @@ public interface FundMapper {
 	public void maker_news_delete(int no);
 	// 프로젝트 만들기(리워드 없는) 삭제
 	@Select("SELECT mainimg,makerphoto,detailimg FROM wadiz_fund_detail WHERE wfno=#{wfno}")
-	public FundVO project_for_rewardFileInfoData(int wfno);
+	public FundVO projectFileInfoData(int wfno);
 	@Delete("DELETE FROM wadiz_fund_detail WHERE wfno=#{wfno}")
-	public void project_for_rewardDelete(int wfno);
+	public void projectDelete(int wfno);
 	
 }

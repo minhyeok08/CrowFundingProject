@@ -82,7 +82,8 @@
 			</tr>
 			<tr v-for="img in detailimg">
 				<td>
-					<img :src="'../Fundimages/'+img">
+					<img v-if="img.startsWith('https')"  :src="img">
+					<img v-else  :src="'../Fundimages/'+img">
 				</td>
 			</tr>
 		</table>
@@ -190,7 +191,7 @@
 		},
 		methods:{
 			del:function(){
-				axios.get('../makerpage/makerpage_project_for_reward_delete_vue.do',{
+				axios.get('../makerpage/makerpage_project_delete_vue.do',{
 					params:{
 						wfno:this.wfno
 					}
