@@ -365,6 +365,20 @@ ul, li {
 	float: right;
 	margin-right: 10px;
 }
+.faqCont{
+	display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: pre-wrap;
+    padding-bottom: 12px;
+    line-height: 18px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #495057;
+}
+.faq{
+	width:89%;
+}
 </style>
 </head>
 <body>
@@ -386,22 +400,29 @@ ul, li {
 			<ul>
 				<div class="liborder">
 					<li>
-						<button class="faqbutton">참여 했어요. 결제는 언제, 어떻게 진행되나요?</button>
+						<button class="faqbutton" @click="isVisible = !isVisible">참여 했어요. 결제는 언제, 어떻게 진행되나요?</button>
+						<div class="faqCont" id="faqCont1" v-if="isVisible">프로젝트 진행중에는 결제 예약 상태이며, 프로젝트 종료 후 다음 1영업일 5시에 결제가 진행됩니다. 이때, 결제 실패된 건에 한하여 종료일+4영업일동안 매일 5시에 결제가 진행됩니다. (프로젝트 종료일+4영업일 오후 5시 4차 최종 결제 진행)</div>
 					</li>
 				</div>
 				<div class="liborder">
 					<li>
-						<button class="faqbutton">결제 실패 알림을 받았어요. 어떻게 해야하나요?</button>
+						<button class="faqbutton" @click="isVisible1 = !isVisible1">결제 실패 알림을 받았어요. 어떻게 해야하나요?</button>
+						<div class="faqCont" id="faqCont2" v-if="isVisible1">잔고 부족이나 한도 초과, 거래 정지등의 사유로 결제가 실패할 수 있습니다. 최종 결제일 16시 30분전까지 결제 정보를 변경해주세요. 최종 결제일까지 매 영업일 5시마다 결제가 진행됩니다.
+・ 결제정보 변경은 로그인 - [마이 와디즈] - [참여 내역]에서 결제 정보를 변경할 수 있습니다.
+・ 반드시 참여한 프로젝트 상세 참여 내역 페이지에서 결제 정보를 변경해주세요. [마이 와디즈] - [결제 관리 정보]에서 결제 정보를 변경하면 해당 카드로 결제가 진행되지 않습니다!</div>
 					</li>
 				</div>
 				<div class="liborder">
 					<li>
-						<button class="faqbutton">결제가 진행된 후,다른 결제 정보로 변경할 수 있나요?</button>
+						<button class="faqbutton" @click="isVisible2 = !isVisible2">결제가 진행된 후,다른 결제 정보로 변경할 수 있나요?</button>
+						<div class="faqCont" id="faqCont3" v-if="isVisible2">결제 예약으로 진행되어 이미 종료된 프로젝트는 취소 후 재참여가 불가능하니, 결제 전 등록한 결제 정보가 맞는지 확인해 주세요.</div>
 					</li>
 				</div>
 				<div class="liborder">
 					<li>
-						<button class="faqbutton">배송지나 옵션을 변경하고 싶어요.</button>
+						<button class="faqbutton" @click="isVisible3 = !isVisible3">배송지나 옵션을 변경하고 싶어요.</button>
+						<div class="faqCont" id="faqCont4" v-if="isVisible3">프로젝트 진행 중에는 [마이 와디즈] - [참여 내역]에서 직접 변경이 가능합니다.
+프로젝트가 종료된 이후에는 직접 변경이 불가능하니, 아래 [메이커에게 문의하기]를 통해 문의해주세요.</div>
 					</li>
 				</div>
 			</ul>
@@ -500,7 +521,7 @@ ul, li {
 			<div class="reviewTable">
 				<hr>
 				<ul>
-					<li v-for="vo in review_list">
+					<li v-for="vo,index in computedReviewList" :key="vo.rno">
 						<div class="reviewCard">
 							<div class="reviewContent">
 								<div class="reviewerImg">
@@ -540,14 +561,11 @@ ul, li {
 				</ul>
 			</div>
 			<div class="moreReview">
-				<button class="moreReviewBtn">더보기</button>
+				<button class="moreReviewBtn" @click="moreBtn">더보기</button>
 			</div>
 		</div>
-		
 	</div>
 	<script>
-	
-    
 	 new Vue({
 		 el:'.comContainer',
 		 data:{
@@ -558,7 +576,13 @@ ul, li {
 			 isShow:false,
 			 showModal: false,
 			 review_list:[],
-			 member_profile:{}
+			 member_profile:{},
+			 showMore:false,
+			 listNum:10,
+			 isVisible: false,
+			 isVisible1: false,
+			 isVisible2:false,
+			 isVisible3: false
 		 },
 		 mounted:function(){
 			 axios.get('../fund/fund_detail_vue.do',{
@@ -596,10 +620,19 @@ ul, li {
 		    	}).catch(error=>{
 		    		console.log(error.response)
 		    	})
-		    	
-		    	
+		    },
+		    moreBtn:function(){
+		    	if(this.showMore==false){
+		    		this.showMore=true
+		    	}else{
+		    		this.showMore=false
+		    	}
 		    }
-		    
+		 },
+		 computed:{
+			 computedReviewList(){
+				 return this.showMore ? this.review_list : this.review_list.slice(0,this.listNum)
+			 }
 		 }
 	 })	
 	</script>

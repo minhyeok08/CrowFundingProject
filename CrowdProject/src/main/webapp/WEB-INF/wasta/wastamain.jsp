@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,13 +125,19 @@
 .card_content_wrapper{
 	border: 1px solid #e9ecef;
     border-radius: 8px;
+    max-width: 100%; /* 이미지의 최대 너비를 부모 요소에 맞게 설정 */
+    height: auto; /* 높이를 자동 조정하여 비율 유지 */
 }
 .card_content{
 	margin: 3px;
+	max-width: 100%; /* 이미지의 최대 너비를 부모 요소에 맞게 설정 */
+    height:auto; /* 높이를 자동 조정하여 비율 유지 */
 }
 .card_content_img{
-	max-width: 100%; /* 이미지의 최대 너비를 부모 요소에 맞게 설정 */
+	width: 100%; /* 이미지의 최대 너비를 부모 요소에 맞게 설정 */
     height: auto; /* 높이를 자동 조정하여 비율 유지 */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 .card_content_review{
     display: flex;
@@ -142,16 +149,17 @@
 .review_item{
 	display: flex;
     align-items: center;
-    padding: 12px;
+    padding: 6px;
     width: 100%;
 }
 .item_poster{
 	position: static;
     transform: none;
     border-radius: 8px;
-    width: 56px;
-    height: 56px;
+    width: 70px;
+    height: 70px;
     object-fit: cover;
+    margin-bottom: 15px;
 }
 .item_titles{
 	display: flex;
@@ -180,6 +188,15 @@
     white-space: normal;
     min-height: 36px;
 }
+.item_subtitle{
+	font-size: 11px;
+	font-weight: 200;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    min-height: 36px;
+   	color: grey;
+}
 .card_header_act{
 	font-size: 14px;
 }
@@ -201,20 +218,21 @@
 			
 			<div style="height: 30px;"></div>
 			<div class="feed_container">
-				<div class="feed_card_container">
+				<div class="feed_card_container" v-for="rvo in review_list">
 					<section class="card_header">
 						<div class="card_header_left">
 							<a href="#">
-								<img class="reviewerImg" src="../img/kids_logo.png">
+								<img class="reviewerImg" :src="rvo.profile_url">
 							</a>
 							<div class="card_header_title">
 								<div class="card_header_act">
-									<strong>두용</strong> 님이 리뷰를 남겼어요.
+									<div v-if="rvo.nickname==null"><strong>{{rvo.name}}</strong> 님이 리뷰를 남겼어요.</div>
+									<div v-if="rvo.nickname!=null"><strong>{{rvo.nickname}}</strong> 님이 리뷰를 남겼어요.</div>
 								</div>
 								<div class="card_header_sub">
-									<span>뷰티 서포터</span>
+									<span>{{rvo.fcname}} 서포터</span>
 									<div class="card_header_seperator"></div>
-									<span>14시간 전</span>
+									<span>{{rvo.dbday}}</span>
 								</div>
 							</div>
 						</div>
@@ -227,20 +245,29 @@
 					</section>
 					<div class="card_content_wrapper">
 						<div class="card_content">
-							<a href="#">
-								<img class="card_content_img" src="../images/crowd-banner01.jpg">						
+							<a :href="'../fund/fund_detail.do?wfno='+rvo.wfno">
+								<img class="card_content_img" :src="'../reviewImg/'+rvo.imgname" v-if="rvo.imgname!=null">
+								<img class="card_content_img" :src="rvo.mainimg" v-if="rvo.imgname==null">						
 							</a>
 							<hr>
 							<div class="card_content_review">
-								<p>리뷰 내용 작성 리뷰 내용 작성해주세요</p>
+								<p>{{rvo.content}}</p>
 							</div>
 							<hr>
 							<div class="review_item">
-								<img class="item_poster" src="../images/crowd-banner01.jpg">
+							<a :href="'../fund/fund_detail.do?wfno='+rvo.wfno">
+								<img class="item_poster" :src="rvo.mainimg">
+							</a>
 								<div class="item_titles">
 									<span class="item_category">
-										<span class="category_badge">뷰티</span>
-										<p class="item_title">[추석전배송]4억년의 시간이 만들어낸 천연소금 결정체, 몽골 미네랄 소금ㅇ[추석전배송]4억년의 시간이 만들어낸 천연소금 결정체, 몽골 미네랄 소금ㅇ[추석전배송]4억년의 시간이 만들어낸 천연소금 결정체, 몽골 미네랄 소금ㅇ[추석전배송]4억년의 시간이 만들어낸 천연소금 결정체, 몽골 미네랄 소금ㅇ[추석전배송]4억년의 시간이 만들어낸 천연소금 결정체, 몽골 미네랄 소금ㅇ[추석전배송]4억년의 시간이 만들어낸 천연소금 결정체, 몽골 미네랄 소금</p>
+									<a :href="'../fund/fund_detail.do?wfno='+rvo.wfno">
+										<span class="category_badge">{{rvo.fcname}}</span>
+									</a>
+									<a :href="'../fund/fund_detail.do?wfno='+rvo.wfno">
+										<p class="item_title">{{rvo.ftitle}}
+											<br><span class="item_subtitle">{{rvo.fsubtitle}}</span>
+										</p>
+									</a>
 									</span>
 								</div>
 							</div>
