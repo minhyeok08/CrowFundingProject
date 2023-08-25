@@ -24,6 +24,8 @@ public interface FundMapper {
 	
 	public List<FundRewardVO> fundRewardList(int wfno);
 	
+	public List<FundVO> openListData(Map map);
+	
 	@Select("SELECT * FROM wadiz_funding_reward "
 			+ "WHERE rno=#{rno}")
 	public FundRewardVO fundBuyData(int rno);
@@ -130,5 +132,6 @@ public interface FundMapper {
 	public FundVO projectFileInfoData(int wfno);
 	@Delete("DELETE FROM wadiz_fund_detail WHERE wfno=#{wfno}")
 	public void projectDelete(int wfno);
+	
 	
 }

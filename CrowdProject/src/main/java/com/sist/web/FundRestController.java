@@ -31,6 +31,17 @@ public class FundRestController {
 		return json;
 	}
 	
+	@GetMapping(value="fund/open_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String openListData(int fcno) throws Exception
+	{
+		Map map = new HashMap();
+		map.put("fcno", fcno);
+		List<FundVO> list = dao.openListData(map);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	
 	@GetMapping(value="fund/fund_detail_vue.do",produces = "text/plain;charset=UTF-8")
 	public String fundDetailData(int wfno) throws Exception
 	{
@@ -55,4 +66,6 @@ public class FundRestController {
 		
 		return json;
 	}
+	
+	
 }

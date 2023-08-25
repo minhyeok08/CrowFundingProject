@@ -47,10 +47,56 @@
  		</if> 		
  		<if test="fcno==13">
  		WHERE fcno=13 and acno=1 and rewardOk=1 ORDER BY regdate desc
- 		</if>
- 		
- 		
+ 		</if>	
  	</select>
+ 	
+ 	<select id="openListData" resultType="FundVO" parameterType="hashmap">
+ 		SELECT wfno,mainimg,fcno,ftitle,endday,cum_amount,achieve_rate,makername
+ 		FROM wadiz_fund_detail
+ 		<if test="fcno==0">
+ 		ORDER BY achieve_rate desc ,regdate desc
+ 		</if>
+ 		<if test="fcno==1">
+ 		WHERE fcno=1 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if>
+ 		<if test="fcno==2">
+ 		WHERE fcno=2 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if>
+ 		<if test="fcno==3">
+ 		WHERE fcno=3 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if>		
+ 		<if test="fcno==4">
+ 		WHERE fcno=4 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if> 		
+ 		<if test="fcno==5">
+ 		WHERE fcno=5 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if> 		
+ 		<if test="fcno==6">
+ 		WHERE fcno=6 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if> 		
+ 		<if test="fcno==7">
+ 		WHERE fcno=7 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if>	
+ 		<if test="fcno==8">
+ 		WHERE fcno=8 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if> 		
+ 		<if test="fcno==9">
+ 		WHERE fcno=9 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if> 		
+ 		<if test="fcno==10">
+ 		WHERE fcno=10 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if> 		
+ 		<if test="fcno==11">
+ 		WHERE fcno=11 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if> 		
+ 		<if test="fcno==14">
+ 		WHERE fcno=14 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if> 		
+ 		<if test="fcno==15">
+ 		WHERE fcno=15 and acno=3 and rewardOk=1 ORDER BY regdate desc
+ 		</if>	
+ 	</select>
+ 	
  	 	<select id="fundDetailData" resultType="FundVO" parameterType="int">
 	    SELECT wfno,acno,mainimg,detailimg,tag,fcname,ftitle,fsubtitle,achieve_rate,cum_amount,parti_count,jjim,support,
 	    makername,makerphoto,makeremail,makertel,makerhomepage,makerinsta,makerfacebook,makertwitter

@@ -39,6 +39,11 @@ public class FundController {
 	{
 		return "fund/fund_list";
 	}
+	@GetMapping("fund/open_list.do")
+	public String open_list()
+	{
+		return "fund/open_list";
+	}
 
 	@GetMapping("fund/fund_buy.do")
 	public String fund_buy(int wfno,int rno, int gcount, Model model,HttpSession session) {

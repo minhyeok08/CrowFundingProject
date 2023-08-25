@@ -155,7 +155,7 @@ function setSelectedCategory(category) {
 			<div class="collapse navbar-collapse" id="mynavbar">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item"><a class="nav-link"
-						href="../open/open.do">오픈예정</a></li>
+						href="../fund/open_list.do">오픈예정</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="../fund/fund_list.do">펀딩</a></li>
 					<li class="nav-item"><a class="nav-link"

@@ -20,6 +20,12 @@ public class FundDAO {
 		return mapper.fundListData(map);
 	}
 	
+	public List<FundVO> openListData(Map map)
+	{
+		return mapper.openListData(map);
+	}
+	
+	
 	public FundVO fundDetailData(int wfno)
 	{
 		return mapper.fundDetailData(wfno);
