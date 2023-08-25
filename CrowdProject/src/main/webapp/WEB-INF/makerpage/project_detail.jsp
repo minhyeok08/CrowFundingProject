@@ -179,7 +179,17 @@
 				</tr>
 			</table>
 			<div class="reward">
-				<table class="table">
+				<table v-if="new Date()>detail_data.endday" class="table">
+					<tr>
+						<td>
+							<div class="text-end"><strong style="font-size: 12px;color: #adb5bd;">진행기간&nbsp;{{detail_data.stropenday}}~{{detail_data.strendday}}</strong></div>
+							<div style="height: 250px"></div>
+								<center><strong style="font-size: 30px;color: #adb5bd">종료된 프로젝트 입니다.	</strong></center>
+							<div style="height: 200px"></div>
+						</td>
+					</tr>
+				</table>
+				<table v-else class="table">
 					<tr>
 						<td>
 							<div class="row">
