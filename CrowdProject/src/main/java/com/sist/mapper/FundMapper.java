@@ -84,7 +84,7 @@ public interface FundMapper {
 	@Delete("DELETE FROM wadiz_funding_reward WHERE rno=#{rno}")
 	public void reward_delete(int rno);
 	// 새소식 등록을 위한 프로젝트 리스트 출력
-	@Select("SELECT wfno,ftitle FROM wadiz_fund_detail WHERE id=#{id} AND rewardOk=1")
+	@Select("SELECT wfno,ftitle FROM wadiz_fund_detail WHERE id=#{id} AND rewardOk=1 ORDER BY openday ASC")
 	public List<FundVO> project_list_for_news(String id);
 	/*
 	NO        NOT NULL NUMBER         
