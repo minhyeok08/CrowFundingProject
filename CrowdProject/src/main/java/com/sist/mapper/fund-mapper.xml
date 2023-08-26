@@ -130,6 +130,50 @@
         WHEN NOT MATCHED THEN
             INSERT (id, fcname, taste_num) VALUES (src.id, src.fcname, 1)
     </update>
-    
+    <!-- @Select("SELECT no,tno,subject,(SELECT ftitle FROM wadiz_fund_detail WHERE wfno=aa.wfno) as ftitle,TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit,num "
+			+ "FROM (SELECT no,tno,subject,wfno,regdate,hit,rownum as num "
+			+ "FROM (SELECT no,tno,subject,wfno,regdate,hit "
+			+ "FROM newstable WHERE id=#{id} ORDER BY no DESC)) aa "
+			+ "WHERE num BETWEEN #{start} AND #{end}") -->
+    <select id="newsFindListData" resultType="NewsVO" parameterType="hashmap">
+	    SELECT no,tno,subject,ftitle,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,content,hit,num 
+		FROM (
+			SELECT aa.*, rownum as num 
+			FROM (
+				SELECT nt.no, nt.tno, nt.subject, wfd.ftitle, nt.regdate, nt.content, nt.hit 
+				FROM newstable nt
+				JOIN wadiz_fund_detail wfd ON nt.wfno = wfd.wfno
+				WHERE nt.id=#{id} 
+				<if test="fdno==1">
+				    AND nt.subject LIKE '%'||#{fd}||'%'
+				</if>
+				<if test="fdno==2">
+				    AND wfd.ftitle LIKE '%'||#{fd}||'%' 
+				</if>
+				<if test="fdno==3">
+				    AND (nt.subject LIKE '%'||#{fd}||'%' OR nt.content LIKE '%'||#{fd}||'%')
+				</if>
+				ORDER BY nt.regdate DESC
+			) aa 
+		) 
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<select id="newsFindListTotalPage" resultType="int" parameterType="hashmap">
+		SELECT CEIL(COUNT(*)/8.0) FROM (
+			SELECT nt.no, nt.tno, nt.subject, wfd.ftitle, nt.regdate, nt.content, nt.hit 
+				FROM newstable nt
+				JOIN wadiz_fund_detail wfd ON nt.wfno = wfd.wfno
+				WHERE nt.id=#{id} 
+				<if test="fdno==1">
+				    AND nt.subject LIKE '%'||#{fd}||'%'
+				</if>
+				<if test="fdno==2">
+				    AND wfd.ftitle LIKE '%'||#{fd}||'%' 
+				</if>
+				<if test="fdno==3">
+				    AND (nt.subject LIKE '%'||#{fd}||'%' OR nt.content LIKE '%'||#{fd}||'%')
+				</if>
+		)
+	</select>
     
  </mapper>

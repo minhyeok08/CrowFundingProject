@@ -198,4 +198,11 @@ public class FundDAO {
 	{
 		return mapper.makerpagehomeprojectTotalpage(map);
 	}
+	public List<NewsVO> newsFindListData(Map map)
+	{
+		return mapper.newsFindListData(map);
+	}
+	public int newsFindListTotalPage(Map map) {
+		return mapper.newsFindListTotalPage(map);
+	}
 }

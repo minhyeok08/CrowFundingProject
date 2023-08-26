@@ -132,6 +132,9 @@ public interface FundMapper {
 	public FundVO projectFileInfoData(int wfno);
 	@Delete("DELETE FROM wadiz_fund_detail WHERE wfno=#{wfno}")
 	public void projectDelete(int wfno);
-	
+	// <select id="newsFindListData" resultType="NewsVO" parameterType="hashmap">
+	public List<NewsVO> newsFindListData(Map map);
+//	<select id="newsFindListTotalPage" resultType="int" parameterType="hashmap">
+	public int newsFindListTotalPage(Map map);
 	
 }

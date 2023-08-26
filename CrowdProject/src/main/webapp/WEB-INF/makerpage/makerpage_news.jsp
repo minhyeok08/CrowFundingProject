@@ -76,10 +76,15 @@
 				<td class="inline text-start">
 					<a href="../makerpage/makerpage_news_insert.do" class="btn btn-sm btn-project">새글</a>
 				</td>
-				<td class="inline text-end">
-					<input type="text" size=30>
-					<input type="button" class="btn btn-sm btn-project" value="검색">
-				</td>
+			    <td class="inline text-end">
+			        <select ref="fdno" v-model="fdno">
+			            <option value="1">제목</option>
+			            <option value="2">프로젝트명</option>
+			            <option value="3">제목+내용</option>
+			        </select>
+			        <input type="text" ref="fd" v-model="fd" size="30">
+			        <button type="button" class="btn btn-sm btn-project" @click.prevent='submitForm'>검색</button> 
+			    </td>
 			</tr>
 		</table>
 		<table class="table">
@@ -129,28 +134,35 @@
 			curpage:1,
 			totalpage:0,
 			startPage:0,
-			endPage:0
+			endPage:0,
+			fd:'',
+			fdno:1
 		},
 		mounted:function(){
 			this.dataRecv()
 		},
 		methods:{
 			dataRecv:function(){
-				axios.get('../makerpage/maker_news_list_vue.do',{
+				axios.get('../makerpage/news_find_list_vue.do',{
+	                params:{
+	                    id: this.id,
+	                    page: this.curpage,   // 처음에는 첫 번째 페이지부터 시작하므로 '1' 설정.
+	                    fdno: this.fdno,
+	                    fd: this.fd 
+	                }
+	            }).then(response=>{
+	                console.log(response.data);
+	                this.board_list = response.data;
+	                // 페이징 정보 업데이트 필요.
+	            }).catch(error=>{
+	                console.log(error.response);
+	            })
+	            axios.get('../makerpage/news_find_page_vue.do',{
 					params:{
 						id:this.id,
-						page:this.curpage
-					}
-				}).then(response=>{
-					console.log(response.data)
-					this.board_list=response.data
-				}).catch(error=>{
-					console.log(error.response)
-				})
-				axios.get('../makerpage/news_page_vue.do',{
-					params:{
-						id:this.id,
-						page:this.curpage
+						page:this.curpage,
+						fdno: this.fdno,
+	                    fd: this.fd 
 					}
 				}).then(response=>{
 					console.log(response.data)
@@ -183,7 +195,12 @@
 			next:function(){
 				this.curpage=this.endPage+1;
 				this.dataRecv()
-			}
+			},
+			submitForm:function(){
+				this.curpage = 1;  // 검색 시 항상 첫 페이지부터 시작
+                this.dataRecv();   // fdno와 fd가 바뀐 상태로 dataRecv 호출
+	        }	
+			
 		}
 	})
 </script>

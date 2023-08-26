@@ -262,9 +262,8 @@ public class MakerpageRestController {
 		dao.news_insert(vo);
 		return "ok";
 	}
-	// 새소식 리스트 출력
-	@GetMapping(value = "makerpage/maker_news_list_vue.do",produces = "text/plain;charset=UTF-8")
-	public String maker_news_list(int page,String id) throws Exception
+	@GetMapping(value = "makerpage/news_find_list_vue.do",produces = "text/plain;charset=UTF-8")
+	public String newsFindlistData(String id,int page,int fdno,String fd) throws Exception
 	{
 		Map map = new HashMap();
 		int rowSize=8;
@@ -273,7 +272,9 @@ public class MakerpageRestController {
 		map.put("id", id);
 		map.put("start", start);
 		map.put("end", end);
-		List<NewsVO> list = dao.makerNewsListData(map);
+		map.put("fdno", fdno);
+		map.put("fd", fd);
+		List<NewsVO> list = dao.newsFindListData(map);
 		String[] tname= {"","결제","교환/환불/AS","이벤트","리워드 안내","기타"};
 		for(NewsVO vo:list)
 		{
@@ -286,14 +287,17 @@ public class MakerpageRestController {
 			vo.setFtitle(ftitle);
 		}
 		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(list);
+		String json=mapper.writeValueAsString(list);
 		return json;
 	}
-	//새소식 페이지네이션
-	@GetMapping(value = "makerpage/news_page_vue.do",produces = "text/plain;charset=UTF-8")
-	public String news_page(int page,String id) throws Exception
+	@GetMapping(value = "makerpage/news_find_page_vue.do",produces = "text/plain;charset=UTF-8")
+	public String news_find_page(int page,String id,int fdno,String fd) throws Exception
 	{
-		int totalpage=dao.makerNewsTotalPage(id);
+		Map map = new HashMap();
+		map.put("id", id);
+		map.put("fdno", fdno);
+		map.put("fd", fd);
+		int totalpage=dao.newsFindListTotalPage(map);
 		final int BLOCK=5;
 		int startPage=((page-1)/BLOCK*BLOCK)+1;
 		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
@@ -457,4 +461,5 @@ public class MakerpageRestController {
 		String json=mapper.writeValueAsString(vo);
 		return json;
 	}
+	
 }	

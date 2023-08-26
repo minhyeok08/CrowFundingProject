@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.sist.vo.FundRewardVO" alias="FundRewardVO"/>		
 		<typeAlias type="com.sist.vo.StoreVO" alias="StoreVO"/>
 		<typeAlias type="com.sist.vo.BuyVO" alias="BuyVO"/>
+		<typeAlias type="com.sist.vo.NewsVO" alias="NewsVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/sist/mapper/main-mapper.xml"/>

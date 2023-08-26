@@ -33,7 +33,7 @@
     				<button type="button" class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
     					삭제
     				</button>
-    				<a href="../makerpage/makerpage_news.do" class="btn btn-xs btn-secondary">목록</a>
+    				<a href="javascript:history.back()" class="btn btn-xs btn-secondary">목록</a>
     			</td>
     		</tr>
 			<tr>
