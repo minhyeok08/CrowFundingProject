@@ -76,10 +76,12 @@
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="row myfunding mt-3">
-									<p style="display: flex; justify-content: space-between; align-items: center; margin:0px;">
-										<strong>참여펀딩</strong>
-										<span style="text-align:right; margin-left: auto; margin-right:10px;">0건</span>
-									</p>
+									<a href="../mypage/myFundDetail.do">
+										<p style="display: flex; justify-content: space-between; align-items: center; margin:0px;">
+											<strong>참여펀딩</strong>
+											<span style="text-align:right; margin-left: auto; margin-right:10px;">{{vo.fcount}}&nbsp;건</span>
+										</p>
+									</a>
 								</div>
 							</div>
 							<div class="col-sm-6">
@@ -97,8 +99,11 @@
  						<div class="row mt-4">
  						<strong>나의 활동</strong>
  							<!-- 찜하기 -->
- 							<div class="myjjim mt-3">
+ 							<div class="col-sm-6 myjjim mt-3">
  								<a href="#">찜하기</a>
+ 							</div>
+ 							<div class="col-sm-6 follower mt-3">
+ 								<a href="#">팔로워</a>
  							</div>
  						</div>
  						<div style="height: 30px;border-bottom: 0.7px solid #d3d3d3;"></div>
@@ -174,10 +179,12 @@ new Vue({
 	    id:'${sessionScope.id}',
 	    password:'',
 	    pwdCheckMessage:'',
-	    pwdCheckHelp:'form-text text-muted'
+	    pwdCheckHelp:'form-text text-muted',
+	    vo:{}
 	  },
 	  mounted() {
 	      this.myInfoData();
+	      this.myFundCount();
 	  },
 	  methods:{
      myInfoData() {
@@ -208,6 +215,18 @@ new Vue({
     		 }
     	 }).catch(error=>{
     		 console.log(error)
+    	 })
+     },
+     myFundCount(){
+    	 axios.get("../mypage/myFundCount.do",{
+    		 params:{
+    			 id:this.id
+    		 }
+    	 }).then(response=>{
+    		 console.log(response.data);
+    		 this.vo=response.data
+    	 }).catch(error=>{
+    		 console.log(error);
     	 })
      }
    }

@@ -18,4 +18,28 @@
 	<update id="passwordUpdate" parameterType="memberVO">
 	update wadiz_member set pwd=#{pwd} where id=#{id}
 	</update>
+	<!-- 펀딩 -->
+	<!-- 참여 펀딩 건수 -->
+	<select id="myFundCount" parameterType="String" resultType="int">
+		select count(*) from wadiz_buy_info where id=#{id}
+	</select>
+	<!-- 펀딩 구매 정보 -->
+	<select id="myFundInfo" parameterType="String" resultType="BuyVO">
+		select * from wadiz_buy_info where id=#{id}
+	</select>
+	<!-- 참여 펀딩 디테일 -->
+	<select id="myFundDetail" parameterType="String" resultType="BuyVO">
+		select wbi.bino,wbi.acno,wbi.wfno,wbi.wsno,wbi.rno,wbi.rname,wfd.fcname,wfd.makername,wfd.endday,
+		wbi.tprice,wbi.gcount,to_char(wbi.regdate,'yyyy-MM-dd') as myday,
+		wbi.rprice,wbi.rcont,wbi.delfee,wbi.delstart,wbi.usepoint
+		from wadiz_buy_info wbi
+		JOIN wadiz_fund_detail wfd ON wbi.wfno=wfd.wfno
+		where wbi.id=#{id}
+	</select>
+<!-- 	 참여 펀딩 리워드 데이터
+	<select id="myFundRewardDetail" parameterType="int" resultType="BuyVO">
+		SELECT rprice, rname, rcont, delfee, delstart, gcount, tprice, usepoint
+		FROM WADIZ_BUY_INFO
+		WHERE bino=#{bino}
+	</select> -->
 </mapper>

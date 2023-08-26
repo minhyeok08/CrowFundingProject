@@ -38,4 +38,9 @@ public class MyPageController {
 		model.addAttribute("json", json);
 		return "mypage/my_info_update";
 	}
+	
+	@GetMapping("mypage/myFundDetail.do")
+	public String mypage_fund_detail() {
+		return "mypage/my_funding";
+	}
 }

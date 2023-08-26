@@ -23,7 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.MemberServiceImpl;
 import com.sist.service.MyPageServiceImpl;
+import com.sist.vo.BuyVO;
+import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.RewardVO;
 
 @RestController
 public class MyPageRestController {
@@ -167,4 +170,49 @@ public class MyPageRestController {
 		}
 		return json;
 	}
+	
+	@GetMapping(value="mypage/myFundCount.do",produces = "text/plain;charset=utf-8")
+	public String mypage_myFund_count(BuyVO vo) {
+		String json="";
+		try {
+			int count = service.myFundCount(vo.getId());
+			if(count == 0) {
+				vo.setMsg("noCount");
+				vo.setFcount(0);
+			} else {
+				vo.setMsg("ok");
+				vo.setFcount(count);
+			}
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	@GetMapping(value="mypage/myFundData.do",produces = "text/plain;charset=utf-8")
+	public String mypage_myFund_list_data(String id) {
+		String json="";
+		try {
+			List<BuyVO> list=service.myFundDetail(id);
+			Date today=new Date();
+			for(BuyVO vo:list) {
+				if(vo.getEndday().after(today)) {
+					vo.setFundStatus("진행중");
+				} else if(vo.getEndday().before(today) || vo.getEndday().equals(today)) {
+					vo.setFundStatus("종료");
+				}
+				// ( tpricce ) - (배송비 + 포인트 사용 금액)
+				int totalPrice=vo.getTprice()-vo.getDelfee()-vo.getUsepoint();
+				vo.setTotalPrice(totalPrice);
+			}
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
 }
