@@ -35,4 +35,7 @@ public class WastaDAO {
 	public List<ReviewVO> wastaFriendListData(){
 		return mapper.wastaFriendListData();
 	}
+	public void supFollowInsert(String id, String followId) {
+		mapper.supFollowInsert(id, followId);
+	}
 }

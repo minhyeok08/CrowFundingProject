@@ -54,5 +54,8 @@ public interface WastaMapper {
 			"FETCH FIRST 8 ROWS ONLY")
 	public List<ReviewVO> wastaFriendListData();
 	
+	@Insert("INSERT INTO wadiz_sup_follow VALUES("
+			+ "wsfo_sfno_seq.nextval,#{id},#{followId})")
+	public void supFollowInsert(String id, String followId);
 	
 }

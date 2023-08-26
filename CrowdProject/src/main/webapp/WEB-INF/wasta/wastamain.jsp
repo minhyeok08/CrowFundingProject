@@ -232,12 +232,12 @@
 								<div class="card_header_sub">
 									<span>{{rvo.fcname}} 서포터</span>
 									<div class="card_header_seperator"></div>
-									<span>{{rvo.dbday}}</span>
+									<span>{{rvo.dbday}}{{rvo.id}}${sessionScope.id }</span>
 								</div>
 							</div>
 						</div>
 						<div class="card_header_right">
-							<button class="btn btn-custom">팔로우</button>
+							<button class="btn btn-custom" @click="followInsert('rvo.id')">팔로우</button>
 							<button class="imgBtn">
 								<img class="morePoint" src="../images/point.png">
 							</button>
@@ -283,8 +283,9 @@
 		el:'.wastamain',
 		data:{
 			review_list:[],
-			id:'',
-			friend_list:[]
+			followId:'',
+			friend_list:[],
+			id:''
 		},
 		mounted:function(){
 			this.wastaList();
@@ -305,6 +306,18 @@
 				.then(res=>{
 					console.log(res.data)
 					this.friend_list=res.data
+				}).catch(error=>{
+					console.log(error.response)
+				})
+			},
+			followInsert:function(id){
+				axios.get('../wasta/follow_vue.do',{
+					params:{
+						followId:id,
+						id:${sessionScope.id}
+					}
+				}).then(res=>{
+					console.log(res.data)
 				}).catch(error=>{
 					console.log(error.response)
 				})

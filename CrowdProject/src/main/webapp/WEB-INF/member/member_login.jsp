@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 .container{
-	max-width: 500px;
+	max-width: 350px;
 }
 .login1{
 	margin: 0px auto;

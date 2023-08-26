@@ -438,7 +438,7 @@ ul, li {
 				<div class="makerinfo1">
 					<div class="makerinfo_center">
 						<div style="height: 10px;"></div>
-						<p class="makername">유피코리아</p>
+						<p class="makername">{{fund_detail.makername}}</p>
 						<p class="avgtime">평균 응답 시간&nbsp;&nbsp;&nbsp;
 						<span style="color: #00a2a2;">1시간 이내</span></p>
 					</div>
