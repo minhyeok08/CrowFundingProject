@@ -116,6 +116,8 @@ table td {
 
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script src="//unpkg.com/vue@2.6.14/dist/vue.js"></script>
+
 <script type="text/javascript">
 	/* Shadowbox.init({
 		players : [ 'iframe' ]
@@ -167,7 +169,7 @@ table td {
 			})
 		})
 
-		let rprice = $('#price').val();
+		//let rprice = $('#price').val();
 		//let tprice = $('#total_price').attr('data-total');
 		let rno = $('#rno').attr('data-rno');
 		let wfno = $('#wfno').attr('data-wfno');
@@ -175,12 +177,18 @@ table td {
 		let name = $('#name').text();
 		let gcount = $('#gcount').val();
 		let tprice = $('#tprice').val();
+		let rprice = $('#rprice').val();
+		let rcont = $('#rcont').val();
+		let delfee = $('#delfee').val();
+		let delstart = $('#delstart').val();
+		
 		
 		$('#buyBtn').click(function(){
 			$.ajax({
 				type:'get',
 				url:'../fund/fund_buy_ok.do',
-				data:{"rno":rno,"wfno":wfno,"rname":rname,"name":name,"gcount":gcount,"tprice":tprice},
+				data:{"rno":rno,"wfno":wfno,"rname":rname,"name":name,"gcount":gcount,"tprice":tprice,
+					"rprice":rprice,"rcont":rcont,"delfee":delfee,"delstart":delstart},
 				success:function(result){
 					requestPay()
 					
@@ -189,6 +197,7 @@ table td {
 
 		})
 	})
+
 	var IMP = window.IMP; // 생략 가능
 		IMP.init("imp36806187"); // 예: imp00000000
 		function requestPay() {
@@ -234,6 +243,38 @@ table td {
 				}
 			});
 		}
+		
+		/* function showTextInput() {
+		    var textInputRow = document.getElementById("textInputRow");
+		    
+		    if (document.querySelector('input[name=pointOption]:checked')) {
+		        textInputRow.style.display = "table-row";
+		        calculateFinalAmount();
+		    } else {
+		        textInputRow.style.display = "none";
+		    }
+		}
+
+		function calculateFinalAmount() {
+		    var inputElement = document.getElementById("textInput");
+		    var tpriceElement = document.getElementById("tprice");
+		    
+		    // 입력된 값 가져오기
+		    var inputValue = parseFloat(inputElement.value);
+		    
+		    // 현재 tprice 값 가져오기
+		    var tprice = parseFloat(tpriceElement.value);
+		    
+		    // 입력된 값만큼 tprice에서 차감하기
+		    if (!isNaN(inputValue)) {
+		        tprice -= inputValue;
+		        
+		        // 최종 금액 표시하기
+		        tpriceElement.value = tprice.toFixed(2);  // 소수점 2자리까지 표시 (예: 123.45)
+		    }
+		} */
+		
+		
 </script>
 </head>
 <body>
@@ -259,6 +300,11 @@ table td {
 				<hr>
 				<input type="hidden" id="gcount" value="${gcount}"> 
 				<input type="hidden" id="tprice" value="${gcount*rvo.rprice}">
+				<input type="hidden" id="rprice" value="${rvo.rprice }">
+				<input type="hidden" id="delfee" value="${rvo.delfee }">
+				<input type="hidden" id="delstart" value="${rvo.delstart }">
+				<input type="hidden" id="rcont" value="${rvo.rcont }">
+				
 				<table class="table">
 					 
 					<tr>
@@ -286,22 +332,43 @@ table td {
 								value="${gcount *rvo.rprice }" pattern="#,###" />원</td>
 								
 					</tr>
-					<tr style="background-color: rgb(248, 249, 250)">
+					<%-- <tr style="background-color: rgb(248, 249, 250)">
 						<td width="20%">쿠폰할인</td>
 						<td width="80%" class="text-right"><fmt:formatNumber
 								value="" pattern="#,###" />- 0원</td>
+					</tr> --%>
+					<!-- <tr>
+					    <td width="20%">포인트 사용</td>
+					    <td width="50%" class="text-right">
+					        <input type="radio" name="pointOption" value="" onclick="showTextInput()">0원
+					    </td>
 					</tr>
-					<tr>
-						<td width="20%">포인트할인</td>
-						<td width="80%" class="text-right"><fmt:formatNumber
-								value="" pattern="#,###" />- 0원</td>
-					</tr> 
+					<tr id="textInputRow" style="display: none;">
+					    <td colspan="2" style="text-align:right";>
+					        <input type="text"  id="textInput" class="text-right" placeholder="사용 포인트 입력">
+					    </td>
+					</tr> -->
+					 <tr>
+			            <td width="20%">포인트 사용</td>
+			            <td width="50%" class="text-right">
+			                <input type="checkbox" v-model="usePoint">0원
+			            </td>
+			        </tr>
+			        <tr v-if="usePoint">
+			            <td colspan="2">
+			                <input type="number" v-model.number="pointAmount" placeholder="텍스트를 입력하세요">
+			            </td>
+			        </tr>
+						
 					<tr style="background-color: rgb(248, 249, 250)">
 						<td width="20%">최종금액</td>
 						<td width="80%" class="text-right"><fmt:formatNumber
 								value="${gcount *rvo.rprice }" pattern="#,###" />원</td>
 					</tr>
 					
+					<!-- <tr> 
+						<td colspan= "2">최종 금액: {{ finalAmount }}원</td> 
+					</tr>  -->
 					
 				</table>
 				<div style="height: 20px"></div>
@@ -498,5 +565,21 @@ table td {
 			</div>
 		</div>
 	</div>
+	<script>
+	new Vue({
+	  el: '.container',
+	  data: {
+	    tprice: 0,
+	    usePoint: false,
+	    pointAmount: 0
+	  },
+	  
+	  computed:{
+	  	finalAmount(){
+	    	return this.tprice - this.pointAmount;
+	  	}
+	  }
+	});
+</script>
 </body>
 </html>

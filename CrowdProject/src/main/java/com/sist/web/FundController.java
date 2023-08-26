@@ -97,6 +97,36 @@ public class FundController {
         // 나머지 로직 처리
         return "redirect:../fund/fund_detail.do";
     }
+	/*
+	@GetMapping("fund/open_detail_before.do")
+    public String open_detail_before(@RequestParam int wfno,HttpSession session, Model model) {
+		String id = (String)session.getAttribute("id");
+		
+		Map map = new HashMap();
+		
+		// 조회수
+		service.fundhitIncrement(wfno);
+		
+		// 랭킹 갱신용 (조회시 스코어 1증가)
+		map.put("wfno", wfno);
+		map.put("score", 1);
+		mservice.fundRankUpdate(map);
+		
+		// 취향 분석 데이터 갱신용
+		if (id != null) {
+			FundVO vo = service.fundDetailData(wfno);
+			Map ftmap = new HashMap();
+			ftmap.put("id", id);
+			ftmap.put("fcname", vo.getFcname());
+			service.fundTasteInsert(ftmap);
+		}
+
+	    model.addAttribute("wfno", wfno);
+        
+        // 나머지 로직 처리
+        return "redirect:../fund/open_detail.do";
+    }
+    */
 	@GetMapping("fund/fund_detail.do")
     public String fund_detail(@RequestParam int wfno, Model model,HttpSession session) {
 		String id = (String)session.getAttribute("id");
@@ -136,7 +166,20 @@ public class FundController {
 		String poster=vo.getMainimg();
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
+		
+		String rcont = request.getParameter("rcont");
+		String strrprcie = request.getParameter("rprice");
+		int rprice = Integer.parseInt(strrprcie);
+		String strdelfee = request.getParameter("delfee");
+		int delfee = Integer.parseInt(strdelfee);
+		String delstart = request.getParameter("delstart");
+		
 		BuyVO bvo = new BuyVO();
+		bvo.setRcont(rcont);
+		bvo.setRprice(rprice);
+		bvo.setDelfee(delfee);
+		bvo.setDelstart(delstart);
+		bvo.setUsepoint(1000);
 		bvo.setWfno(wfno);
 		bvo.setRno(rno);
 		bvo.setName(name);
@@ -145,6 +188,7 @@ public class FundController {
 		bvo.setTprice(tprice);
 		bvo.setGcount(gcount);
 		bvo.setId(id);
+		
 		
 		Map map=new HashMap();
 		map.put("rno", rno);
