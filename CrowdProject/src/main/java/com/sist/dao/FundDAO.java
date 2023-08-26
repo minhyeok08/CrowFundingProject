@@ -8,12 +8,17 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class FundDAO {
 	@Autowired
 	private FundMapper mapper;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	public List<FundVO> fundListData(Map map)
 	{
@@ -204,5 +209,22 @@ public class FundDAO {
 	}
 	public int newsFindListTotalPage(Map map) {
 		return mapper.newsFindListTotalPage(map);
+	}
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+	public Boolean projectDeleteAll(String id, String pwd, int wfno)
+	{
+		Boolean bCheck = false;
+		String db_pwd = mapper.passwordCheck(id);
+		if(encoder.matches(pwd, db_pwd)) 
+		{
+			bCheck=true;
+			mapper.reward_delete(wfno);
+			mapper.newsDelete(wfno);
+			mapper.reviewDelete(wfno);
+			mapper.rankDelete(wfno);
+			mapper.buyInfoDelete(wfno);
+			mapper.projectDeleteAll(wfno);
+		}
+		return bCheck;
 	}
 }

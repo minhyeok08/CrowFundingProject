@@ -136,5 +136,27 @@ public interface FundMapper {
 	public List<NewsVO> newsFindListData(Map map);
 //	<select id="newsFindListTotalPage" resultType="int" parameterType="hashmap">
 	public int newsFindListTotalPage(Map map);
+	// 진행중 및 오픈예정(리워드가 등록된) 프로젝트 삭제 => 트랜잭션
+	// 메이커 비밀번호 확인
+	@Select("SELECT pwd FROM wadiz_member WHERE id=#{id}")
+	public String passwordCheck(String id);
+	// 리워드 삭제
+	@Delete("DELETE FROM wadiz_fund_reward WHERE wfno=#{wfno}")
+	public void rewardDelete(int wfno);
+	// 새소식 삭제
+	@Delete("DELETE FROM newstable WHERE wfno=#{wfno}")
+	public void newsDelete(int wfno);
+	// 프로젝트 관련 리뷰 삭제
+	@Delete("DELETE FROM wadiz_fund_review WHERE wfno=#{wfno}")
+	public void reviewDelete(int wfno);
+	// 프로젝트 랭킹(스코어)
+	@Delete("DELETE FROM wadiz_fund_rank WHERE wfno=#{wfno}")
+	public void rankDelete(int wfno);
+	// 프로젝트 구매 정보 삭제
+	@Delete("DELETE FROM wadiz_buy_info WHERE wfno=#{wfno} ")
+	public void buyInfoDelete(int wfno);
+	// 프로젝트 삭제
+	@Delete("DELETE FROM wadiz_fund_detail WHERE wfno=#{wfno}")
+	public void projectDeleteAll(int wfno);
 	
 }

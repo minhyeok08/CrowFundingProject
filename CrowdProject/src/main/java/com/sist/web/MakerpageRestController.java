@@ -461,5 +461,19 @@ public class MakerpageRestController {
 		String json=mapper.writeValueAsString(vo);
 		return json;
 	}
-	
+	@PostMapping(value = "makerpage/project_delete_ok_vue.do",produces = "text/plain;charset=UTF-8")
+	public String project_delete_all(String id,String pwd,int wfno)
+	{
+		String result="";
+		boolean bCheck = dao.projectDeleteAll(id, pwd, wfno);
+		if(bCheck==true)
+		{
+			result="ok";
+		}
+		else
+		{
+			result="no";
+		}
+		return result;
+	}
 }	

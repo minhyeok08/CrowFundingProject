@@ -251,11 +251,12 @@
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">프로젝트 만들기</h5>
+	        <h5 class="modal-title" id="exampleModalLabel">프로젝트 삭제</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-	        게시물을 정말 삭제하시겠습니까?
+	        비밀번호를 입력하세요<br>
+	        <input type="password" ref="pwd" v-model="pwd">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-xs btn-project" @click="del()">확인</button>
@@ -272,7 +273,9 @@ new Vue({
 		wfno:${wfno},
 		detail_data:{},
 		detailimg:[],
-		reward_list:[]
+		reward_list:[],
+		pwd:'',
+		id:'${id}'
 	},
 	mounted:function(){
 		this.dataRecv()
@@ -309,12 +312,29 @@ new Vue({
 			})
 		},
 		del:function(){
-			axios.get('../makerpage/makerpage_project_delete_vue.do',{
+			if(this.pwd=="")
+			{
+				this.$refs.pwd.focus()
+				return
+			}
+			axios.post('../makerpage/project_delete_ok_vue.do',null,{
 				params:{
+					id:this.id,
+					pwd:this.pwd,
 					wfno:this.wfno
 				}
-			}).then(res=>{
-				location.href="../makerpage/project_list.do"
+			}).then(response=>{
+				console.log(response.data)
+				if(response.data=="ok")
+				{
+					location.href="../makerpage/project_list.do"
+				}
+				else
+				{
+					alert("비밀번호가 틀립니다.")
+					this.pwd=''
+					
+				}
 			})
 		}
 	}

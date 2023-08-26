@@ -128,8 +128,10 @@ public class MakerpageController {
 	}
 	// 프로젝트 상세로 이동(reward등록 되어 있는 상태)
 	@GetMapping("makerpage/project_detail.do")
-	public String project_detail(int wfno,Model model)
+	public String project_detail(int wfno,Model model,HttpSession session)
 	{
+		String id=(String)session.getAttribute("id");
+		model.addAttribute("id",id);
 		model.addAttribute("wfno",wfno);
 		return "makerpage/project_detail";
 	}
