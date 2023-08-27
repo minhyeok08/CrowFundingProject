@@ -211,22 +211,29 @@
 		            window.location.href = url; // 페이지 이동
 		        },
 		        fundJjim(){
-		        	axios.get('../fund/fund_jjim_vue.do',{
-		        		params:{
-		        			wfno:this.wfno,
-		        			id:this.id
-		        		}
-		        	}).then(response=>{
-		        		console.log(response.data)
-		        		this.JjimStatus=response.data
-		        		if(this.JjimStatus == '0'){
-		        			alert("찜하기 완료")
-		        		} else {
-		        			alert("찜하기 취소")
-		        		}
-		        	}).catch(error=>{
-		        		console.log(error)
-		        	})
+		        	if(this.id == null || this.id == undefined || this.id == '' || this.id == 0){
+		        		alert("로그인을 진행해주세요");
+		        		return;
+		        	} else {
+			        	axios.get('../fund/fund_jjim_vue.do',{
+			        		params:{
+			        			wfno:this.wfno,
+			        			id:this.id
+			        		}
+			        	}).then(response=>{
+			        		console.log(response.data)
+			        		this.JjimStatus=response.data
+			        		if(this.JjimStatus == '0'){
+			        			alert("찜하기 완료")
+			        		} else {
+			        			alert("찜하기 취소")
+			        		}
+			        	}).catch(error=>{
+			        		console.log(error)
+			        	})
+		        		
+		        	}
+
 		        }
 		    }
 	 })	

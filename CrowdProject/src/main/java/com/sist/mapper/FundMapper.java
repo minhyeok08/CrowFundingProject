@@ -160,7 +160,7 @@ public interface FundMapper {
 	public void projectDeleteAll(int wfno);
 	
 	// 찜하기
-	@Insert("insert into wadiz_jjim(no,fsno,wfno,id) values(wj_no_seq.nextval,1,#{wfno},#{id})")
+	@Insert("insert into wadiz_jjim(no,fsno,wfno,id,regdate) values(wj_no_seq.nextval,1,#{wfno},#{id},sysdate)")
 	public void fundJjimInsert(Map map);
 	
 	// 찜 확인

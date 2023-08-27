@@ -40,7 +40,7 @@ ID                     VARCHAR2(30)
 public class FundVO {
 	private int wfno,fcno,parti_count,cum_amount,aim_amount,achieve_rate,jjim,support,acno;
 	private String makertwitter,makerfacebook,makerinsta,makerhomepage,makertel,
-	makeremail,makerphoto,makername,detailimg,fsubtitle,ftitle,tag,fcname,mainimg,link,strCum;
+	makeremail,makerphoto,makername,detailimg,fsubtitle,ftitle,tag,fcname,mainimg,link,strCum,mydate;
 	
 	private Date openday, endday;
 	

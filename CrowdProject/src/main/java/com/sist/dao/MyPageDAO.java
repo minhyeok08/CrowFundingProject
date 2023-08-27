@@ -49,4 +49,8 @@ public class MyPageDAO {
 	public List<BuyVO> myFundDetail(String id) {
 		return mapper.myFundDetail(id);
 	}
+	
+	public List<FundVO> jjimListData(String id){
+		return mapper.jjimListData(id);
+	}
 }

@@ -17,4 +17,7 @@ public interface MyPageService {
 	public int myFundCount(String id);
 	public BuyVO myFundInfo(String id);
 	public List<BuyVO> myFundDetail(String id);
+	
+	// 찜하기
+	public List<FundVO> jjimListData(String id);
 }

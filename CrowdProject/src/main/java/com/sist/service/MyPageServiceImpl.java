@@ -54,5 +54,10 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<BuyVO> myFundDetail(String id) {
 		return dao.myFundDetail(id);
 	}
+
+	@Override
+	public List<FundVO> jjimListData(String id) {
+		return dao.jjimListData(id);
+	}
 	
 }

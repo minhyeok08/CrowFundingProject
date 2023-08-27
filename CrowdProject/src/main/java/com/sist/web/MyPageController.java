@@ -43,4 +43,9 @@ public class MyPageController {
 	public String mypage_fund_detail() {
 		return "mypage/my_funding";
 	}
+	
+	@GetMapping("mypage/my_jjim.do")
+	public String mypage_jjim() {
+		return "mypage/my_jjim";
+	}
 }

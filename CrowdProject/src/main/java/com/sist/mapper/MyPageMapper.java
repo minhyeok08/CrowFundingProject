@@ -35,4 +35,9 @@ public interface MyPageMapper {
 	//<select id="myFundDetail" parameterType="String" resultType="List">
 	public List<BuyVO> myFundDetail(String id);
 	
+	@Select("SELECT wfd.wfno, mainimg, fcname, ftitle, support, makername, to_char(wj.regdate,'YYYY-MM-DD hh:mm:ss') as mydate " + 
+			"FROM WADIZ_FUND_DETAIL wfd " + 
+			"JOIN wadiz_jjim wj ON wfd.wfno=wj.wfno " + 
+			"WHERE wj.id=#{id}")
+	public List<FundVO> jjimListData(String id);
 }

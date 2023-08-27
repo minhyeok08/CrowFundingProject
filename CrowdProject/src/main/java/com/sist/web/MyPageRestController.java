@@ -215,4 +215,17 @@ public class MyPageRestController {
 		return json;
 	}
 	
+	@GetMapping(value="mypage/my_funding_jjim.do",produces = "text/plain;charset=utf-8")
+	public String mypage_my_funding_jjim(String id) {
+		String json="";
+		List<FundVO> list=service.jjimListData(id);
+		try {
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
 }

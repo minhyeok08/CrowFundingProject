@@ -100,7 +100,7 @@
  						<strong>나의 활동</strong>
  							<!-- 찜하기 -->
  							<div class="col-sm-6 myjjim mt-3">
- 								<a href="#">찜하기</a>
+ 								<a href="../mypage/my_jjim.do">찜하기</a>
  							</div>
  							<div class="col-sm-6 follower mt-3">
  								<a href="#">팔로워</a>
