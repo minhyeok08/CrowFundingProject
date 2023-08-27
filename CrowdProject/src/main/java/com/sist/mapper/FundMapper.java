@@ -158,5 +158,4 @@ public interface FundMapper {
 	// 프로젝트 삭제
 	@Delete("DELETE FROM wadiz_fund_detail WHERE wfno=#{wfno}")
 	public void projectDeleteAll(int wfno);
-	
 }

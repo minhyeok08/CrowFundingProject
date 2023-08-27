@@ -54,7 +54,7 @@ $(function(){
 		    <a class="nav-link" href="../makerpage/makerpage_news.do">새소식</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#">고객 문의</a>
+		    <a class="nav-link" href="../makerpage/qna_list.do">고객 문의</a>
 		  </li>
 		</ul>
 	</div>

@@ -136,7 +136,7 @@
 							<img width="30" height="20" alt="Clapping Hands"
 								src="../images/hands-clapping.svg">
 								<br>
-								{{detail_data.jjim}}	
+								{{detail_data.support}}	
 						</button>
 						<button class="rounded" style="border: none">
 							<img width="30" height="20" alt="Clapping Hands"

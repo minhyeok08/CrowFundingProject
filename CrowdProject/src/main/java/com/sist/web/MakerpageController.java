@@ -348,4 +348,9 @@ public class MakerpageController {
 		model.addAttribute("no",no);
 		return "makerpage/makerpage_news_update";
 	}
+	@GetMapping("makerpage/qna_list.do")
+	public String makerpage_qna_list()
+	{
+		return "makerpage/qna_list";
+	}
 }

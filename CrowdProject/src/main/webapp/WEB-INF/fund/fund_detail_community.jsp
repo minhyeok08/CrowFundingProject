@@ -379,6 +379,12 @@ ul, li {
 .faq{
 	width:89%;
 }
+.questiontable{
+	border: none;
+}
+.questiontable th,td{
+	border: none;
+}
 </style>
 </head>
 <body>
@@ -442,7 +448,9 @@ ul, li {
 						<p class="avgtime">평균 응답 시간&nbsp;&nbsp;&nbsp;
 						<span style="color: #00a2a2;">1시간 이내</span></p>
 					</div>
-					<button class="btn btn-custom">문의하기</button>
+					<button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#questionModal">
+    					문의하기
+    				</button>
 				</div>
 			</div>
 		</div>
@@ -564,6 +572,48 @@ ul, li {
 				<button class="moreReviewBtn" @click="moreBtn">더보기</button>
 			</div>
 		</div>
+		<div class="modal fade" id="questionModal" ref="questionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog  modal-dialog-centered modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">문의하기</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="gotomypage text-end" style="margin-right: 50px;">
+		      		<a href="../mypage/mypage_main.do" class="btn btn-sm btn-project">나의 문의 목록</a>
+		      	</div>
+		        <table class="table questiontable">
+		        	<tr>
+		        		<th width="20%" class="text-end">제목</th>
+		        		<td width="80%">
+		        			<input type="text" ref="subject" v-model="subject" size="70">
+		        		</td>
+		        	</tr>
+		        	<tr>
+		        		<th width="20%" class="text-end">내용</th>
+		        		<td width="80%">
+		        			<textarea rows="4" cols="71" ref="content" v-model="content" ></textarea>
+		        		</td>
+		        	</tr>
+		        </table>
+		      </div>
+		      <div class="msgBox">
+				<p class="msgBoxTitle">게시물 안내</p>
+				<div class="msgBoxCont">
+					<ul>
+						<li>본 프로젝트와 무관한 글, 사진, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있으며, 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의해 주세요.</li>
+						<li>서포터님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.</li>
+					</ul>
+				</div>
+			  </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-xs btn-project" @click="question()">확인</button>
+		        <button type="button" class="btn btn-xs btn-secondary" data-bs-dismiss="modal">취소</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</div>
 	<script>
 	 new Vue({
@@ -582,7 +632,10 @@ ul, li {
 			 isVisible: false,
 			 isVisible1: false,
 			 isVisible2:false,
-			 isVisible3: false
+			 isVisible3: false,
+			 subject:'',
+			 content:'',
+			 id:'${id}'
 		 },
 		 mounted:function(){
 			 axios.get('../fund/fund_detail_vue.do',{
@@ -627,6 +680,35 @@ ul, li {
 		    	}else{
 		    		this.showMore=false
 		    	}
+		    },
+		    question:function(){
+		    	if(this.subject=="")
+		    	{
+		    		this.$refs.subject.focus()
+		    		return
+		    	}
+		    	if(this.content=="")
+		    	{
+		    		this.$refs.content.focus()
+		    		return
+		    	}
+		    	axios.post('../makerpage/QnA_question_vue.do',null,{
+		    		params:{
+		    			id:this.id,
+		    			wfno:this.wfno,
+		    			subject:this.subject,
+		    			content:this.content
+		    		}
+		    	}).then(response=>{
+		    		alert("문의 작성을 완료하였습니다.")
+		    		this.subject=''
+		    		this.content=''
+		    		// 모달창을 닫기위한 javaScript명령어
+		    		var myModalEl = document.getElementById('questionModal');
+		            var modal = bootstrap.Modal.getInstance(myModalEl);
+		            modal.hide();
+		    		
+		    	})
 		    }
 		 },
 		 computed:{

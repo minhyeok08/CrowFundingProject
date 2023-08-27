@@ -26,6 +26,9 @@ public class MakerpageRestController {
 	private FundDAO dao;
 	@Autowired
 	private MyPageDAO mydao;
+	@Autowired
+	private QnADAO qnadao;
+	
 	@GetMapping(value = "makerpage/project_list_for_reward_vue.do",produces = "text/plain;charset=UTF-8")
 	public String project_list_for_reward(int page,String id) throws Exception
 	{
@@ -475,5 +478,15 @@ public class MakerpageRestController {
 			result="no";
 		}
 		return result;
+	}
+	@PostMapping(value = "makerpage/QnA_question_vue.do",produces = "text/plain;charset=UTF-8")
+	public void user_QuestionInsert(QnAVO vo)
+	{	
+		Map map = new HashMap();
+		map.put("wfno", vo.getWfno());
+		map.put("id", vo.getId());
+		map.put("subject", vo.getSubject());
+		map.put("content", vo.getContent());
+		qnadao.qnaInsert(map);
 	}
 }	
