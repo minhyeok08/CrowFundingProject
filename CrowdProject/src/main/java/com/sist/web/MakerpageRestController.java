@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.*;
 import com.sist.vo.*;
 
+import oracle.jdbc.proxy.annotation.Post;
+
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -577,6 +579,11 @@ public class MakerpageRestController {
 	public void qnaDeleteall(int group_id)
 	{
 		qnadao.qnaDeleteAll(group_id);
+	}
+	@PostMapping(value = "makerpage/reply_ok.do",produces = "text/plain;charset=UTF-8")
+	public void replyOk(QnAVO vo,int qno)
+	{
+		qnadao.replyOk(vo, qno);
 	}
 	@PostMapping(value = "makerpage/reply_update_ok.do",produces = "text/plain;charset=UTF-8")
 	public void replyupdateOk(QnAVO vo)
