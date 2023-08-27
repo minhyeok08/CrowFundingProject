@@ -1,6 +1,7 @@
 package com.sist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -35,7 +36,25 @@ public class WastaDAO {
 	public List<ReviewVO> wastaFriendListData(){
 		return mapper.wastaFriendListData();
 	}
-	public void supFollowInsert(String id, String followId) {
-		mapper.supFollowInsert(id, followId);
+	public void supFollowInsert(Map map) {
+		mapper.supFollowInsert(map);
 	}
+	
+	public List<String> supCountData(String id) {
+		List<String> supList=mapper.supCountData(id);
+		return supList;
+	}
+	
+	public void supFollowDelete(Map map) {
+		mapper.supFollowDelete(map);
+	}
+	
+	public ReviewVO myProfile(String id) {
+		return mapper.myProfile(id);
+	}
+	
+	public List<ReviewVO> wastaSelectListData(String sid){
+		return mapper.wastaSelectListData(sid);
+	}
+	
 }

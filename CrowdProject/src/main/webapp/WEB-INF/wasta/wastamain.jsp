@@ -30,12 +30,14 @@
 	padding: 0 4px;
 	width: 56px;
 	height: 74px;
+	
 }
 
 .followerImg {
 	width: 50px;
 	height: 50px;
 	border-radius: 25px;
+	box-sizing: border-box;
 }
 
 .user_nickname {
@@ -110,6 +112,19 @@
     border-color: #00b2b2; 
     color: #00b2b2;
 }
+
+.btn-custom-del {
+    background-color: transparent; 
+    border-color: #FF3333; 
+    color: #FF3333; 
+    transition: background-color 0.3s;
+   	font-size: 12px;
+}
+.btn-custom-del:hover {
+    background-color: rgb(234, 248, 249); 
+    border-color: #FF3333; 
+    color: #FF3333;
+}
 .morePoint{
 	width:25px;
 	height: 25px;
@@ -138,6 +153,7 @@
     height: auto; /* 높이를 자동 조정하여 비율 유지 */
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    object-fit: contain; 
 }
 .card_content_review{
     display: flex;
@@ -200,6 +216,16 @@
 .card_header_act{
 	font-size: 14px;
 }
+.card_header_time{
+    color: #adb5bd;
+}
+.follower.selected .followerImg {
+  border: 3px solid #00b2b2; /* 민트색 테두리 */
+}
+
+.follower.not-selected {
+  opacity: .5; /* 반투명 */
+}
 </style>
 </head>
 <body>
@@ -207,17 +233,40 @@
 	<div class="row">
 		<div class="wastamain">
 		<div style="height: 50px;"></div>
+		<input type="hidden" ref="id" value="${sessionScope.id }">
 			<div class="follower_container">
-				<div class="follower" v-for="vo in friend_list">
-					<div class="User">
-						<img :src="vo.profile_url" class="followerImg">
-						<div class="user_nickname">{{vo.name}}</div>
+				<c:if test="${sessionScope.id==null }">
+					<div class="follower">
+						<div class="User">
+							<a href="../member/member_login.do">
+								<img src="../images/noprofile.jpeg" class="followerImg">
+								<div class="user_nickname">로그인</div>
+							</a>
+						</div>
 					</div>
+				</c:if>
+				<div class="follower" v-if="sessionId !== null && my_profile !== null"
+				     :class="{ 'selected': sessionId === selectedId, 'not-selected': sessionId !== selectedId && selectedId !== null }">
+				    <div class="User" @click="selectReview(sessionId)">
+				        <img :src="my_profile.profile_url" class="followerImg">
+				        <div class="user_nickname">나의 활동</div>
+				    </div>
+				</div>
+				<div class="follower" v-for="vo in limitedFriendList"
+				     :class="{ 'selected': vo.id === selectedId, 'not-selected': vo.id !== selectedId && selectedId !== null }">
+				    <div class="User" @click="selectReview(vo.id)">
+				        <img :src="vo.profile_url" class="followerImg">
+				        <div class="user_nickname">{{vo.name}}</div>
+				    </div>
 				</div>
 			</div>
-			
 			<div style="height: 30px;"></div>
 			<div class="feed_container">
+				<div class="feed_card_container" v-if="review_list.length === 0">
+					<h1>활동 내역이 없습니다!<br>
+						디자인필요
+					</h1>
+				</div>
 				<div class="feed_card_container" v-for="rvo in review_list">
 					<section class="card_header">
 						<div class="card_header_left">
@@ -232,12 +281,16 @@
 								<div class="card_header_sub">
 									<span>{{rvo.fcname}} 서포터</span>
 									<div class="card_header_seperator"></div>
-									<span>{{rvo.dbday}}{{rvo.id}}${sessionScope.id }</span>
+									<span class="card_header_time">{{rvo.dbday}}</span>
 								</div>
 							</div>
 						</div>
 						<div class="card_header_right">
-							<button class="btn btn-custom" @click="followInsert('rvo.id')">팔로우</button>
+							<%-- <button class="btn btn-custom-del" @click="followInsert(rvo.id)" v-if="rvo.id=='${sessionScope.id }'">리뷰삭제</button> --%>
+							<span v-if="rvo.id!='${sessionScope.id }'">
+								<button class="btn btn-custom" @click="followInsert(rvo.id)" v-if="supListCheck(rvo.id)">팔로우</button>
+								<button class="btn btn-custom-del" @click="followDelete(rvo.id)" v-if="!supListCheck(rvo.id)">언팔로우</button>
+							</span>
 							<button class="imgBtn">
 								<img class="morePoint" src="../images/point.png">
 							</button>
@@ -246,8 +299,16 @@
 					<div class="card_content_wrapper">
 						<div class="card_content">
 							<a :href="'../fund/fund_detail.do?wfno='+rvo.wfno">
-								<img class="card_content_img" :src="'../reviewImg/'+rvo.imgname" v-if="rvo.imgname!=null">
-								<img class="card_content_img" :src="rvo.mainimg" v-if="rvo.imgname==null">						
+							    <template v-if="rvo.imgname!=null">
+							        <b-carousel controls background="white">
+							            <b-carousel-slide 
+							                v-for="(image, index) in rvo.imgname.split('^')" 
+							                :key="index"
+							                :img-src="'../reviewImg/' + image">
+							            </b-carousel-slide>
+							        </b-carousel>						
+							    </template>
+							    <img class="card_content_img" :src="rvo.mainimg" v-else>	
 							</a>
 							<hr>
 							<div class="card_content_review">
@@ -279,27 +340,40 @@
 	</div>
 </div>
 <script>
+var sessionId = '${sessionScope.id}';
+</script>
+<script>
 	new Vue({
 		el:'.wastamain',
 		data:{
 			review_list:[],
-			followId:'',
 			friend_list:[],
-			id:''
+			sup_list:[],
+			my_profile:null,
+			selectedId: null,
+			showModal: false
 		},
 		mounted:function(){
 			this.wastaList();
 			this.friendList();
+			this.supList();
+			this.myProfile();
 		},
 		methods:{
+			openModal() {
+		        this.showModal = true;
+		    },
+		    closeModal() {
+		        this.showModal = false;
+		    },
 			wastaList:function(){
-				axios.get('../wasta/list_vue.do')
-				.then(res=>{
-					console.log(res.data)
-					this.review_list=res.data
-				}).catch(error=>{
-					console.log(error.response)
-				})
+				 axios.get('../wasta/list_vue.do')
+	            .then(res=>{
+	                console.log(res.data)
+	                this.review_list=res.data;
+	            }).catch(error=>{
+	                console.log(error.response)
+	            })
 			},
 			friendList:function(){
 				axios.get('../wasta/friend_vue.do')
@@ -310,17 +384,79 @@
 					console.log(error.response)
 				})
 			},
-			followInsert:function(id){
-				axios.get('../wasta/follow_vue.do',{
+			followInsert:function(followId){
+				axios.post('../wasta/follow_vue.do',null,{
 					params:{
-						followId:id,
-						id:${sessionScope.id}
+						followId: followId,
+			            id: this.$refs.id.value
 					}
 				}).then(res=>{
-					console.log(res.data)
-				}).catch(error=>{
-					console.log(error.response)
+		            console.log(res.data)
+		            this.supList();
+		        }).catch(error=>{
+		            console.log(error.response)
+		        })
+			},
+			followDelete:function(followId){
+				axios.post('../wasta/follow_delete_vue.do',null,{
+					params:{
+						followId: followId,
+			            id: this.$refs.id.value
+					}
+				}).then(res=>{
+		            console.log(res.data)
+		            this.supList();
+		        }).catch(error=>{
+		            console.log(error.response)
+		        })
+			},
+			supList:function(){
+				axios.get('../wasta/sup_list_vue.do',{
+					params:{
+						id: this.$refs.id.value
+					}	
+				}).then(res=>{
+					this.sup_list=res.data;
 				})
+			},
+			supListCheck:function(id){
+				return !this.sup_list.includes(id);
+			},
+			myProfile: function() {
+			    if (this.$refs.id.value === null) {
+			        this.my_profile = {}; // 빈 객체로 초기화
+			    } else {
+			        axios.get('../wasta/my_vue.do', {
+			            params: {
+			                id: this.$refs.id.value
+			            }
+			        }).then(res => {
+			            this.my_profile = res.data;
+			        }).catch(error => {
+			            console.log(error.response);
+			        });
+			    }
+			},
+			selectReview:function(sid){
+			    if (this.selectedId === sid) {
+			        this.selectedId = null;  // Reset selected ID
+			        this.wastaList();  // Load the whole list
+			    } else {
+			        axios.get('../wasta/select_review_vue.do',{
+			            params:{
+			                sid:sid
+			            }
+			        }).then(res=>{
+			            this.review_list=res.data;
+			            this.selectedId = sid;
+			        })
+			    }
+			}
+		},
+		computed:{
+			limitedFriendList:function(){
+				return this.friend_list.filter(vo=> vo.id!==this.$refs.id.value)
+							.slice(0,7);
 			}
 		}
 	})

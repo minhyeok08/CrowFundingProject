@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,18 +21,35 @@
 	color: #00b2b2;
 }
 
-.btn-reply{
+.btn-reply {
+	background-color: transparent;
+	border-color: #00b2b2;
+	color: #00b2b2;
+	transition: background-color 0.3s;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+.btn-reply:hover {
+	background-color: rgb(234, 248, 249);
+	border-color: #00b2b2;
+	color: #00b2b2;
+}
+
+.btn-reply {
 	background-color: transparent;
 	border-color: #00b2b2;
 	color: #00b2b2;
 	transition: background-color 0.3s;
 	font-size: 12px;
 }
-.btn-reply:hover{
+
+.btn-reply:hover {
 	background-color: rgb(234, 248, 249);
 	border-color: #00b2b2;
 	color: #00b2b2;
 }
+
 .comTitle {
 	line-height: 20px;
 	font-size: 14px;
@@ -85,305 +102,358 @@ ul, li {
 	width: 750px;
 	height: 80px;
 }
-.makerphoto{
+
+.makerphoto {
 	display: inline-flex;
-    position: relative;
-    outline: none;
-    border: none;
-    border-radius: 100%;
-    padding: 0;
-    width: 64px;
-    height: 64px;
-    vertical-align: middle;
+	position: relative;
+	outline: none;
+	border: none;
+	border-radius: 100%;
+	padding: 0;
+	width: 64px;
+	height: 64px;
+	vertical-align: middle;
 }
-.makerinfo1{
+
+.makerinfo1 {
 	display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    width: calc(100% - 48px);
+	align-items: center;
+	justify-content: space-between;
+	width: calc(100% - 48px);
 }
-.makerinfo_center{
+
+.makerinfo_center {
 	display: inline-block;
-    margin-left: 8px;
+	margin-left: 8px;
 }
-.makername{
+
+.makername {
 	line-height: 20px;
-    font-size: 16px;
-    font-weight: 700;
+	font-size: 16px;
+	font-weight: 700;
 }
-.avgtime{
-	color: rgba(0,0,0,.54);
-    font-size: 13px;
+
+.avgtime {
+	color: rgba(0, 0, 0, .54);
+	font-size: 13px;
 }
-.reviewTitle{
+
+.reviewTitle {
 	display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 750px;
+	align-items: center;
+	justify-content: space-between;
+	width: 750px;
 }
-.reviewBtn{
+
+.reviewBtn {
 	border-color: #00c4c4;;
-    background-color: #00c4c4;;
-    color: #fff;
-    font-size: 20px;
+	background-color: #00c4c4;;
+	color: #fff;
+	font-size: 20px;
 }
-.reviewCnt{
+
+.reviewCnt {
 	margin-left: 4px;
-    color: #00b2b2;
-    font-style: normal;
+	color: #00b2b2;
+	font-style: normal;
 }
-.endPro{
+
+.endPro {
 	margin-top: 8px;
-    color: #868e96;
-    line-height: 20px;
-    font-size: 14px;
-    font-weight: 400;
+	color: #868e96;
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: 400;
 }
-.reviewTable{
+
+.reviewTable {
 	width: 750px;
 	margin: 0;
-    border: 0;
-    padding: 0;
-    vertical-align: baseline;
+	border: 0;
+	padding: 0;
+	vertical-align: baseline;
 }
-.reviewCard{
+
+.reviewCard {
 	position: relative;
 	padding: 10px;
 }
-.reviewContent{
+
+.reviewContent {
 	padding: 0 0 0 56px;
 }
-.reviewerImg{
+
+.reviewerImg {
 	position: absolute;
-    top: 15;
-    left: 0;
-    width: 50px;
+	top: 15;
+	left: 0;
+	width: 50px;
 	height: 50px;
 }
-.reviewImg{
+
+.reviewImg {
 	display: inline-flex;
-    position: relative;
-    outline: none;
-    border: none;
-    border-radius: 100%;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    vertical-align: middle;
+	position: relative;
+	outline: none;
+	border: none;
+	border-radius: 100%;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
 }
-.reviewCont{
+
+.reviewCont {
 	position: relative;
 }
-.reviewCont_header{
+
+.reviewCont_header {
 	display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
 }
-.reviewCont_body{
+
+.reviewCont_body {
 	line-height: 24px;
-    color: #44484b;
-    font-size: 15px;
+	color: #44484b;
+	font-size: 15px;
 }
-.reviewCont_body2{
+
+.reviewCont_body2 {
 	word-break: break-all;
-    line-height: 20px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #495057;
-}
-.reviewCont_footer{
-		
-}
-.replyBtn{
-	padding: 6px 11px;
-    line-height: 1.5;
-    font-size: 12px;
-}
-.reviewHr{
-	color:#dee2e6;
-}
-.reviewCont_header_right{
-	margin-bottom: 8px;
-    min-height: auto;
-    line-height: 20px;
-}
-.review_name{
 	line-height: 20px;
-    font-size: 14px;
-    font-weight: 700;
-    margin-right: 8px;
-    vertical-align: middle;
+	font-size: 14px;
+	font-weight: 400;
+	color: #495057;
 }
-.review_time{
+
+.reviewCont_footer {
+	
+}
+
+.replyBtn {
+	padding: 6px 11px;
+	line-height: 1.5;
+	font-size: 12px;
+}
+
+.reviewHr {
+	color: #dee2e6;
+}
+
+.reviewCont_header_right {
+	margin-bottom: 8px;
+	min-height: auto;
+	line-height: 20px;
+}
+
+.review_name {
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: 700;
+	margin-right: 8px;
+	vertical-align: middle;
+}
+
+.review_time {
 	line-height: 18px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #adb5bd;
+	font-size: 12px;
+	font-weight: 400;
+	color: #adb5bd;
 }
-.reviewCont_header_left{
+
+.reviewCont_header_left {
 	margin: 12px 0;
-    cursor: pointer;
-    font-size: 17px;
+	cursor: pointer;
+	font-size: 17px;
 }
-.morePoint{
-	width:25px;
+
+.morePoint {
+	width: 25px;
 	height: 25px;
 }
-.imgBtn{
+
+.imgBtn {
 	display: inline-block;
-    background-color: transparent; /* 배경을 투명하게 설정 */
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: background-color 0.3s;
+	background-color: transparent; /* 배경을 투명하게 설정 */
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
-.moreReview{
+
+.moreReview {
 	width: 100%;
-    text-align: center;
+	text-align: center;
 }
-.moreReviewBtn{
-	border-color: rgba(0,0,0,0);
+
+.moreReviewBtn {
+	border-color: rgba(0, 0, 0, 0);
 	background-color: transparent;
 }
-.1on1msg{
+
+.1on1msg {
 	width: 750px;
 }
-.reviewp{
+
+.reviewp {
 	margin-bottom: 20px;
-    line-height: 1.33;
-    color: rgba(0, 0, 0, 0.84);
-    font-size: 15px;
-    font-weight: 400;
+	line-height: 1.33;
+	color: rgba(0, 0, 0, 0.84);
+	font-size: 15px;
+	font-weight: 400;
 }
-.warningBox{
+
+.warningBox {
 	background-color: #fff1f1;
-    color: #f25555;
-    border-radius: 8px;
-    padding: 16px;
-    width:100%;
-    height: 70px;
+	color: #f25555;
+	border-radius: 8px;
+	padding: 16px;
+	width: 100%;
+	height: 70px;
 }
-.warnMsg{
+
+.warnMsg {
 	line-height: 18px;
-    font-size: 12px;
-    font-weight: 400;
-    margin: 0;
-    text-align: left;
-    word-break: keep-all;
-    overflow-wrap: break-word;
-    color: #495057;
+	font-size: 12px;
+	font-weight: 400;
+	margin: 0;
+	text-align: left;
+	word-break: keep-all;
+	overflow-wrap: break-word;
+	color: #495057;
 }
-.msgBox{
+
+.msgBox {
 	background-color: #f9fafb;
-    color: #495057;
-    display: flex;
-    border-radius: 8px;
-    padding: 16px;
+	color: #495057;
+	display: flex;
+	border-radius: 8px;
+	padding: 16px;
 }
-.msgBoxTitle{
+
+.msgBoxTitle {
 	line-height: 20px;
-    font-size: 14px;
-    font-weight: 700;
-    margin: 0 0 8px;
-    text-align: left;
+	font-size: 14px;
+	font-weight: 700;
+	margin: 0 0 8px;
+	text-align: left;
 }
-.msgBoxCont{
+
+.msgBoxCont {
 	line-height: 18px;
-    font-size: 12px;
-    font-weight: 400;
-    margin: 0 0 3 0;
-    text-align: left;
-    word-break: keep-all;
-    overflow-wrap: break-word;
-    color: #495057;
+	font-size: 12px;
+	font-weight: 400;
+	margin: 0 0 3 0;
+	text-align: left;
+	word-break: keep-all;
+	overflow-wrap: break-word;
+	color: #495057;
 }
+
 .form-check-input[type="radio"] {
-  display: none; /* 라디오 버튼 숨기기 */
+	display: none; /* 라디오 버튼 숨기기 */
 }
 
 .form-check-label.radio-btn {
-  display: inline-block;
-  cursor: pointer;
-  padding: 8px 15px; /* 원하는 패딩 값으로 조정 */
-  border: 1px solid #e9ecef; /* 초기 테두리 스타일 */
-  border-radius: 4px;
-  color: black; /* 원하는 글자색 */
-  width:90%;
+	display: inline-block;
+	cursor: pointer;
+	padding: 8px 15px; /* 원하는 패딩 값으로 조정 */
+	border: 1px solid #e9ecef; /* 초기 테두리 스타일 */
+	border-radius: 4px;
+	color: black; /* 원하는 글자색 */
+	width: 90%;
 }
 
 .form-check-label.radio-btn:hover {
-  background-color: mintcream; /* 마우스 호버 시 민트색 배경 적용 */
+	background-color: mintcream; /* 마우스 호버 시 민트색 배경 적용 */
 }
 
-.form-check-input[type="radio"]:checked + .form-check-label.radio-btn {
-  border: 2px solid mintcream; /* 선택 시 민트색 테두리 스타일 */
-  box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.3); /* 선택 시 민트색 약간 두꺼운 테두리 스타일 */
+.form-check-input[type="radio"]:checked+.form-check-label.radio-btn {
+	border: 2px solid mintcream; /* 선택 시 민트색 테두리 스타일 */
+	box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.3);
+	/* 선택 시 민트색 약간 두꺼운 테두리 스타일 */
 }
-.radiosmall{
+
+.radiosmall {
 	margin-left: 8px;
-    color: #adb5bd;
-    line-height: 18px;
-    font-size: 12px;
-    font-weight: 400;
+	color: #adb5bd;
+	line-height: 18px;
+	font-size: 12px;
+	font-weight: 400;
 }
+
 .textarea-box {
-  border: 2px solid #ccc; /* 초기 테두리 스타일 */
-  border-radius: 4px;
-  padding: 10px;
-  transition: border-color 0.3s; /* 테두리 색 변화 시 부드럽게 효과 적용 */
+	border: 2px solid #ccc; /* 초기 테두리 스타일 */
+	border-radius: 4px;
+	padding: 10px;
+	transition: border-color 0.3s; /* 테두리 색 변화 시 부드럽게 효과 적용 */
 }
 
 .textarea-box:focus {
-  border-color: mintcream; /* 선택 시 테두리 색 변경 */
-  box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.3); /* 선택 시 약간 두꺼운 테두리 스타일 */
-  outline: none;
+	border-color: mintcream; /* 선택 시 테두리 색 변경 */
+	box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.3); /* 선택 시 약간 두꺼운 테두리 스타일 */
+	outline: none;
 }
+
 .mint-file-input {
-  border: none; /* 기본 테두리 제거 */
-  background-color: #f0f7f4; /* 배경색 설정 */
-  color: #333; /* 텍스트 색상 설정 */
-  padding: 10px; /* 내부 여백 */
-  border-radius: 5px; /* 모서리를 둥글게 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가 */
-  cursor: pointer; /* 마우스 커서 스타일 변경 */
-  transition: background-color 0.3s, box-shadow 0.3s; /* 전환 효과 설정 */
+	border: none; /* 기본 테두리 제거 */
+	background-color: #f0f7f4; /* 배경색 설정 */
+	color: #333; /* 텍스트 색상 설정 */
+	padding: 10px; /* 내부 여백 */
+	border-radius: 5px; /* 모서리를 둥글게 */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약한 그림자 추가 */
+	cursor: pointer; /* 마우스 커서 스타일 변경 */
+	transition: background-color 0.3s, box-shadow 0.3s; /* 전환 효과 설정 */
 }
 
 /* 호버 상태일 때 스타일 변경 */
 .mint-file-input:hover {
-  background-color: #d3e1df; /* 호버 상태 배경색 변경 */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* 약한 그림자 증가 */
+	background-color: #d3e1df; /* 호버 상태 배경색 변경 */
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* 약한 그림자 증가 */
 }
 
 /* 파일 선택 시 스타일 변경 */
-.mint-file-input:active,
-.mint-file-input:focus {
-  background-color: #b8cec9; /* 선택 상태 배경색 변경 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 증가 */
-  outline: none; /* 선택 상태 아웃라인 제거 */
+.mint-file-input:active, .mint-file-input:focus {
+	background-color: #b8cec9; /* 선택 상태 배경색 변경 */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 증가 */
+	outline: none; /* 선택 상태 아웃라인 제거 */
 }
-.btn-right{
+
+.btn-right {
 	float: right;
 	margin-right: 10px;
 }
-.faqCont{
+
+.faqCont {
 	display: block;
-    width: 100%;
-    overflow: hidden;
-    white-space: pre-wrap;
-    padding-bottom: 12px;
-    line-height: 18px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #495057;
+	width: 100%;
+	overflow: hidden;
+	white-space: pre-wrap;
+	padding-bottom: 12px;
+	line-height: 18px;
+	font-size: 12px;
+	font-weight: 400;
+	color: #495057;
 }
-.faq{
-	width:89%;
+
+.faq {
+	width: 89%;
 }
-.questiontable{
+
+.questiontable {
 	border: none;
 }
-.questiontable th,td{
+
+.questiontable th, td {
 	border: none;
+}
+
+.replyBoard {
+	background: #f5f7fa;
+	padding: 16px;
+	width: 80%;
+	border-radius: 10px;
+	margin: 7px;
 }
 </style>
 </head>
@@ -406,29 +476,30 @@ ul, li {
 			<ul>
 				<div class="liborder">
 					<li>
-						<button class="faqbutton" @click="isVisible = !isVisible">참여 했어요. 결제는 언제, 어떻게 진행되나요?</button>
+						<button class="faqbutton" @click="isVisible = !isVisible">참여
+							했어요. 결제는 언제, 어떻게 진행되나요?</button>
 						<div class="faqCont" id="faqCont1" v-if="isVisible">프로젝트 진행중에는 결제 예약 상태이며, 프로젝트 종료 후 다음 1영업일 5시에 결제가 진행됩니다. 이때, 결제 실패된 건에 한하여 종료일+4영업일동안 매일 5시에 결제가 진행됩니다. (프로젝트 종료일+4영업일 오후 5시 4차 최종 결제 진행)</div>
 					</li>
 				</div>
 				<div class="liborder">
 					<li>
-						<button class="faqbutton" @click="isVisible1 = !isVisible1">결제 실패 알림을 받았어요. 어떻게 해야하나요?</button>
-						<div class="faqCont" id="faqCont2" v-if="isVisible1">잔고 부족이나 한도 초과, 거래 정지등의 사유로 결제가 실패할 수 있습니다. 최종 결제일 16시 30분전까지 결제 정보를 변경해주세요. 최종 결제일까지 매 영업일 5시마다 결제가 진행됩니다.
-・ 결제정보 변경은 로그인 - [마이 와디즈] - [참여 내역]에서 결제 정보를 변경할 수 있습니다.
-・ 반드시 참여한 프로젝트 상세 참여 내역 페이지에서 결제 정보를 변경해주세요. [마이 와디즈] - [결제 관리 정보]에서 결제 정보를 변경하면 해당 카드로 결제가 진행되지 않습니다!</div>
+						<button class="faqbutton" @click="isVisible1 = !isVisible1">결제
+							실패 알림을 받았어요. 어떻게 해야하나요?</button>
+						<div class="faqCont" id="faqCont2" v-if="isVisible1">잔고 부족이나 한도 초과, 거래 정지등의 사유로 결제가 실패할 수 있습니다. 최종 결제일 16시 30분전까지 결제 정보를 변경해주세요. 최종 결제일까지 매 영업일 5시마다 결제가 진행됩니다. ・ 결제정보 변경은 로그인 - [마이 와디즈] - [참여 내역]에서 결제 정보를 변경할 수 있습니다. ・ 반드시 참여한 프로젝트 상세 참여 내역 페이지에서 결제 정보를 변경해주세요. [마이 와디즈] - [결제 관리 정보]에서 결제 정보를 변경하면 해당 카드로 결제가 진행되지 않습니다!</div>
 					</li>
 				</div>
 				<div class="liborder">
 					<li>
-						<button class="faqbutton" @click="isVisible2 = !isVisible2">결제가 진행된 후,다른 결제 정보로 변경할 수 있나요?</button>
+						<button class="faqbutton" @click="isVisible2 = !isVisible2">결제가
+							진행된 후,다른 결제 정보로 변경할 수 있나요?</button>
 						<div class="faqCont" id="faqCont3" v-if="isVisible2">결제 예약으로 진행되어 이미 종료된 프로젝트는 취소 후 재참여가 불가능하니, 결제 전 등록한 결제 정보가 맞는지 확인해 주세요.</div>
 					</li>
 				</div>
 				<div class="liborder">
 					<li>
-						<button class="faqbutton" @click="isVisible3 = !isVisible3">배송지나 옵션을 변경하고 싶어요.</button>
-						<div class="faqCont" id="faqCont4" v-if="isVisible3">프로젝트 진행 중에는 [마이 와디즈] - [참여 내역]에서 직접 변경이 가능합니다.
-프로젝트가 종료된 이후에는 직접 변경이 불가능하니, 아래 [메이커에게 문의하기]를 통해 문의해주세요.</div>
+						<button class="faqbutton" @click="isVisible3 = !isVisible3">배송지나
+							옵션을 변경하고 싶어요.</button>
+						<div class="faqCont" id="faqCont4" v-if="isVisible3">프로젝트 진행 중에는 [마이 와디즈] - [참여 내역]에서 직접 변경이 가능합니다. 프로젝트가 종료된 이후에는 직접 변경이 불가능하니, 아래 [메이커에게 문의하기]를 통해 문의해주세요.</div>
 					</li>
 				</div>
 			</ul>
@@ -445,12 +516,13 @@ ul, li {
 					<div class="makerinfo_center">
 						<div style="height: 10px;"></div>
 						<p class="makername">{{fund_detail.makername}}</p>
-						<p class="avgtime">평균 응답 시간&nbsp;&nbsp;&nbsp;
-						<span style="color: #00a2a2;">1시간 이내</span></p>
+						<p class="avgtime">
+							평균 응답 시간&nbsp;&nbsp;&nbsp; <span style="color: #00a2a2;">1시간
+								이내</span>
+						</p>
 					</div>
-					<button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#questionModal">
-    					문의하기
-    				</button>
+					<button type="button" class="btn btn-custom" data-bs-toggle="modal"
+						data-bs-target="#questionModal">문의하기</button>
 				</div>
 			</div>
 		</div>
@@ -465,45 +537,53 @@ ul, li {
 				</div>
 				<!-- <button class="btn btn-custom reviewBtn" @click="reviewWrite(true)">글 남기기</button> -->
 				<c:if test="${sessionScope.id==null }">
-					<button @click="noId" class="btn btn-custom reviewBtn">글 남기기</button>
+					<button @click="noId" class="btn btn-custom reviewBtn">글
+						남기기</button>
 				</c:if>
 				<c:if test="${sessionScope.id!=null }">
-					<b-button v-b-modal.modal-lg @click="openModal" class="btn btn-custom reviewBtn">글 남기기</b-button>
+					<b-button v-b-modal.modal-lg @click="openModal"
+						class="btn btn-custom reviewBtn">글 남기기</b-button>
 				</c:if>
-				<b-modal id="modal-lg" v-model="showModal" size="lg" title="글 남기기" hide-header-close hide-footer ok-only no-close-on-backdrop>
-				<form method="post" action="../fund/review_insert_ok.do" enctype="multipart/form-data" id="reviewForm">
+				<b-modal id="modal-lg" v-model="showModal" size="lg" title="글 남기기"
+					hide-header-close hide-footer ok-only no-close-on-backdrop>
+				<form method="post" action="../fund/review_insert_ok.do"
+					enctype="multipart/form-data" id="reviewForm">
 					<div class="reviewWrite">
 						<p class="reviewp">
-						응원 · 의견 · 체험 리뷰를 남겨주세요.
-						<br>
-						메이커의 답변이 필요한 문의는 ‘메이커에게 문의하기’를 이용해주세요.
+							응원 · 의견 · 체험 리뷰를 남겨주세요. <br> 메이커의 답변이 필요한 문의는 ‘메이커에게 문의하기’를
+							이용해주세요.
 						</p>
 						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="category" value="응원" id="flexRadioDefault1" checked>
-						  <label class="form-check-label radio-btn" for="flexRadioDefault1">
-						    <b>응원</b><small class="radiosmall">메이커를 응원하고 싶어요.</small>
-						  </label>
+							<input class="form-check-input" type="radio" name="category"
+								value="응원" id="flexRadioDefault1" checked> <label
+								class="form-check-label radio-btn" for="flexRadioDefault1">
+								<b>응원</b><small class="radiosmall">메이커를 응원하고 싶어요.</small>
+							</label>
 						</div>
 						<div style="height: 6px;"></div>
 						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="category" value="리뷰" id="flexRadioDefault2">
-						  <label class="form-check-label radio-btn" for="flexRadioDefault2">
-						    <b>체험리뷰</b><small class="radiosmall">먼저 체험한 리뷰를 남기고 싶어요.</small>
-						  </label>
+							<input class="form-check-input" type="radio" name="category"
+								value="리뷰" id="flexRadioDefault2"> <label
+								class="form-check-label radio-btn" for="flexRadioDefault2">
+								<b>체험리뷰</b><small class="radiosmall">먼저 체험한 리뷰를 남기고 싶어요.</small>
+							</label>
 						</div>
-						<div style="height: 15px;"></div> 
-						<textarea class="textarea-box" id="reviewContent" name="content" rows="5" cols="70" placeholder="  응원∙의견∙체험 리뷰 메시지를 남겨주세요." required>
+						<div style="height: 15px;"></div>
+						<textarea class="textarea-box" id="reviewContent" name="content"
+							rows="5" cols="70" placeholder="  응원∙의견∙체험 리뷰 메시지를 남겨주세요."
+							required>
 						
 						</textarea>
-						<div style="height: 15px;"></div> 
-						<input type="file" name="images" multiple="multiple" class="mint-file-input">
-						<div style="height: 15px;"></div> 
+						<div style="height: 15px;"></div>
+						<input type="file" name="images" multiple="multiple"
+							class="mint-file-input">
+						<div style="height: 15px;"></div>
 						<div class="warningBox">
-							<div class="warnMsg">
-								최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있다는 점을 유의하여 주시기 바랍니다.
-							</div>
+							<div class="warnMsg">최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의 댓글로
+								인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 악의적 댓글 작성자는 명예훼손, 모욕 등으로 법적 책임을
+								부담하게 될 수 있다는 점을 유의하여 주시기 바랍니다.</div>
 						</div>
-						<div style="height: 15px;"></div> 
+						<div style="height: 15px;"></div>
 						<div class="msgBox">
 							<p class="msgBoxTitle">게시물 안내</p>
 							<div class="msgBoxCont">
@@ -521,10 +601,10 @@ ul, li {
 					<input type="hidden" name="wfno" value="${wfno }">
 					<div style="height: 10px;"></div>
 					<input type="submit" class="btn btn-custom btn-right" value="등록하기">
-					</form>
-					<b-button class="btn btn-custom btn-right" @click="closeModal">취소</b-button>
+				</form>
+				<b-button class="btn btn-custom btn-right" @click="closeModal">취소</b-button>
 				</b-modal>
-				
+
 			</div>
 			<div class="reviewTable">
 				<hr>
@@ -533,18 +613,16 @@ ul, li {
 						<div class="reviewCard">
 							<div class="reviewContent">
 								<div class="reviewerImg">
-									<a href="#">
-										<img :src="vo.profile_url" class="reviewImg">
+									<a href="#"> <img :src="vo.profile_url" class="reviewImg">
 									</a>
 								</div>
 								<div class="reviewCont">
 									<div class="reviewCont_header">
 										<div class="reviewCont_header_right">
-											<span class="review_name">
-												<a href="#" v-if="vo.nickname!=null">{{vo.nickname}}</a>
-												<a href="#" v-if="vo.nickname==null">{{vo.name}}</a>
-											</span>
-											<span class="review_time">{{vo.dbday}}</span>
+											<span class="review_name"> <a href="#"
+												v-if="vo.nickname!=null">{{vo.nickname}}</a> <a href="#"
+												v-if="vo.nickname==null">{{vo.name}}</a>
+											</span> <span class="review_time">{{vo.dbday}}</span>
 										</div>
 										<div class="reviewCont_header_left">
 											<button class="imgBtn">
@@ -553,13 +631,26 @@ ul, li {
 										</div>
 									</div>
 									<div class="reviewCont_body">
-										<div class="reviewCont_body2">
-											{{vo.content}}
-										</div>
+										<div class="reviewCont_body2">{{vo.content}}</div>
 									</div>
 									<div style="height: 10px"></div>
 									<div class="reviewCont_footer">
-										<button class="btn btn-reply">답글</button>
+										<button class="btn btn-reply"
+											@click="showReplyForm(index, vo.rno)">답글</button>
+										<div style="height: 10px"></div>
+										<div v-if="replyFormIndex === index && isReplyVisible">
+											<textarea cols="45" rows="3" ref="replyCont"
+												v-model="replyCont" class="textarea-box"
+												placeholder="답글을 입력하세요..." required></textarea>
+											<button class="btn btn-reply"
+												@click="replyInsert(vo.rno,vo.id)">댓글등록</button>
+											<div style="height: 5px;"></div>
+											<div class="replyCard" v-for="rrvo in reply_list">
+												<div class="replyBoard">
+													<span>{{rrvo.content}}</span>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -572,47 +663,51 @@ ul, li {
 				<button class="moreReviewBtn" @click="moreBtn">더보기</button>
 			</div>
 		</div>
-		<div class="modal fade" id="questionModal" ref="questionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog  modal-dialog-centered modal-lg">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">문의하기</h5>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-body">
-		      	<div class="gotomypage text-end" style="margin-right: 50px;">
-		      		<a href="../mypage/mypage_main.do" class="btn btn-sm btn-project">나의 문의 목록</a>
-		      	</div>
-		        <table class="table questiontable">
-		        	<tr>
-		        		<th width="20%" class="text-end">제목</th>
-		        		<td width="80%">
-		        			<input type="text" ref="subject" v-model="subject" size="70">
-		        		</td>
-		        	</tr>
-		        	<tr>
-		        		<th width="20%" class="text-end">내용</th>
-		        		<td width="80%">
-		        			<textarea rows="4" cols="71" ref="content" v-model="content" ></textarea>
-		        		</td>
-		        	</tr>
-		        </table>
-		      </div>
-		      <div class="msgBox">
-				<p class="msgBoxTitle">게시물 안내</p>
-				<div class="msgBoxCont">
-					<ul>
-						<li>본 프로젝트와 무관한 글, 사진, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 삭제 등 조치가 취해질 수 있으며, 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의해 주세요.</li>
-						<li>서포터님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.</li>
-					</ul>
+		<div class="modal fade" id="questionModal" ref="questionModal"
+			tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog  modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">문의하기</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="gotomypage text-end" style="margin-right: 50px;">
+							<a href="../mypage/mypage_main.do" class="btn btn-sm btn-project">나의
+								문의 목록</a>
+						</div>
+						<table class="table questiontable">
+							<tr>
+								<th width="20%" class="text-end">제목</th>
+								<td width="80%"><input type="text" ref="subject"
+									v-model="subject" size="70"></td>
+							</tr>
+							<tr>
+								<th width="20%" class="text-end">내용</th>
+								<td width="80%"><textarea rows="4" cols="71" ref="content"
+										v-model="content"></textarea></td>
+							</tr>
+						</table>
+					</div>
+					<div class="msgBox">
+						<p class="msgBoxTitle">게시물 안내</p>
+						<div class="msgBoxCont">
+							<ul>
+								<li>본 프로젝트와 무관한 글, 사진, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 삭제 등 조치가
+									취해질 수 있으며, 해당 내용으로 인해 메이커, 서포터, 제3자에게 피해가 발생되지 않도록 유의해 주세요.</li>
+								<li>서포터님의 연락처, 성명, 이메일 등의 소중한 개인정보는 절대 남기지 마세요.</li>
+							</ul>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-xs btn-project"
+							@click="question()">확인</button>
+						<button type="button" class="btn btn-xs btn-secondary"
+							data-bs-dismiss="modal">취소</button>
+					</div>
 				</div>
-			  </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-xs btn-project" @click="question()">확인</button>
-		        <button type="button" class="btn btn-xs btn-secondary" data-bs-dismiss="modal">취소</button>
-		      </div>
-		    </div>
-		  </div>
+			</div>
 		</div>
 	</div>
 	<script>
@@ -635,7 +730,12 @@ ul, li {
 			 isVisible3: false,
 			 subject:'',
 			 content:'',
-			 id:'${id}'
+			 id:'${id}',
+			 replyFormIndex: null,
+			 isReplyVisible: false,
+			 replyCont:'',
+			 reply_list:[],
+			 currno:0
 		 },
 		 mounted:function(){
 			 axios.get('../fund/fund_detail_vue.do',{
@@ -652,6 +752,24 @@ ul, li {
 			 this.reviewGet();
 		 },
 		 methods:{
+			 showReplyForm (index, rno) {
+		        this.replyFormIndex = index;
+		        this.isReplyVisible = !this.isReplyVisible;
+		        this.currno = rno
+		        console.log('Current RNO:', this.currno); // 추가한 코드
+		        this.ReplyList();
+		    },
+		    ReplyList:function(){
+		    	 console.log('Sending request with RNO:', this.currno); // 추가한 코드
+		        axios.get('../fund/reply_list_vue.do',{
+		            params:{
+		                rno: this.currno,
+		                wfno:this.wfno
+		            }
+		         }).then(res=>{
+		            this.reply_list=res.data
+		         })    
+		    },
 			openModal() {
 			      this.showModal = true;
 			},
@@ -670,9 +788,29 @@ ul, li {
 		    	}).then(response=>{
 		    		console.log(response.data)
 		    		this.review_list=response.data
+		    		this.reply_list=this.replyList();
 		    	}).catch(error=>{
 		    		console.log(error.response)
 		    	})
+		    },
+		    replyInsert:function(rno,rid){
+		    	 if(!this.replyCont || this.replyCont.trim() === ''){
+		    	        this.$refs.replyCont.focus();
+		    	        return;
+		    	    }
+		    	axios.get('../fund/review_insert_vue.do',{
+		    		params:{
+		    			rno: rno,
+		    			id: this.id,
+		    			rid: rid,
+		    			wfno: this.wfno,
+		    			content: this.replyCont
+		    		}
+		    	}).then(res=>{
+		    			this.isReplyVisible = false;  // 답글 입력란 숨기기
+		                this.replyCont = '';  // textarea 내용 지우기
+		                this.reviewGet();  // 리뷰 리스트 다시 불러오기 (새로운 답글 반영)
+		    		})
 		    },
 		    moreBtn:function(){
 		    	if(this.showMore==false){
