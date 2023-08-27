@@ -137,6 +137,12 @@ public class FundDAO {
 	{
 		return mapper.project_list_for_news(id);
 	}
+	// 고객 문의 리스트를 프로젝트별로 출력하기 위한 프로젝트 리스트 출력
+//	@Select("SELECT wfno,ftitle FROM wadiz_fund_detail WHERE id=#{id} AND rewardOk=1 AND acno=1 ORDER BY regdate ASC")
+	public List<FundVO> project_list_for_qna(String id)
+	{
+		return mapper.project_list_for_qna(id);
+	}
 //	@Insert("INSERT INTO newstable VALUES("
 //			+ "news_no_seq.nextval,#{wfno},#{tno},#{subject},#{content},SYSDATE,0,#{filename},#{filecount},#{filesize})")
 	public void news_insert(NewsVO vo)
@@ -223,6 +229,7 @@ public class FundDAO {
 			mapper.reviewDelete(wfno);
 			mapper.rankDelete(wfno);
 			mapper.buyInfoDelete(wfno);
+			mapper.qnaListDelete(wfno);
 			mapper.projectDeleteAll(wfno);
 		}
 		return bCheck;
@@ -240,4 +247,5 @@ public class FundDAO {
 	public void fundJjimCancel(Map map) {
 		mapper.fundJjimCancel(map);
 	}
+
 }

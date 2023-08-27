@@ -218,6 +218,14 @@ public class MakerpageRestController {
 		String json = mapper.writeValueAsString(list);
 		return json;
 	}
+	@GetMapping(value = "makerpage/project_list_for_qna_vue.do",produces = "text/plain;charset=UTF-8")
+	public String project_list_for_qna(String id) throws Exception
+	{
+		List<FundVO> list = dao.project_list_for_qna(id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
 	@PostMapping(value = "makerpage/news_insert_vue.do",produces = "text/plain;charset=UTF-8")
 	public String databoard_insert(NewsVO vo,HttpServletRequest request)
 	{
@@ -488,5 +496,95 @@ public class MakerpageRestController {
 		map.put("subject", vo.getSubject());
 		map.put("content", vo.getContent());
 		qnadao.qnaInsert(map);
+	}
+	@GetMapping(value = "makerpage/qna_list_for_maker.do",produces = "text/plain;charset=UTF-8")
+	public String qnaListForMaker(String id,int wfno,int page) throws Exception
+	{
+		int rowSize=8;
+		int start=(page*rowSize)-(rowSize-1);
+		int end=page*rowSize;
+		Map map= new HashMap();
+		map.put("id", id);
+		map.put("wfno", wfno);
+		map.put("start", start);
+		map.put("end", end);
+		List<QnAVO> list = qnadao.qnaListForMaker(map);
+		for(QnAVO vo:list)
+		{
+			String ftitle = vo.getFtitle();
+			if(ftitle.length()>22)
+			{
+				ftitle=ftitle.substring(0,22)+"...";
+			}
+			vo.setFtitle(ftitle);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		return json;
+	}
+	@GetMapping(value = "makerpage/qna_list_page_vue.do",produces = "text/plain;charset=UTF-8")
+	public String qna_list_page(int page,String id,int wfno) throws Exception
+	{
+		Map map = new HashMap();
+		map.put("id", id);
+		map.put("wfno", wfno);
+		int totalpage=qnadao.qnaListTotalpageForMaker(map);
+		final int BLOCK=5;
+		int startPage=((page-1)/BLOCK*BLOCK)+1;
+		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+		if(endPage>totalpage)
+			endPage=totalpage;
+		PageVO vo = new PageVO();
+		vo.setCurpage(page);
+		vo.setTotalpage(totalpage);
+		vo.setStartPage(startPage);
+		vo.setEndPage(endPage);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "makerpage/qna_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String qna_detail_for_maker(int qno) throws Exception
+	{
+		QnAVO vo = qnadao.qnadetailForMaker(qno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "makerpage/question_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String question_detail(int group_id) throws Exception
+	{
+		QnAVO vo = qnadao.question_detail(group_id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "makerpage/answer_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String answer_detail(int group_id) throws Exception
+	{
+		QnAVO vo = qnadao.answer_detail(group_id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
+	@GetMapping(value = "makerpage/qna_delete_vue.do",produces = "text/plain;charset=UTF-8")
+	public void qnaDelete(int qno)
+	{
+		qnadao.qnaDelete(qno);
+	}
+	@GetMapping(value = "makerpage/qna_delete_all_vue.do",produces = "text/plain;charset=UTF-8")
+	public void qnaDeleteall(int group_id)
+	{
+		qnadao.qnaDeleteAll(group_id);
+	}
+	@PostMapping(value = "makerpage/reply_update_ok.do",produces = "text/plain;charset=UTF-8")
+	public void replyupdateOk(QnAVO vo)
+	{
+		Map map = new HashMap();
+		map.put("subject", vo.getSubject());
+		map.put("content", vo.getContent());
+		map.put("qno", vo.getQno());
+		qnadao.replyUpdate(map);
 	}
 }	

@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.sist.vo.StoreVO" alias="StoreVO"/>
 		<typeAlias type="com.sist.vo.BuyVO" alias="BuyVO"/>
 		<typeAlias type="com.sist.vo.NewsVO" alias="NewsVO"/>
+		<typeAlias type="com.sist.vo.QnAVO" alias="QnAVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/sist/mapper/main-mapper.xml"/>
@@ -24,5 +25,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/sist/mapper/admin-mapper.xml"/>
 		<mapper resource="com/sist/mapper/mypage-mapper.xml"/>
 		<mapper resource="com/sist/mapper/search-mapper.xml"/>
+		<mapper resource="com/sist/mapper/qna-mapper.xml"/>
 	</mappers>
 </configuration>

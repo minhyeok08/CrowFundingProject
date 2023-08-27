@@ -349,8 +349,26 @@ public class MakerpageController {
 		return "makerpage/makerpage_news_update";
 	}
 	@GetMapping("makerpage/qna_list.do")
-	public String makerpage_qna_list()
+	public String makerpage_qna_list(HttpSession session,Model model)
 	{
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("id",id);
 		return "makerpage/qna_list";
+	}
+	@GetMapping("makerpage/qna_reply.do")
+	public String makerpage_qna_reply(HttpSession session,int qno,Model model)
+	{
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("qno",qno);
+		model.addAttribute("id",id);
+		return "makerpage/qna_reply";
+	}
+	@GetMapping("makerpage/qna_reply_update.do")
+	public String makerpage_qna_reply_update(HttpSession session,int group_id,Model model)
+	{
+		String id = (String)session.getAttribute("id");
+		model.addAttribute("group_id",group_id);
+		model.addAttribute("id",id);
+		return "makerpage/qna_reply_update";
 	}
 }

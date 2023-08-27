@@ -170,4 +170,12 @@ public interface FundMapper {
 	// 찜 취소
 	@Delete("delete from wadiz_jjim where wfno=#{wfno} and id=#{id}")
 	public void fundJjimCancel(Map map);
+	@Delete("DELETE FROM wadiz_qna WHERE wfno=#{wfno}")
+	public void qnaListDelete(int wfno);
+	// 프로젝트별 문의 리스트를 위한 wfno,ftitle 출력(리워드가 등록되어 있고, 진행중인, 문의내용이 있는)
+	@Select("SELECT DISTINCT wfd.ftitle,wfd.wfno,wfd.openday " + 
+			"FROM wadiz_fund_detail wfd " + 
+			"RIGHT JOIN wadiz_qna wq " + 
+			"ON wfd.wfno=wq.wfno WHERE wfd.id=#{id} AND wfd.rewardOk=1 AND wfd.acno=1 ORDER BY wfd.openday ASC")
+	public List<FundVO> project_list_for_qna(String id);
 }

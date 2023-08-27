@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.QnAMapper">
+	<!-- 
+		 QNO        NOT NULL NUMBER         
+		WFNO                NUMBER         
+		ID                  VARCHAR2(51)   
+		SUBJECT    NOT NULL VARCHAR2(1000) 
+		CONTENT    NOT NULL CLOB           
+		REGDATE             DATE           
+		GROUP_STEP          NUMBER         
+		GROUP_ID            NUMBER         
+		GROUP_TAB           NUMBER         
+		ISREPLY             NUMBER 
+	 -->
+	<select id="qnaListForMaker" resultType="QnAVO" parameterType="hashmap">
+		SELECT qno,(SELECT ftitle FROM wadiz_fund_detail WHERE wfno=aa.wfno) as ftitle,id,subject,content,TO_CHAR(regdate,'yyyy-MM-dd') as dbday,isreply,group_id,group_step,num 
+		FROM (SELECT qno,wfno,id,subject,content,regdate,isreply,group_id,group_step,rownum as num 
+		FROM (SELECT qno,wfno,id,subject,content,regdate,isreply,group_id,group_step 
+		FROM wadiz_qna 
+		<choose>
+			<when test="wfno==0">
+				WHERE wfno IN (SELECT wfno FROM wadiz_fund_detail WHERE id=#{id})
+			</when>
+			<otherwise>
+				WHERE wfno=#{wfno}
+			</otherwise>
+		</choose>
+		AND group_step=0 ORDER BY regdate ASC)) aa
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="qnaListTotalpageForMaker" resultType="int" parameterType="hashmap">
+		SELECT CEIL(COUNT(*)/8.0) FROM (SELECT qno FROM wadiz_qna 
+			<choose>
+			<when test="wfno==0">
+				WHERE wfno IN (SELECT wfno FROM wadiz_fund_detail WHERE id=#{id})
+			</when>
+			<otherwise>
+				WHERE wfno=#{wfno}
+			</otherwise>
+		</choose>
+		AND group_step=0)
+	</select>
+</mapper>
