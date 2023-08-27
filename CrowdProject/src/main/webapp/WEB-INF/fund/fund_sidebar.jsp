@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" rel="stylesheet">
 <script>
 /* $(function() {
 	var gcount = $('#gcountSelect').val();
@@ -54,9 +55,11 @@
 		<button class="bordered-button">
 			<img width="30" height="30" src="../images/hands-clapping.svg">
 		</button>
+		
 		<button class="bordered-button">
-			<img width="30" height="30" src="../images/heart.svg">
+		 <img width="30" height="30" src="../images/heart.svg" @click="fundJjim">
 		</button>
+
 		<br>
 		<br>
 		<div class="thumbnail bordered-thumbnail" style="width: 95%;">
@@ -159,6 +162,9 @@
 			</div>
 		</div>
 	</div>
+ 	<script>
+	var sessionId = '${sessionScope.id}';
+	</script>
 	<script>
 	 new Vue({
 		 el:'#fReward',
@@ -168,7 +174,9 @@
 			 fund_detail:{},
 			 no:0,
 			 gcount:1,
-			 rno:1
+			 rno:1,
+			 JjimStatus:'0',
+			 id: sessionId
 		 },
 		 mounted:function(){
 			 axios.get('../fund/fund_detail_vue.do',{
@@ -201,6 +209,24 @@
 		            const url = "fund_buy.do?rno="+rno+"&wfno="+_this.wfno+"&gcount="+this.gcount;
 		           
 		            window.location.href = url; // 페이지 이동
+		        },
+		        fundJjim(){
+		        	axios.get('../fund/fund_jjim_vue.do',{
+		        		params:{
+		        			wfno:this.wfno,
+		        			id:this.id
+		        		}
+		        	}).then(response=>{
+		        		console.log(response.data)
+		        		this.JjimStatus=response.data
+		        		if(this.JjimStatus == '0'){
+		        			alert("찜하기 완료")
+		        		} else {
+		        			alert("찜하기 취소")
+		        		}
+		        	}).catch(error=>{
+		        		console.log(error)
+		        	})
 		        }
 		    }
 	 })	

@@ -67,5 +67,30 @@ public class FundRestController {
 		return json;
 	}
 	
+	@GetMapping(value="fund/fund_jjim_vue.do",produces = "text/plain;charset=UTF-8")
+	public String fundJjim(int wfno, String id) {
+		Map map = new HashMap();
+		map.put("wfno", wfno);
+		map.put("id", id);
+		
+		// 찜 여부 확인
+		int jjim_ok=dao.fundJjimCount(map);
+		
+		String json="";
+		try {
+			if(jjim_ok==0) {
+				dao.fundJjimInsert(map);
+			} else {
+				dao.fundJjimCancel(map);
+			}
+			
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(jjim_ok);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
 	
 }

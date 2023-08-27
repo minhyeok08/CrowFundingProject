@@ -158,4 +158,16 @@ public interface FundMapper {
 	// 프로젝트 삭제
 	@Delete("DELETE FROM wadiz_fund_detail WHERE wfno=#{wfno}")
 	public void projectDeleteAll(int wfno);
+	
+	// 찜하기
+	@Insert("insert into wadiz_jjim(no,fsno,wfno,id) values(wj_no_seq.nextval,1,#{wfno},#{id})")
+	public void fundJjimInsert(Map map);
+	
+	// 찜 확인
+	@Select("select count(*) from wadiz_jjim where wfno=#{wfno} and id=#{id}")
+	public int fundJjimCount(Map map);
+	
+	// 찜 취소
+	@Delete("delete from wadiz_jjim where wfno=#{wfno} and id=#{id}")
+	public void fundJjimCancel(Map map);
 }

@@ -227,4 +227,17 @@ public class FundDAO {
 		}
 		return bCheck;
 	}
+	
+	// 찜하기
+	public void fundJjimInsert(Map map) {
+		mapper.fundJjimInsert(map);
+	}
+	
+	public int fundJjimCount(Map map) {
+		return mapper.fundJjimCount(map);
+	}
+	
+	public void fundJjimCancel(Map map) {
+		mapper.fundJjimCancel(map);
+	}
 }
