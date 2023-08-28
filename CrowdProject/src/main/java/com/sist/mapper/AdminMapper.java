@@ -46,7 +46,7 @@ public interface AdminMapper {
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<NoticeVO> noticeListData(Map map);
 	
-	@Select("SELECT CEIL(COUNT(*)/10.0) FROM wadiz_admin_qna")
+	@Select("SELECT CEIL(COUNT(DISTINCT id)/10.0) FROM wadiz_admin_qna")
 	public int qnaTotalPage();
 
 	@Select("SELECT waqno, id,content,group_id,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,regdate, num "

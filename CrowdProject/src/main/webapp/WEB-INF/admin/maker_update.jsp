@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>멤버 상세정보</title>
+<title>Insert title here</title>
 <style type="text/css">
 .adminContainer {
 	margin: 0px auto;
@@ -12,32 +13,16 @@
 
 .btn-custom {
 	background-color: transparent;
-	border-color: #00b2b2;
-	color: #00b2b2;
+	border-color: red;
+	color: red;
 	transition: background-color 0.3s;
 	font-size: 14px;
 }
 
 .btn-custom:hover {
 	background-color: rgb(234, 248, 249);
-	border-color: #00b2b2;
-	color: #00b2b2;
-}
-
-.btn-custom-info {
-	background-color: transparent;
-	border-color: #00b2b2;
-	color: #00b2b2;
-	transition: background-color 0.3s;
-	font-size: 14px;
-	width:250px
-}
-
-.btn-custom-info:hover {
-	background-color: rgb(234, 248, 249);
-	border-color: #00b2b2;
-	color: #00b2b2;
-	width:250px;
+	border-color: red;
+	color: red;
 }
 
 .member-info {
@@ -92,82 +77,78 @@
 	background-position: calc(100% - 8px) center;
 	width: 50%; /* 크기 조정 */
 }
-
 </style>
 </head>
 <body>
-	<h1 class="text-center">서포터 상세정보</h1>
+	<h1 class="text-center">수정하기</h1>
 	<div style="height: 20px"></div>
+	<form action="../admin/maker_update_ok.do" method="post">
 	<div class="adminContainer">
 		<div class="member-info">
 			<div class="form-group">
 				<label class="form-label" for="no">회원번호</label>
-				<input type="text" class="form-control" :value="sup_detail.no" readonly>
+				<input type="text" class="form-control" name="no" value="${vo.no }" readonly>
 			</div>
 			<div class="form-group">
 				<label class="form-label" for="id">아이디</label>
-				<input type="text" class="form-control" :value="sup_detail.id" :readonly="!isEditing">
+				<input type="text" class="form-control" name="id" value="${vo.id }" :readonly="!isEditing">
 			</div>
 			
 		</div>
 		<div class="member-info">
 			<div class="form-group">
 				<label class="form-label" for="name">이름</label>
-				<input type="text" class="form-control" :value="sup_detail.name" :readonly="!isEditing">
+				<input type="text" class="form-control" name="name" value="${vo.name }" :readonly="!isEditing">
 			</div>
 			<div class="form-group">
 				<label class="form-label" for="nickname">닉네임</label>
-				<input type="text" class="form-control" :value="sup_detail.nickname" :readonly="!isEditing">
+				<input type="text" class="form-control" name="nickname" value="${vo.nickname }" :readonly="!isEditing">
 			</div>
 		</div>
 		<div class="member-info">
 			<div class="form-group">
 				<label class="form-label" for="birthday">생일</label>
-				<input type="text" class="form-control" :value="sup_detail.birthday" :readonly="!isEditing">
+				<input type="text" class="form-control" name="birthday" value="${vo.birthday }" :readonly="!isEditing">
 			</div>
 			<div class="form-group">
 				<label class="form-label" for="sex">성별</label>
-				<input type="text" class="form-control" :value="sup_detail.sex" :readonly="!isEditing">
+				<input type="text" class="form-control" name="sex" value="${vo.sex }" :readonly="!isEditing">
 			</div>
 		</div>
 		<div class="member-info">
 			<div class="form-group">
 				<label class="form-label" for="email">이메일</label>
-				<input type="text" class="form-control" :value="sup_detail.email" :readonly="!isEditing">
+				<input type="text" class="form-control" name="email" value="${vo.email }" :readonly="!isEditing">
 			</div>
 			<div class="form-group">
 				<label class="form-label" for="phone">전화번호</label>
-				<input type="text" class="form-control" :value="sup_detail.phone" :readonly="!isEditing">
+				<input type="text" class="form-control" name="phone" value="${vo.phone }" :readonly="!isEditing">
 			</div>
 		</div>
 		<div class="member-info">
 			<div class="form-group">
 				<label class="form-label" for="post">우편번호</label>
-				<input type="text" class="form-control" :value="sup_detail.post" :readonly="!isEditing">
+				<input type="text" class="form-control" name="post" value="${vo.post }" :readonly="!isEditing">
 			</div>
 			<div class="form-group">
 				<label class="form-label" for="point">포인트</label>
-				<input type="text" class="form-control" :value="sup_detail.point+'p'" :readonly="!isEditing">
+				<input type="text" class="form-control" name="point" value="${vo.point }" :readonly="!isEditing">
 			</div>
 		</div>
 		<div class="member-info">
 			<div class="form-group">
 				<label class="form-label" for="addr1">주소</label>
-				<input type="text" class="form-control" :value="sup_detail.addr1" :readonly="!isEditing">
+				<input type="text" class="form-control" name="addr1" value="${vo.addr1 }" :readonly="!isEditing">
 			</div>
 			<div class="form-group">
 				<label class="form-label" for="addr2">상세주소</label>
-				<input type="text" class="form-control" :value="sup_detail.addr2" :readonly="!isEditing">
+				<input type="text" class="form-control" name="addr2" value="${vo.addr2 }" :readonly="!isEditing">
 			</div>
 		</div>
 		<div class="member-info">
 			<div class="form-group">
 				<label class="form-label" for="content">자기소개</label>
-				<input type="text" class="form-control" :value="sup_detail.content" :readonly="!isEditing">
-			</div>
-			<div class="form-group">
-				<label class="form-label" for="fund_info">참여펀딩</label>
-				<button class="btn btn-custom-info">확인하기</button>
+				<input type="text" class="form-control" name="content" value="${vo.content }" :readonly="!isEditing">
 			</div>
 		</div>
 		<div class="member-info">
@@ -178,46 +159,13 @@
 					<option value="y">yes</option>
 				</select>
 			</div>
-			<div class="form-group">
-				<label class="form-label" for="store_info">구매목록</label>
-				<button class="btn btn-custom-info">확인하기</button>
-			</div>
 		</div>
 		<!-- 나머지 정보를 위한 member-info 그룹들 추가 -->
 		<div class="text-center">
-			<input type="button" value="정보수정" class="btn btn-custom" @click="update('${id }')">
+			<input type="submit" value="수정하기" class="btn btn-custom">
 			<input type="button" value="돌아가기" class="btn btn-custom" onclick="javascript:history.back()">
 		</div>
 	</div>
-	<script>
-	new Vue({
-        el: '.adminContainer',
-        data: {
-            sup_detail: {},
-            id: '${id}',
-            isEditing: false // 추가: 수정 가능 상태를 저장할 변수
-        },
-        methods: {
-            enableEditing() {
-                this.isEditing = true; // 수정 버튼을 클릭하면 수정 가능 상태로 변경됨
-            },
-            update:function(id){
-            	location.href='../admin/sup_update.do?id='+id;
-            }
-        },
-        mounted: function () {
-            axios.get('../admin/sup_detail_vue.do', {
-                params: {
-                    id: this.id
-                }
-            }).then(res => {
-                console.log(res.data);
-                this.sup_detail = res.data;
-            }).catch(error => {
-                console.log(error.response);
-            });
-        }
-    });
-	</script>
+	</form>	
 </body>
 </html>

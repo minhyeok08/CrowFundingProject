@@ -106,7 +106,7 @@
 .adminBoard {
     background: #d3e1df;
     padding: 16px;
-    width: 90%;
+    width: auto;
     border-radius: 10px 10px 0px 10px;
     margin-bottom: 30px;
     position: relative;
@@ -136,7 +136,7 @@
 .replyBoard {
     background: #f0f7f4;
     padding: 16px;
-    width: 90%;
+    width: auto;
     border-radius: 10px 10px 10px 0px;
     position:relative;
     margin-bottom: 40px;
@@ -203,14 +203,14 @@
 			                <p class="review_name reply_space">{{dvo.nickname}}</p> 
 			            </div>
 			            <div class="replyBoard">
-			                <span>{{dvo.content}}</span>
+			                <span style="width:100%;margin-right: 40px;">{{dvo.content}}</span>
 			                <span class="review_time">{{dvo.dbday}}</span>
 			            </div>
 			        </div>
 			        <div class="replyCont_header_left" v-if="dvo.admin=='y'">
 			        	<div></div>
 			            <div class="adminBoard">
-			                <span>{{dvo.content}}</span>
+			                <span style="width:100%;margin-right: 40px;">{{dvo.content}}</span>
 			                <span class="review_time">{{dvo.dbday}}</span>
 			            </div>
 			        </div>  
@@ -259,6 +259,7 @@
 	 					}
 	 				}).then(res=>{
 	 					console.log(res.data)
+	 					this.content='';
 	 					this.qnaDetail(this.selectedId);
 	 				})
 	 			},

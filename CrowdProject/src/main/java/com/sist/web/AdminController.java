@@ -130,7 +130,7 @@ public class AdminController {
 	@GetMapping("admin/maker_detail.do")
 	public String admin_maker_detail(String id,Model model) {
 		model.addAttribute("id",id);
-		return "admin/sup_detail";
+		return "admin/maker_detail";
 	}
 	
 	@GetMapping("admin/maker_update.do")
@@ -144,7 +144,7 @@ public class AdminController {
 	@PostMapping("admin/maker_update_ok.do")
 	public String maker_update_ok(MemberVO vo) {
 		service.supUpdate(vo);
-		return "redirect:../admin/sup_detail.do?id="+vo.getId();
+		return "redirect:../admin/maker_detail.do?id="+vo.getId();
 	}
 	
 }

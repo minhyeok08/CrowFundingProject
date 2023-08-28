@@ -139,7 +139,7 @@
 	 		},
 	 		methods: {
 	 	        makerListData: function () {
-	 	            axios.get('http://localhost/web/admin/maker_list_vue.do', {
+	 	            axios.get('../admin/maker_list_vue.do', {
 	 	                params: {
 	 	                	page: this.curpage
 	 	                }
@@ -150,7 +150,7 @@
 	 	                console.log(error.response)
 	 	            })
 	 	            
-	 	           axios.get('http://localhost/web/admin/maker_page_vue.do',{
+	 	           axios.get('../admin/maker_page_vue.do',{
 						params:{
 							page:this.curpage
 						}

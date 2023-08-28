@@ -80,10 +80,8 @@
 				<th class="text-center">이름</th>
 				<th class="text-center">이메일</th>
 				<th class="text-center">연락처</th>
-				<th class="text-center">성별</th>
 				<th class="text-center">생년월일</th>
 				<th>주소</th>
-				<th class="text-center">관리자</th>
 				<th class="text-center">포인트</th>
 				<th class="text-center">등록일</th>
 			</tr>
@@ -94,10 +92,8 @@
 				<td class="text-center">{{vo.name}}</td>
 				<td class="text-center">{{vo.email}}</td>
 				<td class="text-center">{{vo.phone}}</td>
-				<td class="text-center">{{vo.sex}}</td>
 				<td class="text-center">{{vo.birthday}}</td>
 				<td>{{vo.addr1}}</td>
-				<td class="text-center">{{vo.admin}}</td>
 				<td class="text-center">{{vo.point}}</td>
 				<td class="text-center">{{vo.dbday}}</td>
 			</tr>

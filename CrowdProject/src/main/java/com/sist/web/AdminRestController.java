@@ -280,6 +280,13 @@ public class AdminRestController {
 		return json;
 	}
 	
+	@GetMapping(value = "admin/maker_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String maker_detail_vue(String id) throws Exception {
+		MemberVO vo=service.supDetailData(id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		return json;
+	}
 	@GetMapping(value = "admin/notice_detail_vue.do",produces = "text/plain;charset=UTF-8")
 	public String notice_detail_vue(int wnno) throws Exception {
 		NoticeVO vo=service.noticeDetailData(wnno);
