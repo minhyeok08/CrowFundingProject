@@ -24,6 +24,36 @@
 	height:800px;
 }
 </style>
+<script type="text/javascript">
+$(function(){
+	$("form").submit(function(e) {
+	    if ($("input[name='makername']").val().trim() === "") { // makername이 공백인 경우
+	      e.preventDefault(); // 기본 동작(폼 제출)을 막음
+	      $("input[name='makername']").focus(); // makername 입력 필드에 포커스를 줌
+	    }
+	    else if ($("input[name='makeremail']").val().trim() === "") { // makername이 공백인 경우
+	      e.preventDefault(); // 기본 동작(폼 제출)을 막음
+	      $("input[name='makeremail']").focus(); // makername 입력 필드에 포커스를 줌
+	    }
+	    else if ($("input[name='makertel']").val().trim() === "") { // makername이 공백인 경우
+	      e.preventDefault(); // 기본 동작(폼 제출)을 막음
+	      $("input[name='makertel']").focus(); // makername 입력 필드에 포커스를 줌
+	    }
+	    else if ($("input[name='ftitle']").val().trim() === "") { // makername이 공백인 경우
+	      e.preventDefault(); // 기본 동작(폼 제출)을 막음
+	      $("input[name='ftitle']").focus(); // makername 입력 필드에 포커스를 줌
+	    }
+	    else if ($("input[name='aim_amount']").val().trim() === "") { // makername이 공백인 경우
+	      e.preventDefault(); // 기본 동작(폼 제출)을 막음
+	      $("input[name='aim_amount']").focus(); // makername 입력 필드에 포커스를 줌
+	    }
+	    else if ($("input[name='fsubtitle']").val().trim() === "") { // makername이 공백인 경우
+	      e.preventDefault(); // 기본 동작(폼 제출)을 막음
+	      $("input[name='fsubtitle']").focus(); // makername 입력 필드에 포커스를 줌
+	    }
+	 })
+})
+</script>
 </head>
 <body>
 <div class="updatepage">
@@ -41,7 +71,8 @@
 				<tr>
 					<th width="30%" class="text-end">메이커사진</th>
 					<td width="70%">
-						<img :src="'../Fundimages/'+detail_data.makerphoto" style="width: 100px;height: 100px;">
+						<img v-if="detail_data.makerphoto.startsWith('http')" :src="detail_data.makerphoto" style="width: 100px;height: 100px;">
+						<img v-else :src="'../Fundimages/'+detail_data.makerphoto" style="width: 100px;height: 100px;">
 					</td> 
 				</tr>
 				<tr>
@@ -102,7 +133,8 @@
 				<tr>
 					<th width="30%" class="text-end">대표사진</th>
 					<td width="70%">
-						<img :src="'../Fundimages/'+detail_data.mainimg" style="width: 100px;height: 100px;">
+						<img v-if="detail_data.mainimg.startsWith('http')" :src="detail_data.mainimg" style="width: 100px;height: 100px;">
+						<img v-else :src="'../Fundimages/'+detail_data.mainimg" style="width: 100px;height: 100px;">
 					</td>
 				</tr>
 				<tr>
@@ -126,7 +158,8 @@
 				<tr>
 					<th width="30%" class="text-end">소개 사진</th>
 					<td width="70%" >
-						<img v-for="img in detailimages" :src="'../Fundimages/'+img" style="width: 100px;height: 100px;">
+						<img v-for="img in detailimages" v-if="img.startsWith('http')" :src="img" style="width: 100px;height: 100px;">
+						<img v-for="img in detailimages" v-else :src="'../Fundimages/'+img" style="width: 100px;height: 100px;">
 					</td>
 				</tr>
 				

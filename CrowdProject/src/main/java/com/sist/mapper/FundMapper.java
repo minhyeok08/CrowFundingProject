@@ -51,7 +51,7 @@ public interface FundMapper {
 	@Select("SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,num "
 			+ "FROM (SELECT wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok,rownum as num "
 			+ "FROM (SELECT /*+ INDEX_ASC(wadiz_fund_detail wfd_wfno_pk)*/wfno,mainimg,fcname,ftitle,openday,endday,aim_amount,makerphoto,makername,id,rewardok "
-			+ "FROM wadiz_fund_detail WHERE id=#{id} AND rewardok=0 ORDER BY openday ASC)) "
+			+ "FROM wadiz_fund_detail WHERE id=#{id} AND rewardok=0 ORDER BY regdate DESC)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<FundVO> projectListDataForReward(Map map);
 	// 프로젝트 리스트 => 리워드 등록 된 것.

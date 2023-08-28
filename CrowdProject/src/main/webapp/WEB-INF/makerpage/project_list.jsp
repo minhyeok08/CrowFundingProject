@@ -209,6 +209,7 @@
 			methods:{
 				changeAcno:function(acno){
 					this.acno=acno
+					this.curpage=1
 					this.dataRecv()
 				},
 				dataRecv:function(){
