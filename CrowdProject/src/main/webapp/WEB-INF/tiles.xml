@@ -42,6 +42,11 @@
 		<put-attribute name="home" value="/WEB-INF/fund/fund_detail{1}.jsp"/>
 		<put-attribute name="fund_sidebar" value="/WEB-INF/fund/fund_sidebar.jsp"/>
 	</definition>
+	<definition name="store/store_detail*" extends="main3">
+		<put-attribute name="fund_subheader" value="/WEB-INF/store/store_subheader.jsp"/>
+		<put-attribute name="home" value="/WEB-INF/store/store_detail{1}.jsp"/>
+		<put-attribute name="fund_sidebar" value="/WEB-INF/store/store_sidebar.jsp"/>
+	</definition>
 	<definition name="fund/open_detail*" extends="main4">
 		<put-attribute name="open_subheader" value="/WEB-INF/fund/open_subheader.jsp"/>
 		<put-attribute name="home" value="/WEB-INF/fund/open_detail{1}.jsp"/>

@@ -397,7 +397,7 @@ ul, li {
 				<h2 style="margin: 20px 0px 20px 0px;"></h2>
 				<div class="col-md-4" v-for="vo in store_list">
 					<div class="thumbnail" style="width: 260px;">
-						<a href="#">
+						<a :href="'../store/store_detail.do?wsno='+vo.wsno">
 							<img :src="vo.main_poster" class="main_poster" style="width:260px; height:180px">
 							<div class="caption">
 								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{vo.goods_title}}</p>
