@@ -63,4 +63,9 @@ public class MyPageController {
 	public String mypage_my_follower() {
 		return "mypage/my_follower";
 	}
+	
+	@GetMapping("mypage/my_cupon.do")
+	public String mypage_my_cupon() {
+		return "mypage/my_cupon";
+	}
 }

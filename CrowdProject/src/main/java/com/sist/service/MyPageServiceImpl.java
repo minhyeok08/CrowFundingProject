@@ -85,5 +85,10 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<AdminqnaVO> qnaDetailData(String id) {
 		return dao.qnaDetailData(id);
 	}
+
+	@Override
+	public List<StoreVO> storeJjimListData(String id) {
+		return dao.storeJjimListData(id);
+	}
 	
 }

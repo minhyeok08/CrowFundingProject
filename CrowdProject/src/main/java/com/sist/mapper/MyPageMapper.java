@@ -12,6 +12,7 @@ import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.QnAVO;
 import com.sist.vo.RewardVO;
+import com.sist.vo.StoreVO;
 import com.sist.vo.SupVO;
 
 public interface MyPageMapper {
@@ -42,8 +43,14 @@ public interface MyPageMapper {
 	@Select("SELECT wfd.wfno, mainimg, fcname, ftitle, support, makername, to_char(wj.regdate,'YYYY-MM-DD hh:mm:ss') as mydate " + 
 			"FROM WADIZ_FUND_DETAIL wfd " + 
 			"JOIN wadiz_jjim wj ON wfd.wfno=wj.wfno " + 
-			"WHERE wj.id=#{id}")
+			"WHERE wj.id=#{id} and wj.fsno = 1")
 	public List<FundVO> jjimListData(String id);
+	
+	@Select("SELECT wsd.wsno, wsd.main_poster, wsd.tag, wsd.goods_title, wsd.maker_name, wsd.maker_supporter, to_char(wj.regdate,'yyyy-MM-dd hh:mm:ss') AS mydate " + 
+			"FROM wadiz_store_detail wsd " + 
+			"JOIN wadiz_jjim wj ON wsd.wsno = wj.wsno " + 
+			"WHERE wj.id = #{id} AND wj.fsno = 2")
+	public List<StoreVO> storeJjimListData(String id);
 	
 	@Select("SELECT wfd.wfno, wfd.ftitle, wfd.makername, wq.subject, wq.content, to_char(wq.regdate,'yyyy-MM-dd') AS dbday, wq.group_step, wq.group_id, wq.group_tab, wq.isreply " + 
 			"FROM wadiz_qna wq " + 

@@ -131,10 +131,12 @@
 						<div class="mycupon mt-1">
 							<!-- 보유중인 쿠폰 갯수 -->
 							<div class="row" style="padding: 0xp">
-								<p style="display: flex; justify-content: space-between; align-items: center; margin:0px;">
-									<strong>쿠폰</strong>
-									<span style="text-align:right; margin-left: auto; margin-right:10px;">0장</span>
-								</p>
+								<a href="../mypage/my_cupon.do">
+									<p style="display: flex; justify-content: space-between; align-items: center; margin:0px;">
+										<strong>쿠폰</strong>
+										<span style="text-align:right; margin-left: auto; margin-right:10px;">{{myCuponCount}}개</span>
+									</p>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -154,7 +156,7 @@
 								<div class="row myfunding mt-3">
 									<p style="display: flex; justify-content: space-between; align-items: center; margin:0px;">
 										<strong>스토어</strong>
-										<span style="text-align:right; margin-left: auto; margin-right:10px;">0건</span>
+										<span style="text-align:right; margin-left: auto; margin-right:10px;">3건</span>
 									</p>
 								</div>
 							</div>
@@ -224,41 +226,40 @@
 					      	</div>
 					      </div>
 								<!-- 모달 끝! -->
-								<!-- 관리자에게 문의하기 모달-->
-								
-								<!-- 모달 끝! -->
 							</div>
 						</div>
+						<!-- 관리자에게 문의하기 모달-->
 						<b-modal id="my-modal" v-model="showModal" title="문의하기"
 									hide-header-close hide-footer ok-only>
-								<div class="replyBoardBack">
-								    <div class="replyCard">
-								    	<div v-for="dvo in qna_detail">
-									        <div class="replyCont_header_right" v-if="dvo.admin=='y'">
-									        <div class="profileContainer">
-									                <a href="#"> 
-									                    <img src="../profileImage/1.jpg" class="replyImg">
-									                </a>
-									                <p class="review_name reply_space">{{dvo.name}}</p> 
-									            </div>
-									            <div class="replyBoard">
-									                <span style="width: 100%;margin-right: 40px;">{{dvo.content}}</span>
-									                <span class="review_time">{{dvo.dbday}}</span>
-									            </div>
-									        </div>
-									        <div class="replyCont_header_left" v-if="dvo.admin=='n'">
-									        	<div></div>
-									            <div class="adminBoard">
-									                <span style="width: 100%;margin-right: 40px;">{{dvo.content}}</span>
-									                <span class="review_time">{{dvo.dbday}}</span>
-									            </div>
-									        </div>  
-								        </div>     
-								    </div>
-								</div>
-									<input type="text" ref="content" v-model="content" class="textarea-box" size="35">
-									<button class="btn btn-custom btn-right" @click="qnaInsert">보내기</button>
-								</b-modal>
+							<div class="replyBoardBack">
+							    <div class="replyCard">
+							    	<div v-for="dvo in qna_detail">
+								        <div class="replyCont_header_right" v-if="dvo.admin=='y'">
+								        <div class="profileContainer">
+								                <a href="#"> 
+								                    <img src="../profileImage/1.jpg" class="replyImg">
+								                </a>
+								                <p class="review_name reply_space">{{dvo.name}}</p> 
+								            </div>
+								            <div class="replyBoard">
+								                <span style="width: 100%;margin-right: 40px;">{{dvo.content}}</span>
+								                <span class="review_time">{{dvo.dbday}}</span>
+								            </div>
+								        </div>
+								        <div class="replyCont_header_left" v-if="dvo.admin=='n'">
+								        	<div></div>
+								            <div class="adminBoard">
+								                <span style="width: 100%;margin-right: 40px;">{{dvo.content}}</span>
+								                <span class="review_time">{{dvo.dbday}}</span>
+								            </div>
+								        </div>  
+							        </div>     
+							    </div>
+							</div>
+								<input type="text" ref="content" v-model="content" class="textarea-box" size="35">
+								<button class="btn btn-custom btn-right" @click="qnaInsert">보내기</button>
+							</b-modal>
+								<!-- 모달 끝! -->
 						<div style="height: 30px;"></div>
 					</div>
 				</div>
@@ -286,11 +287,13 @@ new Vue({
 	    content:'',
 	    qna_detail:[],
 	    showModal:false,
-	    profileImage:'${sessionScope.profileImage}'
+	    profileImage:'${sessionScope.profileImage}',
+	    myCuponCount:''
 	  },
 	  mounted() {
 	      this.myInfoData();
 	      this.myFundCount();
+	      this.getCuponData();
 	  },
 	  methods:{
      myInfoData() {
@@ -362,9 +365,21 @@ new Vue({
     	 }).catch(error=>{
     		 console.log(error)
     	 })
-     },
-     openModal() {
+    },
+    openModal() {
 		   this.showModal = true;
+		},
+		getCuponData(){
+			axios.get('../mypage/my_cupon_count.do',{
+				params:{
+					id:this.id
+				}
+			}).then(res=>{
+				console.log(res)
+				this.myCuponCount = res.data
+			}).catch(error=>{
+				console.log(error)
+			})
 		}
    }
 });

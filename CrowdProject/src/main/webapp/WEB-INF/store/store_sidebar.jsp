@@ -42,7 +42,7 @@
 				<td>
 			              <button class="rounded" style="border: none; font-size:12px" >
 			                 <img width="40" height="30" alt="Clapping Hands"
-			                    src="../images/heart.svg">
+			                    src="../images/heart.svg" @click="storeJjim">
 			                 <br>
 			                    {{store_detail.strjjim}}   
 			              </button>
@@ -169,40 +169,38 @@
 			 })
 		 },
 		  methods: {
-		        buyReward: function(rno) {
-		            // 버튼 클릭 시 수행되는 함수
-		            let _this=this;
-		            const gcount = this.$refs.gcount.value; // 선택된 수량 가져오기
-		            const url = "fund_buy.do?rno="+rno+"&wsno="+_this.wsno+"&gcount="+this.gcount;
-		           
-		            window.location.href = url; // 페이지 이동
-		        },
-		        /* fundJjim(){
-		        	if(this.id == null || this.id == undefined || this.id == '' || this.id == 0){
-		        		alert("로그인을 진행해주세요");
-		        		return;
-		        	} else {
-			        	axios.get('../fund/fund_jjim_vue.do',{
-			        		params:{
-			        			wsno:this.wsno,
-			        			id:this.id
-			        		}
-			        	}).then(response=>{
-			        		console.log(response.data)
-			        		this.JjimStatus=response.data
-			        		if(this.JjimStatus == '0'){
-			        			alert("찜하기 완료")
-			        		} else {
-			        			alert("찜하기 취소")
-			        		}
-			        	}).catch(error=>{
-			        		console.log(error)
-			        	})
-		        		
-		        	}
-
-		        }
-		    }, */
+        buyReward: function(rno) {
+            // 버튼 클릭 시 수행되는 함수
+            let _this=this;
+            const gcount = this.$refs.gcount.value; // 선택된 수량 가져오기
+            const url = "fund_buy.do?rno="+rno+"&wsno="+_this.wsno+"&gcount="+this.gcount;
+           
+            window.location.href = url; // 페이지 이동
+        },
+			 storeJjim(){
+				 if(this.id == null || this.id == undefined || this.id == '' || this.id == 0){
+           alert("로그인을 진행해주세요");
+           return;
+				 } else {
+					 axios.get('../store/store_jjim_vue.do',{
+						 params:{
+							 wsno:this.wsno,
+							 id:this.id
+						 }
+					 }).then(res=>{
+						 console.log(res.data)
+						 this.JjimStatus = res.data
+						 if(this.JjimStatus == '0'){
+							 alert("찜하기 완료")
+						 } else {
+							 alert("찜하기 취소")
+						 }
+						 location.reload();
+					 }).catch(error=>{
+						 console.log(error)
+					 })
+				 }
+			 }
 			/* filters: {
 		        numberWithCommas: function (value) {
 		            // 숫자에 쉼표 추가 함수 정의

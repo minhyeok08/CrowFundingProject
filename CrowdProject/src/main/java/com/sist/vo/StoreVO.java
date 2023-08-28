@@ -11,5 +11,5 @@ public class StoreVO {
 	private int wsno,parti_count,maker_follower,maker_supporter,price,review_count,
 				jjim_count,scno,acno;
 	private double score;
-	private String strparti,strprice,strfollower,strsupporter,strjjim;
+	private String strparti,strprice,strfollower,strsupporter,strjjim,mydate;
 }

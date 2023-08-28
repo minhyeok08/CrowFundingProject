@@ -217,6 +217,7 @@ public class MemberRestController {
 	                    session.setAttribute("sex", vo.getSex());
 	                    session.setAttribute("admin", vo.getAdmin());
 	                    session.setAttribute("profileImage", vo.getProfile_url());
+	                    session.setAttribute("nickname", vo.getNickname());
 	                }
 				} else {
 					vo = new MemberVO();

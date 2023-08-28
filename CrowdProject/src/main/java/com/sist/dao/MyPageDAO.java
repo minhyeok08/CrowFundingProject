@@ -15,6 +15,7 @@ import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.QnAVO;
 import com.sist.vo.RewardVO;
+import com.sist.vo.StoreVO;
 import com.sist.vo.SupVO;
 
 @Repository
@@ -78,5 +79,9 @@ public class MyPageDAO {
 
 	public List<AdminqnaVO> qnaDetailData(String id){
 		return mapper.qnaDetailData(id);
+	}
+	
+	public List<StoreVO> storeJjimListData(String id){
+		return mapper.storeJjimListData(id);
 	}
 }

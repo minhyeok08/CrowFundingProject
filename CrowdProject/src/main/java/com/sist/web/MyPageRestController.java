@@ -25,14 +25,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.dao.CuponDAO;
 import com.sist.service.MemberServiceImpl;
 import com.sist.service.MyPageServiceImpl;
 import com.sist.vo.AdminqnaVO;
 import com.sist.vo.BuyVO;
+import com.sist.vo.CuponVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.QnAVO;
 import com.sist.vo.RewardVO;
+import com.sist.vo.StoreVO;
 import com.sist.vo.SupVO;
 
 @RestController
@@ -43,6 +46,8 @@ public class MyPageRestController {
 	private MemberServiceImpl mservice;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	@Autowired
+	private CuponDAO dao;
 	
 	@GetMapping(value="mypage/myInfoData.do", produces="text/plain;charset=utf-8")
 	public String mypage_myinfoData(MemberVO vo,HttpSession session) {
@@ -109,6 +114,7 @@ public class MyPageRestController {
 			
 			session.setAttribute("profileImage", vo.getProfile_url());
 			session.setAttribute("name", vo.getName());
+			session.setAttribute("nickname", vo.getNickname());
 			
 			service.myProfileUpdate(vo);
 			service.myInfoUpdate(vo);
@@ -235,6 +241,16 @@ public class MyPageRestController {
 		return json;
 	}
 	
+	@GetMapping(value="mypage/my_store_jjim.do",produces = "text/plain;charset=utf-8")
+	public String mypage_store_jjim(String id) throws Exception {
+		List<StoreVO> list=service.storeJjimListData(id);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
 	@GetMapping(value="mypage/my_qna_maker_data.do",produces = "text/plain;charset=utf-8")
 	public String mypage_qna_maker(String id) {
 		String json="";
@@ -344,4 +360,56 @@ public class MyPageRestController {
 		String json = mapper.writeValueAsString(list);
 		return json;
 	}
+	
+	@GetMapping(value="mypage/all_cupon_vue.do", produces = "text/plain;charset=utf-8")
+	public String mypage_all_cupon_data() {
+		List<CuponVO> list=dao.cuponListData();
+		
+		String json="";
+		try {
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	@GetMapping(value="mypage/cupon_insert_vue.do", produces = "text/plain;charset=utf-8")
+	public String mypage_cupon_insert(CuponVO vo) throws Exception {
+		int downloadCount=dao.cuponValidate(vo);
+		String result="";
+		if(downloadCount == 0) {
+			dao.cuponInsert(vo);
+			result="success";
+		} else {
+			result="fail";
+		}
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(result);
+		return json;
+	}
+	
+	@GetMapping(value="mypage/my_cupon_vue.do",produces = "text/plain;charset=utf-8")
+	public String mypage_my_cupon(String id) throws Exception {
+		String json="";
+		
+		List<CuponVO> list=dao.myCuponListData(id);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		json=mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	@GetMapping(value="mypage/my_cupon_count.do",produces = "text/plain;charset=utf-8")
+	public String mypage_my_cupon_count(String id) throws Exception {
+		int count = dao.myCuponCount(id);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(count);
+		
+		return json;
+	}
+	
 }

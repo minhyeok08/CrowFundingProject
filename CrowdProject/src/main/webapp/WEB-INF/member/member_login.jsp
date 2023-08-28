@@ -33,13 +33,13 @@
 				<h2>일반 로그인</h2>
 			  <div style="margin-bottom: 30px;"></div>
 		  	<div class="mb-3">
-		  		<input type="text" class="form-control" id="id" ref="id" v-model="id" @input="validateId" style="width: 300px;" placeholder="아이디 입력" required>
+		  		<input type="text" class="form-control" id="id" ref="id" v-model="id" @input="validateId" style="width: 300px;" @keyup.enter="memberLogin" placeholder="아이디 입력" required>
 		  		<small id="idCheckMessage" :class="idHelpClass" class="form-text">
 		  			{{idCheckMessage}}
 		  		</small>
 		  	</div>
 		  	<div class="mb-3">
-		  		<input type="password" class="form-control" id="pwd" ref="pwd" v-model="pwd" @input="validatePwd" style="width: 300px;" placeholder="비밀번호 입력" required>
+		  		<input type="password" class="form-control" id="pwd" ref="pwd" v-model="pwd" @input="validatePwd" @keyup.enter="memberLogin" style="width: 300px;" placeholder="비밀번호 입력" required>
 		  		<small id="pwdCheckMessage" :class="pwdHelpClass" class="form-text">
 		  			{{pwdCheckMessage}}
 		  		</small>
