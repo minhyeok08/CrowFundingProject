@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.sist.vo.NewsVO" alias="NewsVO"/>
 		<typeAlias type="com.sist.vo.QnAVO" alias="QnAVO"/>
 		<typeAlias type="com.sist.vo.SupVO" alias="SupVO"/>
+		<typeAlias type="com.sist.vo.ReviewVO" alias="ReviewVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/sist/mapper/main-mapper.xml"/>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
 
@@ -49,5 +50,10 @@ public interface NoticeMapper {
 			"			(SELECT profile_url FROM wadiz_member_profile WHERE id=wfr.id) AS profile_url " + 
 			"			FROM wadiz_fund_review wfr WHERE wfno=#{wfno} ORDER BY rno DESC")
 	public List<ReviewVO> reviewListData(int wfno);
+	
+	@Update("UPDATE wadiz_fund_detail SET "
+			+ "support = support+1 "
+			+ "WHERE wfno=#{wfno}")
+	public void fundSupIncrement(int wfno);
 	
 }

@@ -19,6 +19,8 @@ public class FundDAO {
 	private FundMapper mapper;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	@Autowired
+	private NoticeMapper nmapper;
 	
 	public List<FundVO> fundListData(Map map)
 	{
@@ -279,4 +281,14 @@ public class FundDAO {
 	{
 		return mapper.cum_amount_Top5(id);
 	}
+	
+	//@Update("UPDATE wadiz_fund_detail SET "
+	//		+ "support = support+1 "
+	//		+ "WHERE wfno=#{wfno}")
+	public void fundSupIncrement(int wfno)
+	{
+		nmapper.fundSupIncrement(wfno);
+	}
+	
+	
 }

@@ -5,10 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DecimalFormat;
 import java.util.*;
+
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.*;
@@ -25,6 +28,8 @@ public class FundRestController {
 	private MainService mservice;
 	@Autowired
 	private FundDAO dao;
+	@Autowired
+	private NoticeService nservice;
 	
 	@GetMapping(value="fund/fund_list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String fundListData(int fcno) throws Exception
@@ -129,5 +134,18 @@ public class FundRestController {
 		
 		return json;
 	}
-	
+	@PostMapping(value="fund/fund_jiji_vue.do",produces = "text/plain;charset=UTF-8")
+	   public void fundJiji(@RequestParam int wfno, @RequestParam String message, HttpSession session)
+	   {
+	      String id = (String)session.getAttribute("id");
+	      ReviewVO rvo = new ReviewVO();
+	      rvo.setWfno(wfno);
+	      rvo.setContent(message);
+	      rvo.setId(id);
+	      rvo.setCategory("지지");
+	      nservice.reviewInsert(rvo);
+	      dao.fundSupIncrement(wfno);
+	      
+	      
+	   }
 }
