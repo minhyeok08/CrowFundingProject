@@ -55,7 +55,7 @@
     <div class="thumbnail bordered-thumbnail">
         <div class="oval-container">
             <div class="circle-image">
-                <img src="#" alt="">
+                <img :src="vo.profile_url" alt="">
             </div>
             <div class="thumbnail-content">
                 {{vo.id}} 님이&nbsp;&nbsp;<strong>{{vo.tprice}} 원 예약구매했어요</strong>

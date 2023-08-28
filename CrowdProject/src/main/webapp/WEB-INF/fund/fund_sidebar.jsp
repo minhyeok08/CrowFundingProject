@@ -6,30 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	td.inline { 
+		width: 250px; /* 원하는 크기로 설정하세요 */
+		height: 80px; /* 원하는 크기로 설정하세요 */
+	}
+	.button{
+	
+    margin-right: 10px; /* 이 값을 줄여서 간격을 조정할 수 있습니다 */
+}
+</style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" rel="stylesheet">
-<script>
-/* $(function() {
-	var gcount = $('#gcountSelect').val();
-	$('#buyBtn').click(function() {
-		/*$.ajax({
-			type: 'get',
-			url: '../fund/fund_buy.do',
-			data: {
-				"gcount": gcount // Corrected syntax
-			}
-		});
-	});
 
-	$('#gcountSelect').change(function() {
-	  var gcount = $(this).val();
-	});
-}); */
-</script>
 </head>
 <body>
 	<div id="fReward">
 		<span style="background-color: #f2f2f2; padding: 2px 5px; border-radius: 4px; color: black; font-size: 14px;">
-		 <strong>'#'{{fund_detail.tag}}</strong>
+		 <strong><span>#</span>{{fund_detail.tag}}</strong>
 		 </span>
 		<hr>
 		<div class="row">
@@ -52,13 +45,40 @@
 	
 		<hr>
 	
-		<button class="bordered-button">
+		<!-- <button class="bordered-button">
 			<img width="30" height="30" src="../images/hands-clapping.svg">
 		</button>
 		
 		<button class="bordered-button">
 		 <img width="30" height="30" src="../images/heart.svg" @click="fundJjim">
-		</button>
+		</button> -->
+		<table>
+	<tr> 
+		<td>
+	              <button class="rounded" style="border: none ; font-size:12px">
+	                 <img width="40" height="30" alt="Clapping Hands"
+	                    src="../images/hands-clapping.svg">
+	                    <br>
+	                    {{fund_detail.support}}   
+	              </button>
+	        </td>
+		<td>
+	              <button class="rounded" style="border: none; font-size:12px" >
+	                 <img width="40" height="30" alt="Clapping Hands"
+	                    src="../images/heart.svg">
+	                 <br>
+	                    {{fund_detail.jjim}}   
+	              </button>
+	       </td>
+	       <td>
+	              <a href="#3">
+	              <button class="rounded" style="border: none; width: 250px; height: 50px;">
+	                		리워드 선택  
+	              </button>
+	              </a>
+	       </td>
+	</tr>
+</table>
 
 		<br>
 		<br>
@@ -107,7 +127,7 @@
 			</table>
 			<hr>
 			<div class="thumbnail bordered-thumbnail"
-				style="width: 95%; height: 30%; text-align: center; font-size: 13px">
+				style="width: 95%; height: 30%; text-align: center; font-size: 13px" id="3">
 				문의하기</div>
 		</div>
 		<h5>리워드 선택</h5>

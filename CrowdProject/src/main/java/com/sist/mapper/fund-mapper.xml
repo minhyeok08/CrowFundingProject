@@ -54,7 +54,7 @@
  		SELECT wfno,mainimg,fcno,ftitle,endday,cum_amount,achieve_rate,makername
  		FROM wadiz_fund_detail
  		<if test="fcno==0">
- 		ORDER BY achieve_rate desc ,regdate desc
+ 		WHERE acno=3 ORDER BY achieve_rate desc ,regdate desc
  		</if>
  		<if test="fcno==1">
  		WHERE fcno=1 and acno=3 and rewardOk=1 ORDER BY regdate desc

@@ -396,7 +396,7 @@ ul, li {
 		new Vue({
 			el:'#wFund',
 			data:{
-				fcno:1,
+				fcno:0,
 				fund_list:[]
 			},
 			mounted:function(){
