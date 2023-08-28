@@ -103,7 +103,7 @@
  								<a href="../mypage/my_jjim.do">찜하기</a>
  							</div>
  							<div class="col-sm-6 follower mt-3">
- 								<a href="#">팔로워</a>
+ 								<a href="../mypage/my_follower.do">팔로우</a>
  							</div>
  						</div>
  						<div style="height: 30px;border-bottom: 0.7px solid #d3d3d3;"></div>

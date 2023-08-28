@@ -69,5 +69,10 @@ public class MyPageServiceImpl implements MyPageService {
 	public QnAVO myQnaReplyData(int group_id) {
 		return dao.myQnaReplyData(group_id);
 	}
+
+	@Override
+	public List<SupVO> myFollowing(String id) {
+		return dao.myFollowing(id);
+	}
 	
 }

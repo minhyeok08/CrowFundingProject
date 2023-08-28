@@ -11,6 +11,7 @@ import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.QnAVO;
 import com.sist.vo.RewardVO;
+import com.sist.vo.SupVO;
 
 @Repository
 public class MyPageDAO {
@@ -61,5 +62,9 @@ public class MyPageDAO {
 	
 	public QnAVO myQnaReplyData(int group_id) {
 		return mapper.myQnaReplyData(group_id);
+	}
+	
+	public List<SupVO> myFollowing(String id) {
+		return mapper.myFollowing(id);
 	}
 }

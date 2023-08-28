@@ -58,4 +58,9 @@ public class MyPageController {
 	public String mypage_qna_maker_reply() {
 		return "mypage/my_qna_maker_reply";
 	}
+	
+	@GetMapping("mypage/my_follower.do")
+	public String mypage_my_follower() {
+		return "mypage/my_follower";
+	}
 }

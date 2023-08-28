@@ -36,10 +36,11 @@
 		JOIN wadiz_fund_detail wfd ON wbi.wfno=wfd.wfno
 		where wbi.id=#{id}
 	</select>
-<!-- 	 참여 펀딩 리워드 데이터
-	<select id="myFundRewardDetail" parameterType="int" resultType="BuyVO">
-		SELECT rprice, rname, rcont, delfee, delstart, gcount, tprice, usepoint
-		FROM WADIZ_BUY_INFO
-		WHERE bino=#{bino}
-	</select> -->
+	<select id="myFollowing" parameterType="String" resultType="SupVO">
+		select wm.nickname, wmp.profile_url, wm.id, wsf.followid
+		from wadiz_member wm
+		join wadiz_member_profile wmp on wm.id = wmp.id
+		join wadiz_sup_follow wsf on wm.id = wsf.followid
+		where wsf.id = #{id}
+	</select>
 </mapper>

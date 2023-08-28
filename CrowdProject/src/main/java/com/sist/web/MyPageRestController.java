@@ -28,6 +28,7 @@ import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.QnAVO;
 import com.sist.vo.RewardVO;
+import com.sist.vo.SupVO;
 
 @RestController
 public class MyPageRestController {
@@ -250,6 +251,19 @@ public class MyPageRestController {
 		try {
 			ObjectMapper mapper=new ObjectMapper();
 			json=mapper.writeValueAsString(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	@GetMapping(value="mypage/my_follow_vue.do",produces="text/plain;charset=utf-8")
+	public String mypage_my_follow(String id) {
+		List<SupVO> list=service.myFollowing(id);
+		String json="";
+		try {
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

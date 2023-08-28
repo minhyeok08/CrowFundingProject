@@ -24,4 +24,7 @@ public interface MyPageService {
 	// 나의 문의
 	public List<QnAVO> myQnaListData(String id);
 	public QnAVO myQnaReplyData(int group_id);
+	
+	// my following
+	public List<SupVO> myFollowing(String id);
 }

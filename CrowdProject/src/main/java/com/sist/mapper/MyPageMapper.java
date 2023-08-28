@@ -10,6 +10,7 @@ import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.QnAVO;
 import com.sist.vo.RewardVO;
+import com.sist.vo.SupVO;
 
 public interface MyPageMapper {
 	//<select id="myInfo" resultType="memberVO" parameterType="String">
@@ -53,4 +54,7 @@ public interface MyPageMapper {
 			"JOIN wadiz_fund_detail wfd ON wq.wfno=wfd.wfno " + 
 			"WHERE group_id=#{id} AND group_tab=1")
 	public QnAVO myQnaReplyData(int group_id);
+	
+	//<select id="myFollowing" parameterType="Strng" resultType="SupVO">
+	public List<SupVO> myFollowing(String id);
 }
