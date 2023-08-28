@@ -194,4 +194,22 @@ public interface FundMapper {
 	public List<FundVO> project_list_for_qna(String id);
 	@Select("SELECT * FROM (SELECT ftitle,cum_amount FROM wadiz_fund_detail WHERE id=#{id} ORDER BY cum_amount DESC) WHERE rownum<=5")
 	public List<FundVO> cum_amount_Top5(String id);
+	
+//	<update id="cumUpdate" parameterType="int">
+//	Update wadiz_fund_detail SET (cum_amount = cum_amount + #{tprice})
+//	</update>
+	public void cumUpdate(Map map);
+//	<update id="achUpdate">
+//		Update wadiz_fund_detail SET (achieve_rate = (cum_amount / aim_amount) * 100)
+//	</update>
+	public void achUpdate();
+	
+//	<update id="partiPlus">
+//		Update wadiz_fund_detail SET (parti_count = parti_count + 1)
+//	</update>
+	public void partiPlus();
+//	<update id="pointUse" parameterType="String">
+//		Update wadiz_member SET (point = 0) WHERE id = #{id}
+//	</update>
+	public void pointUse(Map map);
 }

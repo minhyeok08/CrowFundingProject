@@ -290,5 +290,34 @@ public class FundDAO {
 		nmapper.fundSupIncrement(wfno);
 	}
 	
+//	<update id="cumUpdate" parameterType="int">
+//	Update wadiz_fund_detail SET (cum_amount = cum_amount + #{tprice})
+//	</update>
+	public void cumUpdate(Map map)
+	{
+		mapper.cumUpdate(map);
+	}
+//	<update id="achUpdate">
+//		Update wadiz_fund_detail SET (achieve_rate = (cum_amount / aim_amount) * 100)
+//	</update>
+	public void achUpdate()
+	{
+		mapper.achUpdate();
+	}
+	
+//	<update id="partiPlus">
+//		Update wadiz_fund_detail SET (parti_count = parti_count + 1)
+//	</update>
+	public void partiPlus()
+	{
+		mapper.partiPlus();
+	}
+//	<update id="pointUse" parameterType="String">
+//		Update wadiz_member SET (point = 0) WHERE id = #{id}
+//	</update>
+	public void pointUse(Map map)
+	{
+		mapper.pointUse(map);
+	}
 	
 }

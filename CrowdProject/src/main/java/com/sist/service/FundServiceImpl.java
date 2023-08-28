@@ -9,6 +9,8 @@ import com.sist.vo.*;
 public class FundServiceImpl implements FundService {
 	@Autowired
 	private FundDAO dao;
+	@Autowired
+	private BuyDAO bdao;
 
 	@Override
 	public List<FundVO> fundListData(Map map) {
@@ -38,5 +40,15 @@ public class FundServiceImpl implements FundService {
 	@Override
 	public void fundhitIncrement(int wfno) {
 		dao.fundhitIncrement(wfno);
+	}
+
+	@Override
+	public void buyAllUpdate(Map map) {
+		dao.cumUpdate(map);
+		dao.achUpdate();
+		dao.partiPlus();
+		dao.pointUse(map);
+		bdao.fundBuyInsert(map);
+		bdao.fundCount(map);
 	}
 }

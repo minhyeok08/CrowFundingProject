@@ -168,6 +168,9 @@ public class FundController {
 		int delfee = Integer.parseInt(strdelfee);
 		String delstart = request.getParameter("delstart");
 		
+		String strusepoint = request.getParameter("usepoint");
+		int usepoint = Integer.parseInt(strusepoint);
+		
 		BuyVO bvo = new BuyVO();
 		bvo.setRcont(rcont);
 		bvo.setRprice(rprice);
@@ -175,6 +178,7 @@ public class FundController {
 		bvo.setDelstart(delstart);
 		bvo.setWfno(wfno);
 		bvo.setRno(rno);
+		bvo.setUsepoint(usepoint);
 		bvo.setName(name);
 		bvo.setPoster(poster);
 		bvo.setRname(rname);
@@ -187,8 +191,10 @@ public class FundController {
 		Map map=new HashMap();
 		map.put("rno", rno);
 		map.put("gcount", gcount);
-		bdao.fundCount(map);
-		bdao.fundBuyInsert(bvo);
+		map.put("bvo", bvo);
+		map.put("vo", vo);
+		map.put("id", id);
+		service.buyAllUpdate(map);
 		
 		//bdao.fundRewardCount();
 		

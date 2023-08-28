@@ -16,9 +16,9 @@ public class BuyDAO {
 	
 	//@Insert("INSERT INTO wadiz_buy_info (bino, acno, wfno, name, poster, rname, tprice, gcount, regdate, idopen, priceopen) "
 	//		+ "VALUES(wbi_bino_seq.nextval, 1, #{wfno}, #{name}, #{poster}, #{rname}, #{tprice}, #{gcount}, SYSDATE, #{idopen}, #{priceopen})")
-	public void fundBuyInsert(BuyVO vo)
+	public void fundBuyInsert(Map map)
 	{
-		mapper.fundBuyInsert(vo);
+		mapper.fundBuyInsert(map);
 	}
 	
 	//@Insert("INSERT INTO wadiz_buy_info (bino, acno, wsno, name, poster, rname, tprice, gcount, regdate, idopen, priceopen) "

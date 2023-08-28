@@ -2,10 +2,11 @@ package com.sist.service;
 import java.util.*;
 
 
+
 import org.springframework.stereotype.Service;
 
-import com.sist.vo.FundRewardVO;
-import com.sist.vo.FundVO;
+import com.sist.vo.*;
+
 
 public interface FundService {
 	public List<FundVO> fundListData(Map map);
@@ -19,4 +20,8 @@ public interface FundService {
 	public void fundTasteInsert(Map map);
 	
 	public void fundhitIncrement(int wfno);
+	
+	
+	public void buyAllUpdate(Map map);
+	
 }

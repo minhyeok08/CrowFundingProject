@@ -15,8 +15,8 @@ public interface BuyMapper {
 	//public void storeBuyInsert(BuyVO vo);
 	
 	@Insert("INSERT INTO wadiz_buy_info (bino, acno, wfno, rno, name, poster, rname, tprice, gcount, regdate, id, rcont, delfee, delstart, rprice, usepoint) "
-			+ "VALUES(wbi_bino_seq.nextval, 1, #{wfno}, #{rno}, #{name}, #{poster}, #{rname}, #{tprice}, #{gcount}, SYSDATE, #{id}, #{rcont}, #{delfee}, #{delstart}, #{rprice}, #{usepoint})")
-	public void fundBuyInsert(BuyVO vo);
+			+ "VALUES(wbi_bino_seq.nextval, 1, #{bvo.wfno}, #{bvo.rno}, #{bvo.name}, #{bvo.poster}, #{bvo.rname}, #{bvo.tprice}, #{bvo.gcount}, SYSDATE, #{bvo.id}, #{bvo.rcont}, #{bvo.delfee}, #{bvo.delstart}, #{bvo.rprice}, #{bvo.usepoint})")
+	public void fundBuyInsert(Map map);
 	
 	@Insert("INSERT INTO wadiz_buy_info (bino, acno, wsno, name, poster, rname, tprice, gcount, regdate, id) "
 			+ "VALUES(wbi_bino_seq.nextval, 2, #{wsno}, #{rno}, #{name}, #{poster}, #{rname}, #{tprice}, #{gcount}, SYSDATE, #{id})")

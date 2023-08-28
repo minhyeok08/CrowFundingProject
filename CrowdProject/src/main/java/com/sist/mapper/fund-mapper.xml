@@ -175,5 +175,20 @@
 				</if>
 		)
 	</select>
+    <update id="cumUpdate" parameterType="hashmap">
+    	Update wadiz_fund_detail SET (cum_amount = cum_amount + #{tprice})
+    </update>
+    
+    <update id="achUpdate">
+    	Update wadiz_fund_detail SET (achieve_rate = (cum_amount / aim_amount) * 100)
+    </update>
+    
+    <update id="partiPlus">
+    	Update wadiz_fund_detail SET (parti_count = parti_count + 1)
+    </update>
+    
+    <update id="pointUse" parameterType="hashmap">
+    	Update wadiz_member SET (point = 0) WHERE id = #{id}
+    </update>
     
  </mapper>

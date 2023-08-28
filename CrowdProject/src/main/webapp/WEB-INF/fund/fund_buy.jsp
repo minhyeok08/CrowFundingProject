@@ -542,7 +542,8 @@ table td {
 	            "rcont" : vm.reward_data.rcont, 
 		       	"delfee" : vm.delfeeAmount, 
 		       	"delstart" : vm.reward_data.delstart,
-				"usePoints" : vm.usePoints
+				"usePoints" : vm.usePoints,
+				"usepoint" : vm.member_data.point
 	        },
 	        success:function(result){
 	           requestPay()
