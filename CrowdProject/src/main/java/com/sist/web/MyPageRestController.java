@@ -26,6 +26,7 @@ import com.sist.service.MyPageServiceImpl;
 import com.sist.vo.BuyVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.QnAVO;
 import com.sist.vo.RewardVO;
 
 @RestController
@@ -228,4 +229,30 @@ public class MyPageRestController {
 		return json;
 	}
 	
+	@GetMapping(value="mypage/my_qna_maker_data.do",produces = "text/plain;charset=utf-8")
+	public String mypage_qna_maker(String id) {
+		String json="";
+		List<QnAVO> list=service.myQnaListData(id);
+		try {
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	@GetMapping(value="mypage/my_qna_maker_reply.do", produces="text/plain;charset=utf-8")
+	public String mypage_my_qna_maker_reply(int group_id) {
+		QnAVO vo = new QnAVO();
+		vo=service.myQnaReplyData(group_id);
+		String json="";
+		try {
+			ObjectMapper mapper=new ObjectMapper();
+			json=mapper.writeValueAsString(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
 }

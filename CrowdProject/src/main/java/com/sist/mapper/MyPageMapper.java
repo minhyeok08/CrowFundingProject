@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import com.sist.vo.BuyVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.QnAVO;
 import com.sist.vo.RewardVO;
 
 public interface MyPageMapper {
@@ -40,4 +41,16 @@ public interface MyPageMapper {
 			"JOIN wadiz_jjim wj ON wfd.wfno=wj.wfno " + 
 			"WHERE wj.id=#{id}")
 	public List<FundVO> jjimListData(String id);
+	
+	@Select("SELECT wfd.wfno, wfd.ftitle, wfd.makername, wq.subject, wq.content, to_char(wq.regdate,'yyyy-MM-dd') AS dbday, wq.group_step, wq.group_id, wq.group_tab, wq.isreply " + 
+			"FROM wadiz_qna wq " + 
+			"JOIN wadiz_fund_detail wfd ON wq.wfno=wfd.wfno " + 
+			"WHERE wq.id=#{id}")
+	public List<QnAVO> myQnaListData(String id);
+	
+	@Select("SELECT wq.wfno, wq.id, wq.subject, wq.content, to_char(wq.regdate,'yyyy-mm-dd') AS dbday, wfd.makername " + 
+			"FROM wadiz_qna wq " + 
+			"JOIN wadiz_fund_detail wfd ON wq.wfno=wfd.wfno " + 
+			"WHERE group_id=#{id} AND group_tab=1")
+	public QnAVO myQnaReplyData(int group_id);
 }

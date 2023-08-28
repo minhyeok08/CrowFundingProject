@@ -20,4 +20,8 @@ public interface MyPageService {
 	
 	// 찜하기
 	public List<FundVO> jjimListData(String id);
+	
+	// 나의 문의
+	public List<QnAVO> myQnaListData(String id);
+	public QnAVO myQnaReplyData(int group_id);
 }

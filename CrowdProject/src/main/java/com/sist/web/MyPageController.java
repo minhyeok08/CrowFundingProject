@@ -48,4 +48,14 @@ public class MyPageController {
 	public String mypage_jjim() {
 		return "mypage/my_jjim";
 	}
+	
+	@GetMapping("mypage/my_qna_maker.do")
+	public String mypage_qna_maker() {
+		return "mypage/my_qna_maker";
+	}
+	
+	@GetMapping("mypage/my_qna_maker_reply.do")
+	public String mypage_qna_maker_reply() {
+		return "mypage/my_qna_maker_reply";
+	}
 }

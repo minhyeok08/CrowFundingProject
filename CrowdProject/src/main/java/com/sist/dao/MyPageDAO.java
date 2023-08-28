@@ -9,6 +9,7 @@ import com.sist.mapper.MyPageMapper;
 import com.sist.vo.BuyVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
+import com.sist.vo.QnAVO;
 import com.sist.vo.RewardVO;
 
 @Repository
@@ -52,5 +53,13 @@ public class MyPageDAO {
 	
 	public List<FundVO> jjimListData(String id){
 		return mapper.jjimListData(id);
+	}
+	
+	public List<QnAVO> myQnaListData(String id){
+		return mapper.myQnaListData(id);
+	}
+	
+	public QnAVO myQnaReplyData(int group_id) {
+		return mapper.myQnaReplyData(group_id);
 	}
 }

@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 public class QnAVO {
 	private int qno,wfno,group_step,group_id,group_tab,isreply;
-	private String id,subject,content,dbday;
+	private String id,subject,content,dbday,makername;
 	private Date regdate;
 	private String ftitle;
 	

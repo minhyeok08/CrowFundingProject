@@ -59,5 +59,15 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<FundVO> jjimListData(String id) {
 		return dao.jjimListData(id);
 	}
+
+	@Override
+	public List<QnAVO> myQnaListData(String id) {
+		return dao.myQnaListData(id);
+	}
+
+	@Override
+	public QnAVO myQnaReplyData(int group_id) {
+		return dao.myQnaReplyData(group_id);
+	}
 	
 }

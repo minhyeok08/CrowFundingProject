@@ -109,7 +109,7 @@ new Vue({
 			}).then(response=>{
 				console.log(response.data)
 				response.data.forEach(vo => {
-				vo.isVisible = false; // 각 아이템마다 isVisible 속성 추가
+					vo.isVisible = false; // 각 아이템마다 isVisible 속성 추가
         });
 				this.myFund_data=response.data
 			}).catch(error=>{

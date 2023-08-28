@@ -112,7 +112,7 @@
 						<strong>${sessionScope.name } 님 문의</strong>
 							<!-- 메이커 문의 -->
 							<div class="col-sm-6 makerqna mt-3">
-								<a href="#">메이커 문의</a>
+								<a href="../mypage/my_qna_maker.do">메이커 문의</a>
 							</div>
 							<!-- 관리자 문의 -->
 							<div class="col-sm-6 myqna mt-3">
