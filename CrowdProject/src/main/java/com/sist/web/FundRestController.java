@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.DecimalFormat;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,6 +50,11 @@ public class FundRestController {
 		Map map = new HashMap();
 		map.put("wfno", wfno);
 		FundVO vo = service.fundDetailData(wfno);
+		DecimalFormat df = new DecimalFormat("###,###,###");
+        int cum_amount = vo.getCum_amount();
+        String str_cum_amount= df.format(cum_amount);
+        vo.setStrCum(str_cum_amount);
+        
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
 		

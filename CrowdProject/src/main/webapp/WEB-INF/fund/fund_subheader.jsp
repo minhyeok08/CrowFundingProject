@@ -12,7 +12,7 @@
 			<a href="../fund/fund_detail.do?wfno=${ wfno }"><button class="bordered-button">스토리</button></a>
 	        <a href="../fund/fund_news.do?wfno=${ wfno }"><button class="bordered-button">새소식</button></a>
 	        <a href="../fund/fund_community.do?wfno=${ wfno }"><button class="bordered-button">커뮤니티</button></a>
-	        <a href="../fund/fund_suppoter.do?wfno=${ wfno }"><button class="bordered-button">서포터</button></a>
+	        <a href="../fund/fund_sup.do?wfno=${ wfno }"><button class="bordered-button">서포터</button></a>
 	        <a href="../fund/fund_refundpolicy.do?wfno=${ wfno }"><button class="bordered-button">환불 정책</button></a>
 		  </div>
 	</div>

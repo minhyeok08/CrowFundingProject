@@ -21,6 +21,13 @@
 		<put-attribute name="fund_sidebar" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
 	</definition>
+	<definition name="main4" template="/WEB-INF/main/main4.jsp">
+		<put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
+		<put-attribute name="subheader" value=""/>
+		<put-attribute name="home" value=""/>
+		<put-attribute name="open_sidebar" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
+	</definition>
 	
 	<definition name="admin/*" extends="main2">
 		<put-attribute name="sidebar" value="/WEB-INF/admin/sidebar.jsp"/>
@@ -34,6 +41,11 @@
 		<put-attribute name="fund_subheader" value="/WEB-INF/fund/fund_subheader.jsp"/>
 		<put-attribute name="home" value="/WEB-INF/fund/fund_detail{1}.jsp"/>
 		<put-attribute name="fund_sidebar" value="/WEB-INF/fund/fund_sidebar.jsp"/>
+	</definition>
+	<definition name="fund/open_detail*" extends="main4">
+		<put-attribute name="open_subheader" value="/WEB-INF/fund/open_subheader.jsp"/>
+		<put-attribute name="home" value="/WEB-INF/fund/open_detail{1}.jsp"/>
+		<put-attribute name="open_sidebar" value="/WEB-INF/fund/open_sidebar.jsp"/>
 	</definition>
 	<definition name="*/*" extends="main">
 		<put-attribute name="home" value="/WEB-INF/{1}/{2}.jsp"></put-attribute>

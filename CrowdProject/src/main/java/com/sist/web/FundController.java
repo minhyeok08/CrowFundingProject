@@ -224,34 +224,17 @@ public class FundController {
     	return "fund/agreeBtn3";
     }
     
-    /*
-    @RequestMapping("fund/fund_count.do")
-	public String fund_count(HttpServletRequest request,HttpServletResponse response)
-	{
-		try {
-			request.setCharacterEncoding("UTF-8");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		String strtprice = request.getParameter("tprice");
-		int tprice = Integer.parseInt(strtprice);
-		String strgcount = request.getParameter("gcount");
-		int gcount = Integer.parseInt(strgcount);
-		String strwfno = request.getParameter("wfno");
-		int wfno = Integer.parseInt(strwfno);
-		String strrno = request.getParameter("rno");
-		int rno = Integer.parseInt(strrno);
-		String rname = request.getParameter("rname");
-		String name = request.getParameter("name");
-		FundVO vo = dao.fundDetailData(wfno);
-		String poster=vo.getMainimg();
-		HttpSession session=request.getSession();
-		String id=(String)session.getAttribute("id");
-		
-		
-		return "redirect:../mypage/mypage_main.do";
-	}
-    */
+    @GetMapping("fund/open_detail.do")
+    public String open_detail(@RequestParam int wfno, Model model,HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		FundVO vo = service.fundDetailData(wfno);
+        
+        model.addAttribute("id", id);
+	    model.addAttribute("wfno", wfno);
+	    model.addAttribute("vo", vo);
+        
+        // 나머지 로직 처리
+        return "fund/open_detail";
+    
+    }
 }

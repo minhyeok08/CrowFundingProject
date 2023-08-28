@@ -40,7 +40,7 @@
 			<p style="font-size: 13px">{{fund_detail.fsubtitle}}</p>
 			<hr>
 			<p style="color: #a6d8ce;">
-				<span style="font-size: 25px"><strong>${vo.strCum}</strong></span>원 달성
+				<span style="font-size: 25px"><strong>{{fund_detail.strCum}}</strong></span>원 달성
 			</p>
 			<p style="font-size: 17px">
 				<strong>{{fund_detail.achieve_rate}}% 달성</strong>&nbsp;&nbsp;&nbsp;
@@ -96,7 +96,8 @@
 				</tr>
 				<tr>
 					<th>홈페이지</th>
-					<td style="text-align: right;">{{fund_detail.makerhomepage}}</td>
+					<td v-if='!fund_detail.makerhomepage' style='text-align:right;'>http://wadiz.com</td>
+					<td v-else style='text-align:right;'>{{fund_detail.makerhomepage}}</td>
 				</tr>
 				<tr>
 					<th>SNS</th>

@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 public class NewsVO {
 	private int no,wfno,tno,hit,filecount;
-	private String subject,content,filename,filesize,dbday;
+	private String subject,content,filename,filesize,dbday,strRegdate;
 	private Date regdate;
 	private List<MultipartFile> fundfiles;
 	private String ftitle,id,tname;

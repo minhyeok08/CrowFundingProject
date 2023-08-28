@@ -17,6 +17,20 @@ public interface FundMapper {
 			+ "WHERE wfno=#{wfno}")
 	public void fundhitIncrement(int wfno);
 	
+	@Select("SELECT * FROM NewsTable WHERE wfno=#{wfno} ORDER BY regdate DESC")
+	public List<NewsVO> NewsDataList(int wfno);
+	
+	@Select("SELECT (COUNT(*)) FROM NewsTable WHERE wfno=#{wfno} ORDER BY regdate DESC")
+	public int NewsDataCount(int wfno);
+	
+	@Select("SELECT * FROM NewsTable WHERE no=#{no} ORDER BY regdate DESC")
+	public NewsVO NewsDetail(int no);
+	
+	//@Select("SELECT wmp.profile_url , wmp.profile_name , wbi.id , wbi.wfno, wbi.tprice , wbi.regdate FROM WADIZ_MEMBER_PROFILE wmp , WADIZ_BUY_INFO wbi "
+	//		+ "WHERE wbi.wfno=#{wfno} AND wmp.id=wbi.id ORDER BY regdate desc")
+	@Select("SELECT id,tprice,wfno FROM wadiz_buy_info WHERE wfno=#{wfno} ORDER BY regdate DESC")
+	public List<SupVO> SupListData(int wfno);
+	
 	// 사용자 펀딩 취향분석용 테이블 insert/update문
 	public void fundTasteInsert(Map map);
 	

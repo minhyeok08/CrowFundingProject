@@ -48,6 +48,33 @@ public class FundDAO {
 	{
 		return mapper.fundRewardList(wfno);
 	}
+	
+	//@Select("SELECT wmp.profile_url , wmp.profile_name wbi.id , wbi.wfno, wbi.tprice FROM WADIZ_MEMBER_PROFILE wmp , WADIZ_BUY_INFO wbi "
+		//		+ "WHERE wbi.wfno=#{wfno} AND wmp.id=wbi.id ORDER BY regdate desc")
+		public List<SupVO> SupListData(int wfno)
+		{
+			return mapper.SupListData(wfno);
+		}
+		
+		// 뉴스 데이터 리스트 출력
+		//@Select("SELECT * FROM NewsTable WHERE id=#{id} AND wfno=#{wfno}")
+		public List<NewsVO> NewsDataList(int wfno)
+		{
+			return mapper.NewsDataList(wfno);
+		}
+		
+		@Select("SELECT (COUNT(*)) FROM NewsTable WHERE wfno=#{wfno} ORDER BY regdate DESC")
+		public int NewsDataCount(int wfno)
+		{
+			return mapper.NewsDataCount(wfno);
+		}
+		
+		@Select("SELECT * FROM NewsTable WHERE no=#{no} ORDER BY regdate DESC")
+		public NewsVO NewsDetail(int no)
+		{
+			return mapper.NewsDetail(no);
+		}
+		
 	//@Insert("INSERT INTO fundmaking(wfno,makername,makerphoto,makeremail,makertel,makerhompage,makerinsta,makerfacebook,makertwitter,fcno,fcname,ftitle,aim_amount,mainimg,openday,endday,tag,detailimg,detailcont) "
 	//		+ "VALUSE(fm_wfno_seq.nextval,#{makername},#{makerphoto},#{makeremail},#{makertel},#{makerhompage},#{makerinsta},#{makerfacebook},#{makertwitter},#{fcno},#{fcname},#{ftitle},#{aim_amount},#{mainimg},#{openday},#{endday},#{tag},#{detailimg},#{detailcont})")
 	public void fundInsertData(FundVO vo)
