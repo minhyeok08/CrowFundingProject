@@ -27,15 +27,15 @@
 		<hr>
 		<div class="row">
 			<p>
-				<strong>{{store_detail.goods_title}}</strong>
+				<strong style="font-size: 16px">{{store_detail.goods_title}}</strong>
 			</p>
-			<hr>
-			<p style="font-size: 13px"><i class="fa fa-star" style="color: yellow"></i>{{store_detail.score}}&nbsp;&nbsp;&nbsp;<i class="fa fa-users" style="color: gray"></i>{{store_detail.parti_count}}</p>
-			<hr>
-			<p style="font-size: 28px"><span style="color: #a6d8ce;">{{store_detail.price}}</span>원</p>
-			<hr>
-			<p style="font-size: 13px"><i class="fa fa-truck"></i>{{store_detail.delivery}}</p>
-			<hr>
+			<br>
+			<strong><p style="font-size: 14px"><i class="fa fa-star" style="color: #FDD835"></i>&nbsp;&nbsp;{{store_detail.score}}&nbsp;&nbsp;&nbsp;<i class="fa fa-users" style="color: gray"></i>&nbsp;&nbsp;{{store_detail.strparti}}</p></strong>
+			<br>
+			<p style="font-size: 28px"><span style="color: #a6d8ce;">{{store_detail.strprice}}</span>원</p>
+			<br>
+			<p style="font-size: 13px"><i class="fa fa-truck"></i>&nbsp;&nbsp;{{store_detail.delivery}}</p>
+			<br>
 		</div>
 		<table>
 			<tr> 
@@ -44,7 +44,7 @@
 			                 <img width="40" height="30" alt="Clapping Hands"
 			                    src="../images/heart.svg">
 			                 <br>
-			                    {{store_detail.jjim_count}}   
+			                    {{store_detail.strjjim}}   
 			              </button>
 			       </td>
 			       <td>
@@ -68,17 +68,17 @@
 				</div>
 				<div class="col-lg-8">
 					<div>{{store_detail.maker_name}}</div>
-					<div><span style="font-size: 10px;color:  #a6d8ce">{{store_detail.maker_follower}}명이 팔로우 중</span></div>
+					<div><span style="font-size: 12px;color:  #a6d8ce">{{store_detail.strfollower}}명이 팔로우 중</span></div>
 					<br>
 				</div>
 			</div>
 			<hr>
 			<table>
 				<tr>
-					<td style="font-size: 11px"><span style="color: #a6d8ce"><i class="fa fa-money"></i></span>&nbsp;&nbsp;{{store_detail.maker_totalmoney}}</td>
+					<td style="font-size: 14px"><span style="color: #a6d8ce"><i class="fa fa-product-hunt"></i></span>&nbsp;&nbsp;{{store_detail.maker_totalmoney}}</td>
 				</tr>
 				<tr>
-					<td style="font-size: 11px"><span style="color: #a6d8ce"><i class="fa fa-user"></i></span>&nbsp;&nbsp;서포터{{store_detail.maker_supporter}}</td>
+					<td style="font-size: 14px"><span style="color: #a6d8ce"><i class="fa fa-user"></i></span>&nbsp;&nbsp;서포터&nbsp;&nbsp;{{store_detail.strsupporter}}명</td>
 				</tr>
 			</table>
 			<hr>
@@ -92,21 +92,12 @@
 			<div v-for="vo in store_reward" class="thumbnail bordered-thumbnail" style="width: 95%;">
 					<div class="caption">
 						<p style="font-size: 16px; margin-bottom: 1px;">
-							<strong>{{ vo.rprice }}원<br></strong>
+							<strong>{{ vo.strrprice }}원<br></strong>
 						</p>
-						<p style="font-size: 14px; margin-bottom: 1px;">{{ vo.rname }}</p>
-						<hr>
-						<p style="font-size: 14px; margin-bottom: 1px;">
-							리워드 구성 : <br><br>{{ vo.rcont }}
-						</p>
+						<p style="font-size: 18px; margin-bottom: 1px;">{{ vo.rname }}</p>
 						<hr>
 						<p v-if="vo.delfee == 0" style="font-size: 14px; margin-bottom: 1px;">배송비 : 무료</p>
-        				<p v-else style="font-size: 14px; margin-bottom: 1px;">배송비 : {{ vo.delfee }}원</p>
-						
-						<hr>
-						<p style="font-size: 14px; margin-bottom: 1px;">배송시작일 : {{vo.delstart }}</p>
-						<hr>
-						<span style="font-size: 14px; margin-bottom: 1px;">{{ vo.curq}}개 남음</span><br>
+        				<p v-else style="font-size: 14px; margin-bottom: 1px;">배송비 : {{ vo.delfee }}</p>		
 						<hr>
 						<span> 수량 선택 : &nbsp;&nbsp;
 							<select ref="gcount" v-model="gcount">

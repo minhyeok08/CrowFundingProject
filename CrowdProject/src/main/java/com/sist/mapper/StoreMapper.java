@@ -12,5 +12,5 @@ public interface StoreMapper {
 	@Select("SELECT * from wadiz_store_detail WHERE wsno=#{wsno}")
 	public StoreVO storeDetailData(int wsno);
 	@Select("SELECT * from wadiz_store_reward WHERE wsno=#{wsno}")
-	public List<RewardVO> storeRewardList(int wsno);
+	public List<StoreRewardVO> storeRewardList(int wsno);
 }

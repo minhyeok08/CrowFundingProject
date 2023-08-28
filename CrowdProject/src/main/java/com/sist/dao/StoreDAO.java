@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.StoreMapper;
-import com.sist.vo.RewardVO;
-import com.sist.vo.StoreVO;
+import com.sist.vo.*;
 @Repository
 public class StoreDAO {
 	@Autowired
@@ -25,7 +24,7 @@ public class StoreDAO {
 		return mapper.storeDetailData(wsno);
 	}
 //	@Select("SELECT * from wadiz_store_reward WHERE wsno=#{wsno}")
-	public List<RewardVO> storeRewardList(int wsno)
+	public List<StoreRewardVO> storeRewardList(int wsno)
 	{
 		return mapper.storeRewardList(wsno);
 	}

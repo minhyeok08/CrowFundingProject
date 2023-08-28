@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="thumbnail"
 				style="width: 700px; border: none; padding: 10px;">
-				<img :src="store_detail.mainimg" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+				<img :src="store_detail.main_poster" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
 			</div>
 		</div>
 		<div class="row">
@@ -40,7 +40,7 @@
 			 }).then(response=>{
 				 console.log(response.data)
 				 this.store_detail=response.data
-				 this.detailimages=response.data.detailimg.split("^")
+				 this.detailimages=response.data.detail_poster.split("^")
 				 
 			 }).catch(error=>{
 				 console.log(error.response)
