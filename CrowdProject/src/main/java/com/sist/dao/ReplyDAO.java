@@ -22,4 +22,12 @@ public class ReplyDAO {
 		return mapper.replyListData(map);
 	}
 	
+	public void replyDelete(int rrno) {
+		mapper.replyDelete(rrno);
+	}
+	
+	public void replyUpdate(Map map) {
+		mapper.replyUpdate(map);
+	}
+	
 }

@@ -120,7 +120,7 @@
 			<div style="height: 50px"></div>
 			<div class="mb-3">
 				<a href="../mypage/mypage_main.do">
-					<img :src="user_info.profile_url" style="border-radius: 50%; width: 200px; height: 200px; border: 1px solid #a6d8ce;">
+					<img src="${sessionScope.profileImage }" style="border-radius: 50%; width: 200px; height: 200px; border: 1px solid #a6d8ce;">
 				</a>
 			</div>
 			<br>
@@ -158,7 +158,7 @@
 				<h3>진행중인 프로젝트 목록</h3>
 				<div class="col-3" v-for="vo in project_list">
 					<div class="img-thumbnail">
-				      <a href="#">
+				      <a :href="'../fund/fund_detail.do?wfno='+vo.wfno">
 				        <img v-if="vo.mainimg.startsWith('https')" :src="vo.mainimg" style="width:100%;height: 200px;">
 				        <img v-else :src="'../Fundimages/'+vo.mainimg" style="width:100%;height: 200px;">
 				        <div class="caption">

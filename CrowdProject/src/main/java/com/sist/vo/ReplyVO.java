@@ -23,4 +23,7 @@ public class ReplyVO {
 	private int rrno, rno, wfno, group_id, group_step, group_tab, root, depth;
 	private String id, rid, content, dbday;
 	private Date regdate;
+	
+	private String name, nickname, profile_name, profile_url;
+	private int no;
 }

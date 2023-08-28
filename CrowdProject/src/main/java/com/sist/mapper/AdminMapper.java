@@ -65,7 +65,7 @@ public interface AdminMapper {
 	@Select("SELECT no, name,id, email, phone, sex, birthday, addr1, addr2, post, admin, point, TO_CHAR(regdate,'yyyy-mm-dd hh24:mi:ss') as dbday, num "
 			+ "FROM (SELECT no,name, id, email, phone, sex, birthday, addr1, addr2, post, admin, point, regdate, rownum as num "
 			+ "FROM (SELECT no,name, id, email, phone, sex, birthday, addr1, addr2, post, admin, point, regdate "
-			+ "FROM wadiz_member WHERE id IN(SELECT DISTINCT id FROM fundmaking ) ORDER BY no DESC )) "
+			+ "FROM wadiz_member WHERE id IN(SELECT DISTINCT id FROM wadiz_fund_detail ) ORDER BY no DESC )) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<MemberVO> makerListData(Map map);
 	

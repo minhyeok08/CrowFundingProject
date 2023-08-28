@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemberVO {
-	private int point;
+	private int point,no;
 	private String id,pwd,name,nickname,sex,birthday,email,post,
 					addr1,addr2,phone,content,admin,dbday,msg;
 	private Date regdate;

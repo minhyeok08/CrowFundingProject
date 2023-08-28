@@ -103,15 +103,15 @@
 			<div class="form-group">
 				<label class="form-label" for="state">중요공지</label>
 				<select name="state" class="select-control">
-					<option value="no">no</option>
 					<option value="yes">yes</option>
+					<option value="no">no</option>
 				</select>
 			</div>
 			<div class="form-group">
 				<label class="form-label">타입</label>
 				<div class="radio-group">
 					<label>
-						<input type="radio" name="category" value="event">이벤트
+						<input type="radio" name="category" value="event" checked>이벤트
 					</label>
 					<label>
 						<input type="radio" name="category" value="notice">공지사항

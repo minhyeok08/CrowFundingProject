@@ -41,7 +41,8 @@
 				<tr>
 					<th width="30%" class="text-end">메이커사진</th>
 					<td width="70%">
-						<img :src="'../Fundimages/'+detail_data.makerphoto" style="width: 100px;height: 100px;">
+						<img v-if="detail_data.makerphoto.startsWith('http')" :src="detail_data.makerphoto" style="width: 100px;height: 100px;">
+						<img v-else :src="'../Fundimages/'+detail_data.makerphoto" style="width: 100px;height: 100px;">
 					</td> 
 				</tr>
 				<tr>
@@ -102,7 +103,8 @@
 				<tr>
 					<th width="30%" class="text-end">대표사진</th>
 					<td width="70%">
-						<img :src="'../Fundimages/'+detail_data.mainimg" style="width: 100px;height: 100px;">
+						<img v-if="detail_data.mainimg.startsWith('http')" :src="detail_data.mainimg" style="width: 100px;height: 100px;">
+						<img v-else :src="'../Fundimages/'+detail_data.mainimg" style="width: 100px;height: 100px;">
 					</td>
 				</tr>
 				<tr>
@@ -126,7 +128,8 @@
 				<tr>
 					<th width="30%" class="text-end">소개 사진</th>
 					<td width="70%" >
-						<img v-for="img in detailimages" :src="'../Fundimages/'+img" style="width: 100px;height: 100px;">
+						<img v-for="img in detailimages" v-if="img.startsWith('http')" :src="img" style="width: 100px;height: 100px;">
+						<img v-for="img in detailimages" v-else :src="'../Fundimages/'+img" style="width: 100px;height: 100px;">
 					</td>
 				</tr>
 				
