@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,8 +71,46 @@
      background-color: #a6d8ce;
      border-color: #a6d8ce;
  }
+.btn-custom {
+	background-color: transparent;
+	border-color: #00b2b2;
+	color: #00b2b2;
+	transition: background-color 0.3s;
+	font-size: 14px;
+}
 
+.btn-custom:hover {
+	background-color: rgb(234, 248, 249);
+	border-color: #00b2b2;
+	color: #00b2b2;
+}
 </style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	 google.charts.load('current', {'packages':['bar']});
+	 google.charts.setOnLoadCallback(drawChart);
+	
+	 function drawChart() {
+	   var data = google.visualization.arrayToDataTable([
+	     ['상품이름', '누적 금액'],
+	<c:forEach var="vo" items="${list}">
+	     ['<c:out value="${vo.ftitle}"/>','<c:out value="${vo.cum_amount}"/>'],
+	</c:forEach>
+	   ]);
+	
+	   var options = {
+	     chart: {
+	       title: '프로젝트 TOP 5',
+	       subtitle: '누적 금액 ',
+	     },
+	     bars: 'horizontal' // Required for Material Bar Charts.
+	   };
+	
+	   var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+	
+	   chart.draw(data, google.charts.Bar.convertOptions(options));
+	 }
+</script>
 </head>
 <body>
 	<div class="row makerpagemainrow">
@@ -161,9 +200,9 @@
 					</nav>
 				</div>
 			</div>
-			<div>
-				좋아요,찜목록 등등..
-			</div>
+			<div style="height: 20px;"></div>
+			
+			<div id="barchart_material" style="width: 900px; height: 300px;"></div>
 		</div>
 	</div>
 <script>
@@ -178,7 +217,8 @@
 			totalpage:0,
 			startPage:0,
 			endPage:0,
-			acno:1
+			acno:1,
+			chart_list:[]
 		},
 		mounted:function(){
 			axios.get('../makerpage/userinfno_vue.do',{

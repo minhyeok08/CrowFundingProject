@@ -192,4 +192,6 @@ public interface FundMapper {
 			"RIGHT JOIN wadiz_qna wq " + 
 			"ON wfd.wfno=wq.wfno WHERE wfd.id=#{id} AND wfd.rewardOk=1 AND wfd.acno=1 ORDER BY wfd.openday ASC")
 	public List<FundVO> project_list_for_qna(String id);
+	@Select("SELECT * FROM (SELECT ftitle,cum_amount FROM wadiz_fund_detail WHERE id=#{id} ORDER BY cum_amount DESC) WHERE rownum<=5")
+	public List<FundVO> cum_amount_Top5(String id);
 }

@@ -33,8 +33,18 @@ public class MakerpageController {
 	private FundDAO dao;
 	// 홈 화면 이동
 	@GetMapping("makerpage/makerpage_home.do")
-	public String maker_main()
+	public String maker_main(HttpSession session,Model model)
 	{
+		String id=(String)session.getAttribute("id");
+		List<FundVO> list= dao.cum_amount_Top5(id);
+		for(FundVO vo:list)
+		{
+			String ftitle = vo.getFtitle();
+			if(ftitle.length()>20)
+				ftitle=ftitle.substring(0,20)+"...";
+			vo.setFtitle(ftitle);
+		}
+		model.addAttribute("list",list);
 		return "makerpage/makerpage_home";
 	}
 	// 프로젝트만들기 리스트 이동
