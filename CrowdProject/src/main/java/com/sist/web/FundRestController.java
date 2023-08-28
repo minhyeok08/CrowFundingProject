@@ -20,6 +20,10 @@ public class FundRestController {
 	@Autowired
 	private FundService service;
 	@Autowired
+	private MyPageService mpservice;
+	@Autowired
+	private MainService mservice;
+	@Autowired
 	private FundDAO dao;
 	
 	@GetMapping(value="fund/fund_list_vue.do",produces = "text/plain;charset=UTF-8")
@@ -93,6 +97,36 @@ public class FundRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return json;
+	}
+	
+	@GetMapping(value = "fund/fund_buy_fundData_vue.do", produces = "text/plain;charset=UTF-8")
+	public String buyFundData(int wfno) throws Exception {
+		FundVO vo = service.fundDetailData(wfno);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "fund/fund_buy_rewardData_vue.do", produces = "text/plain;charset=UTF-8")
+	public String buyRewardData(int rno) throws Exception  {
+		FundRewardVO rvo = service.fundBuyData(rno);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(rvo);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "fund/fund_buy_memberData_vue.do", produces = "text/plain;charset=UTF-8")
+	public String buyMemberData(String id) throws Exception  {
+		MemberVO mvo = mpservice.myInfo(id);
+		
+		ObjectMapper mapper=new ObjectMapper();
+		String json=mapper.writeValueAsString(mvo);
+		
 		return json;
 	}
 	

@@ -47,20 +47,22 @@ public class FundController {
 
 	@GetMapping("fund/fund_buy.do")
 	public String fund_buy(int wfno,int rno, int gcount, Model model,HttpSession session) {
-		FundVO vo = service.fundDetailData(wfno);
-		FundRewardVO rvo = service.fundBuyData(rno);
+//		FundVO vo = service.fundDetailData(wfno);
+//		FundRewardVO rvo = service.fundBuyData(rno);
 		
 		String id = (String) session.getAttribute("id");
-		MemberVO mvo = mpservice.myInfo(id);
+//		MemberVO mvo = mpservice.myInfo(id);
 
         //String strgcount = request.getParameter(gcount);
 		//int gcount = Integer.parseInt(strgcount);
         System.out.println(gcount);
         model.addAttribute("gcount", gcount);
-        model.addAttribute("mvo", mvo);
+//        model.addAttribute("mvo", mvo);
+//        model.addAttribute("vo", vo);
+//        model.addAttribute("rvo", rvo);
 	    model.addAttribute("wfno", wfno);
-	    model.addAttribute("vo", vo);
-	    model.addAttribute("rvo", rvo);
+	    model.addAttribute("rno", rno);
+	    model.addAttribute("id", id);
 
 	    return "fund/fund_buy";
 	}

@@ -119,9 +119,6 @@ table td {
 <script src="//unpkg.com/vue@2.6.14/dist/vue.js"></script>
 
 <script type="text/javascript">
-	/* Shadowbox.init({
-		players : [ 'iframe' ]
-	}) */
 	$(function() {
 		$('#checkall').click(function() {
 			if ($('#checkall').is(':checked')) {
@@ -171,7 +168,7 @@ table td {
 
 		//let rprice = $('#price').val();
 		//let tprice = $('#total_price').attr('data-total');
-		let rno = $('#rno').attr('data-rno');
+		/*let rno = $('#rno').a ttr('data-rno');
 		let wfno = $('#wfno').attr('data-wfno');
 		let rname = $('#rname').attr('data-rname');
 		let name = $('#name').text();
@@ -180,9 +177,9 @@ table td {
 		let rprice = $('#rprice').val();
 		let rcont = $('#rcont').val();
 		let delfee = $('#delfee').val();
-		let delstart = $('#delstart').val();
+		let delstart = $('#delstart').val(); */
 		
-		
+		/* 
 		$('#buyBtn').click(function(){
 			$.ajax({
 				type:'get',
@@ -195,7 +192,7 @@ table td {
 				}
 			})
 
-		})
+		}) */
 	})
 
 	var IMP = window.IMP; // 생략 가능
@@ -244,49 +241,9 @@ table td {
 			});
 		}
 		
-		/* function showTextInput() {
-		    var textInputRow = document.getElementById("textInputRow");
-		    
-		    if (document.querySelector('input[name=pointOption]:checked')) {
-		        textInputRow.style.display = "table-row";
-		        calculateFinalAmount();
-		    } else {
-		        textInputRow.style.display = "none";
-		    }
-		}
-
-		function calculateFinalAmount() {
-		    var inputElement = document.getElementById("textInput");
-		    var tpriceElement = document.getElementById("tprice");
-		    
-		    // 입력된 값 가져오기
-		    var inputValue = parseFloat(inputElement.value);
-		    
-		    // 현재 tprice 값 가져오기
-		    var tprice = parseFloat(tpriceElement.value);
-		    
-		    // 입력된 값만큼 tprice에서 차감하기
-		    if (!isNaN(inputValue)) {
-		        tprice -= inputValue;
-		        
-		        // 최종 금액 표시하기
-		        tpriceElement.value = tprice.toFixed(2);  // 소수점 2자리까지 표시 (예: 123.45)
-		    }
-		} */
-		
-		
 </script>
 </head>
 <body>
-	<div class="page-heading">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8">
-					<div class="top-text header-text"></div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-8">
@@ -298,78 +255,43 @@ table td {
 					<strong>상품정보</strong>
 				</h4>
 				<hr>
-				<input type="hidden" id="gcount" value="${gcount}"> 
-				<input type="hidden" id="tprice" value="${gcount*rvo.rprice}">
-				<input type="hidden" id="rprice" value="${rvo.rprice }">
-				<input type="hidden" id="delfee" value="${rvo.delfee }">
-				<input type="hidden" id="delstart" value="${rvo.delstart }">
-				<input type="hidden" id="rcont" value="${rvo.rcont }">
+				<%-- <input type="hidden" id="gcount" value="${gcount}"> 
+				<input type="hidden" id="tprice" value="${gcount*reward_data.rprice}">
+				<input type="hidden" id="rprice" value="${reward_data.rprice }">
+				<input type="hidden" id="delfee" value="${reward_data.delfee }">
+				<input type="hidden" id="delstart" value="${reward_data.delstart }">
+				<input type="hidden" id="rcont" value="${reward_data.rcont }"> --%>
 				
 				<table class="table">
 					 
 					<tr>
-						<td rowspan="3" width="20%"><img src=${vo.mainimg } class="reserveImg"></td>
-						<td width="80%" style="font-size: 17px; font-weight: bold;">${rvo.rname }</td>
+						<td rowspan="3" width="20%"><img :src="fund_data.mainimg" class="reserveImg"></td>
+						<td width="80%" style="font-size: 17px; font-weight: bold;">{{reward_data.rname }}</td>
 					</tr>
 					<tr>
-						<td style="color: gray">${vo.fsubtitle }</td>
+						<td style="color: gray">{{fund_data.fsubtitle }}</td>
 					</tr>
 					<tr>
 						<td style="color: gray"></td>
 					</tr>
 					<tr style="background-color: rgb(248, 249, 250)">
 						<td width="20%">상품 가격</td>
-						<td width="80%" class="text-right"><fmt:formatNumber
-								value="${rvo.rprice }" pattern="#,###" />원</td>
+						<td width="80%" class="text-right">{{ rpriceAmount.toLocaleString() }}원</td>
 					</tr>
 					<tr style="background-color: rgb(248, 249, 250)">
 						<td width="20%">개수</td>
 						<td width="80%" class="text-right">${gcount }개</td>
 					</tr>
 					<tr style="background-color: rgb(248, 249, 250)">
-						<td width="20%">총금액</td>
-						<td width="80%" class="text-right"><fmt:formatNumber
-								value="${gcount *rvo.rprice }" pattern="#,###" />원</td>
-								
+						<td width="20%">배송비</td>
+						<td width="80%" class="text-right">{{ delfeeAmount.toLocaleString() }}원</td>
 					</tr>
-					<%-- <tr style="background-color: rgb(248, 249, 250)">
-						<td width="20%">쿠폰할인</td>
-						<td width="80%" class="text-right"><fmt:formatNumber
-								value="" pattern="#,###" />- 0원</td>
-					</tr> --%>
-					<!-- <tr>
-					    <td width="20%">포인트 사용</td>
-					    <td width="50%" class="text-right">
-					        <input type="radio" name="pointOption" value="" onclick="showTextInput()">0원
-					    </td>
-					</tr>
-					<tr id="textInputRow" style="display: none;">
-					    <td colspan="2" style="text-align:right";>
-					        <input type="text"  id="textInput" class="text-right" placeholder="사용 포인트 입력">
-					    </td>
-					</tr> -->
 					 <tr>
 			            <td width="20%">포인트 사용</td>
 			            <td width="50%" class="text-right">
-			                <input type="checkbox" v-model="usePoint">0원
+			                <input type="checkbox" id="usePoints" v-model="usePoints">모두 사용 (보유 포인트 {{ member_data.point }}P)
 			            </td>
 			        </tr>
-			        <tr v-if="usePoint">
-			            <td colspan="2">
-			                <input type="number" v-model.number="pointAmount" placeholder="텍스트를 입력하세요">
-			            </td>
-			        </tr>
-						
-					<tr style="background-color: rgb(248, 249, 250)">
-						<td width="20%">최종금액</td>
-						<td width="80%" class="text-right"><fmt:formatNumber
-								value="${gcount *rvo.rprice }" pattern="#,###" />원</td>
-					</tr>
-					
-					<!-- <tr> 
-						<td colspan= "2">최종 금액: {{ finalAmount }}원</td> 
-					</tr>  -->
-					
 				</table>
 				<div style="height: 20px"></div>
 				<h4>
@@ -379,19 +301,19 @@ table td {
 				<table class="table">
 					<tr>
 						<td width="20%">이름</td>
-						<td width="80%" id="name" class="text-right">${mvo.name }</td>
+						<td width="80%" id="name" class="text-right">{{member_data.name }}</td>
 					</tr>
 					<tr>
 						<td width="20%">이메일</td>
-						<td width="80%" id="email" class="text-right">${mvo.email }</td>
+						<td width="80%" id="email" class="text-right">{{member_data.email }}</td>
 					</tr>
 					<tr>
 						<td width="20%">전화번호</td>
-						<td width="80%" id="phone" class="text-right">${mvo.phone }</td>
+						<td width="80%" id="phone" class="text-right">{{member_data.phone }}</td>
 					</tr>
 					<tr>
 						<td width="20%">주소</td>
-						<td width="80%" id="addr1" class="text-right">${mvo.addr1 }</td>
+						<td width="80%" id="addr1" class="text-right">{{member_data.addr1 }}</td>
 					</tr>
 				</table>
 				<div style="height: 20px"></div>
@@ -452,18 +374,20 @@ table td {
 									<hr>
 								</td>
 							</tr>
-							<tr height="60px;"
-								style="vertical-align: middle; font-size: 10pt;">
+							<tr style="vertical-align: middle; font-size: 10pt;">
 								<td>주문 금액</td>
-								<td><fmt:formatNumber value="${gcount *rvo.rprice }" pattern="#,###" />원</td>
+								<td>{{ (gcount * rpriceAmount).toLocaleString() }}원</td>
+							</tr>
+							<tr style="vertical-align: middle; font-size: 10pt;">
+								<td>포인트</td>
+								<td>{{ usePoints ? member_data.point : '0' }}원</td>
 							</tr>
 							<tr height="60px;"
 								style="vertical-align: middle; background-color: rgb(246, 251, 255);">
 								<td style="color: #a6d8ce;"><strong>총 결제
 										금액</strong></td>
 								<td style="font-size: 20pt; color: #a6d8ce;"><b>
-										<fmt:formatNumber value="${gcount *rvo.rprice }"
-											pattern="#,###" />원
+									<div>{{ (gcount * rpriceAmount).toLocaleString() }}원</div>
 								</b></td>
 							</tr>
 							<tr>
@@ -521,42 +445,22 @@ table td {
 							<tr>
 								<td colspan="2" class="center wishTd">
 									<div class="d-grid">
-										<input type="hidden" id="total_price" data-total="${gcount*rvo.rprice }"> 
-										<input type="hidden" id="rno" data-rno="${rvo.rno }"> 
-										<input type="hidden" id="wfno" data-wfno="${vo.wfno }">
-										<input type="hidden" id="rname" data-rname="${rvo.rname}">
-										<%-- <input type="hidden" id="gcount" data-gcount="${gcount}">
-										<input type="hidden" id="tprice" data-tprice="${gcount *rvo.rprice }"> --%>
-										
-										
-											<input type="hidden" id="post" value="${mvo.post }"> 
-											<input type="hidden" id="addr1" value="${mvo.addr1 }">
-											<!--  <input type="hidden" id="dbday" value="${date }">
-											<input type="hidden" id="startDate" value="${startDate }">
-											<input type="hidden" id="endDate" value="${endDate }">-->
+										<%-- <input type="hidden" id="total_price" data-total="${gcount*reward_data.rprice }"> 
+										<input type="hidden" id="rno" data-rno="${reward_data.rno }"> 
+										<input type="hidden" id="wfno" data-wfno="${fund_data.wfno }">
+										<input type="hidden" id="rname" data-rname="${reward_data.rname}">
+										<input type="hidden" id="post" value="${member_data.post }"> 
+										<input type="hidden" id="addr1" value="${member_data.addr1 }"> --%>
 										<c:if test="${sessionScope.id!=null }">
-											<button class="btn btn-block btn-wish"
-												style="height: 50px; background-color: #a6d8ce; color: white;" disabled="disabled" id="buyBtn"
-												data-no="${rvo.rname }" >
+											<button class="btn btn-block btn-wish" style="height: 50px; background-color: #a6d8ce; color: white;" disabled="disabled" id="buyBtn" :data-no="reward_data.rname">
 												<h5>
-													<strong> <fmt:formatNumber
-															value="${gcount *rvo.rprice }" pattern="#,###" />원
+													<strong> {{ finalTotalAmount.toLocaleString() }}원
 														결제하기
 													</strong>
 												</h5>
 											</button>
 										</c:if>
-									</div> <%-- <div class="d-grid">
-										<c:if test="${sessionScope.id==null }">
-										<button class="btn btn-block btn-primary btn-wish"
-											style="height: 50px;" disabled="disabled" id="NbuyBtn">
-											<h5>
-												<strong> 로그인 하세요
-												</strong>
-											</h5>
-										</button>
-										</c:if>
-									</div> --%>
+									</div>
 								</td>
 							</tr>
 						</table>
@@ -567,18 +471,83 @@ table td {
 	</div>
 	<script>
 	new Vue({
-	  el: '.container',
-	  data: {
-	    tprice: 0,
-	    usePoint: false,
-	    pointAmount: 0
-	  },
-	  
-	  computed:{
-	  	finalAmount(){
-	    	return this.tprice - this.pointAmount;
-	  	}
-	  }
+		el: '.container',
+		data: {
+			rno:${rno},
+			wfno:${wfno},
+			gcount:${gcount},
+			id:'${id}',
+			fund_data:{},
+			reward_data:{},
+			member_data:{},
+		    usePoints: false
+		},
+		mounted:function(){
+			this.send()
+		},
+		methods:{
+			send:function(){
+				axios.get("../fund/fund_buy_fundData_vue.do", {
+					params:{
+						wfno:this.wfno
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.fund_data = res.data
+				}).catch(err=>{
+					console.log(err.response)
+				})
+				axios.get("../fund/fund_buy_rewardData_vue.do", {
+					params:{
+						rno:this.rno
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.reward_data = res.data
+				}).catch(err=>{
+					console.log(err.response)
+				})
+				axios.get("../fund/fund_buy_memberData_vue.do", {
+					params:{
+						id:this.id
+					}
+				}).then(res=>{
+					console.log(res.data)
+					this.member_data = res.data
+				}).catch(err=>{
+					console.log(err.response)
+				})
+			}
+		},
+		computed: {
+			rpriceAmount:function(){
+				const rprice = parseInt(this.reward_data.rprice, 10);
+				return rprice
+			},
+			pointAmunt:function(){
+				const point = parseInt(this.member_data.point, 10);
+				return point
+			},
+			delfeeAmount:function(){
+				const delfee = parseInt(this.reward_data.delfee, 10);
+				return delfee
+			},
+			plusAmount:function(){
+				const rprice = parseInt(this.reward_data.rprice, 10);
+				return rprice * this.gcount
+			},
+			finalTotalAmount: function() {
+		      const rprice = parseInt(this.reward_data.rprice, 10);
+		      const delfee = parseInt(this.reward_data.delfee, 10);
+		      let totalAmount = rprice * this.gcount + delfee;
+
+		      if (this.usePoints) {
+		        totalAmount -= parseInt(this.member_data.point, 10);
+		      }
+
+		      return totalAmount.toLocaleString();
+		    }
+		}
 	});
 </script>
 </body>
