@@ -101,4 +101,7 @@ public interface WastaMapper {
 			"WHERE id = #{id} AND rn = 1") 
 	public ReviewVO myProfile(String id);
 	
+	@Select("SELECT  id, profile_url FROM wadiz_member_profile WHERE id=#{id}")
+	public ReviewVO myProfile1(String id);
+	
 }

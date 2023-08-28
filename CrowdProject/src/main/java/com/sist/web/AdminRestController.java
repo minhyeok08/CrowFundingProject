@@ -1,5 +1,8 @@
 package com.sist.web;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sist.dao.AdminDAO;
 import com.sist.service.AdminService;
 import com.sist.vo.AdminqnaVO;
 import com.sist.vo.CrowdFundVO;
@@ -16,11 +20,14 @@ import com.sist.vo.CrowdStoreVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
 import com.sist.vo.PageVO;
+import com.sist.vo.ReviewVO;
 
 @RestController
 public class AdminRestController {
 	@Autowired
 	private AdminService service;
+	@Autowired
+	private AdminDAO dao;
 	
 	@GetMapping(value = "admin/store_list_vue.do", produces = "text/plain;charset=UTF-8")
 	public String storeListData(int curpage, int scno) throws Exception {
@@ -281,4 +288,70 @@ public class AdminRestController {
 		return json;
 	}
 	
+	@GetMapping(value = "admin/qna_insert_vue.do",produces = "text/plain;charset=UTF-8")
+	public String qna_insert(String id,String content) throws Exception {
+		Map map=new HashMap();
+		map.put("id", id);
+		map.put("content", content);
+		service.qnaInsert(map);
+		List<AdminqnaVO> list = dao.qnaDetailData(id);
+		LocalDateTime now = LocalDateTime.now();
+
+	    for (AdminqnaVO vo : list) {
+	    	LocalDateTime regdate = vo.getRegdate().toInstant()
+	                .atZone(ZoneId.systemDefault())
+	                .toLocalDateTime();
+	        
+	        Duration duration = Duration.between(regdate, now);
+	        
+	        String dbday;
+	        
+	        if (duration.toDays() > 0) {
+	            dbday = duration.toDays() + "일 전";
+	        } else if (duration.toHours() > 0) {
+	            dbday = duration.toHours() + "시간 전";
+	        } else if (duration.toMinutes() > 0) {
+	            dbday = duration.toMinutes() + "분 전";
+	        } else {
+	            dbday = duration.getSeconds() + "초 전";
+	        }
+	        
+	       vo.setDbday(dbday);
+	   }
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	
+	@GetMapping(value = "admin/qna_detail_vue.do",produces = "text/plain;charset=UTF-8")
+	public String qna_detail(String id) throws Exception {
+		System.out.println("넘어온 아이디값: "+id);
+		List<AdminqnaVO> list = dao.qnaDetailData(id);
+		LocalDateTime now = LocalDateTime.now();
+
+	    for (AdminqnaVO vo : list) {
+	    	LocalDateTime regdate = vo.getRegdate().toInstant()
+	                .atZone(ZoneId.systemDefault())
+	                .toLocalDateTime();
+	        
+	        Duration duration = Duration.between(regdate, now);
+	        
+	        String dbday;
+	        
+	        if (duration.toDays() > 0) {
+	            dbday = duration.toDays() + "일 전";
+	        } else if (duration.toHours() > 0) {
+	            dbday = duration.toHours() + "시간 전";
+	        } else if (duration.toMinutes() > 0) {
+	            dbday = duration.toMinutes() + "분 전";
+	        } else {
+	            dbday = duration.getSeconds() + "초 전";
+	        }
+	        
+	       vo.setDbday(dbday);
+	   }
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}	
 }

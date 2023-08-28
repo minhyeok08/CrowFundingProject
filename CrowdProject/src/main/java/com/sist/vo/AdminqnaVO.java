@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AdminqnaVO {
-	private int waqno,filecount;
-	private String id,subject, content,dbday,filename,filesize,state;
+	private int waqno;
+	private String id, content,dbday, name, nickname, profile_url,admin;
 	private Date regdate;
 }

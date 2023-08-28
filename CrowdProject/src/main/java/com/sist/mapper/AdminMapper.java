@@ -3,6 +3,7 @@ package com.sist.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -48,12 +49,19 @@ public interface AdminMapper {
 	@Select("SELECT CEIL(COUNT(*)/10.0) FROM wadiz_admin_qna")
 	public int qnaTotalPage();
 
-	@Select("SELECT waqno, subject,id,content,isreply,group_id,group_step,group_tab,TO_CHAR(regdate,'yyyy-mm-dd') as dbday, filename,filesize,filecount, num "
-			+ "FROM (SELECT waqno, subject,id,content,isreply,group_id,group_step,group_tab,regdate, filename,filesize,filecount, rownum as num  "
-			+ "FROM (SELECT waqno, subject,id,content,isreply,group_id,group_step,group_tab,regdate, filename,filesize,filecount "
-			+ "FROM wadiz_admin_qna ORDER BY waqno DESC)) "
+	@Select("SELECT waqno, id,content,group_id,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,regdate, num "
+			+ "FROM (SELECT waqno, id,content,group_id,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,regdate, rownum as num  "
+			+ "FROM (SELECT waqno, id,content,group_id,TO_CHAR(regdate,'yyyy-mm-dd') as dbday, regdate "
+			+ "FROM wadiz_admin_qna WHERE admin='n' ORDER BY waqno DESC)) "
 			+ "WHERE num BETWEEN #{start} AND #{end}")
 	public List<AdminqnaVO> qnaListData(Map map);
+	
+	@Insert("INSERT INTO wadiz_admin_qna(waqno,id,content,regdate,admin) VALUES("
+			+ "waq_waqno_seq.nextval,#{id},#{content},SYSDATE,'y')")
+	public void qnaInsert(Map map);
+
+	@Select("SELECT * from wadiz_admin_qna WHERE id=#{id} ORDER BY waqno ASC")
+	public List<AdminqnaVO> qnaDetailData(String id);
 	
 	@Select("SELECT no,id,name,nickname,birthday,sex,email,post,addr1,addr2,phone,content, "
 			+ "TO_CHAR(regdate,'YYYY-MM-DD hh24:mi:ss'),point,admin FROM wadiz_member "

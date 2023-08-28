@@ -57,4 +57,8 @@ public class WastaDAO {
 		return mapper.wastaSelectListData(sid);
 	}
 	
+	public ReviewVO myProfile1(String id) {
+		return mapper.myProfile1(id);
+	}
+	
 }

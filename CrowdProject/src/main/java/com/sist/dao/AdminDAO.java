@@ -102,5 +102,12 @@ public class AdminDAO {
 		return mapper.scatecount();
 	}
 	
+	public void qnaInsert(Map map) {
+		mapper.qnaInsert(map);
+	}
+	
+	public List<AdminqnaVO> qnaDetailData(String id){
+		return mapper.qnaDetailData(id);
+	}
 	
 }
