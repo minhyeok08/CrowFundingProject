@@ -119,4 +119,9 @@ public class AdminServiceimpl implements AdminService {
 		return dao.scatecount();
 	}
 	
+	@Override
+	public void qnaInsert(Map map) {
+		dao.qnaInsert(map);
+	}
+	
 }

@@ -55,4 +55,6 @@ public interface AdminService {
 	public List<StoreVO> spartiChart();
 	
 	public List<StoreVO> scatecount();
+	
+	public void qnaInsert(Map map);
 }

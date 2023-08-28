@@ -431,6 +431,7 @@ var sessionId = '${sessionScope.id}';
 			                id: this.$refs.id.value
 			            }
 			        }).then(res => {
+			        	console.log(res.data)
 			            this.my_profile = res.data;
 			        }).catch(error => {
 			            console.log(error.response);

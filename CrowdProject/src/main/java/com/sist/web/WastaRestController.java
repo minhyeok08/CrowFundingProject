@@ -132,7 +132,7 @@ public class WastaRestController {
 	
 	@GetMapping(value = "wasta/my_vue.do", produces = "text/plain;charset=UTF-8")
 	public String my_profile(String id) throws Exception {
-		ReviewVO vo=dao.myProfile(id);
+		ReviewVO vo=dao.myProfile1(id);
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;

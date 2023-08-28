@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 .btn-custom {
-	background-color: transparent;
+	background-color: transparent
 	border-color: #00b2b2;
 	color: #00b2b2;
 	transition: background-color 0.3s;
