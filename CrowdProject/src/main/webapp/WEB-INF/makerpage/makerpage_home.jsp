@@ -120,7 +120,7 @@
 			<div style="height: 50px"></div>
 			<div class="mb-3">
 				<a href="../mypage/mypage_main.do">
-					<img :src="user_info.profile_url" style="border-radius: 50%; width: 200px; height: 200px; border: 1px solid #a6d8ce;">
+					<img src="${sessionScope.profileImage }" style="border-radius: 50%; width: 200px; height: 200px; border: 1px solid #a6d8ce;">
 				</a>
 			</div>
 			<br>
