@@ -1,6 +1,10 @@
 package com.sist.web;
 
 import java.io.File;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.service.MemberServiceImpl;
 import com.sist.service.MyPageServiceImpl;
+import com.sist.vo.AdminqnaVO;
 import com.sist.vo.BuyVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
@@ -267,6 +272,76 @@ public class MyPageRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return json;
+	}
+	
+	@GetMapping(value="mypage/my_qna_admin_data.do",produces = "text/plain;charset=utf-8")
+	public String mypage_qna_admin_data(String id) throws Exception {
+		List<AdminqnaVO> list=service.qnaDetailData(id);
+		
+		LocalDateTime now = LocalDateTime.now();
+		
+		for(AdminqnaVO vo: list) {
+			LocalDateTime regdate = vo.getRegdate().toInstant()
+					.atZone(ZoneId.systemDefault()).toLocalDateTime();
+			Duration duration = Duration.between(regdate, now);
+			
+			String dbday;
+			
+			if (duration.toDays() > 0) {
+	            dbday = duration.toDays() + "일 전";
+	        } else if (duration.toHours() > 0) {
+	            dbday = duration.toHours() + "시간 전";
+	        } else if (duration.toMinutes() > 0) {
+	            dbday = duration.toMinutes() + "분 전";
+	        } else {
+	            dbday = duration.getSeconds() + "초 전";
+	        }
+	        
+	       vo.setDbday(dbday);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+		
+	}
+	
+	@PostMapping(value="mypage/my_qna_admin_vue.do",produces = "text/plain;charset=utf-8")
+	public String mypage_qna_admin_insert(AdminqnaVO vo,String id) throws Exception {
+		service.qnaInsert(vo);
+		
+		String sysid=vo.getId();
+		String content=vo.getContent();
+		String profileUrl=vo.getProfile_url();
+		String name=vo.getName();
+		
+		System.out.println("sysid:"+sysid+"content:"+content+"profileUrl:"+profileUrl+"name:"+name);
+		
+		List<AdminqnaVO> list=service.qnaDetailData(id);
+		LocalDateTime now = LocalDateTime.now();
+		
+		for(AdminqnaVO avo: list) {
+			LocalDateTime regdate = avo.getRegdate().toInstant()
+					.atZone(ZoneId.systemDefault()).toLocalDateTime();
+			Duration duration = Duration.between(regdate, now);
+			
+			String dbday;
+			
+			if (duration.toDays() > 0) {
+	            dbday = duration.toDays() + "일 전";
+	        } else if (duration.toHours() > 0) {
+	            dbday = duration.toHours() + "시간 전";
+	        } else if (duration.toMinutes() > 0) {
+	            dbday = duration.toMinutes() + "분 전";
+	        } else {
+	            dbday = duration.getSeconds() + "초 전";
+	        }
+	        
+	       avo.setDbday(dbday);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
 		return json;
 	}
 }

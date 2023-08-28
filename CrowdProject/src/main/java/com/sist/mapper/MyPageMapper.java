@@ -3,8 +3,10 @@ package com.sist.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
+import com.sist.vo.AdminqnaVO;
 import com.sist.vo.BuyVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
@@ -57,4 +59,12 @@ public interface MyPageMapper {
 	
 	//<select id="myFollowing" parameterType="Strng" resultType="SupVO">
 	public List<SupVO> myFollowing(String id);
+	
+	// 관리자에게 문의하기
+	@Insert("INSERT INTO wadiz_admin_qna(waqno,id,name,content,regdate,admin,profile_url) VALUES("
+			+ "waq_waqno_seq.nextval,#{id},#{name},#{content},SYSDATE,'n',#{profile_url})")
+	public void qnaInsert(AdminqnaVO vo);
+
+	@Select("SELECT * from wadiz_admin_qna WHERE id=#{id} ORDER BY waqno ASC")
+	public List<AdminqnaVO> qnaDetailData(String id);
 }

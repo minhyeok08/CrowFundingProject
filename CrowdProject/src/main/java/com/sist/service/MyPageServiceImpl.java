@@ -1,6 +1,7 @@
 package com.sist.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,6 +74,16 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public List<SupVO> myFollowing(String id) {
 		return dao.myFollowing(id);
+	}
+
+	@Override
+	public void qnaInsert(AdminqnaVO vo) {
+		dao.qnaInsert(vo);
+	}
+
+	@Override
+	public List<AdminqnaVO> qnaDetailData(String id) {
+		return dao.qnaDetailData(id);
 	}
 	
 }

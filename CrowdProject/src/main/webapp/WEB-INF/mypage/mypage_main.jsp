@@ -32,9 +32,75 @@
 .myinfoModal:hover{
 	cursor: pointer;
 }
-.modal-content{
+#updateMyInfoModal > .modal-dialog-centered > .modal-content{
 	margin : 0px auto;
 	width: 300px;
+}
+.replyBoardBack{
+    background: #f5f7fa;
+    padding: 16px;
+    width: 95%;
+    border-radius: 10px;
+    margin: 7px;
+    overflow-y: auto; 
+  	max-height: 500px; 
+}
+.adminBoard {
+    background: #d3e1df;
+    padding: 16px;
+    width: auto;
+    border-radius: 10px 10px 0px 10px;
+    margin-bottom: 30px;
+    position: relative;
+}
+.replyCont_header_right {
+   display: flex; 
+   align-items: center; 
+}
+.replyCont_header_left{
+	display: flex; 
+   	align-items: center;
+   	justify-content: space-between;
+}
+.profileContainer {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.replyImg {
+   border-radius: 50%;  
+   width : 50px;  
+   height : 50px;   
+}
+.review_name{
+	text-align:center
+}
+.replyBoard {
+    background: #f0f7f4;
+    padding: 16px;
+    width: auto;
+    border-radius: 10px 10px 10px 0px;
+    position:relative;
+    margin-bottom: 40px;
+}
+.review_time{
+	position:absolute;
+	bottom :5px;  
+	right :5px;  
+	font-size :12px; 
+	color: #929696; 
+}
+ .textarea-box {
+	border: 2px solid #ccc; /* 초기 테두리 스타일 */
+	border-radius: 4px;
+	padding: 5px;
+	transition: border-color 0.3s; /* 테두리 색 변화 시 부드럽게 효과 적용 */
+}
+
+.textarea-box:focus {
+	border-color: mintcream; /* 선택 시 테두리 색 변경 */
+	box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.3); /* 선택 시 약간 두꺼운 테두리 스타일 */
+	outline: none;
 }
 </style>
 </head>
@@ -116,7 +182,9 @@
 							</div>
 							<!-- 관리자 문의 -->
 							<div class="col-sm-6 myqna mt-3">
-								<a href="#">관리자 문의</a>
+								<!-- <a href="#">관리자 문의</a> -->
+								<b-button v-b-modal.my-modal @click="openModal; qnaDetail();"
+								class="btn btn-custom">관리자 문의하기</b-button>
 							</div>
 						</div>
 						<div style="height: 30px;border-bottom: 0.7px solid #d3d3d3;"></div>
@@ -156,8 +224,41 @@
 					      	</div>
 					      </div>
 								<!-- 모달 끝! -->
+								<!-- 관리자에게 문의하기 모달-->
+								
+								<!-- 모달 끝! -->
 							</div>
 						</div>
+						<b-modal id="my-modal" v-model="showModal" title="문의하기"
+									hide-header-close hide-footer ok-only>
+								<div class="replyBoardBack">
+								    <div class="replyCard">
+								    	<div v-for="dvo in qna_detail">
+									        <div class="replyCont_header_right" v-if="dvo.admin=='y'">
+									        <div class="profileContainer">
+									                <a href="#"> 
+									                    <img src="../profileImage/1.jpg" class="replyImg">
+									                </a>
+									                <p class="review_name reply_space">{{dvo.name}}</p> 
+									            </div>
+									            <div class="replyBoard">
+									                <span style="width: 100%;margin-right: 40px;">{{dvo.content}}</span>
+									                <span class="review_time">{{dvo.dbday}}</span>
+									            </div>
+									        </div>
+									        <div class="replyCont_header_left" v-if="dvo.admin=='n'">
+									        	<div></div>
+									            <div class="adminBoard">
+									                <span style="width: 100%;margin-right: 40px;">{{dvo.content}}</span>
+									                <span class="review_time">{{dvo.dbday}}</span>
+									            </div>
+									        </div>  
+								        </div>     
+								    </div>
+								</div>
+									<input type="text" ref="content" v-model="content" class="textarea-box" size="35">
+									<button class="btn btn-custom btn-right" @click="qnaInsert">보내기</button>
+								</b-modal>
 						<div style="height: 30px;"></div>
 					</div>
 				</div>
@@ -177,10 +278,15 @@ new Vue({
 	    	  profile_url:''
 	      },
 	    id:'${sessionScope.id}',
+	    name:'${sessionScope.name}',
 	    password:'',
 	    pwdCheckMessage:'',
 	    pwdCheckHelp:'form-text text-muted',
-	    vo:{}
+	    vo:{},
+	    content:'',
+	    qna_detail:[],
+	    showModal:false,
+	    profileImage:'${sessionScope.profileImage}'
 	  },
 	  mounted() {
 	      this.myInfoData();
@@ -228,7 +334,38 @@ new Vue({
     	 }).catch(error=>{
     		 console.log(error);
     	 })
-     }
+     },
+     qnaInsert(){
+    	 axios.post('../mypage/my_qna_admin_vue.do',null,{
+    		 params:{
+    			 id:this.id,
+    			 name:this.name,
+    			 content:this.content,
+    			 profile_url:this.profileImage
+    		 }
+    	 }).then(res=>{
+					console.log(res.data)
+					this.qnaDetail();
+					this.content=''
+    	 }).catch(error=>{
+    		 console.log(error)
+    	 })
+     },
+     qnaDetail(){
+    	 axios.get('../mypage/my_qna_admin_data.do',{
+    		 params:{
+    			 id: this.id
+    		 }
+    	 }).then(res=>{
+    		 console.log(res.data)
+    		 this.qna_detail=res.data
+    	 }).catch(error=>{
+    		 console.log(error)
+    	 })
+     },
+     openModal() {
+		   this.showModal = true;
+		}
    }
 });
 </script>

@@ -1,11 +1,15 @@
 package com.sist.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.MyPageMapper;
+import com.sist.vo.AdminqnaVO;
 import com.sist.vo.BuyVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
@@ -66,5 +70,13 @@ public class MyPageDAO {
 	
 	public List<SupVO> myFollowing(String id) {
 		return mapper.myFollowing(id);
+	}
+	
+	public void qnaInsert(AdminqnaVO vo) {
+		mapper.qnaInsert(vo);
+	}
+
+	public List<AdminqnaVO> qnaDetailData(String id){
+		return mapper.qnaDetailData(id);
 	}
 }

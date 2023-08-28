@@ -27,4 +27,8 @@ public interface MyPageService {
 	
 	// my following
 	public List<SupVO> myFollowing(String id);
+	
+	// 관리자에게 문의하기
+	public void qnaInsert(AdminqnaVO vo);
+	public List<AdminqnaVO> qnaDetailData(String id);
 }
