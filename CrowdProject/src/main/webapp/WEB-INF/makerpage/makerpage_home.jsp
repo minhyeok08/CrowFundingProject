@@ -158,7 +158,7 @@
 				<h3>진행중인 프로젝트 목록</h3>
 				<div class="col-3" v-for="vo in project_list">
 					<div class="img-thumbnail">
-				      <a href="#">
+				      <a :href="'../fund/fund_detail.do?wfno='+vo.wfno">
 				        <img v-if="vo.mainimg.startsWith('https')" :src="vo.mainimg" style="width:100%;height: 200px;">
 				        <img v-else :src="'../Fundimages/'+vo.mainimg" style="width:100%;height: 200px;">
 				        <div class="caption">
