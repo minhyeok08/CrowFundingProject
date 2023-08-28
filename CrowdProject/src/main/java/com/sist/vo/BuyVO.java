@@ -12,4 +12,5 @@ public class BuyVO {
 	private String name,poster,rname,idopen,priceopen,
 				id,rcont,delstart,myday,fcname,makername,fundStatus,msg;
 	private Date regdate,endday;
+	private Boolean usePoints;
 }

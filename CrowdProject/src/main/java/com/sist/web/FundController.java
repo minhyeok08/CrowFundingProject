@@ -158,6 +158,8 @@ public class FundController {
 		String poster=vo.getMainimg();
 		HttpSession session=request.getSession();
 		String id=(String)session.getAttribute("id");
+		String strusePoints = request.getParameter("usePoints");
+		Boolean usePoints = Boolean.parseBoolean(strusePoints);
 		
 		String rcont = request.getParameter("rcont");
 		String strrprcie = request.getParameter("rprice");
@@ -171,7 +173,6 @@ public class FundController {
 		bvo.setRprice(rprice);
 		bvo.setDelfee(delfee);
 		bvo.setDelstart(delstart);
-		bvo.setUsepoint(1000);
 		bvo.setWfno(wfno);
 		bvo.setRno(rno);
 		bvo.setName(name);
@@ -180,6 +181,7 @@ public class FundController {
 		bvo.setTprice(tprice);
 		bvo.setGcount(gcount);
 		bvo.setId(id);
+		bvo.setUsePoints(usePoints);
 		
 		
 		Map map=new HashMap();

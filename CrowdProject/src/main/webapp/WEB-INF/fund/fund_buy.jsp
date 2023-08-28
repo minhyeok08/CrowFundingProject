@@ -165,36 +165,8 @@ table td {
 				title : '개인정보 국외 이전 동의 (필수)'
 			})
 		})
-
-		//let rprice = $('#price').val();
-		//let tprice = $('#total_price').attr('data-total');
-		/*let rno = $('#rno').a ttr('data-rno');
-		let wfno = $('#wfno').attr('data-wfno');
-		let rname = $('#rname').attr('data-rname');
-		let name = $('#name').text();
-		let gcount = $('#gcount').val();
-		let tprice = $('#tprice').val();
-		let rprice = $('#rprice').val();
-		let rcont = $('#rcont').val();
-		let delfee = $('#delfee').val();
-		let delstart = $('#delstart').val(); */
-		
-		/* 
-		$('#buyBtn').click(function(){
-			$.ajax({
-				type:'get',
-				url:'../fund/fund_buy_ok.do',
-				data:{"rno":rno,"wfno":wfno,"rname":rname,"name":name,"gcount":gcount,"tprice":tprice,
-					"rprice":rprice,"rcont":rcont,"delfee":delfee,"delstart":delstart},
-				success:function(result){
-					requestPay()
-					
-				}
-			})
-
-		}) */
 	})
-
+	
 	var IMP = window.IMP; // 생략 가능
 		IMP.init("imp36806187"); // 예: imp00000000
 		function requestPay() {
@@ -211,13 +183,13 @@ table td {
 				 */
 				pay_method : 'card', // 'card' : 신용카드 | 'trans' : 실시간계좌이체 | 'vbank' : 가상계좌 | 'phone' : 휴대폰소액결제
 				merchant_uid : 'merchant_' + new Date().getTime(),
-				name :  $('#name').text() ,
-				amount : $('#total_price').attr('data-total'),
-				buyer_email : $('#email').text(),
-				buyer_name : $('#name').text(),
-				buyer_tel : $('#phone').text(),
-				buyer_addr : $('#addr1').val(),
-				buyer_postcode : $('#post').val(),
+				name: vm.member_data.name,
+		        amount: vm.finalTotalAmount.replace(/,/g, ''), // 콤마 제거하고 문자열을 숫자로 변환합니다.
+		        buyer_email: vm.member_data.email,
+		        buyer_name: vm.member_data.name,
+		        buyer_tel: vm.member_data.phone,
+		        buyer_addr: vm.member_data.addr1,
+		        buyer_postcode: vm.member_data.postcode, 
 				app_scheme : 'iamporttest' //in app browser결제에서만 사용 
 			}, function(rsp) {
 				if (rsp.success) {
@@ -240,7 +212,7 @@ table td {
 				}
 			});
 		}
-		
+
 </script>
 </head>
 <body>
@@ -255,12 +227,14 @@ table td {
 					<strong>상품정보</strong>
 				</h4>
 				<hr>
-				<%-- <input type="hidden" id="gcount" value="${gcount}"> 
-				<input type="hidden" id="tprice" value="${gcount*reward_data.rprice}">
-				<input type="hidden" id="rprice" value="${reward_data.rprice }">
-				<input type="hidden" id="delfee" value="${reward_data.delfee }">
-				<input type="hidden" id="delstart" value="${reward_data.delstart }">
-				<input type="hidden" id="rcont" value="${reward_data.rcont }"> --%>
+				<input type="hidden" id="gcount" :value="gcount"> 
+				<input type="hidden" id="tprice" :value="finalTotalAmount">
+				<input type="hidden" id="rprice" :value="reward_data.rprice">
+				<input type="hidden" id="delfee" :value="reward_data.delfee">
+				<input type="hidden" id="delstart" :value="reward_data.delstart">
+				<input type="hidden" id="rcont" :value="reward_data.rcont">
+				<input type="hidden" id="usepoint" :value="member_data.point">
+				<input type="hidden" id="usepointCheck" :value="usePoints">
 				
 				<table class="table">
 					 
@@ -376,7 +350,7 @@ table td {
 							</tr>
 							<tr style="vertical-align: middle; font-size: 10pt;">
 								<td>주문 금액</td>
-								<td>{{ (gcount * rpriceAmount).toLocaleString() }}원</td>
+								<td>{{ (gcount * rpriceAmount + delfeeAmount).toLocaleString() }}원</td>
 							</tr>
 							<tr style="vertical-align: middle; font-size: 10pt;">
 								<td>포인트</td>
@@ -387,7 +361,7 @@ table td {
 								<td style="color: #a6d8ce;"><strong>총 결제
 										금액</strong></td>
 								<td style="font-size: 20pt; color: #a6d8ce;"><b>
-									<div>{{ (gcount * rpriceAmount).toLocaleString() }}원</div>
+									<div>{{ finalTotalAmount.toLocaleString() }}원</div>
 								</b></td>
 							</tr>
 							<tr>
@@ -445,14 +419,14 @@ table td {
 							<tr>
 								<td colspan="2" class="center wishTd">
 									<div class="d-grid">
-										<%-- <input type="hidden" id="total_price" data-total="${gcount*reward_data.rprice }"> 
-										<input type="hidden" id="rno" data-rno="${reward_data.rno }"> 
-										<input type="hidden" id="wfno" data-wfno="${fund_data.wfno }">
-										<input type="hidden" id="rname" data-rname="${reward_data.rname}">
-										<input type="hidden" id="post" value="${member_data.post }"> 
-										<input type="hidden" id="addr1" value="${member_data.addr1 }"> --%>
+										<input type="hidden" id="total_price" :data-total="finalTotalAmount"> 
+										<input type="hidden" id="rno" :data-rno="reward_data.rno"> 
+										<input type="hidden" id="wfno" :data-wfno="fund_data.wfno">
+										<input type="hidden" id="rname" :data-rname="reward_data.rname">
+										<input type="hidden" id="post" :value="member_data.post"> 
+										<input type="hidden" id="addr1" :value="member_data.addr1">
 										<c:if test="${sessionScope.id!=null }">
-											<button class="btn btn-block btn-wish" style="height: 50px; background-color: #a6d8ce; color: white;" disabled="disabled" id="buyBtn" :data-no="reward_data.rname">
+											<button class="btn btn-block btn-wish" style="height: 50px; background-color: #a6d8ce; color: white;" disabled="disabled" id="buyBtn">
 												<h5>
 													<strong> {{ finalTotalAmount.toLocaleString() }}원
 														결제하기
@@ -470,16 +444,16 @@ table td {
 		</div>
 	</div>
 	<script>
-	new Vue({
+	var vm = new Vue({
 		el: '.container',
 		data: {
 			rno:${rno},
 			wfno:${wfno},
 			gcount:${gcount},
 			id:'${id}',
-			fund_data:{},
-			reward_data:{},
-			member_data:{},
+			reward_data: {},
+		    fund_data: {},
+		    member_data: {},
 		    usePoints: false
 		},
 		mounted:function(){
@@ -520,35 +494,62 @@ table td {
 			}
 		},
 		computed: {
-			rpriceAmount:function(){
-				const rprice = parseInt(this.reward_data.rprice, 10);
-				return rprice
-			},
-			pointAmunt:function(){
-				const point = parseInt(this.member_data.point, 10);
-				return point
-			},
-			delfeeAmount:function(){
-				const delfee = parseInt(this.reward_data.delfee, 10);
-				return delfee
-			},
-			plusAmount:function(){
-				const rprice = parseInt(this.reward_data.rprice, 10);
-				return rprice * this.gcount
-			},
-			finalTotalAmount: function() {
-		      const rprice = parseInt(this.reward_data.rprice, 10);
-		      const delfee = parseInt(this.reward_data.delfee, 10);
-		      let totalAmount = rprice * this.gcount + delfee;
+		    rpriceAmount:function(){
+		        return this.reward_data.rprice ? parseInt(this.reward_data.rprice, 10) : 0;
+		    },
+		    pointAmunt:function(){
+		        return this.member_data.point ? parseInt(this.member_data.point, 10) : 0;
+		    },
+		    delfeeAmount:function(){
+		        return this.reward_data.delfee ? parseInt(this.reward_data.delfee, 10) : 0;
+		    },
+		    plusAmount:function(){
+		        if (this.reward_data.rprice && this.gcount) {
+		            const rprice = parseInt(this.reward_data.rprice, 10);
+		            return rprice * this.gcount;
+		        }
+		        return 0;
+		    },
+		    finalTotalAmount: function() {
+		    	  if (this.reward_data.rprice && this.gcount && this.member_data.point) {
+		    	      const rprice = parseInt(this.reward_data.rprice, 10);
+		    	      const delfee = parseInt(this.reward_data.delfee, 10);
+		    	      let totalAmount = rprice * this.gcount + delfee;
 
-		      if (this.usePoints) {
-		        totalAmount -= parseInt(this.member_data.point, 10);
-		      }
+		    	      if (this.usePoints) {
+		    	        totalAmount -= parseInt(this.member_data.point, 10);
+		    	      }
 
-		      return totalAmount.toLocaleString();
-		    }
+		    	      return totalAmount.toLocaleString();
+		    	    }
+		    	    return '0';
+		    	}
 		}
 	});
+	
+	$('#buyBtn').click(function(){
+	    $.ajax({
+	        type:'get',
+	        url:'../fund/fund_buy_ok.do',
+	        data:{
+	        	"rno":vm.reward_data.rno,
+	            "wfno":vm.fund_data.wfno,
+	            "rname":vm.reward_data.rname,
+	            "name":vm.member_data.name,
+	            "gcount":vm.gcount,
+	            "tprice": vm.finalTotalAmount.replace(/,/g, ''), // 콤마를 제거하고 문자열을 숫자로 변환합니다.
+	            "rprice": vm.rpriceAmount,
+	            "rcont" : vm.reward_data.rcont, 
+		       	"delfee" : vm.delfeeAmount, 
+		       	"delstart" : vm.reward_data.delstart,
+				"usePoints" : vm.usePoints
+	        },
+	        success:function(result){
+	           requestPay()
+	            
+	        }
+	    })
+	}) 
 </script>
 </body>
 </html>
