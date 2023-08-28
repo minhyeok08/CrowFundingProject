@@ -24,6 +24,17 @@ table, tr, td{
 td {
 	padding: 2px;
 }
+.questionIcon {
+	display: block;
+	margin-left: 4px;
+	font-size: 16px;
+	transform: scale(1);
+	transition: transform .3s ease-out;
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
+	justify-content: center;
+}
 </style>
 </head>
 <body>
@@ -65,11 +76,19 @@ td {
 		<div class="row" style="padding:40px 80px 40px 80px">
 			<div class="col-lg-8">
 				<div class="row" style="padding-left:">
-				<h2>취향 맞춤 프로젝트</h2>
+				<div class="mb-3">
+					<h2 style="display:inline;">취향 맞춤 프로젝트</h2>
+					<span style="float:right;">
+					<svg viewBox="0 0 40 40" id="tooltip-target-1" focusable="false" role="presentation" class="questionIcon" aria-hidden="true"><path fill="none" d="M0 0h40v40H0z"></path><path d="M20 39a19 19 0 1 1 19-19 19.06 19.06 0 0 1-19 19zm0-36a17 17 0 1 0 17 17A17 17 0 0 0 20 3z"></path><path d="M24.34 10A5.75 5.75 0 0 0 20 8.33a5.7 5.7 0 0 0-6 6h2a3.7 3.7 0 0 1 4-4 3.7 3.7 0 0 1 4 4A4.29 4.29 0 0 1 22 18l-.7.6a6.51 6.51 0 0 0-2.3 5.7h2c0-1.9 0-2.6 1.7-4.3l.6-.5a6.28 6.28 0 0 0 2.7-5.2 5.73 5.73 0 0 0-1.66-4.3zM20 26.87a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 1 0 0-3.6z"></path></svg>
+					</span>
+						<b-tooltip target="tooltip-target-1" triggers="hover">
+							서포터님들의 취향을 분석하여<br> 맞춤 프로젝트를 추천합니다
+						</b-tooltip>
+					</div>
 				<div class="col-md-4" v-for="fvo in fund_list">
 					<div class="thumbnail" style="width: 100%;">
 						<a :href="'../fund/fund_detail_before.do?wfno='+fvo.wfno">
-							<img :src="fvo.mainimg" class="store_poster" :style="{width:'100%', height:getWidthDependentHeight(fvo.mainimg)+'px'}">
+							<img :src="fvo.mainimg" class="store_poster" :style="{ width: '100%', height: getWidthDependentHeight(fvo.mainimg) + 'px' }">
 							<div class="caption">
 								<p style="font-size: 16px; margin:2px 0px 2px 0px; height: 50px;">{{fvo.ftitle}}</p>
 								<p style="font-size: 12px; margin:2px 0px 2px 0px; color:gray;">{{fvo.fcname}} | {{fvo.makername}}</p>
@@ -77,7 +96,7 @@ td {
 								  <div class="progress-bar" :style="{ width: fvo.achieve_rate + '%' }" style="background-color:#a6d8ce;"></div>
 								</div> 
 								<p style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-									<span style="color:gray;"><strong style="color:#a6d8ce; font-size:16px;">{{fvo.achieve_rate}}%</strong>·{{fvo.aim_amount}}원</span>
+									<span style="color:gray;"><strong style="color:#a6d8ce; font-size:16px;">{{fvo.achieve_rate}}%</strong>·{{fvo.cum_amount | numberWithCommas}}원</span>
 									<span style="color:gray;">{{getRemainingDays(fvo.strendday)}}일 남음</span>
 								</p>
 							</div>
@@ -96,7 +115,7 @@ td {
 									<td width="5%" rowspan="2"><h3>{{ index+1 }}</h3></td>
 									<td width="70%" style="font-size: 16px;">{{frvo.ftitle}}</td>
 									<td width="25%" rowspan="2">
-										<img :src="frvo.mainimg" class="store_poster" style="width:91px; height:64px;">
+										<img :src="frvo.mainimg" class="store_poster" :style="{ width: '100%', height: getWidthDependentHeightMini(frvo.mainimg) + 'px' }">
 									</td>
 								</tr>
 								<tr>
@@ -155,8 +174,17 @@ td {
 		            return daysDiff;
 		        },
 		        getWidthDependentHeight(imageUrl) {
-		        	return window.innerHeight * 0.25;
-		        }
+		            // 여기서 이미지의 너비에 따라 높이를 조정하는 로직을 구현합니다.
+		            // 예를 들어 이미지의 원본 너비와 높이 정보를 가져와서 비율을 유지하면서 조정할 수 있습니다.
+		            // 이 예시에서는 간단히 가로 너비의 절반을 높이로 사용하도록 설정했습니다.
+		            return window.innerHeight * 0.25; // 여기서의 로직을 실제 이미지 정보에 맞게 변경하세요.
+				},
+		        getWidthDependentHeightMini(imageUrl) {
+		            // 여기서 이미지의 너비에 따라 높이를 조정하는 로직을 구현합니다.
+		            // 예를 들어 이미지의 원본 너비와 높이 정보를 가져와서 비율을 유지하면서 조정할 수 있습니다.
+		            // 이 예시에서는 간단히 가로 너비의 절반을 높이로 사용하도록 설정했습니다.
+		            return window.innerHeight * 0.1; // 여기서의 로직을 실제 이미지 정보에 맞게 변경하세요.
+				}
 				/* range:function(start, end) {
 					let arr = []
 					let length = end-start
@@ -184,7 +212,7 @@ td {
 		            // 숫자에 쉼표 추가 함수 정의
 		            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		        }
-		    },
+		    }
 		})
 	</script>
 </body>

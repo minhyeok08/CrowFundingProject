@@ -35,4 +35,16 @@ public class MainDAO {
 	public List<FundVO> fundRankListData() {
 		return mapper.fundRankListData();
 	}
+	
+	public List<NewsVO> fundDetailNewsListData(Map map) {
+		return mapper.fundDetailNewsListData(map);
+	}
+	
+	public int fundDetailNewsTotalPage(Map map) {
+		return mapper.fundDetailNewsTotalPage(map);
+	}
+	
+	public int fundDetailNewsAllPage(Map map) {
+		return mapper.fundDetailNewsAllPage(map);
+	}
 }

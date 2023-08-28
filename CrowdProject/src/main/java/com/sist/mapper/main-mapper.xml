@@ -11,10 +11,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE num BETWEEN 1 AND 6
 	</select>
 	<select id="crowdFundListData" resultType="FundVO">
-		SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, TO_CHAR(openday, 'yyyy-mm-dd') as stropenday, TO_CHAR(endday, 'yyyy-mm-dd') as strendday, aim_amount, hit, num
-		FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, hit, rownum AS num
-	    FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, hit
-		FROM WADIZ_FUND_DETAIL ORDER BY hit DESC, wfno ASC))
+		SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, TO_CHAR(openday, 'yyyy-mm-dd') as stropenday, TO_CHAR(endday, 'yyyy-mm-dd') as strendday, cum_amount, hit, num
+		FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, cum_amount, hit, rownum AS num
+	    FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, cum_amount, hit
+		FROM WADIZ_FUND_DETAIL WHERE acno = 1 ORDER BY hit DESC, wfno ASC))
 		WHERE num BETWEEN 1 AND 6
 	</select>
 	<select id="crowdTasteFcname" resultType="String" parameterType="String">
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, TO_CHAR(openday, 'yyyy-mm-dd') as stropenday, TO_CHAR(endday, 'yyyy-mm-dd') as strendday, aim_amount, hit, num
 		FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, hit, rownum AS num
 	    FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, hit
-		FROM WADIZ_FUND_DETAIL WHERE fcname = #{fcname} ORDER BY hit DESC, wfno ASC))
+		FROM WADIZ_FUND_DETAIL WHERE fcname = #{fcname} AND acno = 1 ORDER BY hit DESC, wfno ASC))
 		WHERE num BETWEEN 1 AND 6
 	</select>
 	<update id="fundRankUpdate" parameterType="hashmap">
@@ -53,9 +53,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        SELECT WFNO,
 		               ROW_NUMBER() OVER (ORDER BY SCORE DESC) AS rn
 		        FROM wadiz_fund_rank
-		        WHERE FRDAY BETWEEN TRUNC(SYSDATE) - 7 AND TRUNC(SYSDATE)
+		        WHERE ACNO = 1 AND FRDAY BETWEEN TRUNC(SYSDATE) - 7 AND TRUNC(SYSDATE)
 		    )
 		    WHERE rn BETWEEN 1 AND 6
 		)
+	</select>
+	<!-- detail_news -->
+	<select id="fundDetailNewsListData" resultType="NewsVO" parameterType="hashmap">
+		SELECT no, tno, subject, TO_CHAR(regdate,'YYYY-MM-DD') as dbday, hit, num 
+		FROM (SELECT no, tno, subject, regdate, hit, rownum as num 
+		FROM (SELECT no, tno, subject, regdate, hit
+		FROM newstable where wfno = #{wfno} 
+			<if test="tno>=1">
+				AND tno = #{tno}
+			</if>
+		ORDER BY regdate DESC))
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="fundDetailNewsTotalPage" resultType="int" parameterType="hashmap">
+		SELECT CEIL(COUNT(*)/8.0) FROM newstable
+		WHERE wfno = #{wfno}
+		<if test="tno>=1">
+			AND tno = #{tno}
+		</if>
+	</select>
+	
+	<select id="fundDetailNewsAllPage" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*) FROM newstable
+		WHERE wfno = #{wfno}
+		<if test="tno>=1">
+			AND tno = #{tno}
+		</if>
 	</select>
 </mapper>

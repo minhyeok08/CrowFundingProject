@@ -53,11 +53,6 @@ public class FundController {
 		String id = (String) session.getAttribute("id");
 		MemberVO mvo = mpservice.myInfo(id);
 
-        DecimalFormat df = new DecimalFormat("###,###,###");
-        int cum_amount = vo.getCum_amount();
-        String str_cum_amount= df.format(cum_amount);
-        vo.setStrCum(str_cum_amount);
-        
         //String strgcount = request.getParameter(gcount);
 		//int gcount = Integer.parseInt(strgcount);
         System.out.println(gcount);
@@ -131,11 +126,6 @@ public class FundController {
     public String fund_detail(@RequestParam int wfno, Model model,HttpSession session) {
 		String id = (String)session.getAttribute("id");
 		FundVO vo = service.fundDetailData(wfno);
-		DecimalFormat df = new DecimalFormat("###,###,###");
-        int cum_amount = vo.getCum_amount();
-        String str_cum_amount= df.format(cum_amount);
-        vo.setStrCum(str_cum_amount);
-        
         model.addAttribute("id", id);
 	    model.addAttribute("wfno", wfno);
 	    model.addAttribute("vo", vo);

@@ -33,7 +33,7 @@
 			<p style="font-size: 13px">{{fund_detail.fsubtitle}}</p>
 			<hr>
 			<p style="color: #a6d8ce;">
-				<span style="font-size: 25px"><strong>{{fund_detail.strCum}}</strong></span>원 달성
+				<span style="font-size: 25px"><strong>{{fund_detail.cum_amount | numberWithCommas}}</strong></span>원 달성
 			</p>
 			<p style="font-size: 17px">
 				<strong>{{fund_detail.achieve_rate}}% 달성</strong>&nbsp;&nbsp;&nbsp;
@@ -255,6 +255,12 @@
 		        		
 		        	}
 
+		        }
+		    },
+			filters: {
+		        numberWithCommas: function (value) {
+		            // 숫자에 쉼표 추가 함수 정의
+		            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		        }
 		    }
 	 })	

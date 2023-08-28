@@ -50,11 +50,7 @@ public class FundRestController {
 		Map map = new HashMap();
 		map.put("wfno", wfno);
 		FundVO vo = service.fundDetailData(wfno);
-		DecimalFormat df = new DecimalFormat("###,###,###");
-        int cum_amount = vo.getCum_amount();
-        String str_cum_amount= df.format(cum_amount);
-        vo.setStrCum(str_cum_amount);
-        
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(vo);
 		

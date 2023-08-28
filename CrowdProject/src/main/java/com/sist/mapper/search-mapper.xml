@@ -28,25 +28,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 펀딩 검색 -->
 	<select id="searchFundListData" resultType="FundVO" parameterType="hashmap">
-		SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, TO_CHAR(openday, 'yyyy-mm-dd') as stropenday, TO_CHAR(endday, 'yyyy-mm-dd') as strendday, aim_amount, num
-		FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount, rownum AS num
-		    FROM ( SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count, openday, endday, aim_amount
-		        FROM WADIZ_FUND_DETAIL
-		        <if test="category != '' || keyword != ''">
-		        	WHERE
-		            <if test="category != ''">
-		                fcname = #{category}
-		            </if>
-		            <if test="keyword != ''">
-		            	<if test="category != ''">
-		            		AND
-		            	</if>
-		                ftitle LIKE '%' || #{keyword} || '%'
-		                OR tag LIKE '%' || #{keyword} || '%'
-		            </if>
-		        </if>
-		        ORDER BY wfno ASC
-		    )
-		)
+		SELECT wfno, mainimg, fcname, makername, fcno, tag, ftitle, achieve_rate, parti_count,
+			 TO_CHAR(openday, 'yyyy-mm-dd') as stropenday,
+			 TO_CHAR(endday, 'yyyy-mm-dd') as strendday, cum_amount
+        FROM WADIZ_FUND_DETAIL
+        	WHERE acno = 1
+            <if test="category != ''">
+                AND fcname = #{category}
+            </if>
+            <if test="keyword != ''">
+            	AND (ftitle LIKE '%' || #{keyword} || '%'
+                OR tag LIKE '%' || #{keyword} || '%')
+            </if>
+        ORDER BY wfno ASC
 	</select>
 </mapper>

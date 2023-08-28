@@ -17,4 +17,10 @@ public interface MainService {
 	public void fundRankUpdate(Map map);
 	
 	public List<FundVO> fundRankListData();
+	
+	public List<NewsVO> fundDetailNewsListData(Map map);
+	
+	public int fundDetailNewsTotalPage(Map map);
+	
+	public int fundDetailNewsAllPage(Map map);
 }

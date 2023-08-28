@@ -41,4 +41,19 @@ public class MainServiceImpl implements MainService {
 	public List<FundVO> fundRankListData() {
 		return dao.fundRankListData();
 	}
+
+	@Override
+	public List<NewsVO> fundDetailNewsListData(Map map) {
+		return dao.fundDetailNewsListData(map);
+	}
+
+	@Override
+	public int fundDetailNewsTotalPage(Map map) {
+		return dao.fundDetailNewsTotalPage(map);
+	}
+
+	@Override
+	public int fundDetailNewsAllPage(Map map) {
+		return dao.fundDetailNewsAllPage(map);
+	}
 }
