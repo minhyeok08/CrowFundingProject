@@ -20,7 +20,19 @@
 	border-color: #00b2b2;
 	color: #00b2b2;
 }
+.btn-custom-reply {
+	background-color: transparent;
+	border-color: #00b2b2;
+	color: #00b2b2;
+	transition: background-color 0.3s;
+	font-size: 13px;
+}
 
+.btn-custom-reply:hover {
+	background-color: rgb(234, 248, 249);
+	border-color: #00b2b2;
+	color: #00b2b2;
+}
 .btn-reply {
 	background-color: transparent;
 	border-color: #00b2b2;
@@ -245,7 +257,13 @@ ul, li {
 	min-height: auto;
 	line-height: 20px;
 }
-
+.replyCont_header_right{
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 8px;
+	min-height: auto;
+	line-height: 20px;
+}
 .review_name {
 	line-height: 20px;
 	font-size: 14px;
@@ -447,13 +465,37 @@ ul, li {
 .questiontable th, td {
 	border: none;
 }
-
-.replyBoard {
+.replyBoardBack{
 	background: #f5f7fa;
 	padding: 16px;
 	width: 80%;
 	border-radius: 10px;
 	margin: 7px;
+}
+.replyBoard {
+	background: #cdd0d4;
+	padding: 16px;
+	width: 90%;
+	border-radius: 10px;
+	margin: 7px;
+}
+.replyCont_header_right {
+    display: flex;
+    align-items: center;
+}
+.replyerImg {
+	display:flex;
+    margin-right: 10px; /* 이미지와 닉네임 사이의 간격을 조절합니다. */
+    justify-content: space-between;
+}
+
+.replyImg {
+    border-radius: 50%; /* 이미지를 원형으로 만듭니다. */
+    width: 50px;
+    height: 50px;
+}
+.reply_space{
+	margin-left : 5px;
 }
 </style>
 </head>
@@ -537,8 +579,7 @@ ul, li {
 				</div>
 				<!-- <button class="btn btn-custom reviewBtn" @click="reviewWrite(true)">글 남기기</button> -->
 				<c:if test="${sessionScope.id==null }">
-					<button @click="noId" class="btn btn-custom reviewBtn">글
-						남기기</button>
+					<button @click="noId" class="btn btn-custom reviewBtn">글 남기기</button>
 				</c:if>
 				<c:if test="${sessionScope.id!=null }">
 					<b-button v-b-modal.modal-lg @click="openModal"
@@ -645,9 +686,28 @@ ul, li {
 											<button class="btn btn-reply"
 												@click="replyInsert(vo.rno,vo.id)">댓글등록</button>
 											<div style="height: 5px;"></div>
-											<div class="replyCard" v-for="rrvo in reply_list">
-												<div class="replyBoard">
-													<span>{{rrvo.content}}</span>
+											<div class="replyBoardBack">
+												<div class="replyCard" v-for="rrvo in reply_list">
+												<div class="replyCont_header_right">
+													<div class="replyerImg">
+														<a href="#"> 
+															<img :src="rrvo.profile_url" class="replyImg">
+														</a>
+											            <span class="review_name reply_space"> 
+											                <a href="#" v-if="rrvo.nickname!=null">{{rrvo.nickname}}</a> 
+											                <a href="#" v-if="rrvo.nickname==null">{{rrvo.name}}</a> 
+											            </span>
+											            <span class="review_time">{{rrvo.dbday}}</span>
+											        </div>		
+											        <div>	
+												        <b-button v-b-modal.modal-2 class="btn btn-custom-reply btn-right" v-if="id == rrvo.id" @click="selectRrvo(rrvo.rrno, rrvo.content)">수정</b-button>
+												        <b-button v-b-modal.modal-1 class="btn btn-custom-reply btn-right" v-if="id == rrvo.id" @click="selectedRrno = rrvo.rrno">삭제</b-button>
+											        </div>
+											    </div>
+													<div class="replyBoard">
+														<span>{{rrvo.content}}</span>
+													</div>
+													<div style=" height: 14px;"></div>
 												</div>
 											</div>
 										</div>
@@ -681,12 +741,14 @@ ul, li {
 							<tr>
 								<th width="20%" class="text-end">제목</th>
 								<td width="80%"><input type="text" ref="subject"
-									v-model="subject" size="70"></td>
+									v-model="subject" size="65" class="textarea-box"></td>
 							</tr>
 							<tr>
 								<th width="20%" class="text-end">내용</th>
-								<td width="80%"><textarea rows="4" cols="71" ref="content"
-										v-model="content"></textarea></td>
+								<td width="80%">
+									<textarea rows="4" cols="64" ref="content" v-model="content" class="textarea-box">
+									</textarea>
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -708,8 +770,19 @@ ul, li {
 					</div>
 				</div>
 			</div>
+			<b-modal id="modal-1" title="댓글 삭제" hide-header-close hide-footer> 
+			    <p class="my-4">정말 삭제하시겠습니까?</p>
+			    <b-button class="btn btn-custom btn-right" @click="replyDelete(selectedRrno)">삭제</b-button>
+				<b-button class="btn btn-custom btn-right" @click="$bvModal.hide('modal-1')">취소</b-button>
+			</b-modal>
+			<b-modal id="modal-2" title="댓글 수정" hide-header-close hide-footer> 
+			    <textarea cols="40" rows="3" ref="selectedContent" v-model="selectedContent" class="textarea-box" required>{{selectedContent}}</textarea>
+			    <b-button class="btn btn-custom btn-right" @click="replyUpdate(selectedRrno,selectedContent)">수정</b-button>
+				<b-button class="btn btn-custom btn-right" @click="$bvModal.hide('modal-2')">취소</b-button>
+			</b-modal>
 		</div>
 	</div>
+	
 	<script>
 	 new Vue({
 		 el:'.comContainer',
@@ -735,7 +808,9 @@ ul, li {
 			 isReplyVisible: false,
 			 replyCont:'',
 			 reply_list:[],
-			 currno:0
+			 currno:0,
+			 selectedRrno: null,
+			 selectedContent:null
 		 },
 		 mounted:function(){
 			 axios.get('../fund/fund_detail_vue.do',{
@@ -752,7 +827,25 @@ ul, li {
 			 this.reviewGet();
 		 },
 		 methods:{
-			 showReplyForm (index, rno) {
+			selectRrvo(rrno, content) {
+				this.selectedRrno = rrno;
+				this.selectedContent = content;
+			},
+			replyUpdate:function(selectedRrno,selectedContent){
+				axios.get('../fund/reply_update_vue.do',{
+					params:{
+						rrno:this.selectedRrno,
+						content:this.selectedContent,
+						wfno:this.wfno
+					}
+				}).then(res=>{
+					this.isReplyVisible = false;  // 답글 입력란 숨기기
+	                this.replyCont = '';  // textarea 내용 지우기
+	                this.$bvModal.hide('modal-2');
+	                this.reviewGet();  // 리뷰 리스트 다시 불러오기 (새로운 답글 반영)
+				})
+			},
+			showReplyForm (index, rno) {
 		        this.replyFormIndex = index;
 		        this.isReplyVisible = !this.isReplyVisible;
 		        this.currno = rno
@@ -760,7 +853,7 @@ ul, li {
 		        this.ReplyList();
 		    },
 		    ReplyList:function(){
-		    	 console.log('Sending request with RNO:', this.currno); // 추가한 코드
+		    	console.log('Sending request with RNO:', this.currno); // 추가한 코드
 		        axios.get('../fund/reply_list_vue.do',{
 		            params:{
 		                rno: this.currno,
@@ -794,10 +887,10 @@ ul, li {
 		    	})
 		    },
 		    replyInsert:function(rno,rid){
-		    	 if(!this.replyCont || this.replyCont.trim() === ''){
+		    	if(!this.replyCont || this.replyCont.trim() === ''){
 		    	        this.$refs.replyCont.focus();
 		    	        return;
-		    	    }
+		    	}
 		    	axios.get('../fund/review_insert_vue.do',{
 		    		params:{
 		    			rno: rno,
@@ -812,6 +905,18 @@ ul, li {
 		                this.reviewGet();  // 리뷰 리스트 다시 불러오기 (새로운 답글 반영)
 		    		})
 		    },
+		   	replyDelete:function(rrno){
+		   		axios.get('../fund/review_delete_vue.do',{
+		   			params:{
+		   				rrno:rrno,
+		   				wfno:this.wfno
+		   			}
+		   		}).then(res=>{
+		   			this.isReplyVisible = false;
+		   		 	this.$bvModal.hide('modal-1');
+		   			this.reviewGet();
+		   		})
+		   	},
 		    moreBtn:function(){
 		    	if(this.showMore==false){
 		    		this.showMore=true

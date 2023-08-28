@@ -98,7 +98,7 @@ public interface WastaMapper {
 			"    JOIN wadiz_member wm ON wfr.id = wm.id " + 
 			"    LEFT JOIN wadiz_member_profile wmp ON wfr.id = wmp.id  " + 
 			") " + 
-			"WHERE id = 'brandy55' AND rn = 1") 
+			"WHERE id = #{id} AND rn = 1") 
 	public ReviewVO myProfile(String id);
 	
 }

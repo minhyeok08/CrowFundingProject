@@ -100,4 +100,20 @@ public class FundCommunityRestController {
 		String json=mapper.writeValueAsString(list);
 		return json;
 	}
+	
+	
+	@GetMapping(value = "fund/review_delete_vue.do",produces = "text/plain;charset=UTF-8")
+	public String replyDelete(int rrno, int wfno) throws Exception {
+		dao.replyDelete(rrno);
+		return review_get(wfno);
+	}
+	
+	@GetMapping(value = "fund/reply_update_vue.do",produces = "text/plain;charset=UTF-8")
+	public String replyUpdate(int rrno, int wfno, String content) throws Exception {
+		Map map=new HashMap();
+		map.put("rrno", rrno);
+		map.put("content", content);
+		dao.replyUpdate(map);
+		return review_get(wfno);
+	}
 }
