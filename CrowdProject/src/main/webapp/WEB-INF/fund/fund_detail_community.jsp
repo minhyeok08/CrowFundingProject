@@ -563,8 +563,13 @@ ul, li {
 								이내</span>
 						</p>
 					</div>
-					<button type="button" class="btn btn-custom" data-bs-toggle="modal"
-						data-bs-target="#questionModal">문의하기</button>
+					<c:if test="${sessionScope.id!=null }">
+						<button type="button" class="btn btn-custom" data-bs-toggle="modal"
+							data-bs-target="#questionModal">문의하기</button>					
+					</c:if>
+					<c:if test="${sessionScope.id==null }">
+						<button type="button" class="btn btn-project" data-bs-toggle="tooltip" data-bs-placement="right"  title="로그인 후 이용가능합니다.">문의하기</button>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -960,6 +965,10 @@ ul, li {
 			 }
 		 }
 	 })	
+	 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	   return new bootstrap.Tooltip(tooltipTriggerEl)
+	 })
 	</script>
 </body>
 </html>
