@@ -220,7 +220,7 @@ public class MyPageRestController {
 					vo.setFundStatus("종료");
 				}
 				// ( tpricce ) - (배송비 + 포인트 사용 금액)
-				int totalPrice=vo.getTprice()-vo.getDelfee()-vo.getUsepoint();
+				int totalPrice=vo.getTprice()+vo.getDelfee()-vo.getUsepoint();
 				vo.setTotalPrice(totalPrice);
 			}
 			ObjectMapper mapper=new ObjectMapper();
