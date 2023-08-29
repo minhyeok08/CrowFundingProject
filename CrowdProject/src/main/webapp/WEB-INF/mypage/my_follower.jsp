@@ -53,11 +53,11 @@
 	<div class="wrap myFollowingWrap">
 		<div class="row mt-5">
 			<strong id="myFollowingTitle">팔로잉</strong>
-		</div>
+		</div><!-- 
 		<div class="row mt-4">
 			<button class="btn selectBtn" @click="getSupportFollowData">서포터</button>
 			<button class="btn selectBtn">메이커</button>
-		</div>
+		</div> -->
 		<div class="wrap mt-5 supportFollow" v-show="showSupportFollow">
 			<div class="row mt-2" v-for="vo,index in follow_data" style="border-bottom: 0.7px solid #d3d3d3;padding: 5px;">
 				<div class="col-sm-4">

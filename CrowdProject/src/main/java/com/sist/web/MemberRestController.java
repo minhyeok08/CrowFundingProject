@@ -91,7 +91,7 @@ public class MemberRestController {
         MimeMessage message = sender.createMimeMessage();
         String mailContent = "<strong>[이메일 인증]</strong><br>"
         		+ "<h3>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</h3><br>"
-                + "<a href='http://localhost/web/member/join_confirm.do?email=" 
+                + "<a href='http://211.238.142.122/web/member/join_confirm.do?email=" 
                 + email+ "&authKey=" + authKey +"' target='_blenk'>이메일 인증 확인</a>";
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         

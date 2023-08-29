@@ -308,7 +308,9 @@
 							            </b-carousel-slide>
 							        </b-carousel>						
 							    </template>
-							    <img class="card_content_img" :src="rvo.mainimg" v-else>	
+							    <img class="card_content_img" :src="rvo.mainimg" v-if="rvo.imgname==null && rvo.mainimg.startsWith('https')">	
+							    <!-- b1313e74-962e-42e3-827c-83a1804f1c72_201426951400762350.jpg -->
+							    <img class="card_content_img" :src="'../Fundimages/'+rvo.mainimg" v-if="rvo.imgname==null && !rvo.mainimg.startsWith('https')">	
 							</a>
 							<hr>
 							<div class="card_content_review">
@@ -317,7 +319,8 @@
 							<hr>
 							<div class="review_item">
 							<a :href="'../fund/fund_detail.do?wfno='+rvo.wfno">
-								<img class="item_poster" :src="rvo.mainimg">
+								<img class="item_poster" :src="rvo.mainimg" v-if="rvo.mainimg.startsWith('https')">
+								<img class="item_poster" :src="'../Fundimages/'+rvo.mainimg" v-else>
 							</a>
 								<div class="item_titles">
 									<span class="item_category">

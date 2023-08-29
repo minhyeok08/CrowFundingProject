@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.CuponDAO;
+import com.sist.dao.MyPageDAO;
 import com.sist.service.MemberServiceImpl;
 import com.sist.service.MyPageServiceImpl;
 import com.sist.vo.AdminqnaVO;
@@ -48,6 +49,8 @@ public class MyPageRestController {
 	private BCryptPasswordEncoder encoder;
 	@Autowired
 	private CuponDAO dao;
+	@Autowired
+	private MyPageDAO mdao;
 	
 	@GetMapping(value="mypage/myInfoData.do", produces="text/plain;charset=utf-8")
 	public String mypage_myinfoData(MemberVO vo,HttpSession session) {
@@ -217,7 +220,7 @@ public class MyPageRestController {
 					vo.setFundStatus("종료");
 				}
 				// ( tpricce ) - (배송비 + 포인트 사용 금액)
-				int totalPrice=vo.getTprice()-vo.getDelfee()-vo.getUsepoint();
+				int totalPrice=vo.getTprice()+vo.getDelfee()-vo.getUsepoint();
 				vo.setTotalPrice(totalPrice);
 			}
 			ObjectMapper mapper=new ObjectMapper();
@@ -262,6 +265,11 @@ public class MyPageRestController {
 			e.printStackTrace();
 		}
 		return json;
+	}
+	
+	@GetMapping(value="mypage/my_qna_delete.do", produces = "text/plain;charset=utf-8")
+	public void mypage_qna_delete(QnAVO vo) throws Exception {
+		mdao.myQnaDelete(vo);
 	}
 	
 	@GetMapping(value="mypage/my_qna_maker_reply.do", produces="text/plain;charset=utf-8")

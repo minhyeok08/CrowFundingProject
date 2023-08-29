@@ -113,6 +113,12 @@ public class FundRestController {
 				dao.fundJjimCancel(map);
 			}
 			
+			map = new HashMap();
+			// 랭킹 갱신용 (조회시 스코어 1증가)
+			map.put("wfno", wfno);
+			map.put("score", 5);
+			mservice.fundRankUpdate(map);
+			
 			ObjectMapper mapper=new ObjectMapper();
 			json=mapper.writeValueAsString(jjim_ok);
 			
@@ -160,6 +166,11 @@ public class FundRestController {
 	      rvo.setContent(message);
 	      rvo.setId(id);
 	      rvo.setCategory("지지");
+
+			Map map = new HashMap();
+			map.put("wfno", wfno);
+			map.put("score", 10);
+			mservice.fundRankUpdate(map);
 	      nservice.reviewInsert(rvo);
 	      dao.fundSupIncrement(wfno);
 	      

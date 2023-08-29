@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,59 @@ td {
 	fill: currentColor;
 	justify-content: center;
 }
+.project_banner {
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+	padding: 40px 80px;
+	max-width: 1440px;
+}
+.project_banner {
+	background-image: url(https://static.wadiz.kr/main/media/img-fundingopen-pc.51ce91c1.jpg);
+	background-position: center;
+	padding: 82px 0 40px;
+	display: block;
+	margin-bottom: 32px;
+	background-color: #000;
+	height: 280px;
+	text-align: center;
+}
+
+.blur-container {
+  position: relative;
+}
+
+.blur-container::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left:0;
+ right:0; 
+ background: rgba(255,255,255,.84);
+ filter: blur(20px);
+ z-index :1; 
+}
+
+
+.friendText {
+	z-index :2; 
+	position: absolute;
+	left: 42%;
+ 	top: 30%;
+	transform: translateX(-42%);
+	transform: translateY(-30%);
+}
+.friendButton {
+	z-index :2; 
+	position: absolute;
+	left: 45%;
+ 	top: 50%;
+	transform: translateX(-45%);
+	transform: translateY(-50%);
+}
+
 </style>
 </head>
 <body>
@@ -96,7 +150,7 @@ td {
 								  <div class="progress-bar" :style="{ width: fvo.achieve_rate + '%' }" style="background-color:#a6d8ce;"></div>
 								</div> 
 								<p style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-									<span style="color:gray;"><strong style="color:#a6d8ce; font-size:16px;">{{fvo.achieve_rate}}%</strong>·{{fvo.cum_amount | numberWithCommas}}원</span>
+									<span style="color:gray;"><strong style="color:#a6d8ce; font-size:16px;">{{fvo.achieve_rate}}%</strong>&nbsp;{{fvo.cum_amount | numberWithCommas}}원</span>
 									<span style="color:gray;">{{getRemainingDays(fvo.strendday)}}일 남음</span>
 								</p>
 							</div>
@@ -112,10 +166,10 @@ td {
 						<tr><td>
 							<table class="table"  v-for="(frvo, index) in fund_rank_list" :key="index">
 								<tr>
-									<td width="5%" rowspan="2"><h3>{{ index+1 }}</h3></td>
-									<td width="70%" style="font-size: 16px;">{{frvo.ftitle}}</td>
+									<td width="5%" rowspan="2"><a :href="'../fund/fund_detail_before.do?wfno='+frvo.wfno"><h3>{{ index+1 }}</h3></a></td>
+									<td width="70%" style="font-size: 16px;"><a :href="'../fund/fund_detail_before.do?wfno='+frvo.wfno">{{frvo.ftitle}}</a></td>
 									<td width="25%" rowspan="2">
-										<img :src="frvo.mainimg" class="store_poster" :style="{ width: '100%', height: getWidthDependentHeightMini(frvo.mainimg) + 'px' }">
+										<a :href="'../fund/fund_detail_before.do?wfno='+frvo.wfno"><img :src="frvo.mainimg" class="store_poster" :style="{ width: '100%', height: getWidthDependentHeightMini(frvo.mainimg) + 'px' }"></a>
 									</td>
 								</tr>
 								<tr>
@@ -125,6 +179,58 @@ td {
 						</td></tr>
 					</table>
 				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="row">
+					<h2>스토어 추천 제품</h2>
+					<h6>팬들이 인정한 성공 펀딩 집합샵</h6>
+					<div class="col-md-2" v-for="svo in store_list">
+					<div class="thumbnail" style="width: 100%;">
+						<a :href="'../store/store_detail.do?wsno='+svo.wsno">
+							<img :src="svo.main_poster" class="store_poster" :style="{ width: '100%', height: getWidthDependentHeight(svo.main_poster) + 'px' }">
+							<div class="caption">
+								<p style="font-size: 16px; margin:2px 0px 2px 0px; height: 50px;">{{svo.goods_title}}</p>
+								<strong style="font-size: 16px; margin:2px 0px 2px 0px; color: #a6d8ce;">{{ svo.parti_count | numberWithCommas }}명 인증</strong>
+								<p style="font-size: 12px; margin:2px 0px 2px 0px;"><i class="fa-solid fa-star" style="color: #fecf0e;"></i>{{svo.score}}</p>
+							</div>
+						</a>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="row">
+			<div class="col-lg-12 blur-container mt-5">
+				<div class="row">
+					<div class="col-md-4 mt-3" v-for="wfvo, index in friend_list" v-if="index<6">
+					<div class="thumbnail" style="width: 100%;">
+						<div class="row">
+						<div class="col-md-4">
+							<img :src="wfvo.mainimg" class="store_poster" :style="{ width: '100%', height: getWidthDependentHeightFriend(wfvo.mainimg) + 'px' }">
+						</div>
+						<div class="col-md-8">
+							<div class="caption">
+								<p style="font-size: 12px; margin:2px 0px 2px 0px; height: 15px;">{{wfvo.name}}</p>
+								<strong style="font-size: 16px; margin:2px 0px 2px 0px; color: #a6d8ce;">{{ wfvo.ftitle }}</strong>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				<span class="friendText">내 친구의 활동을 확인해보세요</span>
+				<button class="friendButton btn btn-project"><a href="../wasta/main.do">친구 활동 더보기</a></button>
+			</div>
+			</div>
+			<div class="project_banner mt-5">
+				<section>
+					<h4 style="color:white;">지금 바로 프로젝트를 시작하세요</h4>
+					<c:if test="${sessionScope.id==null }">
+						<a href="../member/member_login.do" class="btn btn-project">프로젝트 만들기</a>
+					</c:if>
+					<c:if test="${sessionScope.id!=null }">
+						<a href="../makerpage/makerpage_home.do" class="btn btn-project">프로젝트 만들기</a>						
+					</c:if>
+				</section>
 			</div>
 		</div>
 		<!-- <div style="height: 10px;"></div>
@@ -143,7 +249,9 @@ td {
 			el:'.main_home',
 			data:{
 				fund_list:[],
-				fund_rank_list:[]
+				fund_rank_list:[],
+				store_list:[],
+				friend_list:[]
 			},
 			mounted:function(){
 				this.send()
@@ -159,6 +267,18 @@ td {
 					axios.get("../main/fund_rank_list_vue.do").then(response=>{
 						console.log(response.data)
 						this.fund_rank_list = response.data
+					}).catch(error=>{
+						console.log(error.response)
+					})
+					axios.get("../main/store_list_vue.do").then(response=>{
+						console.log(response.data)
+						this.store_list = response.data
+					}).catch(error=>{
+						console.log(error.response)
+					})
+					axios.get("../main/friend_list_vue.do").then(response=>{
+						console.log(response.data)
+						this.friend_list = response.data
 					}).catch(error=>{
 						console.log(error.response)
 					})
@@ -180,6 +300,12 @@ td {
 		            return window.innerHeight * 0.25; // 여기서의 로직을 실제 이미지 정보에 맞게 변경하세요.
 				},
 		        getWidthDependentHeightMini(imageUrl) {
+		            // 여기서 이미지의 너비에 따라 높이를 조정하는 로직을 구현합니다.
+		            // 예를 들어 이미지의 원본 너비와 높이 정보를 가져와서 비율을 유지하면서 조정할 수 있습니다.
+		            // 이 예시에서는 간단히 가로 너비의 절반을 높이로 사용하도록 설정했습니다.
+		            return window.innerHeight * 0.1; // 여기서의 로직을 실제 이미지 정보에 맞게 변경하세요.
+				},
+				getWidthDependentHeightFriend(imageUrl) {
 		            // 여기서 이미지의 너비에 따라 높이를 조정하는 로직을 구현합니다.
 		            // 예를 들어 이미지의 원본 너비와 높이 정보를 가져와서 비율을 유지하면서 조정할 수 있습니다.
 		            // 이 예시에서는 간단히 가로 너비의 절반을 높이로 사용하도록 설정했습니다.

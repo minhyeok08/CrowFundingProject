@@ -196,6 +196,11 @@ public class FundController {
 		map.put("id", id);
 		service.buyAllUpdate(map);
 		
+
+		map = new HashMap();
+		map.put("wfno", wfno);
+		map.put("score", 100);
+		mservice.fundRankUpdate(map);
 		//bdao.fundRewardCount();
 		
 		System.out.println(wfno);

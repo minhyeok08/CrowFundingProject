@@ -125,16 +125,16 @@ input[type="text"] {
 			<div style="text-align: center;">
 				<ul style="list-style: none; display: inline-block; padding: 0;">
 					<li :class="{ noticeli: true, selected: category === 'all' }"
-						@click="selectCategory('all')" @mouseover="hoverEffect"
+						@click="selectCategory('all'); selectedCate='all'" @mouseover="hoverEffect"
 						@mouseout="unhoverEffect">전체</li>
 					<li :class="{ noticeli: true, selected: category === 'event' }"
-						@click="selectCategory('event')" @mouseover="hoverEffect"
+						@click="selectCategory('event'); selectedCate='event'" @mouseover="hoverEffect"
 						@mouseout="unhoverEffect">이벤트</li>
 					<li :class="{ noticeli: true, selected: category === 'notice' }"
-						@click="selectCategory('notice')" @mouseover="hoverEffect"
+						@click="selectCategory('notice'); selectedCate='notice'" @mouseover="hoverEffect"
 						@mouseout="unhoverEffect">공지사항</li>
 					<li :class="{ noticeli: true, selected: category === 'news' }"
-						@click="selectCategory('news')" @mouseover="hoverEffect"
+						@click="selectCategory('news'); selectedCate='news'" @mouseover="hoverEffect"
 						@mouseout="unhoverEffect">보도자료</li>
 				</ul>
 			</div>
@@ -177,7 +177,7 @@ input[type="text"] {
 				</div>
 			</div>
 			</b-modal>
-			<div class="pagination-container">
+			<div class="pagination-container" v-if="endPage>1">
 				<nav aria-label="Page navigation">
 				    <ul class="pagination justify-content-center">
 				        <li class="page-item" v-if="startPage>1">
@@ -240,6 +240,7 @@ new Vue({
 		totalpage:0,
 		startPage:0,
 		endPage:0,
+		selectedCate:'all'
 	},
 	mounted:function(){
 		this.noticeListData('all',1);
@@ -321,15 +322,16 @@ new Vue({
 		},
 		pageChange:function(page){
 			this.curpage=page;
-			this.noticeListData();
+			this.noticeListData(this.selectedCate,1);
+			//this.endPage=Math.round(this.noticeListData(this.selectedCate,1).length/10)
 		},
 		prev:function(){
 			this.curpage=this.startPage-1;
-			this.noticeListData();
+			this.noticeListData(this.selectedCate,1);
 		},
 		next:function(){
 			this.curpage=this.endPage+1;
-			this.noticeListData();
+			this.noticeListData(this.selectedCate,1);
 		}
     }
 })

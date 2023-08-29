@@ -19,6 +19,22 @@
 .openDetailPage:hover{
 	cursor: pointer;
 }
+.btn-custom-del {	
+	width : 60px;
+	background-color: transparent; 
+	border-color: #d3d3d3; 
+	color: #d3d3d3; 
+	transition: background-color 0.3s;
+	font-size: 11px;
+	padding: 3px 3px;
+	float: right;
+	margin-bottom: 10px;
+}
+.btn-custom-del:hover {
+  background-color: white;
+  border-color: #d3d3d3;
+  color: black;
+}
 </style>
 </head>
 <body>
@@ -29,7 +45,12 @@
 		<div class="row mt-1" v-for="vo,index in qna_data" style="border: 0.7px solid #d3d3d3;border-radius: 10px;">
 			<div class="wrap col-sm-11" style="padding: 10px;">
 				<div class="row projectName">
-					<strong style="color: #00c4c4;overflow: hidden; text-overflow: ellipsis;">{{vo.ftitle}}</strong>
+					<div class="col-sm-11">
+						<strong style="color: #00c4c4;overflow: hidden; text-overflow: ellipsis;">{{vo.ftitle}}</strong>
+					</div>
+					<div class="col-sm-1">
+						<button type="button" class="btn btn-custom-del" @click="qnaDelete(vo.group_id)">삭제하기</button>
+					</div>
 				</div>
 				<div class="row qnaTitle">
 					<div class="col-sm-3">
@@ -70,6 +91,7 @@
 					</div>
 				</div>
 				<div class="wrap qnaDetailData" v-show="selectedGroupId === vo.group_id" style="border-top: 0.7px solid #d3d3d3;">
+
 					<div class="row mt-1 mb-1" style="border-radius: 5px;border: 0.5px solid #d3d3d3;">
 						<strong style="font-size: 10pt;">내용</strong>
 						<label class="form-text">
@@ -136,6 +158,18 @@ new Vue({
         } else {
             this.selectedGroupId = group_id;  // Show detail info for the clicked item
         }
+			}).catch(error=>{
+				console.log(error)
+			})
+		},
+		qnaDelete(group_id){
+			axios.get('../mypage/my_qna_delete.do',{
+				params:{
+					group_id : group_id
+				}
+			}).then(res=>{
+				console.log(res.data)
+				this.myQnaToMaker();
 			}).catch(error=>{
 				console.log(error)
 			})

@@ -84,4 +84,8 @@ public class MyPageDAO {
 	public List<StoreVO> storeJjimListData(String id){
 		return mapper.storeJjimListData(id);
 	}
+	
+	public void myQnaDelete(QnAVO vo) {
+		mapper.myQnaDelete(vo);
+	}
 }

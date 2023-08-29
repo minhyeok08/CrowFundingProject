@@ -48,6 +48,9 @@
 	font-size: 13pt;
 	font-weight: 900px;
 }
+.funding_store_btn span{
+	cursor: pointer;
+}
 .myStorejjimList{
 	border-radius: 5px;
 	border: 1px solid #d3d3d3;
@@ -82,7 +85,8 @@
 			    	<p style="color: #868e96;font-size: 10pt;margin-top: 10px;">{{formatDate(vo.mydate)}}</p>
 			    	<div class="col-sm-4">
 			    		<!-- 펀딩 이미지 -->
-			    		<img :src="vo.mainimg" style="width: 100%">
+			    		<img v-if="vo.mainimg.startsWith('http')" :src="vo.mainimg" style="width: 100%">
+			    		<img v-else :src="'../Fundimages/'+vo.mainimg" style="width:100%">
 			    	</div>
 			    	<div class="col-sm-8 jjimContent">
 			    		<!-- 펀딩 내용 -->

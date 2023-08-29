@@ -10,7 +10,6 @@
   display: flex;
   align-items: center;
   border-radius: 30%;
-  
   padding: 10px;
 }
 

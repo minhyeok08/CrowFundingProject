@@ -47,7 +47,10 @@ public class FundServiceImpl implements FundService {
 		dao.cumUpdate(map);
 		dao.achUpdate(map);
 		dao.partiPlus(map);
-		dao.pointUse(map);
+		BuyVO vo = (BuyVO) map.get("bvo");
+		if (vo.getUsePoints()) {
+			dao.pointUse(map);
+		}
 		bdao.fundBuyInsert(map);
 		bdao.fundCount(map);
 	}

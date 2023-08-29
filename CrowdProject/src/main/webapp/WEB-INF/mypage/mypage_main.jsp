@@ -106,7 +106,7 @@
 </head>
 <body>
 <div class="wrap">
-	<div class="container mt-5 container1">
+	<div class="container container1" style="margin-top: 100px; margin-bottom: 100px">
 		<div class="row">
 			<div class="col-sm-2 text-center" style="border-right:0.7px solid #d3d3d3;">
 				<div class="profileImageClass mb-3">
