@@ -4,7 +4,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.sist.mapper.FundMapper">
  	<select id="fundListData" resultType="FundVO" parameterType="hashmap">
- 		SELECT wfno,mainimg,fcno,ftitle,fcname,endday,cum_amount,achieve_rate,makername
+ 		SELECT wfno,mainimg,fcno,ftitle,fcname,TO_CHAR(endday, 'yyyy-mm-dd') as strendday,cum_amount,achieve_rate,makername
  		FROM wadiz_fund_detail
  		<if test="fcno==0">
  		ORDER BY achieve_rate desc ,regdate desc
