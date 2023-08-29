@@ -1,4 +1,5 @@
 package com.sist.web;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpSession;
@@ -17,12 +18,24 @@ import com.sist.dao.*;
 public class MainRestController {
 	@Autowired
 	private MainService service;
+	@Autowired
+	private WastaDAO wdao;
 	
 	@GetMapping(value = "main/store_list_vue.do", produces = "text/plain;charset=UTF-8")
 	public String crowdStoreListData() throws Exception {
 		
 		List<StoreVO> list = service.crowdStoreListData();
-
+		
+		for(StoreVO vo:list)
+		{
+			String goods_title = vo.getGoods_title();
+			if(goods_title.length()>30)
+			{
+				goods_title = goods_title.substring(0,30)+"...";
+			}
+			vo.setGoods_title(goods_title);
+		}
+		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
 		
@@ -58,6 +71,16 @@ public class MainRestController {
 		if(list.size() < 6) {
 			list = service.crowdFundListData();
 		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	@GetMapping(value = "main/friend_list_vue.do", produces = "text/plain;charset=UTF-8")
+	public String friendListData() throws Exception {
+		List<ReviewVO> list = wdao.wastaReviewListData();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
