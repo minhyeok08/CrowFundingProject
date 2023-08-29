@@ -97,7 +97,7 @@ public interface FundMapper {
 	public RewardVO reward_detail(int rno);
 	@Update("UPDATE wadiz_funding_reward SET rname=#{rname},rprice=#{rprice},rcont=#{rcont},delfee=#{delfee},delstart=#{delstart},limitq=#{limitq} WHERE rno=#{rno}")
 	public void reward_update_ok(RewardVO vo);
-	@Delete("DELETE FROM wadiz_funding_reward WHERE rno=#{rno}")
+	@Delete("DELETE FROM wadiz_funding_reward WHERE wfno=#{wfno}")
 	public void reward_delete(int rno);
 	// 새소식 등록을 위한 프로젝트 리스트 출력
 	@Select("SELECT wfno,ftitle FROM wadiz_fund_detail WHERE id=#{id} AND rewardOk=1 ORDER BY openday ASC")
@@ -212,4 +212,8 @@ public interface FundMapper {
 //		Update wadiz_member SET (point = 0) WHERE id = #{id}
 //	</update>
 	public void pointUse(Map map);
+	@Delete("DELETE FROM wadiz_review_reply WHERE wfno=#{wfno}")
+	public void deletereviewreply(int wfno);
+	@Delete("DELETE FROM wadiz_jjim WHERE wfno=#{wfno}")
+	public void deleteJjim(int wfno);
 }
