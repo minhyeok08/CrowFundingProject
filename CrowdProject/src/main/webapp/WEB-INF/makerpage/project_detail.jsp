@@ -230,8 +230,8 @@
 									<td width="70%">{{vo.delstart}}</td>
 								</tr>	
 								<tr>
-									<th width="30%">한정 수량</th>
-									<td width="70%">{{vo.limitq}}</td>
+									<th width="30%">수량</th>
+									<td width="70%">{{vo.curq}}&nbsp;&nbsp;<span style="background-color: #f2f2f2; padding: 2px 5px; border-radius: 4px; color: black; font-size: 14px;"><span style="color: #a6d8ce">제한수량&nbsp;{{vo.limitq}}</span></span></td>
 								</tr>
 								<tr class="text-end">
 									<td colspan="2">

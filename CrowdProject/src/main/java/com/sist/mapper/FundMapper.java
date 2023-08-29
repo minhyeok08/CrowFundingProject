@@ -86,16 +86,16 @@ public interface FundMapper {
 	//리워드 등록
 	@Update("UPDATE wadiz_fund_detail SET rewardOk=1,acno = CASE WHEN openday <= SYSDATE THEN 1 ELSE 3 END WHERE wfno=#{wfno}")
 	public void project_rewardOk(int wfno); // 리워드가 등록되면 rewardOk를 1로 바꾸고, 개시일 openday가 현 시스템 날짜보다 이전이면 1(오픈된 상품)으로 변경
-	@Insert("INSERT INTO wadiz_funding_reward (rno,rname,rprice,rcont,delfee,delstart,limitq,wfno) "
-			+ "VALUES(wfr_rno_seq.nextval,#{rname},#{rprice},#{rcont},#{delfee},#{delstart},#{limitq},#{wfno})")
+	@Insert("INSERT INTO wadiz_funding_reward (rno,rname,rprice,rcont,delfee,delstart,limitq,curq,wfno) "
+			+ "VALUES(wfr_rno_seq.nextval,#{rname},#{rprice},#{rcont},#{delfee},#{delstart},#{limitq},#{limitq},#{wfno})")
 	public void rewardInsertData(RewardVO vo);
-	@Select("SELECT rno,rname,rprice,rcont,delfee,delstart,limitq FROM wadiz_funding_reward WHERE wfno=#{wfno}")
+	@Select("SELECT rno,rname,rprice,rcont,delfee,delstart,limitq,curq FROM wadiz_funding_reward WHERE wfno=#{wfno}")
 	public List<RewardVO> rewardListData(int wfno);
 	@Update("UPDATE wadiz_fund_detail SET makername=#{makername},makerphoto=#{makerphoto},makeremail=#{makeremail},makertel=#{makertel},makerhomepage=#{makerhomepage},makerinsta=#{makerinsta},makerfacebook=#{makerfacebook},makertwitter=#{makertwitter},fcno=#{fcno},fcname=#{fcname},ftitle=#{ftitle},fsubtitle=#{fsubtitle},aim_amount=#{aim_amount},mainimg=#{mainimg},openday=#{openday},endday=#{endday},tag=#{tag},detailimg=#{detailimg},detailcont=#{detailcont} WHERE wfno=#{wfno}")
 	public void project_update(FundVO vo);
 	@Select("SELECT wfno,rname,rprice,rcont,delfee,delstart,limitq FROM wadiz_funding_reward WHERE rno=#{rno}")
 	public RewardVO reward_detail(int rno);
-	@Update("UPDATE wadiz_funding_reward SET rname=#{rname},rprice=#{rprice},rcont=#{rcont},delfee=#{delfee},delstart=#{delstart},limitq=#{limitq} WHERE rno=#{rno}")
+	@Update("UPDATE wadiz_funding_reward SET rname=#{rname},rprice=#{rprice},rcont=#{rcont},delfee=#{delfee},delstart=#{delstart},limitq=#{limitq},curq=#{limitq} WHERE rno=#{rno}")
 	public void reward_update_ok(RewardVO vo);
 	@Delete("DELETE FROM wadiz_funding_reward WHERE rno=#{rno}")
 	public void reward_delete(int rno);
