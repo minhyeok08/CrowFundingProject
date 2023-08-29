@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 .container{
-	width: 330px;
+	width: 400px;
 }
 .profileImage{
 	border-radius: 50%;
@@ -21,13 +21,14 @@
 	width: 200px;
 }
 .updatMyInfo > div > input{
-	width: 300px;
+	width: 400px;
 }
 .emailCheckBtn, .phoneCheck{
 	width: 100px;
 	border:2px solid #a6d8ce;
 	color:#a6d8ce;
-	padding: 5px;
+	padding: 3px;
+	 
 }
 .emailCheckBtn:hover, .phoneCheck:hover{
 	background-color: #a6d8ce;
@@ -42,14 +43,13 @@
 	margin: 0px auto;
 }
 .updatePwdModalBtn{
-	width: 300px;
+	width: 400px;
 	border:2px solid #a6d8ce;
 	background-color: #a6d8ce;
 	border-color: #a6d8ce;
 	color: #fff;
 }
 .updatePwdModalBtn:hover{
-	width: 300px;
 	border:2px solid #a6d8ce;
 	background-color: #a6d8ce;
 	border-color: #a6d8ce;
@@ -144,7 +144,7 @@
 			<!-- 이메일 -->
 			<label class="form-text">이메일</label>
 			<div class="wrap d-flex emailCheckDiv">
-				<input type=text class="form-control" v-model="vo.email" ref="email" placeholder="email@gmail.com" :readonly="emailReadOnly">&nbsp;
+				<input type=text class="form-control" v-model="vo.email" ref="email" placeholder="email@gmail.com" :readonly="emailReadOnly" style="width: 300px">&nbsp;
 				<button type="button" class="btn btn-outline emailCheckBtn" @click="sendEmail">중복 체크</button>
 			</div>
 			<div class="wrap">
@@ -155,7 +155,7 @@
 			<!-- 휴대폰 -->
 			<label class="form-text">휴대폰</label>
 			<div class="wrap d-flex phoneCheckDiv">
-				<input type=text class="form-control" v-model="vo.phone" ref="phone" placeholder="010-1111-1111" :readonly="phoneReadOnly">&nbsp;
+				<input type=text class="form-control" v-model="vo.phone" ref="phone" placeholder="010-1111-1111" :readonly="phoneReadOnly" style="width: 300px">&nbsp;
 				<button type="button" class="btn btn-outline phoneCheck" @click="phoneCheck">중복 체크</button>
 			</div>
 			<div class="wrap">
@@ -165,7 +165,7 @@
 			</div>
 			<div class="wrap">
 			<label class="form-text">소개</label><br>
-			<textarea rows="5" cols="32" v-model="vo.content">
+			<textarea rows="5" cols="50" v-model="vo.content">
 			{{vo.content}}
 			</textarea>
 			</div>
