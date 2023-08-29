@@ -24,13 +24,18 @@
 	border-color: #a6d8ce;
 	color: #fff;
 }
+.mainlogin {
+	height: 600px;
+	margin-bottom: 300px;
+}
 </style>
 </head>
 <body>
 	<div class="container">
-		<div class="row">
-			<div class="wrap login mt-5">
-				<h2>일반 로그인</h2>
+		<div class="row mainlogin">
+			<a href="../main/main.do" style="margin-top:30px;"><img src="../images/crowd-logo2.png" style="width:300px; height:auto;"></a>
+			<div class="wrap login">
+				<h2>로그인</h2>
 			  <div style="margin-bottom: 30px;"></div>
 		  	<div class="mb-3">
 		  		<input type="text" class="form-control" id="id" ref="id" v-model="id" @input="validateId" style="width: 300px;" @keyup.enter="memberLogin" placeholder="아이디 입력" required>

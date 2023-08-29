@@ -147,7 +147,7 @@ function setSelectedCategory(category) {
 <body>
 	<nav class="navbar navbar-expand-sm bg-white fixed-top">
 		<div class="container-fluid" id="header">
-			<a class="navbar-brand" href="../main/main.do"><img src="../images/crowd-logo.png" style="width:100px; height:auto;"></a>
+			<a class="navbar-brand" href="../main/main.do"><img src="../images/crowd-logo2.png" style="width:100px; height:auto;"></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#mynavbar">
 				<span class="navbar-toggler-icon"></span>
