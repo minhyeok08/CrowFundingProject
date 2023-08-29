@@ -30,9 +30,9 @@
 .bordered-row > *:last-child {
     margin-bottom: 0; /* 마지막 요소의 아래쪽 간격 제거 */
 }
-/* 모달 스타일 설정 */
+
    /* 모달 스타일 설정 */
-   .modal {
+/*    .modal {
        display: none;
        position: fixed;
        z-index: 1;
@@ -84,9 +84,9 @@
 }
 
 .modal-content textarea {
-    margin-top: 20px; /* textarea 위쪽에 여백 추가 */
+    margin-top: 20px; 
     margin-bottom: 20px;
-   padding: 10px; /* 텍스트와 테두리 사이에 패딩 추가 */
+   padding: 10px; 
    height :100 px ; 
    border-radius :5 px ; 
    width :90% ;
@@ -109,9 +109,11 @@
    text-align:center ;
 }
 
+
 .support-button:hover, .close:hover{
    background-color :#ddd ;
-}
+   
+}*/
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -149,16 +151,25 @@
       <button class="bordered-button">
        <img width="30" height="30" src="../images/heart.svg" @click="fundJjim">
       </button> -->
+      
+ 
       <table>
          <tr> 
-            <td>
+           <!--  <td>
                 <button class="rounded" style="border: none; font-size: 12px" onclick="openModal()">
                     <img width="40" height="30" alt="Clapping Hands" src="../images/hands-clapping.svg">
                     <br>
                     {{fund_detail.support}}   
                 </button>
-            </td>
-             
+            </td> -->
+            <td>
+            <button type="button" class="rounded" data-bs-toggle="modal" data-bs-target="#myModal"
+            style="border: none; font-size:12px">
+    			<img width="40" height="30" alt="Clapping Hands" src="../images/hands-clapping.svg">
+                    <br>
+                    {{fund_detail.support}}   
+    		 </button>	
+    		</td>
             <td>
                        <button class="rounded" style="border: none; font-size:12px" >
                           <img width="40" height="30" alt="Clapping Hands"
@@ -303,29 +314,62 @@
             
          </div>
       </div>
-      <div id="myModal" class="modal">
-    <!-- 모달 내용 -->
+      <!-- <div id="myModal" class="modal">
+    모달 내용
     <div class="modal-content">
     <br>
     <h4 style="text-align:center">친구에게 소개해 보세요</h4>
     <h6 style="text-align:center">지지서명으로 메이커에게 힘이 되어주세요!</h6>
-        <!-- 글 내용 입력 폼 -->
+        글 내용 입력 폼
          <form @submit.prevent="submitForm">
           <textarea v-model="message"></textarea>
-          <!-- 저장 버튼 등 필요한 요소들 추가 -->
+          저장 버튼 등 필요한 요소들 추가
           <div class="button-container">
               <button type="submit" class="support-button">지지하기</button>
               <button type="button" class="close">취소하기</button>
           </div>
         </form>
     </div>
-</div>
-            
+</div> -->
+	<form @submit.prevent="submitForm">
+	<div class="modal" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">지지서명</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+         <h4 style="text-align:center">친구에게 소개해 보세요</h4>
+    <h6 style="text-align:center">지지서명으로 메이커에게 힘이 되어주세요!</h6>
+        <!-- 글 내용 입력 폼 -->
+         
+          <textarea v-model="message" cols="58" rows="1"></textarea>
+          <!-- 저장 버튼 등 필요한 요소들 추가 -->
+          
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<input type="submit" class="btn btn-success" data-bs-dismiss="modal" value="지지하기">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소하기</button>
+        
+      </div>
+		
+		    </div>
+		  </div>
+		</div>
+      </form> 
    </div>
     <script>
    var sessionId = '${sessionScope.id}';
    
-      // 모달 창 열기
+       // 모달 창 열기
     function openModal() {
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
@@ -349,7 +393,7 @@
                closeModal();
           }
         };
-     };
+     }; 
    
     new Vue({
        el:'#fReward',
