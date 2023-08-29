@@ -48,6 +48,9 @@
 	font-size: 13pt;
 	font-weight: 900px;
 }
+.funding_store_btn span{
+	cursor: pointer;
+}
 .myStorejjimList{
 	border-radius: 5px;
 	border: 1px solid #d3d3d3;

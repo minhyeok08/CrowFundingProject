@@ -3,8 +3,10 @@ package com.sist.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.AdminqnaVO;
 import com.sist.vo.BuyVO;
@@ -55,14 +57,17 @@ public interface MyPageMapper {
 	@Select("SELECT wfd.wfno, wfd.ftitle, wfd.makername, wq.subject, wq.content, to_char(wq.regdate,'yyyy-MM-dd') AS dbday, wq.group_step, wq.group_id, wq.group_tab, wq.isreply " + 
 			"FROM wadiz_qna wq " + 
 			"JOIN wadiz_fund_detail wfd ON wq.wfno=wfd.wfno " + 
-			"WHERE wq.id=#{id}")
+			"WHERE wq.id=#{id} and wq.group_step=0")
 	public List<QnAVO> myQnaListData(String id);
 	
 	@Select("SELECT wq.wfno, wq.id, wq.subject, wq.content, to_char(wq.regdate,'yyyy-mm-dd') AS dbday, wfd.makername " + 
 			"FROM wadiz_qna wq " + 
 			"JOIN wadiz_fund_detail wfd ON wq.wfno=wfd.wfno " + 
-			"WHERE group_id=#{id} AND group_tab=1")
+			"WHERE group_id=#{id} AND group_step=1")
 	public QnAVO myQnaReplyData(int group_id);
+	
+	@Delete("delete from wadiz_qna where group_id = #{group_id}")
+	public void myQnaDelete(QnAVO vo);
 	
 	//<select id="myFollowing" parameterType="Strng" resultType="SupVO">
 	public List<SupVO> myFollowing(String id);
