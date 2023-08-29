@@ -4,7 +4,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.sist.mapper.FundMapper">
  	<select id="fundListData" resultType="FundVO" parameterType="hashmap">
- 		SELECT wfno,mainimg,fcno,ftitle,endday,cum_amount,achieve_rate,makername
+ 		SELECT wfno,mainimg,fcno,ftitle,fcname,endday,cum_amount,achieve_rate,makername
  		FROM wadiz_fund_detail
  		<if test="fcno==0">
  		ORDER BY achieve_rate desc ,regdate desc
@@ -176,19 +176,19 @@
 		)
 	</select>
     <update id="cumUpdate" parameterType="hashmap">
-    	Update wadiz_fund_detail SET (cum_amount = cum_amount + #{tprice})
+    	Update wadiz_fund_detail SET cum_amount = cum_amount + #{bvo.tprice} where wfno = #{bvo.wfno}
     </update>
     
-    <update id="achUpdate">
-    	Update wadiz_fund_detail SET (achieve_rate = (cum_amount / aim_amount) * 100)
+    <update id="achUpdate" parameterType="hashmap">
+    	Update wadiz_fund_detail SET achieve_rate = cum_amount / aim_amount * 100 where wfno = #{bvo.wfno}
     </update>
     
-    <update id="partiPlus">
-    	Update wadiz_fund_detail SET (parti_count = parti_count + 1)
+    <update id="partiPlus" parameterType="hashmap">
+    	Update wadiz_fund_detail SET parti_count = parti_count + 1 where wfno = #{bvo.wfno}
     </update>
     
     <update id="pointUse" parameterType="hashmap">
-    	Update wadiz_member SET (point = 0) WHERE id = #{id}
+    	Update wadiz_member SET point = 0 WHERE id = #{id}
     </update>
     
  </mapper>

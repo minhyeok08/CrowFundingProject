@@ -33,12 +33,29 @@ public class FundRestController {
 	
 	@GetMapping(value="fund/fund_list_vue.do",produces = "text/plain;charset=UTF-8")
 	public String fundListData(int fcno) throws Exception
-	{
+	{	
 		Map map = new HashMap();
 		map.put("fcno", fcno);
 		List<FundVO> list = service.fundListData(map);
+		for(FundVO vo:list)
+		{
+			DecimalFormat df = new DecimalFormat("###,###,###");
+			String str_cum_amount = df.format(vo.getCum_amount());
+			String str_achieve_rate = df.format(vo.getAchieve_rate());
+			
+			vo.setStr_achieve_rate(str_achieve_rate);
+			vo.setStr_cum_amount(str_cum_amount);
+			String ftitle = vo.getFtitle();
+			if(ftitle.length()>33)
+			{
+				ftitle = ftitle.substring(0,33)+"...";
+			}
+			vo.setFtitle(ftitle);
+		}
+			
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
+		
 		return json;
 	}
 	

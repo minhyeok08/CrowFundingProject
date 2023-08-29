@@ -31,89 +31,6 @@
     margin-bottom: 0; /* 마지막 요소의 아래쪽 간격 제거 */
 }
 
-   /* 모달 스타일 설정 */
-/*    .modal {
-       display: none;
-       position: fixed;
-       z-index: 1;
-       left: 0;
-       top: 0;
-       width: 100%;
-       height: 100%;
-       overflow: auto;
-       background-color: rgba(0,0,0,0.4);
-   }
-
-   .modal-content {
-       background-color: #fefefe;
-       margin-top: 15%;
-       margin-left:auto;
-       margin-right:auto;
-       padding-bottom :20px ;
-       border-radius :10px ;
-       width :50% ;
-     }
-
-     .close {
-         color:black ;
-         float:right ;
-         font-size :28 px ;
-         font-weight:bold ;
-         cursor:pointer ;
-     }
-
-     .close:hover,
-      .close:focus{
-      color:red ; 
-      text-decoration:none ; 
-      cursor:pointer ; 
-      }
-  
-     textarea{
-        width :80% ; 
-        height :150 px ; 
-        margin-left:auto; 
-        margin-right:auto;  
-        display:block;  
-     }
-     
-.modal-content form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.modal-content textarea {
-    margin-top: 20px; 
-    margin-bottom: 20px;
-   padding: 10px; 
-   height :100 px ; 
-   border-radius :5 px ; 
-   width :90% ;
-}
-
-.button-container{
-   display:flex ;
-   width :100% ;
-}
-
-.support-button, .close {
-   flex-grow :1 ; 
-   margin-top: 10px;
-   padding: 10px; 
-   border-radius :5 px ; 
-   background-color :#f2f2f2 ; 
-   border:none ;
-   cursor:pointer ;
-   color:black ;  
-   text-align:center ;
-}
-
-
-.support-button:hover, .close:hover{
-   background-color :#ddd ;
-   
-}*/
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -144,24 +61,12 @@
    
       <hr>
    
-      <!-- <button class="bordered-button">
-         <img width="30" height="30" src="../images/hands-clapping.svg">
-      </button>
-      
-      <button class="bordered-button">
-       <img width="30" height="30" src="../images/heart.svg" @click="fundJjim">
-      </button> -->
+ 
       
  
       <table>
          <tr> 
-           <!--  <td>
-                <button class="rounded" style="border: none; font-size: 12px" onclick="openModal()">
-                    <img width="40" height="30" alt="Clapping Hands" src="../images/hands-clapping.svg">
-                    <br>
-                    {{fund_detail.support}}   
-                </button>
-            </td> -->
+           
             <td>
             <button type="button" class="rounded" data-bs-toggle="modal" data-bs-target="#myModal"
             style="border: none; font-size:12px">
@@ -205,16 +110,7 @@
             </div>
          </div>
          <hr>
-         <!-- <div class="table">
-                      <th>이메일</th>
-                      <td>{{fund_detail.makeremail}}</td>
-                      <th>문의전화</th>
-                      <td>{{fund_detail.makertel}}</td>
-                      <th>홈페이지</th>
-                      <td>{{fund_detail.makerehomepage}}</td>
-                      <th>SNS</th>
-                      <td></td>
-                   </div> -->
+         
          <table>
             <tr>
                <th style="text-align: center;">이메일</th>
@@ -314,23 +210,7 @@
             
          </div>
       </div>
-      <!-- <div id="myModal" class="modal">
-    모달 내용
-    <div class="modal-content">
-    <br>
-    <h4 style="text-align:center">친구에게 소개해 보세요</h4>
-    <h6 style="text-align:center">지지서명으로 메이커에게 힘이 되어주세요!</h6>
-        글 내용 입력 폼
-         <form @submit.prevent="submitForm">
-          <textarea v-model="message"></textarea>
-          저장 버튼 등 필요한 요소들 추가
-          <div class="button-container">
-              <button type="submit" class="support-button">지지하기</button>
-              <button type="button" class="close">취소하기</button>
-          </div>
-        </form>
-    </div>
-</div> -->
+    
 	<form @submit.prevent="submitForm">
 	<div class="modal" id="myModal">
 	  <div class="modal-dialog">

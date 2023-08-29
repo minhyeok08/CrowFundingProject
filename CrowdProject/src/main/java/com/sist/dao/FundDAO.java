@@ -300,17 +300,17 @@ public class FundDAO {
 //	<update id="achUpdate">
 //		Update wadiz_fund_detail SET (achieve_rate = (cum_amount / aim_amount) * 100)
 //	</update>
-	public void achUpdate()
+	public void achUpdate(Map map)
 	{
-		mapper.achUpdate();
+		mapper.achUpdate(map);
 	}
 	
 //	<update id="partiPlus">
 //		Update wadiz_fund_detail SET (parti_count = parti_count + 1)
 //	</update>
-	public void partiPlus()
+	public void partiPlus(Map map)
 	{
-		mapper.partiPlus();
+		mapper.partiPlus(map);
 	}
 //	<update id="pointUse" parameterType="String">
 //		Update wadiz_member SET (point = 0) WHERE id = #{id}

@@ -45,8 +45,8 @@ public class FundServiceImpl implements FundService {
 	@Override
 	public void buyAllUpdate(Map map) {
 		dao.cumUpdate(map);
-		dao.achUpdate();
-		dao.partiPlus();
+		dao.achUpdate(map);
+		dao.partiPlus(map);
 		dao.pointUse(map);
 		bdao.fundBuyInsert(map);
 		bdao.fundCount(map);

@@ -371,19 +371,21 @@ ul, li {
 			<div class="row">
 				<h2 style="margin: 20px 0px 20px 0px;"></h2>
 				<div class="col-md-4" v-for="vo in fund_list">
-					<div class="thumbnail" style="width: 260px;">
+					<div class="thumbnail" style="width: 100%;">
 						<a :href="'../fund/fund_detail_before.do?wfno='+vo.wfno"> 
 						<img v-if="vo.mainimg.startsWith('http')" :src="vo.mainimg" class="store_poster"
-							style="width: 260px; height: 180px">
+							 :style="{ width: '100%', height: getWidthDependentHeight(vo.mainimg) + 'px' }">
 						<img v-else :src="'../Fundimages/'+vo.mainimg" class="store_poster"
-							style="width: 260px; height: 180px">
+							 :style="{ width: '100%', height: getWidthDependentHeight(vo.mainimg) + 'px' }">
 							<div class="caption">
-								<p style="font-size: 16px; margin-bottom: 1px; height: 50px;">{{vo.ftitle}}</p>
-								<p
-									style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-									<strong style="color: #a6d8ce">{{vo.cum_amount}}</strong>&nbsp;원&nbsp;
-									<span style="color: orange">{{vo.achieve_rate}}%</span> <span
-										style="text-align: right; margin-left: auto; margin-right: 10px;">{{vo.makername}}</span>
+								<p style="font-size: 16px; margin:2px 0px 2px 0px; height: 50px;">{{vo.ftitle}}</p>
+								<p style="font-size: 12px; margin:2px 0px 2px 0px; color:gray;">{{vo.fcname}} | {{vo.makername}}</p>
+								<div class="progress" style="height:3px;">
+								  <div class="progress-bar" :style="{ width: vo.achieve_rate + '%' }" style="background-color:#a6d8ce;"></div>
+								</div> 
+								<p style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
+									<span style="color:gray;"><strong style="color:#a6d8ce; font-size:16px;">{{vo.achieve_rate}}%</strong>·{{vo.cum_amount | numberWithCommas}}원</span>
+									<span style="color:gray;">{{getRemainingDays(vo.strendday)}}일 남음</span>
 								</p>
 							</div>
 						</a>
@@ -415,7 +417,23 @@ ul, li {
 						console.log(error.response)
 					})
 					
-				}
+				},
+		        getWidthDependentHeight(imageUrl) {
+		            // 여기서 이미지의 너비에 따라 높이를 조정하는 로직을 구현합니다.
+		            // 예를 들어 이미지의 원본 너비와 높이 정보를 가져와서 비율을 유지하면서 조정할 수 있습니다.
+		            // 이 예시에서는 간단히 가로 너비의 절반을 높이로 사용하도록 설정했습니다.
+		            return window.innerHeight * 0.25; // 여기서의 로직을 실제 이미지 정보에 맞게 변경하세요.
+				},
+				getRemainingDays:function(endDate) {
+		            const now = new Date();
+		            const end = new Date(endDate);
+		            
+					// 한 달 뒤의 날짜를 구하기 위해 월을 1 증가시킴
+		           	end.setMonth(end.getMonth() + 1);
+		            const timeDiff = end - now;
+		            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+		            return daysDiff;
+		        }
 				/* handleSliderClick: function() {
 					  var slider = this.$refs.slider; // slider 엘리먼트의 ref를 지정해주세요
 
@@ -426,7 +444,13 @@ ul, li {
 					    });
 					  }
 					} */
-			}
+			},
+			filters: {
+		        numberWithCommas: function (value) {
+		            // 숫자에 쉼표 추가 함수 정의
+		            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		        }
+		    }
 		})
 	</script>
 </body>
