@@ -166,10 +166,10 @@ td {
 						<tr><td>
 							<table class="table"  v-for="(frvo, index) in fund_rank_list" :key="index">
 								<tr>
-									<td width="5%" rowspan="2"><h3>{{ index+1 }}</h3></td>
-									<td width="70%" style="font-size: 16px;">{{frvo.ftitle}}</td>
+									<td width="5%" rowspan="2"><a :href="'../fund/fund_detail_before.do?wfno='+frvo.wfno"><h3>{{ index+1 }}</h3></a></td>
+									<td width="70%" style="font-size: 16px;"><a :href="'../fund/fund_detail_before.do?wfno='+frvo.wfno">{{frvo.ftitle}}</a></td>
 									<td width="25%" rowspan="2">
-										<img :src="frvo.mainimg" class="store_poster" :style="{ width: '100%', height: getWidthDependentHeightMini(frvo.mainimg) + 'px' }">
+										<a :href="'../fund/fund_detail_before.do?wfno='+frvo.wfno"><img :src="frvo.mainimg" class="store_poster" :style="{ width: '100%', height: getWidthDependentHeightMini(frvo.mainimg) + 'px' }"></a>
 									</td>
 								</tr>
 								<tr>
