@@ -57,7 +57,7 @@ td {
 					<h2>스토어</h2>
 					<div class="col-md-6" v-for="svo in search_store">
 					<div class="thumbnail" style="width: 100%;">
-						<a href="#">
+						<a :href="'../store/store_detail.do?wsno='+svo.wsno">
 							<img :src="svo.main_poster" class="store_poster" :style="{ width: '100%', height: getWidthDependentHeight(svo.main_poster) + 'px' }">
 							<div class="caption">
 								<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{svo.goods_title}}</p>

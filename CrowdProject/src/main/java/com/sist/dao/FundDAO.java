@@ -253,12 +253,14 @@ public class FundDAO {
 		if(encoder.matches(pwd, db_pwd)) 
 		{
 			bCheck=true;
-			mapper.reward_delete(wfno);
-			mapper.newsDelete(wfno);
-			mapper.reviewDelete(wfno);
-			mapper.rankDelete(wfno);
-			mapper.buyInfoDelete(wfno);
-			mapper.qnaListDelete(wfno);
+			mapper.deleteJjim(wfno);//찜 삭제
+			mapper.reward_delete(wfno); // 리워드
+			mapper.newsDelete(wfno); // 새소식
+			mapper.deletereviewreply(wfno);// 리뷰 답변
+			mapper.reviewDelete(wfno); // 리뷰
+			mapper.qnaListDelete(wfno); // 문의
+			mapper.rankDelete(wfno); // 랭킹
+			mapper.buyInfoDelete(wfno); // 구매
 			mapper.projectDeleteAll(wfno);
 		}
 		return bCheck;
