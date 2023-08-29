@@ -432,7 +432,6 @@
 					<p style="font-size: 16px; margin-bottom:1px; height: 50px;">{{fvo.ftitle}}</p>
 					<p style="font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
 						<button class="btn btn-custom">펀딩 삭제</button>
-						<span style="color:orange">{{fvo.fcname}}</span>
 						<span style="text-align:right; margin-left: auto; margin-right:10px;">{{fvo.makername}}</span>
 					</p>
 				</div>

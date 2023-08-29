@@ -62,7 +62,7 @@
 	margin: 10px;
 }
 .today{
-	width: 780px;
+	width: 90%;
 	height: 150px;
 	background-color: white;
 	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
