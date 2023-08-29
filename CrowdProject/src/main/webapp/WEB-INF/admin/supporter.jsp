@@ -135,7 +135,7 @@
 	 		},
 	 		methods: {
 	 	        memberListData: function () {
-	 	            axios.get('http://localhost/web/admin/member_list_vue.do', {
+	 	            axios.get('../admin/member_list_vue.do', {
 	 	                params: {
 	 	                    page: this.curpage
 	 	                }
@@ -146,7 +146,7 @@
 	 	                console.log(error.response)
 	 	            })
 	 	            
-	 	           axios.get('http://localhost/web/admin/supporter_page_vue.do',{
+	 	           axios.get('../admin/supporter_page_vue.do',{
 						params:{
 							page:this.curpage
 						}

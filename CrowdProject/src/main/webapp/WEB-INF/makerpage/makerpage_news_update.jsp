@@ -75,7 +75,7 @@
 			content:''
 		},
 		mounted:function(){
-			axios.get('http://localhost/web/makerpage/makerpage_news_detail_vue.do',{
+			axios.get('../makerpage/makerpage_news_detail_vue.do',{
 				params:{
 					no:this.no
 				}

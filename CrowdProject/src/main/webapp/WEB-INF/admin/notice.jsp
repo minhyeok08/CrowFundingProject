@@ -154,7 +154,7 @@
 	 		},
 	 		methods: {
 	 	        send: function () {
-	 	            axios.get('http://localhost/web/admin/notice_list_vue.do', {
+	 	            axios.get('../admin/notice_list_vue.do', {
 	 	                params: {
 	 	                    page: this.curpage
 	 	                }
@@ -165,7 +165,7 @@
 	 	                console.log(error.response)
 	 	            })
 	 	            
-	 	           axios.get('http://localhost/web/admin/notice_page_vue.do',{
+	 	           axios.get('../admin/notice_page_vue.do',{
 						params:{
 							page:this.curpage
 						}

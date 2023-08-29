@@ -255,7 +255,7 @@ new Vue({
 		// 컴포넌트에서 지정한 event.$emit()을 받는 함수 eventBus.$on (게시물번호, true)
 		eventBus.$on('noticeDetailEvent',function(value,bool){
 			_this.isShow=true;
-			axios.get('http://localhost/web/notice/detail_vue.do',{
+			axios.get('../notice/detail_vue.do',{
 				params:{
 					wnno:value
 				}
@@ -268,7 +268,7 @@ new Vue({
 	},
 	methods: {
         noticeListData: function (category, page) {
-            axios.get('http://localhost/web/notice/notice_vue.do', {
+            axios.get('../notice/notice_vue.do', {
                 params: {
                     category: category,
                     page: this.curpage
@@ -280,7 +280,7 @@ new Vue({
                 console.log(error.response)
             })
             
-            axios.get('http://localhost/web/notice/notice_page_vue.do',{
+            axios.get('../notice/notice_page_vue.do',{
 				params:{
 					page:this.curpage
 				}

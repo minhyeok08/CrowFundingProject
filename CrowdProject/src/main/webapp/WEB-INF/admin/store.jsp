@@ -119,7 +119,7 @@
 					this.store_list = response.data
 				})
 				
-				axios.get('http://localhost/web/admin/store_page_vue.do',{
+				axios.get('../admin/store_page_vue.do',{
 					params:{
 						page:this.curpage
 					}

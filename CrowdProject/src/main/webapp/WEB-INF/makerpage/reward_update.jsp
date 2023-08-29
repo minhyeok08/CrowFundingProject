@@ -67,7 +67,7 @@
 			reward_data:{}
 		},
 		mounted:function(){
-			axios.get("http://localhost/web/makerpage/reward_detail_vue.do",{
+			axios.get("../makerpage/reward_detail_vue.do",{
 				params:{
 					rno:this.rno
 				}

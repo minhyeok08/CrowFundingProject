@@ -159,11 +159,12 @@ public interface AdminMapper {
 	@Delete("DELETE FROM wadiz_fund_detail WHERE wfno=#{wfno}")
 	public void fundDelete(int wfno);
 	
-	@Select("select wbi.bino,wbi.acno,wbi.wfno,wbi.wsno,wbi.rno,wbi.rname,wfd.fcname,wfd.makername,wfd.endday, " + 
+	@Select("SELECT * FROM (select wbi.bino,wbi.acno,wbi.wfno,wbi.wsno,wbi.rno,wbi.rname,wfd.fcname,wfd.makername,wfd.endday, " + 
 			"		wbi.tprice,wbi.gcount,to_char(wbi.regdate,'yyyy-MM-dd') as myday, " + 
 			"		wbi.rprice,wbi.rcont,wbi.delfee,wbi.delstart,wbi.usepoint, wfd.mainimg " + 
 			"		from wadiz_buy_info wbi " + 
 			"		JOIN wadiz_fund_detail wfd ON wbi.wfno=wfd.wfno " + 
-			"		where wbi.id=#{id}")
+			"		where wbi.id=#{id}) "
+			+ "		WHERE ROWNUM <=10")
 	public List<BuyVO> fundJoinList(String id);
 }
