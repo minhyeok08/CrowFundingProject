@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 .btn-custom {
-	background-color: transparent
+	background-color: transparent;
 	border-color: #00b2b2;
 	color: #00b2b2;
 	transition: background-color 0.3s;
@@ -568,7 +568,7 @@ ul, li {
 							data-bs-target="#questionModal">문의하기</button>					
 					</c:if>
 					<c:if test="${sessionScope.id==null }">
-						<button type="button" class="btn btn-project" data-bs-toggle="tooltip" data-bs-placement="right"  title="로그인 후 이용가능합니다.">문의하기</button>
+						<button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="right"  title="로그인 후 이용가능합니다.">문의하기</button>
 					</c:if>
 				</div>
 			</div>
