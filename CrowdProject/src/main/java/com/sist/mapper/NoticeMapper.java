@@ -27,6 +27,9 @@ public interface NoticeMapper {
 	//<select id="noticeAllListData" resultType="NoticeVO" parameterType="hashmap">
 	public List<NoticeVO> noticeAllListData(Map map);
 	
+	@Update("UPDATE wadiz_notice SET hit=hit+1 WHERE wnno=#{wnno}")
+	public void hitIncrement(int wnno);
+	
 	// review 임시
 	@Insert("INSERT INTO wadiz_fund_review VALUES("
 			+ "wfre_rno_seq.nextval,#{id},#{wfno},#{content},SYSDATE,0,#{category})")

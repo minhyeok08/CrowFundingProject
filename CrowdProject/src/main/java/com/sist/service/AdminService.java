@@ -5,12 +5,15 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 
+import com.sist.vo.AdminTotalVO;
 import com.sist.vo.AdminqnaVO;
+import com.sist.vo.BuyVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.ReviewVO;
 import com.sist.vo.StoreVO;
 
 public interface AdminService {
@@ -57,4 +60,17 @@ public interface AdminService {
 	public List<StoreVO> scatecount();
 	
 	public void qnaInsert(Map map);
+	
+	public String memo();
+	
+	public void memoUpdate(String memo);
+	
+	public List<ReviewVO> todayReviewList();
+	
+	public List<AdminTotalVO> totalListData();
+	
+	public void fundDelete(int wfno);
+	
+	public List<BuyVO> fundJoinList(String id);
+	
 }

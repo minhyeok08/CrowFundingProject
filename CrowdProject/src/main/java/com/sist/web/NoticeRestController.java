@@ -48,6 +48,7 @@ public class NoticeRestController {
 	@GetMapping(value = "notice/detail_vue.do",produces = "text/plain;charset=UTF-8")
 	public String notice_detail(int wnno) throws Exception {
 		NoticeVO vo=service.noticeDetailData(wnno);
+		service.hitIncrement(wnno);
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(vo);
 		return json;

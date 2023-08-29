@@ -27,7 +27,9 @@ public class AdminController {
 	private AdminService service;
 	
 	@GetMapping("admin/main.do")
-	public String admin_main() {
+	public String admin_main(Model model) {
+		String memo=service.memo();
+		model.addAttribute("memo",memo);
 		return "admin/main";
 	}
 
@@ -147,4 +149,15 @@ public class AdminController {
 		return "redirect:../admin/maker_detail.do?id="+vo.getId();
 	}
 	
+	@PostMapping("admin/memo.do")
+	public String admin_memo(String memo) {
+		service.memoUpdate(memo);
+		return "redirect:../admin/main.do";
+	}
+	
+	@GetMapping("admin/sup_fund_join.do")
+	public String sup_fund_join(String id,Model model) {
+		model.addAttribute("id",id);
+		return "admin/sup_fund_join";
+	}
 }

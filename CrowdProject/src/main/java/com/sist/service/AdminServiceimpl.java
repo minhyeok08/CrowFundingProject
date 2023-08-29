@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sist.dao.AdminDAO;
+import com.sist.vo.AdminTotalVO;
 import com.sist.vo.AdminqnaVO;
+import com.sist.vo.BuyVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.ReviewVO;
 import com.sist.vo.StoreVO;
 
 @Service
@@ -124,4 +127,30 @@ public class AdminServiceimpl implements AdminService {
 		dao.qnaInsert(map);
 	}
 	
+	@Override
+	public String memo() {
+		return dao.memo();
+	}
+	
+	@Override
+	public void memoUpdate(String memo) {
+		dao.memoUpdate(memo);
+	}
+	
+	@Override
+	public List<ReviewVO> todayReviewList(){
+		return dao.todayReviewList();
+	}
+	@Override
+	public List<AdminTotalVO> totalListData(){
+		return dao.totalListData();
+	}
+	@Override
+	public void fundDelete(int wfno) {
+		dao.fundDelete(wfno);
+	}
+	@Override
+	public List<BuyVO> fundJoinList(String id){
+		return dao.fundJoinList(id);
+	}
 }

@@ -17,9 +17,12 @@ public interface NoticeService {
 	
 	public List<NoticeVO> noticeAllListData(Map map);
 	
+	public void hitIncrement(int wnno);
+	
 	// review 임시
 	public void reviewInsert(ReviewVO vo);
 	public ReviewVO imgInsertvo();
 	public void reviewImgInsert(ReviewVO vo);
 	public List<ReviewVO> reviewListData(int wfno);
+	
 }

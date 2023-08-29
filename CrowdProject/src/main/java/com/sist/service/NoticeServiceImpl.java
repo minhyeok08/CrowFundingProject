@@ -41,6 +41,11 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.noticeAllListData(map);
 	}
 	
+	@Override
+	public void hitIncrement(int wnno) {
+		dao.hitIncrement(wnno);
+	}
+	
 	// review 임시
 	@Override
 	public void reviewInsert(ReviewVO vo) {

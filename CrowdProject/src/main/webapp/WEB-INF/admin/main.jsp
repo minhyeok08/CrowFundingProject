@@ -41,6 +41,18 @@
 	display: flex;
 	flex-direction: row;
 }
+.btn-custom {
+    background-color: transparent; 
+    border-color: #00b2b2; 
+    color: #00b2b2; 
+    transition: background-color 0.3s;
+   	font-size: 12px;
+}
+.btn-custom:hover {
+    background-color: rgb(234, 248, 249); 
+    border-color: #00b2b2; 
+    color: #00b2b2;
+}
 .leftCont{
 	width:30%;
 	height: 500px;
@@ -284,35 +296,78 @@
 	font-size :12px; 
 	color: #929696; 
 }
+.admin_img_container{
+	width: 150px;
+	height: 150px;
+	border: 1px solid #929696;
+	border-radius: 50%;
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3); /* 그림자 효과 추가 */
+}
+.admin_img{
+	width:100%;
+	height: 100%;
+	border-radius:50%;
+	padding: 2px;
+	box-sizing: border-box;
+}
+.profileAd{
+	display: flex;
+	justify-content: center;
+}
+.admin_name{
+	font-size: 20px;
+	font-weight: 500;
+}
+.btn-danger{
+	border-radius: 40%;
+}
+.admin_memo{
+	width: 100%;
+	height: auto
+}
+ .textarea-box {
+	border: 2px solid #ccc; /* 초기 테두리 스타일 */
+	border-radius: 4px;
+	padding: 5px;
+	transition: border-color 0.3s; /* 테두리 색 변화 시 부드럽게 효과 적용 */
+}
+
+.textarea-box:focus {
+	border-color: mintcream; /* 선택 시 테두리 색 변경 */
+	box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.3); /* 선택 시 약간 두꺼운 테두리 스타일 */
+	outline: none;
+}
 </style>
 </head>
 <body>
 <div class="fullscreen">
 	<div class="rightCont">
 		<div class="today">
-			<span style="font-size: 17px; font-weight: 500">오늘의 할일</span> <span class="doNum">10</span>
+			<span style="font-size: 17px; font-weight: 500">오늘의 할일</span> 
+			<span class="doNum">{{today_vo.fund_count+today_vo.buy_info_count+today_vo.admin_qna_count
+				+today_vo.fund_review_count+today_vo.member_count+4}}</span>
 			<hr class="noHr">
 			<div class="todayContainer">
-				<button class="btn btn-custom">
-					<a href="#">신규펀딩 <span class="doNum">2</span></a>
+				<button class="btn ">
+					<a href="#">신규펀딩 <span class="doNum">{{today_vo.fund_count}}</span></a>
 				</button>
-				<button class="btn btn-custom">
-					<a href="#">금일 펀딩 <span class="doNum">2</span></a>
+				<button class="btn ">
+					<a href="#">금일 펀딩 <span class="doNum">{{today_vo.buy_info_count}}</span></a>
 				</button>
-				<button class="btn btn-custom">
+				<button class="btn ">
 					<a href="#">신규 상품 <span class="doNum">2</span></a>
 				</button>
-				<button class="btn btn-custom">
+				<button class="btn ">
 					<a href="#">금일 구매 <span class="doNum">2</span></a>
 				</button>
-				<button class="btn btn-custom">
-					<a href="#">답변대기 문의 <span class="doNum">2</span></a>
+				<button class="btn ">
+					<a href="../admin/qna.do">답변대기 문의 <span class="doNum">{{today_vo.admin_qna_count}}</span></a>
 				</button>
-				<button class="btn btn-custom">
-					<a href="#">신고내역 <span class="doNum">2</span></a>
+				<button class="btn ">
+					<a href="../wasta/main.do">금일 리뷰 작성 <span class="doNum">{{today_vo.fund_review_count}}</span></a>
 				</button>
-				<button class="btn btn-custom">
-					<a href="#">금일 가입수 <span class="doNum">2</span></a>
+				<button class="btn ">
+					<a href="../admin/supporter.do">금일 가입수 <span class="doNum">{{today_vo.member_count}}</span></a>
 				</button>
 			</div>
 		</div>
@@ -334,13 +389,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="text-center">일자</td>
-							<td class="text-center">가입</td>
-							<td class="text-center">펀딩수</td>
-							<td class="text-center">상품구매수</td>
-							<td class="text-center">문의</td>
-							<td class="text-center">후기</td>
+						<tr v-for="tvo,index in today_list">
+							<td class="text-center" v-if="index==0">오늘</td>
+							<td class="text-center" v-if="index>=1">{{index}}일 전</td>
+							<td class="text-center">{{tvo.member_count}}</td>
+							<td class="text-center">{{tvo.fund_count}}</td>
+							<td class="text-center">{{tvo.buy_info_count}}</td>
+							<td class="text-center">{{tvo.admin_qna_count}}</td>
+							<td class="text-center">{{tvo.fund_review_count}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -351,19 +407,19 @@
 				<strong>리뷰 / 응원 / 지지</strong>
 				<div style="height: 10px;"></div>
 				<ul class="boardul" id="searchUl">
-					<li>
+					<li v-for="rvo in review_list">
 						<div class="review_item">
 						<a href="#">
-							<img class="item_poster" src="../images/people.png">
+							<img class="item_poster" :src="rvo.mainimg">
 						</a>
 							<div class="item_titles">
 								<span class="item_category">
 								<a href="#">
-									<span class="category_badge">테크 가전</span>
+									<span class="category_badge">{{rvo.fcname}}</span>
 								</a>
 								<a href="#">
-									<p class="item_title">제목
-										<br><span class="item_subtitle">서브타이틀</span>
+									<p class="item_title">{{rvo.content}}
+										<br><span class="item_subtitle">{{rvo.ftitle}}</span>
 									</p>
 								</a>
 								</span>
@@ -446,16 +502,25 @@
 		</div>
 	</div>
 	<div class="leftCont">
-		<table class="table">
-			<tr>
-				<td><strong>관리자 프로필</strong></td>
-			</tr>
-		</table>
+		<strong>관리자 프로필</strong>
+		<div class="profileAd">
+			<div class="admin_img_container">
+				<img src="${sessionScope.profileImage }" class="admin_img">
+			</div>
+		</div>
+		<div style="height: 10px;"></div>
+		<div class="admin_name text-center">${sessionScope.name }</div>
+		<div class="admin_memo">
+			<form action="../admin/memo.do" method="post">
+				<textarea style="width: 100%;height: 200px;" name="memo" class="textarea-box">${memo }</textarea>
+				<input type="submit" class="btn btn-custom btn-right" value="저장" style="float: right">
+			</form>
+		</div>
 	</div>
 </div>
 	<script>
 		new Vue({
-	 		el:'.qnaTable',
+	 		el:'.rightCont',
 	 		data:{
 	 			qna_list:[],
 	 			qna_detail:[],
@@ -466,10 +531,15 @@
 				showModal: false,
 				content:'',
 				id:'',
-				selectedId:''
+				selectedId:'',
+				review_list:[],
+				today_list:[],
+				today_vo:{}
 	 		},
 	 		mounted:function(){
 	 			this.send();
+	 			this.todayReview();
+	 			this.todayTotal();
 	 		},
 	 		methods: {
 	 			qnaDetail:function(id){
@@ -548,9 +618,23 @@
 				},
 			    closeModal() {
 			      	this.showModal = false;
+			    },
+			    todayReview(){
+			    	axios.get('../admin/today_review_vue.do')
+			    	.then(res=>{
+			    		this.review_list=res.data;
+			    	})
+			    },
+			    todayTotal(){
+			    	axios.get('../admin/today_total_vue.do')
+			    	.then(res=>{
+			    		console.log(res.data)
+			    		this.today_list=res.data;
+			    		this.today_vo=res.data[0];
+			    	})
+			    
 			    }
 	 	    }
-	 	   	
 		})
 	</script>
 </body>

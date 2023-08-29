@@ -48,7 +48,7 @@
 		<div class="position-sticky">
 			<ul class="nav flex-column">
 				<li class="nav-item dashboard-item">
-				    <a href="../admin/main.do">대시보드</a>
+				    <a href="../admin/main.do">DashBoard</a>
 				</li>
 				<li class="nav-item">
 					<div class="accordion" id="menu1Accordion">

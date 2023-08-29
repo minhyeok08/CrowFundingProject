@@ -4,16 +4,20 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.AdminMapper;
+import com.sist.vo.AdminTotalVO;
 import com.sist.vo.AdminqnaVO;
+import com.sist.vo.BuyVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.ReviewVO;
 import com.sist.vo.StoreVO;
 
 @Repository
@@ -110,4 +114,27 @@ public class AdminDAO {
 		return mapper.qnaDetailData(id);
 	}
 	
+	public String memo() {
+		return mapper.memo();
+	}
+	
+	public void memoUpdate(String memo) {
+		mapper.memoUpdate(memo);
+	}
+	
+	public List<ReviewVO> todayReviewList(){
+		return mapper.todayReviewList();
+	}
+	
+	public List<AdminTotalVO> totalListData(){
+		return mapper.totalListData();
+	}
+	
+	public void fundDelete(int wfno) {
+		mapper.fundDelete(wfno);
+	}
+	
+	public List<BuyVO> fundJoinList(String id){
+		return mapper.fundJoinList(id);
+	}
 }

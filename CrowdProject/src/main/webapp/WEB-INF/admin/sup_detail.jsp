@@ -167,7 +167,9 @@
 			</div>
 			<div class="form-group">
 				<label class="form-label" for="fund_info">참여펀딩</label>
-				<button class="btn btn-custom-info">확인하기</button>
+				<a :href="'../admin/sup_fund_join.do?id='+sup_detail.id">
+					<button class="btn btn-custom-info">확인하기</button>
+				</a>
 			</div>
 		</div>
 		<div class="member-info">

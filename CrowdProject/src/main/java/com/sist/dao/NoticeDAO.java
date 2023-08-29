@@ -49,5 +49,8 @@ public class NoticeDAO {
 	public List<ReviewVO> reviewListData(int wfno){
 		return mapper.reviewListData(wfno);
 	}
+	public void hitIncrement(int wnno) {
+		mapper.hitIncrement(wnno);
+	}
 	
 }

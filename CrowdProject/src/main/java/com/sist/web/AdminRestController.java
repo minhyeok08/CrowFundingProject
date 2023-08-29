@@ -3,6 +3,7 @@ package com.sist.web;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sist.dao.AdminDAO;
 import com.sist.service.AdminService;
+import com.sist.service.FundService;
+import com.sist.vo.AdminTotalVO;
 import com.sist.vo.AdminqnaVO;
+import com.sist.vo.BuyVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
+import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
 import com.sist.vo.PageVO;
@@ -28,6 +33,8 @@ public class AdminRestController {
 	private AdminService service;
 	@Autowired
 	private AdminDAO dao;
+	@Autowired
+	private FundService fservice;
 	
 	@GetMapping(value = "admin/store_list_vue.do", produces = "text/plain;charset=UTF-8")
 	public String storeListData(int curpage, int scno) throws Exception {
@@ -361,4 +368,73 @@ public class AdminRestController {
 		String json = mapper.writeValueAsString(list);
 		return json;
 	}	
+	
+	@GetMapping(value = "admin/today_review_vue.do",produces = "text/plain;charset=UTF-8")
+	public String today_review() throws Exception {
+		List<ReviewVO> list = dao.todayReviewList();
+		LocalDateTime now = LocalDateTime.now();
+
+	    for (ReviewVO vo : list) {
+	    	LocalDateTime regdate = vo.getRegdate().toInstant()
+	                .atZone(ZoneId.systemDefault())
+	                .toLocalDateTime();
+	        
+	        Duration duration = Duration.between(regdate, now);
+	        
+	        String dbday;
+	        
+	        if (duration.toDays() > 0) {
+	            dbday = duration.toDays() + "일 전";
+	        } else if (duration.toHours() > 0) {
+	            dbday = duration.toHours() + "시간 전";
+	        } else if (duration.toMinutes() > 0) {
+	            dbday = duration.toMinutes() + "분 전";
+	        } else {
+	            dbday = duration.getSeconds() + "초 전";
+	        }
+	        
+	       vo.setDbday(dbday);
+	   }
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	@GetMapping(value = "admin/today_total_vue.do",produces = "text/plain;charset=UTF-8")
+	public String today_total() throws Exception {
+		List<AdminTotalVO> list = dao.totalListData();
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	
+	@GetMapping(value = "admin/fund_delete_vue.do",produces = "text/plain;charset=UTF-8")
+	public String fund_delete(int wfno, int fcno) throws Exception {
+		service.fundDelete(wfno);
+		Map map = new HashMap();
+		map.put("fcno", fcno);
+		List<FundVO> list = fservice.fundListData(map);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
+	
+	@GetMapping(value="admin/fund_join_vue.do",produces = "text/plain;charset=utf-8")
+	public String fund_list_data(String id) throws Exception {
+		String json="";
+		List<BuyVO> list=service.fundJoinList(id);
+		Date today=new Date();
+		for(BuyVO vo:list) {
+			if(vo.getEndday().after(today)) {
+				vo.setFundStatus("진행중");
+			} else if(vo.getEndday().before(today) || vo.getEndday().equals(today)) {
+				vo.setFundStatus("종료");
+			}
+			int totalPrice=vo.getTprice()-vo.getDelfee()-vo.getUsepoint();
+			vo.setTotalPrice(totalPrice);
+		}
+		ObjectMapper mapper=new ObjectMapper();
+		json=mapper.writeValueAsString(list);
+		return json;
+		
+	}
 }

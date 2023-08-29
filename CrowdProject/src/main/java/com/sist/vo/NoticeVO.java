@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class NoticeVO {
 	private int wnno, hit;
-	private String subject,content,writer, state,dbday,category;
+	private String subject,content,writer, state,dbday,category, memo;
 	private Date regdate;
 }

@@ -164,8 +164,8 @@ function setSelectedCategory(category) {
 						href="../notice/notice.do">공지사항</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="../wasta/main.do"><i class="fa-brands fa-instagram fa-xl"></i></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="../admin/main.do">adminTest</a></li>	
+					<li class="nav-item" v-if="${sessionScope.admin=='y'}"><a class="nav-link"
+						href="../admin/main.do">AdminPage</a></li>	
 				</ul>
 				<form method="get" action="../search/search_before.do">
 					<div class="search">

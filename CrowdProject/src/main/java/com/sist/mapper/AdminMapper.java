@@ -3,16 +3,20 @@ package com.sist.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.sist.vo.AdminTotalVO;
 import com.sist.vo.AdminqnaVO;
+import com.sist.vo.BuyVO;
 import com.sist.vo.CrowdFundVO;
 import com.sist.vo.CrowdStoreVO;
 import com.sist.vo.FundVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.NoticeVO;
+import com.sist.vo.ReviewVO;
 import com.sist.vo.StoreVO;
 
 public interface AdminMapper {
@@ -49,11 +53,20 @@ public interface AdminMapper {
 	@Select("SELECT CEIL(COUNT(DISTINCT id)/10.0) FROM wadiz_admin_qna")
 	public int qnaTotalPage();
 
-	@Select("SELECT waqno, id,content,group_id,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,regdate, num "
-			+ "FROM (SELECT waqno, id,content,group_id,TO_CHAR(regdate,'yyyy-mm-dd') as dbday,regdate, rownum as num  "
-			+ "FROM (SELECT waqno, id,content,group_id,TO_CHAR(regdate,'yyyy-mm-dd') as dbday, regdate "
-			+ "FROM wadiz_admin_qna WHERE admin='n' ORDER BY waqno DESC)) "
-			+ "WHERE num BETWEEN #{start} AND #{end}")
+	@Select("SELECT waqno, id, content, group_id, dbday, regdate, num  " + 
+			"FROM ( " + 
+			"    SELECT waqno, id,content,group_id, " + 
+			"           TO_CHAR(regdate,'yyyy-mm-dd') as dbday, " + 
+			"           regdate, " + 
+			"           ROW_NUMBER() OVER (PARTITION BY id ORDER BY waqno DESC) as row_number, " + 
+			"           rownum as num   " + 
+			"    FROM ( " + 
+			"        SELECT waqno,id,content,group_id, " + 
+			"               TO_CHAR(regdate,'yyyy-mm-dd') as dbday, " + 
+			"               regdate " + 
+			"        FROM wadiz_admin_qna WHERE admin='n' ORDER BY waqno DESC) " + 
+			"    )  " + 
+			"WHERE num BETWEEN #{start} AND #{end} AND row_number = 1")
 	public List<AdminqnaVO> qnaListData(Map map);
 	
 	@Insert("INSERT INTO wadiz_admin_qna(waqno,id,content,regdate,admin) VALUES("
@@ -105,4 +118,52 @@ public interface AdminMapper {
 	
 	@Select("SELECT count(*) as price,scname FROM wadiz_store_detail GROUP BY scno,scname")
 	public List<StoreVO> scatecount();
+	
+	@Select("SELECT memo FROM wadiz_memo")
+	public String memo();
+	
+	@Update("UPDATE wadiz_memo SET memo=#{memo} WHERE rownum<=1")
+	public void memoUpdate(String memo);
+	
+	@Select("SELECT  wfr.rno, wfr.wfno, TO_CHAR(wfr.regdate, 'MM-DD') AS dbday, wfr.regdate, wfr.likecnt, wfr.category, wfr.id, wfr.content,        " + 
+			"			 		wmem.name, wmem.nickname,        " + 
+			"			 		wmp.PROFILE_NAME,wmp.PROFILE_SIZE,wmp.PROFILE_URL,        " + 
+			"			 		rimg.imgname, rimg.imgsize, rimg.imgpath,        " + 
+			"			 	    wfd.mainimg, wfd.fcname, wfd.tag, wfd.ftitle, wfd.fsubtitle, wfd.parti_count, wfd.makername, wfd.makerphoto,wfd.acno        " + 
+			"			 	 FROM wadiz_fund_review wfr        " + 
+			"			 	 LEFT JOIN WADIZ_REVIEW_IMG rimg ON wfr.rno = rimg.rno        " + 
+			"			 	 LEFT JOIN wadiz_member wmem ON wfr.id = wmem.id        " + 
+			"			 	 LEFT JOIN wadiz_fund_detail wfd ON wfr.wfno = wfd.wfno        " + 
+			"			 	 LEFT JOIN wadiz_member_profile wmp ON wfr.id = wmp.id       " + 
+			"			 	 WHERE TRUNC(wfr.regdate) = TRUNC(SYSDATE)      " + 
+			"			 	 ORDER BY wfr.regdate DESC " + 
+			"			 	 FETCH FIRST 4 ROWS ONLY")
+	public List<ReviewVO> todayReviewList();
+	
+	@Select("SELECT  " + 
+			"  dates.reg_date, " + 
+			"  (SELECT count(*) FROM wadiz_buy_info WHERE TRUNC(regdate) = dates.reg_date) AS buy_info_count, " + 
+			"  (SELECT count(*) FROM wadiz_member WHERE TRUNC(regdate) = dates.reg_date) AS member_count, " + 
+			"  (SELECT count(DISTINCT id) FROM wadiz_admin_qna WHERE TRUNC(regdate) = dates.reg_date) AS admin_qna_count, " + 
+			"  (SELECT count(*) FROM wadiz_fund_review WHERE TRUNC(regdate) = dates.reg_date) AS fund_review_count, " + 
+			"  (SELECT count(*) FROM wadiz_fund_detail WHERE TRUNC(regdate) = dates.reg_date) AS fund_count " + 
+			"FROM  " + 
+			"( " + 
+			"    SELECT TRUNC(sysdate - LEVEL + 1) as reg_date " + 
+			"    FROM dual " + 
+			"    CONNECT BY LEVEL <= 7 " + 
+			") " + 
+			"dates ORDER BY reg_date DESC")
+	public List<AdminTotalVO> totalListData();
+	
+	@Delete("DELETE FROM wadiz_fund_detail WHERE wfno=#{wfno}")
+	public void fundDelete(int wfno);
+	
+	@Select("select wbi.bino,wbi.acno,wbi.wfno,wbi.wsno,wbi.rno,wbi.rname,wfd.fcname,wfd.makername,wfd.endday, " + 
+			"		wbi.tprice,wbi.gcount,to_char(wbi.regdate,'yyyy-MM-dd') as myday, " + 
+			"		wbi.rprice,wbi.rcont,wbi.delfee,wbi.delstart,wbi.usepoint, wfd.mainimg " + 
+			"		from wadiz_buy_info wbi " + 
+			"		JOIN wadiz_fund_detail wfd ON wbi.wfno=wfd.wfno " + 
+			"		where wbi.id=#{id}")
+	public List<BuyVO> fundJoinList(String id);
 }
