@@ -35,6 +35,7 @@
 		from wadiz_buy_info wbi
 		JOIN wadiz_fund_detail wfd ON wbi.wfno=wfd.wfno
 		where wbi.id=#{id}
+		order by wbi.bino desc
 	</select>
 	<select id="myFollowing" parameterType="String" resultType="SupVO">
 		select wm.nickname, wmp.profile_url, wm.id, wsf.followid
